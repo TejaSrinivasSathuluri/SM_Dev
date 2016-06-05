@@ -1,0 +1,10 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "Study_Monitor_Data": {
+    "name": "Study_Monitor_Data",
+    "connector": "mongodb"
+  }
+}

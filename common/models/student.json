@@ -1,0 +1,44 @@
+{
+  "name": "Student",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "parents": {
+      "type": "hasAndBelongsToMany",
+      "model": "Parent",
+      "foreignKey": ""
+    },
+    "school": {
+      "type": "belongsTo",
+      "model": "School",
+      "foreignKey": ""
+    },
+    "class": {
+      "type": "belongsTo",
+      "model": "Class",
+      "foreignKey": ""
+    }
+  },
+  "acls": [
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": ""
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": ""
+    }
+  ],
+  "methods": {}
+}

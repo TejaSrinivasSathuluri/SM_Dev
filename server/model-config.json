@@ -1,0 +1,71 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "User": {
+    "dataSource": "db"
+  },
+  "AccessToken": {
+    "dataSource": "db",
+    "public": false
+  },
+  "ACL": {
+    "dataSource": "db",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "db",
+    "public": false
+  },
+  "Role": {
+    "dataSource": "db",
+    "public": false
+  },
+  "Student": {
+    "dataSource": "Study_Monitor_Data",
+    "public": true
+  },
+  "Staff": {
+    "dataSource": "Study_Monitor_Data",
+    "public": true
+  },
+  "Parent": {
+    "dataSource": "Study_Monitor_Data",
+    "public": true
+  },
+  "School": {
+    "dataSource": "Study_Monitor_Data",
+    "public": true
+  },
+  "Class": {
+    "dataSource": "Study_Monitor_Data",
+    "public": true
+  },
+  "Admin": {
+    "dataSource": "Study_Monitor_Data",
+    "public": true
+  },
+  "Subject": {
+    "dataSource": "Study_Monitor_Data",
+    "public": true
+  },
+  "Bus": {
+    "dataSource": "Study_Monitor_Data",
+    "public": true
+  },
+  "FeeType": {
+    "dataSource": "Study_Monitor_Data",
+    "public": true
+  }
+}

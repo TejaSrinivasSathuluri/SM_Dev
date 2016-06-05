@@ -1,0 +1,105 @@
+<script type="text/ng-template" id="deleteClass">
+    <div class="ngdialog-message">
+        <h1>Confirm Delete</h1>
+        <div class="ngdialog-buttons">
+            <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog('Yes')">Yes</button>
+            <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog()">No</button>
+        </div>
+    </div>
+</script>
+
+
+<div class="container">
+    <div class="row margin-top-10">
+        <div class="col-md-12 col-sm-12">
+            <!-- BEGIN PORTLET-->
+            <div class="portlet light ">
+                <div class="portlet-title">
+                    <div class="caption caption-md"> <i class="icon-bar-chart theme-font hide"></i> <span class="caption-subject theme-font bold uppercase">Classes</span> </div>
+                    <button ng-model="collapsed" ng-click="collapsed=!collapsed ; showClass()" class="btn btn-success uppercase pull-right">Add Class </button>
+                </div>
+                <div class="portlet-body">
+                    <div class="row list-separated">
+                        <div ng-show="collapsed">
+                            <div>
+                                <form ng-controller="formController" ng-submit="addClass()">
+                                    <div class="col-sm-12">
+
+                                        <div class="col-sm-2">
+                                            <input type="text" class="form-control Class" placeholder="Class Name"  ng-model="formData.className" required> </div>
+                                        <div class="col-sm-2">
+                                            <input type="text" class="form-control Section" placeholder="Section Name" ng-model="formData.sectionName" required> </div>
+                                        <div class="col-sm-2">
+                                            <select ng-model="formData.staffSelected" class="form-control Staff" required>
+                                                <option value="">Class Teacher</option>
+                                                <option ng-repeat="x in staffList" value="{{x.id}}">{{x.username}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <button type="submit" class="btn btn-success uppercase">Create Class</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div style="color: red;" class="col-sm-6">{{response}}</div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <br/>
+                        <div>
+                            <table style="margin-left: 30px ;width: 90%" st-table="modelCollection" class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Class</th>
+                                    <th>Section</th>
+                                    <th>Teacher</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr data-ng-repeat="x in classList ">
+                                    <div data-ng-bind-html="x.id">
+                                    <td style="width: 5%">{{x.className}}</td>
+                                    <td style="width: 5%">{{x.sectionName}}</td>
+                                    <td style="width: 5%">{{x.staff.username}}</td>
+                                    <td style="width: 100%">
+                                        <div class="col-sm-3">
+                                        <button ng-model="collapsed1" ng-click="collapsed1=!collapsed1 ; editClass(x)" class="btn btn-success ">Edit</button>
+                                        <button type="button" ng-click="deleteClass(x)" class="btn btn-success ">Delete</button>
+                                        </div>
+                                        <div class="col-sm-9" ng-show="collapsed1">
+
+                                                <form ng-controller="formController" ng-submit="updateClass(x)">
+                                                    <div class="col-sm-12">
+                                                        <div class="col-sm-5">
+                                                            <select ng-model="formData.staffSelected1" class="form-control" id="staffSelected1" required>
+                                                                <option value="">Class Teacher</option>
+                                                                <option ng-repeat="y in staffList" value="{{y.id}}">{{y.username}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-7">
+                                                            <button type="submit" class="btn btn-success uppercase">Update</button><span>{{response}}</span>
+                                                        </div>
+
+                                                    </div>
+
+
+                                                </form>
+                                            </div>
+                                    </td>
+
+                                    </div>
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="portlet-body-morris-fit morris-chart" style="height: 260px"> </div>
+                    </div>
+                </div>
+                <!-- END PORTLET-->
+            </div>
+        </div>
+    </div>
+</div>

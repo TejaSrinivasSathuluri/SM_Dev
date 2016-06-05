@@ -1,0 +1,29 @@
+{
+  "name": "School",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "classes": {
+      "type": "hasMany",
+      "model": "Class",
+      "foreignKey": ""
+    },
+    "staffs": {
+      "type": "hasMany",
+      "model": "Staff",
+      "foreignKey": ""
+    },
+    "students": {
+      "type": "hasMany",
+      "model": "Student",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

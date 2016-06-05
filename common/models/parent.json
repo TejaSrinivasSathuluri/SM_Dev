@@ -1,0 +1,27 @@
+{
+  "name": "Parent",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "students": {
+      "type": "hasAndBelongsToMany",
+      "model": "Student",
+      "foreignKey": ""
+    }
+  },
+  "acls": [
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": ""
+    }
+  ],
+  "methods": {}
+}
