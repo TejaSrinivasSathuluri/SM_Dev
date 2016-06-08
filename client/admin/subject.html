@@ -1,24 +1,24 @@
 <script type="text/ng-template" id="deleteSubject">
     <div class="ngdialog-message">
-        <h1>Confirm Delete</h1>
+        <h3>Confirm Delete</h3>
         <div class="ngdialog-buttons">
             <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog('Yes')">Yes</button>
             <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog()">No</button>
         </div>
     </div>
 </script>
+
+
 <div class="container">
-    <div ng-controller="formController" class="row margin-top-10">
-        <div class="col-md-12 col-sm-12">
-            <!-- BEGIN PORTLET-->
+    <div class="row margin-top-10">
+        <div class=" col-sm-12">
+            <!------------------------------------------------ BEGIN PORTLET------------------------------------------>
             <div class="portlet light ">
                 <div class="portlet-title">
                     <div class="caption caption-md">
-                        <i class="icon-bar-chart theme-font hide"></i>
-                        <span class="caption-subject theme-font bold uppercase">Subjects</span>
-
+                        <span class="caption-subject uppercase">Subjects</span>
+                        <span class="caption-subject uppercase"><i class="plus icon " ng-model="collapsed" ng-click="collapsed=!collapsed"> </i>Add Subject</span>
                     </div>
-                    <button ng-model="collapsed" ng-click="collapsed=!collapsed ; showSubject()" class="btn btn-success uppercase pull-right" >Add Subject</button>
                 </div>
                 <div class="portlet-body">
                     <div class="row list-separated">
@@ -60,42 +60,77 @@
                         <br/><br/><br/>
                         <div><span style="color: red; margin-left: 17px">{{formData.response}}</span></div>
                         </div>
-                        <div class="col-sm-12">
-                            <table st-table="modelCollection" class="table table-striped">
+
+
+                          <!---->
+                          <div class="col-sm-12">
+                            <div class="col-sm-3">
+                              <select ng-model="search.class.id" class="form-control">
+                                <option value="">Class </option>
+                                <option ng-repeat="y in classList" value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>
+                              </select>
+                            </div>
+                            <div class="col-sm-3">
+                              <input type="text" ng-model="search.staff.username" placeholder="Search By Teacher" class="form-control">
+                            </div>
+                            <div class="col-sm-3">
+                              <input type="text" ng-model="search.subjectName" placeholder="Search By Subject" class="form-control"> </input>
+                            </div>
+                            </div>
+                          <br> <br> <br>
+                            <!---->
+                      <div class="col-sm-12">
+                            <table class="ui celled table" >
                                 <thead><tr><th>Subject</th>
-                                    <th>Class-Section</th>
+                                    <th>Class</th>
                                     <th>Teacher</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="a in resultlist">
+                                <tr ng-repeat="a in resultlist | filter:search">
                                     <td style="width: 10%">{{a.subjectName}}</td>
-                                    <td style="width: 10%">{{a.class.className}}-{{a.class.sectionName}}</td>
+                                    <td style="width: 5%">{{a.class.className}}-{{a.class.sectionName}}</td>
                                     <td style="width: 10%">{{a.staff.username}}</td>
                                     <td style="width: 100%">
                                         <div class="col-sm-3">
-                                            <button ng-model="collapsed1" ng-click="collapsed1=!collapsed1" class="btn btn-success ">Edit</button>
-                                            <button type="button" ng-click="deleteSubject(a)" class="btn btn-success ">Delete</button>
-                                        </div>
-                                        <div class="col-sm-9" ng-show="collapsed1">
-
-                                            <form ng-controller="formController" ng-submit="updateSubject(a)">
-                                                <div class="col-sm-12">
-                                                    <div class="col-sm-5">
+                                            <!--<button ng-model="collapsed1" ng-click="collapsed1=!collapsed1" class="btn btn-success ">Edit</button>-->
+                                              <i class="edit icon" ng-model="collapsed1" ng-click="collapsed1=!collapsed1"></i>
+                                              <i class="remove icon"  ng-click="deleteSubject(a)"></i>
+                                                <div class="col-sm-9" ng-show="collapsed1">
+                                                  <form ng-controller="formController" ng-submit="updateSubject(a)">
+                                                     <div class="col-sm-12">
+                                                        <div class="col-sm-5">
                                                         <select ng-model="formData.staffSelected2" class="form-control Staff" required>
                                                             <option value="">Teacher</option>
                                                             <option ng-repeat="y in staffList" value="{{y.id}}">{{y.username}}</option>
                                                         </select>
-                                                    </div>
-                                                    <div class="col-sm-7">
-                                                        <button type="submit" class="btn btn-success uppercase">Update</button><span>{{response}}</span>
-                                                    </div>
+                                                       </div>
+                                                     <div class="col-sm-5">
+                                                       <button type="submit" class="btn btn-default" aria-label="Left Align">
+                                                         <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                                                       </button>
+                                                        <span>{{response}}</span></div>
                                                 </div>
                                             </form>
                                         </div>
                                     </td>
                                 </tbody>
-                        </table>
+                              <tfoot> <tr><th colspan="3">
+                                <div class="ui right floated pagination menu">
+                                  <a class="icon item">
+                                    <i class="left chevron icon"></i>
+                                  </a>
+                                  <a class="item">1</a>
+                                  <a class="item">2</a>
+                                  <a class="item">3</a>
+                                  <a class="item">4</a>
+                                  <a class="icon item">
+                                    <i class="right chevron icon"></i>
+                                  </a>
+                                </div>
+                              </th></tr></tfoot>
+
+                            </table>
                         </div>
                     <!---->
                 </div>
@@ -103,10 +138,8 @@
                 <div class="portlet-body-morris-fit morris-chart" style="height: 260px">
                 </div>
             </div>
+            </div>
+            <!--------------------------------------------- END PORTLET------------------------------------------------>
         </div>
-        <!-- END PORTLET-->
     </div>
-
-</div>
-
 </div>

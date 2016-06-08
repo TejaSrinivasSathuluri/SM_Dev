@@ -1,6 +1,6 @@
 
 <div class="container">
-    <div ng-controller="formController"  ng-load="showClass()" class="row margin-top-10">
+    <div class="row margin-top-10">
         <div class="col-md-12 col-sm-12">
             <!-- BEGIN PORTLET-->
 
@@ -13,39 +13,64 @@
                 <!-- -----------------------------------Search Form------------------------------->
                 <div class="portlet-body" ng-show="!showForm">
                     <div class="row list-separated">
-                        <div> <form ng-submit="processSearch()" novalidate >
-                            <div class="col-sm-12">
-                                <div class="col-sm-3"> <input  type="text" class="form-control" placeholder="Enter Any Name" ng-model="formData.searchString"></div>
-                                <div class="col-sm-1"> <button type="submit" name ="Search" class="btn btn-success uppercase">Search</button></div>
-                                <div href="#" ng-model="collapsed" ng-click="collapsed=!collapsed" class="glyphicon glyphicon-cog col-sm-1"></div>
-                                <div class="col-sm-2" ng-show="collapsed">  <select class="form-control" ng-model="formData.ClassSelected">
-                                    <option value="">Select</option>
-                                    <option ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
-                                </select>
-                                </div>
-                                <div class="col-sm-2" ng-show="collapsed"> <input type="checkbox" ng-show="!disableRollNum"  ng-model="formData.rollNumber">Roll No</div>
-                                <div class="col-sm-3" ng-show="collapsed"> <input type="checkbox" ng-model="formData.staffSearch" ng-click="disableRollNum=!disableRollNum" >Staff</div>
-                            </div>
+                        <!--<div> <form ng-submit="processSearch()">-->
+                            <!--<div class="col-sm-12">-->
+                                <!--<div class="col-sm-3"> <input  type="text" class="form-control" placeholder="Enter Any Name" ng-model="formData.searchString"></div>-->
+                                <!--<div class="col-sm-2"><select class="form-control" ng-model="formData.ClassSelected">-->
+                                    <!--<option value="">Select</option>-->
+                                    <!--<option ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>-->
+                                <!--</select>-->
+                                <!--</div>-->
+                                <!--<div class="col-sm-2"> <input type="number" ng-show="!disableRollNum" class="form-control" min="0" placeholder="Roll No" ng-model="formData.rollNumber"></div>-->
+                                <!--<div class="col-sm-3"> <input type="checkbox" ng-model="formData.staffSearch" ng-click="disableRollNum=!disableRollNum" >Staff</div>-->
+                               <!--<div class="col-sm-1"> <button type="submit" name ="Search" class="btn btn-success uppercase">Search</button></div>-->
 
-                        </form></div>
+                            <!--</div>-->
 
+                        <!--</form></div>-->
+                      <div class="col-sm-12">
+                        <div class="col-sm-2">
+                          <input type="text" ng-model="search.username" placeholder="Search By Name" class="form-control"> </input>
+                        </div>
+                        <div class="col-sm-2">
+                          <input type="text" ng-model="search.rollNo" placeholder="Search By Roll Number" class="form-control"> </input>
+                        </div>
+
+                        <div class="col-sm-2">
+                          <select ng-model="search.class.id" class="form-control">
+                            <option value="">Class </option>
+                            <option ng-repeat="y in classList" value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>
+                          </select>
+                         </div>
+                        <div class="col-sm-2">
+                          <button  ng-click="processSearch()" class="btn btn-success uppercase">Search </button>
+                        </div>
                         <div>
-                            <table st-table="modelCollection" class="table table-striped">
+                          <table class="ui celled table">
                                 <thead><tr><th>Photo</th><th>First Name</th><th>Email</th><th>Roll No</th><th>Class/Section</th><th>Contact</th></tr></thead>
-                                <tbody><tr ng-repeat="x in searchList"><td>{{x.image}}</td><td>{{x.username}}</td><td>{{x.email}}</td><td>{{x.rollNo}}</td><td>{{x.class.className}}-{{x.class.sectionName}}</td><td>{{x.contact}}</td>
+                                <tbody><tr data-ng-repeat="x in searchList | filter:search"><td>{{x.image}}</td><td>{{x.username}}</td><td>{{x.email}}</td><td>{{x.rollNo}}</td><td>{{x.class.className}}-{{x.class.sectionName}}</td><td>{{x.contact}}</td>
                                 </tbody>
-                            </table>
+                                  <tfoot> <tr><th colspan="3">
+                              <div class="ui right floated pagination menu">
+                                <a class="icon item">
+                                  <i class="left chevron icon"></i>
+                                </a>
+                                <a class="item">1</a>
+                                <a class="item">2</a>
+                                <a class="item">3</a>
+                                <a class="item">4</a>
+                                <a class="icon item">
+                                  <i class="right chevron icon"></i>
+                                </a>
+                              </div>
+                            </th></tr></tfoot>
+                          </table>
+
                         </div>
                         <div class="portlet-body-morris-fit morris-chart" style="height: 260px"></div>
                     </div>
 
                 </div>
-
-
-
-
-
-
 
                 <div class="portlet-body" ng-show="showForm">
                 <div  class="row margin-top-10" >

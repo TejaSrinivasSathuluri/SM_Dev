@@ -67,5 +67,17 @@
   "FeeType": {
     "dataSource": "Study_Monitor_Data",
     "public": true
+  },
+  "Timetable": {
+    "dataSource": "Study_Monitor_Data",
+    "public": true
+  },
+  "Schedule": {
+    "dataSource": "Study_Monitor_Data",
+    "public": true
+  },
+  "Calendar": {
+    "dataSource": "Study_Monitor_Data",
+    "public": true
   }
 }

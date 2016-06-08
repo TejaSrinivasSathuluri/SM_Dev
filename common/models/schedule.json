@@ -1,0 +1,19 @@
+{
+  "name": "Schedule",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "timetable": {
+      "type": "belongsTo",
+      "model": "Timetable",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
