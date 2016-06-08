@@ -13,21 +13,6 @@
                 <!-- -----------------------------------Search Form------------------------------->
                 <div class="portlet-body" ng-show="!showForm">
                     <div class="row list-separated">
-                        <!--<div> <form ng-submit="processSearch()">-->
-                            <!--<div class="col-sm-12">-->
-                                <!--<div class="col-sm-3"> <input  type="text" class="form-control" placeholder="Enter Any Name" ng-model="formData.searchString"></div>-->
-                                <!--<div class="col-sm-2"><select class="form-control" ng-model="formData.ClassSelected">-->
-                                    <!--<option value="">Select</option>-->
-                                    <!--<option ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>-->
-                                <!--</select>-->
-                                <!--</div>-->
-                                <!--<div class="col-sm-2"> <input type="number" ng-show="!disableRollNum" class="form-control" min="0" placeholder="Roll No" ng-model="formData.rollNumber"></div>-->
-                                <!--<div class="col-sm-3"> <input type="checkbox" ng-model="formData.staffSearch" ng-click="disableRollNum=!disableRollNum" >Staff</div>-->
-                               <!--<div class="col-sm-1"> <button type="submit" name ="Search" class="btn btn-success uppercase">Search</button></div>-->
-
-                            <!--</div>-->
-
-                        <!--</form></div>-->
                       <div class="col-sm-12">
                         <div class="col-sm-2">
                           <input type="text" ng-model="search.username" placeholder="Search By Name" class="form-control"> </input>
@@ -71,6 +56,8 @@
                     </div>
 
                 </div>
+                </div>
+
 
                 <div class="portlet-body" ng-show="showForm">
                 <div  class="row margin-top-10" >
