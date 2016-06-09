@@ -31,23 +31,19 @@ angular.module('formApp', ['ngAnimate','ui.router','lbServices','ngResource','ng
                 templateUrl: 'class.html',
                 controller: 'formController',
             })
-            .state('sattandance', {
-                url: '/sattandance',
-                templateUrl: 'studenttimetable.html',
+            .state('attendance', {
+                url: '/attendance',
+                templateUrl: 'attendance.html',
                 controller: 'formController',
             })
-              .state('tattandance', {
-                url: '/tattandance',
-                templateUrl: 'studenttimetable.html',
-                controller: 'formController',
-            }) .state('schooltimetable', {
-                url: '/schooltimetable',
-                templateUrl: 'schooltimetable.html',
+             .state('timetable', {
+                url: '/timetable',
+                templateUrl: 'timetable.html',
                 controller: 'formController',
             })
-          .state('classtimetable', {
-                url: '/classtimetable',
-                templateUrl: 'classtimetable.html',
+          .state('classschedule', {
+                url: '/classschedule',
+                templateUrl: 'classschedule.html',
                 controller: 'formController',
             })
             .state('payment', {
