@@ -10,29 +10,29 @@
       <!-- BEGIN PORTLET-->
 
       <div class="portlet light ">
-        <div class="portlet-title">
-          <div class="caption caption-md"> <i class="icon-bar-chart theme-font hide"></i><span class="caption-subject theme-font bold uppercase">School Timetable</span></div>
-          </div>
+        <div class="portlet-title"><div class="caption caption-md">Timetable</div></div>
 
         <!-- -----------------------------------Search Form------------------------------->
         <div class="portlet-body">
           <div class="row list-separated">
 
 
-              <table class="table table-bordered table-striped" style="width:40%">
+              <table class="ui celled table">
                 <thead>
-                <tr class="tableheadercolor">
+                <tr>
                   <td><a ng-click="addRecipient()">#  </a></td>
                   <td>Title        </td>
                   <td>Start time   </td>
                   <td>End time</td>
                   <td>Duration(minutes)</td>
-                  <td>Used for Attendance</td>
+                  <td>Attendance</td>
                 </tr>
                 </thead>
 
                 <tr ng-repeat = "receiver in receivers">
-                  <td><a ng-click="addRecipient(receiver)">+</a><a ng-click="deleteRecipient(receiver)">-</a></td>
+                  <td><a ng-click="addRecipient(receiver)"><i class="icon-plus"></i></a>
+                      <a ng-click="deleteRecipient(receiver)"><i class="icon-magnifier-remove"></i></a>
+                  </td>
                   <td><input type="text" class="form-control" ng-model="receiver.title"></td>
                   <td><input type="time" class="form-control" ng-model="receiver.startTime"></td>
                   <td><input type="time" class="form-control" ng-model="receiver.endTime"></td>
