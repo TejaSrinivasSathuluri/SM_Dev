@@ -8,21 +8,7 @@
     </div>
 </script>
 
-<style type="text/css">
-  .classdetails {
-    border: 1px solid black;
-    width: 230px;
-    margin-left: 58px;
-    margin-top: -35px;
-    background-color: darkcyan;
-    border-radius: 4px;
-    height: 20px;
-    color: white;
-  }
-</style>
-
-
-<div class="container">
+<div class="container" ng-controller="classController">
     <div class="row margin-top-10">
         <div class="col-md-12 col-sm-12">
             <!-- BEGIN PORTLET-->
@@ -38,22 +24,16 @@
                     <div class="row list-separated">
                         <div ng-show="collapsed">
                             <div>
-                                <form ng-controller="formController" ng-submit="addClass()">
+                                <form ng-submit="addClass()">
                                     <div class="col-sm-12">
-
-                                        <div class="col-sm-2">
-                                            <input type="text" class="form-control Class" placeholder="Class Name"  ng-model="formData.className" required> </div>
-                                        <div class="col-sm-2">
-                                            <input type="text" class="form-control Section" placeholder="Section Name" ng-model="formData.sectionName" required> </div>
-                                        <div class="col-sm-2">
-                                            <select ng-model="formData.staffSelected" class="form-control Staff" required>
-                                                <option value="">Class Teacher</option>
-                                                <option ng-repeat="x in staffList" value="{{x.id}}">{{x.username}}</option>
-                                            </select>
+                                        <div class="col-sm-2"> <input type="text" class="form-control Class" placeholder="Class Name"  ng-model="formData.className" required> </div>
+                                        <div class="col-sm-2"> <input type="text" class="form-control Section" placeholder="Section Name" ng-model="formData.sectionName" required> </div>
+                                        <div class="col-sm-2">  <select ng-model="formData.staffSelected" class="form-control Staff" required>
+                                                                <option value="">Class Teacher</option>
+                                                                <option ng-repeat="x in staffList" value="{{x.id}}">{{x.username}}</option>
+                                                                </select>
                                         </div>
-                                        <div class="col-sm-2">
-                                            <button type="submit" class="btn btn-success uppercase">Create Class</button>
-                                        </div>
+                                        <div class="col-sm-2">  <button type="submit" class="btn btn-success uppercase">Create Class</button></div>
                                     </div>
                                     <div class="col-sm-12">
                                         <div style="color: red;" class="col-sm-6">{{response}}</div>
@@ -63,8 +43,6 @@
                         </div>
                         <br/>
                         <div>
-
-
                                 <!---->
                                 <div class="col-sm-12">
                                 <div class="col-sm-3">
@@ -77,10 +55,8 @@
                                 <input type="text" ng-model="formData.staff.username" placeholder="Search By Teacher" class="form-control"> </input>
                                 </div>
                                 <!---->
-
                         </div>
                         <div class="portlet-body-morris-fit morris-chart" style="height: 260px">
-                          <!--<table class="ui celled table">-->
                           <table class="ui celled table">
                             <thead>
                             <tr>
@@ -90,62 +66,43 @@
                               <th></th>
                             </tr>
                             </thead>
-
                             <tbody>
                             <tr data-ng-repeat="x in classList | filter:formData ">
                               <div data-ng-bind-html="x.id">
                                 <td style="width: 5%">{{x.className}}</td>
                                 <td style="width: 5%">{{x.sectionName}}</td>
                                 <td style="width: 5%">{{x.staff.username}}</td>
-                                <td style="width: 100%"> <div class="col-sm-3">
+                                <td style="width: 100%">
+                                  <div class="col-sm-3">
                                   <i class="edit icon" ng-model="collapsed1" ng-click="collapsed1=!collapsed1 ;editClass(x)"></i>
                                   <i class="remove icon"  ng-click="deleteClass(x)"></i>
-                                  </div> <div class="col-sm-9" ng-show="collapsed1">
-
-                                    <form ng-controller="formController" ng-submit="updateClass(x)">
+                                  </div>
+                                  <div class="col-sm-9" ng-show="collapsed1">
+                                    <form ng-controller="classController" ng-submit="updateClass(x)">
                                       <div class="col-sm-12">
                                         <div class="col-sm-5">
-                                          <select ng-model="formData.staffSelected1" class="form-control" id="staffSelected1" required>
+                                            <select ng-model="newStaff" id="newStaff"  required>
                                             <option value="">Class Teacher</option>
-                                            <option ng-repeat="y in staffList" value="{{y.id}}">{{y.username}}</option>
-                                          </select>
+                                            <option data-ng-repeat="y in staffList" value="{{y.id}}">{{y.username}}</option>
+                                            </select>
                                         </div>
                                         <div class="col-sm-7">
                                           <button type="submit" class="btn btn-success uppercase">Update</button><span>{{response}}</span>
                                         </div>
-
                                       </div>
-
-
                                     </form>
-                                  </div></td>
+                                  </div>
+                                </td>
                               </div>
                             </tr>
                             </tbody>
-                            <tfoot> <tr><th colspan="3">
-                              <div class="ui right floated pagination menu">
-                                <a class="icon item">
-                                  <i class="left chevron icon"></i>
-                                </a>
-                                <a class="item">1</a>
-                                <a class="item">2</a>
-                                <a class="item">3</a>
-                                <a class="item">4</a>
-                                <a class="icon item">
-                                  <i class="right chevron icon"></i>
-                                </a>
-                              </div>
-                            </th></tr></tfoot>
                           </table>
                         </div>
                     </div>
                 </div>
                 <!-- END PORTLET-->
             </div>
+             </div>
         </div>
     </div>
-
 </div>
-<!---->
-
-<!---->

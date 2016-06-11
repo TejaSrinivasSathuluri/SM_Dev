@@ -1,215 +1,35 @@
 // app.js
 // create our angular app and inject ngAnimate and ui-router
 // =============================================================================
-angular.module('formApp', ['ngAnimate','ui.router','lbServices','ngResource','ngDialog'])
 
+angular.module('formApp', ['ngAnimate','ui.router','lbServices','ngResource','ngDialog','ngStorage'])
 
     .config(function($stateProvider, $urlRouterProvider) {
-
         $stateProvider
-
-        // route to show our basic form (/form)
-            .state('dashboard', {
-                url: '/dashboard',
-                templateUrl: 'dashboard.html',
-                controller: 'formController'
-            })
-            .state('search', {
-                url: '/search',
-                templateUrl: 'schooldirectory.html',
-                controller: 'formController'
-            })
-
-            .state('subject', {
-                url: '/subject',
-                templateUrl: 'subject.html',
-                controller: 'formController'
-            })
-
-            .state('class', {
-                url: '/class',
-                templateUrl: 'class.html',
-                controller: 'formController',
-            })
-            .state('attendance', {
-                url: '/attendance',
-                templateUrl: 'attendance.html',
-                controller: 'formController',
-            })
-             .state('timetable', {
-                url: '/timetable',
-                templateUrl: 'timetable.html',
-                controller: 'formController',
-            })
-          .state('classschedule', {
-                url: '/classschedule',
-                templateUrl: 'classschedule.html',
-                controller: 'formController',
-            })
-            .state('payment', {
-                url: '/payment',
-                templateUrl: 'payment.html',
-                controller: 'formController'
-            })
-        $urlRouterProvider.otherwise('/dashboard');
+            .state('dashboard',    {url: '/dashboard',    templateUrl: 'dashboard.html',       controller: 'consoleController'})
+            .state('search',       {url: '/search',       templateUrl: 'directory.html',       controller: 'searchController'})
+            .state('subject',      {url: '/subject',      templateUrl: 'subject.html',         controller: 'subjectController'})
+            .state('class',        {url: '/class',        templateUrl: 'class.html',           controller: 'classController'})
+            .state('attendance',   {url: '/attendance',   templateUrl: 'attendance.html',      controller: 'attendanceController'})
+            .state('timetable',    {url: '/timetable',    templateUrl: 'timetable.html',       controller: 'timetableController'})
+            .state('schedule',     {url: '/schedule',     templateUrl: 'schedule.html',        controller: 'scheduleController'})
+            .state('notice',       {url: '/notice',       templateUrl: 'notice.html',          controller: 'noticeboardController'})
+            $urlRouterProvider.otherwise('/dashboard');
     })
 
-    .controller('formController', function($scope,$state,$window,ngDialog,Admin,School,Class,Student,Staff,Subject,Parent,Timetable,Schedule,FeeType) {
-
-      // Admin Details
-      $scope.formData = {};
-      $scope.admin = Admin.getCurrent(function () {
-        $scope.school = Admin.school({"id": $scope.admin['id']},
-          function () {
-            $scope.showClass();
-            $scope.showStaff();
-            $scope.showSubject();
-            $scope.showTimetable();
-          });
-      });
-
-
-      //-------------Search Function
-      $scope.processSearch = function () {
-        $scope.searchList = [];
-        $scope.searchList =Student.find({filter: {where: {schoolId: $scope.school.id}, include: 'class'}}); ;
-
-      }
-
-      //-------------Class
-      $scope.addClass = function () {
-        $scope.classExists = Class.findOne({
-            filter: {
-              where: {
-                schoolId: $scope.school.id,
-                className: $scope.formData.className,
-                sectionName: $scope.formData.sectionName
-              }
-            }
-          },
-          function () {
-            $scope.response = 'Class Already Exists';
-          },
-          function () {
-            Class.create({
-              className: $scope.formData.className, sectionName: $scope.formData.sectionName,
-              schoolId: $scope.school.id, staffId: $scope.formData.staffSelected
-            });
-            $state.go($state.current, {}, {reload: true});
-
-          });
-
-
-      }
-      $scope.showClass = function () {
-        $scope.classList = [];
-        $scope.classList = Class.find({filter: {where: {schoolId: $scope.school.id}, include: 'staff'}});
-
-      }
-      $scope.editClass = function (x) {
-        $('#staffSelected1').val(x.staff.id);
-      }
-      $scope.deleteClass = function (x) {
-        //ngDialog.open({template :'deleteClass'})  ;
-        var dialog = ngDialog.open({template: 'deleteClass'});
-
-        dialog.closePromise.then(function (data) {
-
-          if (data.value && data.value != '$document') {
-            Class.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")});
-            $scope.showClass();
-          }
-          else {
-
-          }
-
-          return true;
-        });
-
-
-      }
-      $scope.updateClass = function (x) {
-        Class.upsert({id: JSON.stringify(x.id).replace(/["']/g, ""), staffId: $scope.formData.staffSelected1},
-          function () {
-            $state.go($state.current, {}, {reload: true});
-          },
-          function (response) {
-            $scope.response = console.log(response.data.error.message);
-          });
-      }
-
-
-
-      //------------- Subjects
-      $scope.addSubject = function () {
-        $scope.checkSub = Subject.findOne(
-          {
-            filter: {where: {className: $scope.classSelected, subjectName: $scope.formData.subjectName}}
-          },
-          function () {
-            $scope.response = 'Subject For ' + $scope.className + '-' + $scope.sectionName + ' Already Exists.';
-          },
-          function () {
-            Subject.create({
-                subjectName: $scope.formData.subjectName,
-                classId: $scope.formData.classSelected,
-                staffId: $scope.formData.staffSelected
-              },
-              function () {
-                $state.go($state.current, {}, {reload: true});
-              },
-              function (response) {
-                $scope.response = response.data.error.details.message;
-              }
-            );
-
-
-          });
-
-      }
-      $scope.updateSubject = function (y) {
-        Subject.upsert({
-          id: JSON.stringify(y.id).replace(/["']/g, ""),
-          staffId: $scope.formData.staffSelected2
-        }, function () {
-          $state.go($state.current, {}, {reload: true});
-        }, function (data) {
-          console.log(data.statusText);
-        });
-      }
-      $scope.deleteSubject = function (x) {
-
-        var dialog = ngDialog.open({template: 'deleteSubject'});
-
-        dialog.closePromise.then(function (data) {
-
-          if (data.value && data.value != '$document') {
-            Subject.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")});
-            $scope.showSubject();
-          }
-          else {
-
-          }
-
-          return true;
-        });
-
-
-      }
-      $scope.showSubject = function () {
-        $scope.resultlist = [];
-        $scope.resultlist = Subject.find({filter: {include: ['staff', 'class']}}
-        );
-
-
-      }
-
-
+    .controller('consoleController',  function($scope,$window,$localStorage) {$scope.user = $localStorage.user;})
+    .controller('searchController',   function($scope,$window,$state,$localStorage,ngDialog,School,Class,Student,Parent,Staff) {
+      $scope.schoolId = $localStorage.user.schoolId;
+      $scope.classList  = Class.find  ({filter: {where: {schoolId: $scope.schoolId}}});
+      $scope.searchList = Student.find({filter: {where: {schoolId: $scope.schoolId}, include: 'class'}});
+      $scope.processSearch = function(){
+        $scope.searchList = Staff.find({filter: {where: {schoolId: $scope.schoolId}}});
+       }
       $scope.addStudent = function () {
         $scope.studentExists = Student.findOne({
             filter: {
               where: {
-                schoolId: $scope.school.id,
+                schoolId: $scope.schoolId,
                 classId: $scope.formData.studentClass,
                 rollNo: $scope.formData.studentRollNo
               }
@@ -220,7 +40,7 @@ angular.module('formApp', ['ngAnimate','ui.router','lbServices','ngResource','ng
           },
           function () {
 
-            $scope.newStudent = School.students.create({id: $scope.school.id}, {
+            $scope.newStudent = School.students.create({id: $scope.schoolId}, {
                 username: $scope.formData.studentFirstName,
                 lastName: $scope.formData.studentLastName,
                 email: $scope.formData.studentEmail,
@@ -257,7 +77,7 @@ angular.module('formApp', ['ngAnimate','ui.router','lbServices','ngResource','ng
               },
               function () {
 
-                if ($scope.formData.motherFirstName != null && $scope.formData.motherLastName != null && $scope.formData.motherPassword != null && $scope.formData.motherEmail != null) {
+                if ($scope.formData.motherFirstName != null && $scope.formData.motherPassword != null && $scope.formData.motherEmail != null) {
                   Student.parents.create({id: $scope.newStudent.id}, {
                     username: $scope.formData.motherFirstName,
                     lastName: $scope.formData.motherLastName,
@@ -267,7 +87,7 @@ angular.module('formApp', ['ngAnimate','ui.router','lbServices','ngResource','ng
                   });
 
                 }
-                if ($scope.formData.fatherFirstName != null && $scope.formData.fatherLastName != null && $scope.formData.fatherPassword != null && $scope.formData.fatherEmail != null) {
+                if ($scope.formData.fatherFirstName != null && $scope.formData.fatherPassword != null && $scope.formData.fatherEmail != null) {
                   Student.parents.create({id: $scope.newStudent.id}, {
                     username: $scope.formData.fatherFirstName,
                     lastName: $scope.formData.fatherLastName,
@@ -284,44 +104,230 @@ angular.module('formApp', ['ngAnimate','ui.router','lbServices','ngResource','ng
 
           });
       }
+      $scope.deleteStudent = function(x) {   var dialog = ngDialog.open({template: 'deleteStudent'});
+        dialog.closePromise.then(function (data) {
+          if (data.value && data.value != '$document') Student.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")});
+          $state.go($state.current, {}, {reload: true});
+          return true;
+        });
+
+
+      }
       $scope.addStaff = function () {
-        $scope.newStaff = School.staffs.create({id: $scope.school.id}, {
+        $scope.newStaff = School.staffs.create({id: $scope.schooId}, {
             username: $scope.formData.staffFirstName, lastName: $scope.formData.staffLastName,
             email: $scope.formData.staffEmail, password: $scope.formData.staffPassword
           },
-          function () {
-            console.log($scope.response.data);
-          },
-          function (response) {
-            console.log(response.data.error.message);
-          }
+          function () {console.log($scope.response.data);},
+          function (response) { console.log(response.data.error.message);}
         )
         $scope.response = 'Staff ' + $scope.formData.staffFirstName + 'is Created';
       }
-      $scope.showStaff = function () {
-        $scope.staffList = Staff.find  ({filter: {where: {schoolId: $scope.school.id}}});
-      }
-
-      //   TimeTables---------------------
-      $scope.receivers = [{title: " ", startTime: "", endTime: "1", duration: "", attendance: ""}];
-      $scope.addRecipient = function (receiver) { $scope.receivers.push({title: "", startTime: "", endTime: "", duration: "", attendance: ""}); }
-
-      $scope.deleteRecipient = function (receiver) {
-        for (var i = 0; i < $scope.receivers.length; i++) {
-          if ($scope.receivers[i] === receiver) {
-            $scope.receivers.splice(i, 1);
-            break;
-          }
+    })
+    .controller('classController',    function($scope,$window,$state,$localStorage,ngDialog,School,Class,Staff,Subject) {
+        $scope.formData = [];
+        $scope.schoolId = $localStorage.user.schoolId;
+        $scope.staffList = Staff.find  ({filter: {where: {schoolId: $scope.schoolId}}});
+        $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}, include: 'staff'}});
+        $scope.searchList = Subject.find({filter: {where: {schoolId: $scope.schoolId}, include: 'class'}});
+        $scope.addClass = function () {
+          $scope.classExists = Class.findOne({
+              filter: {
+                where: {
+                  schoolId: $scope.schooId,
+                  className: $scope.formData.className,
+                  sectionName: $scope.formData.sectionName
+                }
+              }
+            },
+            function () {
+              $scope.response = 'Class Already Exists';
+            },
+            function () {
+              School.classes.create({id: $scope.schoolId},
+                {
+                  className: $scope.formData.className,
+                  sectionName: $scope.formData.sectionName,
+                  staffId: $scope.formData.staffSelected
+                });
+              $state.go($state.current, {}, {reload: true});
+            });
         }
+        $scope.editClass = function (x) {
+          $('#newStaff').val(x.staff.id);
+        }
+        $scope.deleteClass = function (x) {
+          var dialog = ngDialog.open({template: 'deleteClass'});
+          dialog.closePromise.then(function (data) {
+            if (data.value && data.value != '$document') Class.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")});
+            $state.go($state.current, {}, {reload: true});
+            return true;
+          });
+
+
+        }
+        $scope.updateClass = function (x) {
+          Class.upsert({id: JSON.stringify(x.id).replace(/["']/g, ""), staffId: $scope.newStaff},
+            function () {
+              $state.go($state.current, {}, {reload: true});
+            },
+            function (response) {
+              $scope.response = console.log(response.data.error.message);
+            });
+        }
+       })
+    .controller('timetableController',function($scope,$window,$state,$localStorage,ngDialog,School,Timetable) {
+
+       $scope.schoolId = $localStorage.user.schoolId;
+       $scope.viewTimetable = School.timetables({"id": $scope.schoolId},function(){
+         $scope.receivers = [];
+         for(var i=0;i<$scope.viewTimetable.schedule.length;i++)
+         {
+           $scope.receivers.push({title: $scope.viewTimetable.schedule[i].title,startTime: $scope.viewTimetable.schedule[i].startTime,
+                                  endTime: $scope.viewTimetable.schedule[i].endTime, duration: $scope.viewTimetable.schedule[i].duration,
+                                  attendance: $scope.viewTimetable.schedule[i].attendance});
+         }
+
+       },
+         function(){
+           $scope.receivers = [{title: "", startTime: "", endTime: "", duration: "", attendance: ""}];
+         }
+       );
+
+       $scope.addRecipient = function (receiver) {
+           if (receiver.title.length != 0) {
+             $scope.receivers.push({title: "", startTime: "", endTime: "", duration: "", attendance: ""});
+           }
+         else {
+             alert('Please fill the fields');
+           }
+         }
+       $scope.deleteRecipient = function (receiver) {
+         for (var i = 0; i < $scope.receivers.length; i++) {
+           if ($scope.receivers[i] === receiver) {
+             $scope.receivers.splice(i, 1);
+             break;
+           }
+         }
+       }
+       $scope.saveTimetable = function () {
+          $scope.chkTimetable = School.timetables({"id": $scope.schoolId},
+           function(){
+             if ($scope.receivers[0].title.length !=0  && $scope.receivers[0].startTime.length !=0&& $scope.receivers[0].endTime.length !=0 ){
+                 $scope.newTimetable = Timetable.upsert({id: $scope.chkTimetable.id,schedule: $scope.receivers},
+                 function(){$state.go($state.current, {}, {reload: true});});
+             }
+             else {
+               alert('Please fill the fields');
+             }
+
+           },
+           function() {
+             $scope.newTimetable = Timetable.create({schoolId: $scope.schoolId,schedule: $scope.receivers});
+             $state.go($state.current, {}, {reload: true});
+           });
+       }
+
+      })
+    .controller('subjectController',  function($scope,$window,$state,$localStorage,ngDialog,Class,Staff,Subject) {
+      $scope.schoolId = $localStorage.user.schoolId;
+      $scope.staffList  = Staff.find  ({filter: {where: {schoolId: $scope.schoolId}}});
+      $scope.classList  = Class.find  ({filter: {where: {schoolId: $scope.schoolId}}});
+      $scope.subjectList = Subject.find({filter: {include: ['staff', 'class']}});
+      $scope.addSubject = function () {
+        $scope.checkSub = Subject.findOne({filter: {where: {className: $scope.classSelected, subjectName: $scope.formData.subjectName}}},
+          function () {$scope.response = 'Subject For ' + $scope.className + '-' + $scope.sectionName + ' Already Exists.';},
+          function () {
+            Subject.create({ subjectName: $scope.formData.subjectName,classId: $scope.formData.classSelected,staffId: $scope.formData.staffSelected},
+              function () { $state.go($state.current, {}, {reload: true});},
+              function (response) {$scope.response = response.data.error.message;}
+            );
+          });
+
       }
-      $scope.saveTimetable = function () {
-        $scope.newTimetable = School.timetables.create({id: $scope.school.id},{ schedule : $scope.receivers},function(){},function(){});
+      $scope.updateSubject = function (y) {
+        Subject.upsert({id: JSON.stringify(y.id).replace(/["']/g, ""), staffId: $scope.newStaff},
+          function () {$state.go($state.current, {}, {reload: true});},
+          function (data) {console.log(data.statusText);});
+      }
+      $scope.deleteSubject = function (x) {
+
+        var dialog = ngDialog.open({template: 'deleteSubject'});
+        dialog.closePromise.then(function (data) {
+
+          if (data.value && data.value != '$document')
+          {
+            Subject.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")});
+            $state.go($state.current, {}, {reload: true});
+          }
+          return true;
+        });
+
       }
 
-      $scope.showTimetable = function() {
-          $scope.viewTimetable = School.timetables({"id": $scope.school['id']});
-        //console.log($scope.viewTimetable);
+    })
+    .controller('attendanceController',  function($scope,$window,$state,$localStorage,ngDialog,Class,Subject) {
+      $scope.schoolId = $localStorage.user.schoolId;
+
+
+    })
+    .controller('scheduleController',  function($scope,$window,$state,$localStorage,ngDialog,Class,School,Timetable,Subject,Schedule) {
+      $scope.schoolId = $localStorage.user.schoolId;
+      $scope.scheduleList=[];
+      $scope.classList =  Class.find  ({filter: {where: {schoolId: $scope.schoolId}}});
+      $scope.loadSchedule = function(){
+      $scope.subjectList = Subject.find({filter: {where: {classId: $scope.class}}});
+      }
+      $scope.viewTimetable = School.timetables({"id": $scope.schoolId},function() {
+        for (var i=0; i < $scope.viewTimetable.schedule.length; i++) { $scope.scheduleList[i] = $scope.viewTimetable.schedule[i];}
+      });
+      $scope.saveSchedule = function(){
+             Timetable.schedules.create({"id":$scope.viewTimetable.id},
+        {classId:$scope.class,schedule:$scope.scheduleList},function (response){console.log(response.body);},function (response){console.log(response.data.error.message)});
       }
 
-    //  ----------------------------------------
-    });
+    })
+    .controller('noticeboardController',function($scope,$localStorage,$state,ngDialog,Noticeboard,Class){
+      $scope.schoolId = $localStorage.user.schoolId
+      $scope.addNotice=function () {
+    Noticeboard.create({
+        title: $scope.formData.title,
+        description: $scope.formData.description,
+        date1: $scope.formData.date1,date2: $scope.formData.date2,
+        uploadFile: $scope.formData.uploadFile,
+        schoolId: $scope.schoolId
+      },
+      function () { $state.go($state.current, {}, {reload: true});}
+    );
+  }
+      $scope.noticeList = [];
+      $scope.noticeList = Noticeboard.find({filter: {where: {schoolId: $scope.schoolId}}});
+      $scope.deleteNotice = function (x) {
+        var dialog = ngDialog.open({template: 'deleteNotice'});
+        dialog.closePromise.then(function (data) {
+          if (data.value && data.value != '$document') Noticeboard.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")});
+          $state.go($state.current, {}, {reload: true});
+          return true;
+        });
+      }
+      $scope.editNotice =function (x){
+        ngDialog.openConfirm({template: 'editNotice',
+          scope: $scope //Pass the scope object if you need to access in the template
+        }).then(
+          function(formData) {
+            console.log(x.id);
+            Noticeboard.upsert({id:x.id, title : formData.title,description: formData.description,date1: formData.date1,date2:formData.date2,uploadFile:formData.uploadFile},
+              function () {$state.go($state.current, {}, {reload: true});});
+          },
+          function(value) {
+            //Cancel or do nothing
+          }
+        );
+      }
+      $scope.updateNotice = function (y) {
+
+      }
+    })
+
+
+;

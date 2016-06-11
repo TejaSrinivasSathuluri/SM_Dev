@@ -56,12 +56,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.1/ui-bootstrap-tpls.js"></script>
 	<!--------------------------------------->
 
-	<meta charset="utf-8">
-	<title>Study Monitor | Dashboard </title>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta content="width=device-width, initial-scale=1" name="viewport">
-	<meta content="" name="description">
-	<meta content="" name="author">
+  <title>Study Monitor | Dashboard </title>
 
 	<!-- BEGIN GLOBAL MANDATORY STYLES -->
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css">
@@ -75,11 +70,12 @@
 	<link href="../../assets/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css">
 	<link href="../../assets/global/plugins/morris/morris.css" rel="stylesheet" type="text/css">
 	<!-- END PAGE LEVEL PLUGIN STYLES -->
+  <script src="/js/ngStorage.min.js"></script>
 
     <!-- BEGIN PAGE STYLES -->
 	<link href="../../assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
 	<!-- END PAGE STYLES -->
-
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <!-- BEGIN THEME STYLES -->
 	<!-- DOC: To use 'rounded corners' style just load 'components-rounded.css' stylesheet instead of 'components.css' in the below style tag -->
 	<link href="../../assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css">
@@ -96,7 +92,7 @@
 
 <!-- apply our angular app -->
 <!--!&#45;&#45; apply our angular app &ndash;&gt;-->
-<body ng-app="formApp" ng-controller="formController" ng-load="showClass()">
+<body ng-app="formApp" ng-controller="consoleController">
 
 <div class="page-header" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px">
   <div class="container">
@@ -120,35 +116,13 @@
           <li class="dropdown dropdown-user dropdown-dark">
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
               <img alt="" class="img-circle" src="../../assets/admin/layout3/img/avatar9.jpg">
-              <span class="username username-hide-mobile" ng-controller="formController">{{admin.username}}</span>
+              <span class="username username-hide-mobile">{{user.username}}</span>
             </a>
             <ul class="dropdown-menu dropdown-menu-default">
               <li>
                 <a href="extra_profile.html">
                   <i class="icon-user"></i> My Profile </a>
               </li>
-              <!--<li>-->
-              <!--<a href="page_calendar.html">-->
-              <!--<i class="icon-calendar"></i> My Calendar </a>-->
-              <!--</li>-->
-              <!--<li>-->
-              <!--<a href="inbox.html">-->
-              <!--<i class="icon-envelope-open"></i> My Inbox <span class="badge badge-danger">-->
-              <!--3 </span>-->
-              <!--</a>-->
-              <!--</li>-->
-              <!--<li>-->
-              <!--<a href="javascript:;">-->
-              <!--<i class="icon-rocket"></i> My Tasks <span class="badge badge-success">-->
-              <!--7 </span>-->
-              <!--</a>-->
-              <!--</li>-->
-              <!--<li class="divider">-->
-              <!--</li>-->
-              <!--<li>-->
-              <!--<a href="extra_lock.html">-->
-              <!--<i class="icon-lock"></i> Lock Screen </a>-->
-              <!--</li>-->
               <li>
                 <a href="login.html">
                   <i class="icon-key"></i> Log Out </a>
@@ -198,9 +172,17 @@
                    <a><i class="icon-pointer"></i>Time Table </a>
                    <ul class="dropdown-menu">
                        <li class=" "><a ui-sref=".timetable">School TimeTable </a></li>
-                       <li class=" "><a ui-sref=".classschedule">Class TimeTable </a></li>
+                       <li class=" "><a ui-sref=".schedule">Class TimeTable </a></li>
                    </ul>
               </li>
+            </ul>
+          </li>
+          <li class="menu-dropdown classic-menu-dropdown ">
+            <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">
+              Communicate <i class="fa fa-angle-down"></i>
+            </a>
+            <ul class="dropdown-menu pull-left">
+              <li><a ui-sref=".notice"><i class="icon-briefcase"></i>Noticeboard </a></li>
             </ul>
           </li>
         </ul>

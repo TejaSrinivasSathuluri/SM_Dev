@@ -1,5 +1,5 @@
 // login.js
-angular.module('formApp', ['ngAnimate','ui.router','lbServices','ngResource'])
+angular.module('formApp', ['ngAnimate','ui.router','lbServices','ngResource','ngStorage'])
 
     // ROUTES
     .config(function($stateProvider, $urlRouterProvider) {
@@ -21,70 +21,42 @@ angular.module('formApp', ['ngAnimate','ui.router','lbServices','ngResource'])
 
 
      //LOGIN CONTROLLER
-    .controller('formController', function($scope,Parent,Student,Staff,Admin) {
+    .controller('formController', function($scope,$window,$localStorage,Parent,Student,Staff,Admin) {
         $scope.formData={};
-
-        $scope.clearErr = function() {
-            $scope.formData.errmsg='';
-        }
+        $scope.clearErr = function() {$scope.formData.errmsg='';}
         $scope.processForm = function(type) {
+
+             $scope.credentials={"email":$scope.formData.email,"password":$scope.formData.password};
             if (type === 'P')
             {
-            $scope.credentials={"email":$scope.formData.email,"password":$scope.formData.password};
-            $scope.parent= Parent.login($scope.credentials,
+                $scope.parent= Parent.login($scope.credentials,
                 function (response) { window.location='parent/index.html';},
                 function (response) { $scope.formData.errmsg='Invalid Login';});
             }
             else if (type === 'A')
             {
-                $scope.credentials={"email":$scope.formData.email,"password":$scope.formData.password};
                 $scope.admin = Admin.login($scope.credentials,
-                    function (response) { window.location='admin/index.html';},
-                    function (response) { $scope.formData.errmsg='Invalid Login';});
+                    function (response) {
+                      $localStorage.user = response.user;
+                      $localStorage.message = response.id;
+                        window.location='admin/index.html';
+                       },
+                    function (response) { $scope.formData.errmsg=response.data.error;});
             }
             else if (type === 'S')
             {
-                $scope.credentials={"email":$scope.formData.email,"password":$scope.formData.password};
-                $scope.student = Student.login($scope.credentials,
+                    $scope.student = Student.login($scope.credentials,
                     function (response) { window.location='student/index.html';},
                     function (response) { $scope.formData.errmsg='Invalid Login';});
             }
             else if (type === 'T')
             {
-                $scope.credentials={"email":$scope.formData.email,"password":$scope.formData.password};
-                $scope.staff = Staff.login($scope.credentials,
+                    $scope.staff = Staff.login($scope.credentials,
                     function (response) { window.location='staff/index.html';},
                     function (response) { $scope.formData.errmsg='Invalid Login';});
             }
         }
-        $scope.resetPassword = function(type) {
 
-            if (type === 'P')
-            {
-
-            $scope.parent= Parent.resetPassword({"email":$scope.formData.recoveryEmail},
-                function (response) { console.log(response);},
-                function (response) { $scope.formData.errmsg='Invalid Login';});
-            }
-            else if (type === 'A')
-            {
-                $scope.admin= Admin.resetPassword({"email":$scope.formData.recoveryEmail},
-                    function (response) { console.log(response);},
-                    function (response) { $scope.formData.errmsg =response.data.error.message;});
-            }
-            else if (type === 'S')
-            {
-                $scope.student= Student.resetPassword({"email":$scope.formData.recoveryEmail},
-                    function (response) { },
-                    function (response) { $scope.formData.errmsg =response.data.error.message;});
-            }
-            else if (type === 'T')
-            {
-                $scope.staff= Staff.resetPassword({"email":$scope.formData.recoveryEmail},
-                    function (response) { console.log(response);},
-                    function (response) { $scope.formData.errmsg =response.data.error.message;});
-            }
-        }
 
 
     });
