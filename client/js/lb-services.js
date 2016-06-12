@@ -586,7 +586,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         "updateAll": {
           url: urlBase + "/Users/update",
@@ -616,7 +616,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `User` object.)
+         * </em>
          */
         "deleteById": {
           url: urlBase + "/Users/:id",
@@ -1001,7 +1004,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         R["update"] = R["updateAll"];
 
@@ -1028,7 +1031,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `User` object.)
+         * </em>
          */
         R["destroyById"] = R["deleteById"];
 
@@ -1055,7 +1061,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `User` object.)
+         * </em>
          */
         R["removeById"] = R["deleteById"];
 
@@ -1732,7 +1741,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         "updateAll": {
           url: urlBase + "/Students/update",
@@ -1762,7 +1771,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Student` object.)
+         * </em>
          */
         "deleteById": {
           url: urlBase + "/Students/:id",
@@ -2271,7 +2283,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         R["update"] = R["updateAll"];
 
@@ -2298,7 +2310,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Student` object.)
+         * </em>
          */
         R["destroyById"] = R["deleteById"];
 
@@ -2325,7 +2340,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Student` object.)
+         * </em>
          */
         R["removeById"] = R["deleteById"];
 
@@ -3323,7 +3341,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         "updateAll": {
           url: urlBase + "/Staffs/update",
@@ -3353,7 +3371,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Staff` object.)
+         * </em>
          */
         "deleteById": {
           url: urlBase + "/Staffs/:id",
@@ -3809,7 +3830,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         R["update"] = R["updateAll"];
 
@@ -3836,7 +3857,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Staff` object.)
+         * </em>
          */
         R["destroyById"] = R["deleteById"];
 
@@ -3863,7 +3887,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Staff` object.)
+         * </em>
          */
         R["removeById"] = R["deleteById"];
 
@@ -4600,7 +4627,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         "updateAll": {
           url: urlBase + "/Parents/update",
@@ -4630,7 +4657,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Parent` object.)
+         * </em>
          */
         "deleteById": {
           url: urlBase + "/Parents/:id",
@@ -5021,7 +5051,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         R["update"] = R["updateAll"];
 
@@ -5048,7 +5078,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Parent` object.)
+         * </em>
          */
         R["destroyById"] = R["deleteById"];
 
@@ -5075,7 +5108,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Parent` object.)
+         * </em>
          */
         R["removeById"] = R["deleteById"];
 
@@ -5969,7 +6005,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         "updateAll": {
           url: urlBase + "/Schools/update",
@@ -5999,7 +6035,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `School` object.)
+         * </em>
          */
         "deleteById": {
           url: urlBase + "/Schools/:id",
@@ -6226,7 +6265,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         R["update"] = R["updateAll"];
 
@@ -6253,7 +6292,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `School` object.)
+         * </em>
          */
         R["destroyById"] = R["deleteById"];
 
@@ -6280,7 +6322,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `School` object.)
+         * </em>
          */
         R["removeById"] = R["deleteById"];
 
@@ -8115,7 +8160,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         "updateAll": {
           url: urlBase + "/Classes/update",
@@ -8145,7 +8190,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Class` object.)
+         * </em>
          */
         "deleteById": {
           url: urlBase + "/Classes/:id",
@@ -8401,7 +8449,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         R["update"] = R["updateAll"];
 
@@ -8428,7 +8476,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Class` object.)
+         * </em>
          */
         R["destroyById"] = R["deleteById"];
 
@@ -8455,7 +8506,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Class` object.)
+         * </em>
          */
         R["removeById"] = R["deleteById"];
 
@@ -9707,7 +9761,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         "updateAll": {
           url: urlBase + "/Admins/update",
@@ -9737,7 +9791,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Admin` object.)
+         * </em>
          */
         "deleteById": {
           url: urlBase + "/Admins/:id",
@@ -10122,7 +10179,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         R["update"] = R["updateAll"];
 
@@ -10149,7 +10206,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Admin` object.)
+         * </em>
          */
         R["destroyById"] = R["deleteById"];
 
@@ -10176,7 +10236,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Admin` object.)
+         * </em>
          */
         R["removeById"] = R["deleteById"];
 
@@ -10591,7 +10654,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         "updateAll": {
           url: urlBase + "/Subjects/update",
@@ -10621,7 +10684,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Subject` object.)
+         * </em>
          */
         "deleteById": {
           url: urlBase + "/Subjects/:id",
@@ -10806,7 +10872,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         R["update"] = R["updateAll"];
 
@@ -10833,7 +10899,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Subject` object.)
+         * </em>
          */
         R["destroyById"] = R["deleteById"];
 
@@ -10860,7 +10929,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Subject` object.)
+         * </em>
          */
         R["removeById"] = R["deleteById"];
 
@@ -11288,7 +11360,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         "updateAll": {
           url: urlBase + "/Buses/update",
@@ -11318,7 +11390,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Bus` object.)
+         * </em>
          */
         "deleteById": {
           url: urlBase + "/Buses/:id",
@@ -11497,7 +11572,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         R["update"] = R["updateAll"];
 
@@ -11524,7 +11599,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Bus` object.)
+         * </em>
          */
         R["destroyById"] = R["deleteById"];
 
@@ -11551,7 +11629,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Bus` object.)
+         * </em>
          */
         R["removeById"] = R["deleteById"];
 
@@ -11871,7 +11952,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         "updateAll": {
           url: urlBase + "/FeeTypes/update",
@@ -11901,7 +11982,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `FeeType` object.)
+         * </em>
          */
         "deleteById": {
           url: urlBase + "/FeeTypes/:id",
@@ -12080,7 +12164,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         R["update"] = R["updateAll"];
 
@@ -12107,7 +12191,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `FeeType` object.)
+         * </em>
          */
         R["destroyById"] = R["deleteById"];
 
@@ -12134,7 +12221,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `FeeType` object.)
+         * </em>
          */
         R["removeById"] = R["deleteById"];
 
@@ -12512,7 +12602,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         "updateAll": {
           url: urlBase + "/Timetables/update",
@@ -12542,7 +12632,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Timetable` object.)
+         * </em>
          */
         "deleteById": {
           url: urlBase + "/Timetables/:id",
@@ -12758,7 +12851,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         R["update"] = R["updateAll"];
 
@@ -12785,7 +12878,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Timetable` object.)
+         * </em>
          */
         R["destroyById"] = R["deleteById"];
 
@@ -12812,7 +12908,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Timetable` object.)
+         * </em>
          */
         R["removeById"] = R["deleteById"];
 
@@ -13475,7 +13574,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         "updateAll": {
           url: urlBase + "/Schedules/update",
@@ -13505,7 +13604,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Schedule` object.)
+         * </em>
          */
         "deleteById": {
           url: urlBase + "/Schedules/:id",
@@ -13743,7 +13845,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         R["update"] = R["updateAll"];
 
@@ -13770,7 +13872,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Schedule` object.)
+         * </em>
          */
         R["destroyById"] = R["deleteById"];
 
@@ -13797,7 +13902,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Schedule` object.)
+         * </em>
          */
         R["removeById"] = R["deleteById"];
 
@@ -14153,7 +14261,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         "updateAll": {
           url: urlBase + "/Calendars/update",
@@ -14183,7 +14291,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Calendar` object.)
+         * </em>
          */
         "deleteById": {
           url: urlBase + "/Calendars/:id",
@@ -14362,7 +14473,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         R["update"] = R["updateAll"];
 
@@ -14389,7 +14500,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Calendar` object.)
+         * </em>
          */
         R["destroyById"] = R["deleteById"];
 
@@ -14416,7 +14530,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Calendar` object.)
+         * </em>
          */
         R["removeById"] = R["deleteById"];
 
@@ -14742,7 +14859,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         "updateAll": {
           url: urlBase + "/Noticeboards/update",
@@ -14772,7 +14889,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Noticeboard` object.)
+         * </em>
          */
         "deleteById": {
           url: urlBase + "/Noticeboards/:id",
@@ -14951,7 +15071,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         R["update"] = R["updateAll"];
 
@@ -14978,7 +15098,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Noticeboard` object.)
+         * </em>
          */
         R["destroyById"] = R["deleteById"];
 
@@ -15005,7 +15128,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Noticeboard` object.)
+         * </em>
          */
         R["removeById"] = R["deleteById"];
 
@@ -15361,7 +15487,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         "updateAll": {
           url: urlBase + "/WorkingDays/update",
@@ -15391,7 +15517,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `WorkingDay` object.)
+         * </em>
          */
         "deleteById": {
           url: urlBase + "/WorkingDays/:id",
@@ -15570,7 +15699,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         R["update"] = R["updateAll"];
 
@@ -15597,7 +15726,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `WorkingDay` object.)
+         * </em>
          */
         R["destroyById"] = R["deleteById"];
 
@@ -15624,7 +15756,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `WorkingDay` object.)
+         * </em>
          */
         R["removeById"] = R["deleteById"];
 
@@ -15950,7 +16085,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         "updateAll": {
           url: urlBase + "/Assignments/update",
@@ -15980,7 +16115,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Assignment` object.)
+         * </em>
          */
         "deleteById": {
           url: urlBase + "/Assignments/:id",
@@ -16218,7 +16356,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         R["update"] = R["updateAll"];
 
@@ -16245,7 +16383,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Assignment` object.)
+         * </em>
          */
         R["destroyById"] = R["deleteById"];
 
@@ -16272,7 +16413,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Assignment` object.)
+         * </em>
          */
         R["removeById"] = R["deleteById"];
 
@@ -16634,7 +16778,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         "updateAll": {
           url: urlBase + "/Libraries/update",
@@ -16664,7 +16808,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Library` object.)
+         * </em>
          */
         "deleteById": {
           url: urlBase + "/Libraries/:id",
@@ -16902,7 +17049,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         R["update"] = R["updateAll"];
 
@@ -16929,7 +17076,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Library` object.)
+         * </em>
          */
         R["destroyById"] = R["deleteById"];
 
@@ -16956,7 +17106,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Library` object.)
+         * </em>
          */
         R["removeById"] = R["deleteById"];
 
@@ -17324,7 +17477,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         "updateAll": {
           url: urlBase + "/StudentParents/update",
@@ -17354,7 +17507,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `StudentParent` object.)
+         * </em>
          */
         "deleteById": {
           url: urlBase + "/StudentParents/:id",
@@ -17651,7 +17807,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * The number of instances updated
          */
         R["update"] = R["updateAll"];
 
@@ -17678,7 +17834,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `StudentParent` object.)
+         * </em>
          */
         R["destroyById"] = R["deleteById"];
 
@@ -17705,7 +17864,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * This method returns no data.
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `StudentParent` object.)
+         * </em>
          */
         R["removeById"] = R["deleteById"];
 
