@@ -1,0 +1,107 @@
+<script type="text/ng-template" id="deleteLibrary">
+  <div class="ngdialog-message">
+    <h3>Confirm Delete</h3>
+    <div class="ngdialog-buttons">
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog('Yes')">Yes</button>
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog()">No</button>
+    </div>
+  </div>
+</script>
+<script type="text/ng-template" id="editLibrary">
+  <div class="ngdialog-message">
+    <h3>Edit Assignment</h3>
+    <div class="ngdialog-contents">
+      <form>
+        <input  type="text" class="form-control" placeholder="Name" ng-model="formData.name"><br>
+        <input  type="text" class="form-control" placeholder="Author" ng-model="formData.author" ><br>
+        <textarea rows="4" cols="50" class="form-control" placeholder="Description  " ng-model="formData.description"></textarea><br>
+        <input  type="text" class="form-control" placeholder="Price" ng-model="formData.price"><br>
+        <input  type="text" class="form-control" placeholder="No.of Books Available" ng-model="formData.available"><br>
+        <!--<select ng-model="formData.classId" class="form-control">-->
+        <!--<option value="">Class </option>-->
+        <!--<option ng-repeat="y in classList" value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>-->
+        <!--</select><br>-->
+        <!--<select ng-model="formData.statusId" class="form-control">-->
+        <!--<option value="">Status </option>-->
+        <!--&lt;!&ndash;<option ng-repeat="y in classList" value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>&ndash;&gt;-->
+        <!--</select><br>-->
+        <button type="submit" class="btn btn-success uppercase" ng-click=confirm(formData)>Save</button>
+        <button type="button" class="btn btn-success uppercase" ng-click=closeThisDialog("Cancel")>Cancel</button>
+
+      </form>
+    </div>
+</script>
+
+<div class="container">
+  <div class="row margin-top-10">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <!-- BEGIN PORTLET-->
+
+      <div class="portlet light ">
+        <div class="portlet-title">
+          <div class="caption caption-md"> <i class="icon-bar-chart theme-font hide"></i><span class="caption-subject theme-font bold uppercase">MANAGE ASSIGNMENT</span></div>
+          <!--<div class="pull-right"> <button type="button" ng-click="showForm=!showForm" class="btn btn-success uppercase">ADD NOTICE</button></div>-->
+        </div>
+
+        <!-- -----------------------------------Search Form------------------------------->
+        <div class="portlet-body" ng-show="!showForm">
+          <div class="row list-separated">
+            <!---->
+
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <form ng-submit="addLibrary()">
+                <div class="col-sm-3"style="min-height:50px">
+                  <input  type="text" class="form-control" placeholder="Name" ng-model="formData.name"  required><br>
+                  <input  type="text" class="form-control" placeholder="Author" ng-model="formData.author"  required><br>
+                  <textarea rows="4" cols="50" class="form-control" placeholder="Description  " ng-model="formData.description" required></textarea><br>
+                  <input  type="text" class="form-control" placeholder="Price" ng-model="formData.price"  required><br>
+                  <input  type="number" class="form-control" placeholder="No.of Books Available" ng-model="formData.available" min="0"   required><br>
+                  <button type="submit"  class="btn btn-success uppercase">Add Book</button><br></div>
+
+              </form>
+
+
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" style="min-height:50px" >
+                <table class="table table-bordered table-striped table-condensed flip-content">
+                  <thead flip-content>
+                  <tr>
+                    <th>#</th>
+                    <th>BookName</th>
+                    <th>Author</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>No.Of Books Available</th>
+                    <th>Option</th>
+                  </tr>
+                  </thead>
+
+                  <tbody>
+                  <tr data-ng-repeat="x in librarylist">
+                    <div data-ng-bind-html="x.id">
+                      <td style="width:5%">{{$index+1}}</td>
+                      <td style="width: 20%">{{x.name}}</td>
+                      <td style="width: 10%">{{x.author}}</td>
+                      <td style="width: 20%">{{x.description}}</td>
+                      <td style="width: 20%">{{x.price}}</td>
+                      <td style="width: 25%">{{x.available}}</td>
+                      <td style="width: 50%"><div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
+                        <i class="edit icon" ng-model="collapsed1" ng-click="editLibrary(x)"></i>
+                        <i class="remove icon"  ng-click="deleteLibrary(x)"></i>
+                      </div>
+</td>
+                    </div>
+                  </tr>
+                  </tbody>
+                </table></div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>

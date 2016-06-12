@@ -21,7 +21,7 @@ angular.module('formApp', ['ngAnimate','ui.router','lbServices','ngResource','ng
 
 
      //LOGIN CONTROLLER
-    .controller('formController', function($scope,$window,$localStorage,Parent,Student,Staff,Admin) {
+    .controller('formController', function($scope,$window,$localStorage,Parent,Student,Staff,Admin,StudentParent) {
         $scope.formData={};
         $scope.clearErr = function() {$scope.formData.errmsg='';}
         $scope.processForm = function(type) {
@@ -30,33 +30,43 @@ angular.module('formApp', ['ngAnimate','ui.router','lbServices','ngResource','ng
             if (type === 'P')
             {
                 $scope.parent= Parent.login($scope.credentials,
-                function (response) { window.location='parent/index.html';},
-                function (response) { $scope.formData.errmsg='Invalid Login';});
+                  function (response)
+                 {
+                    $localStorage.user = response.user; $localStorage.token = response.id;
+						        $scope.studentList= StudentParent.find({filter: {where: {parentId: response.userId},include:'student'}});
+                    $localStorage.studentList = $scope.studentList;
+                    window.location='parent/index.html';
+                 },
+                  function (response) { $scope.formData.errmsg='Invalid Username or Password';});
             }
             else if (type === 'A')
             {
                 $scope.admin = Admin.login($scope.credentials,
                     function (response) {
-                      $localStorage.user = response.user;
-                      $localStorage.message = response.id;
+                        $localStorage.user = response.user;
+                        $localStorage.token = response.id;
                         window.location='admin/index.html';
                        },
-                    function (response) { $scope.formData.errmsg=response.data.error;});
+                    function (response) { $scope.formData.errmsg='Invalid Username or Password';});
             }
             else if (type === 'S')
             {
                     $scope.student = Student.login($scope.credentials,
-                    function (response) { window.location='student/index.html';},
-                    function (response) { $scope.formData.errmsg='Invalid Login';});
-            }
+            function (response) {
+                        $localStorage.user = response.user;
+                        $localStorage.token = response.id;
+                        window.location='student/index.html';
+                       },
+                    function (response) { $scope.formData.errmsg='Invalid Username or Password';});}
             else if (type === 'T')
             {
                     $scope.staff = Staff.login($scope.credentials,
-                    function (response) { window.location='staff/index.html';},
-                    function (response) { $scope.formData.errmsg='Invalid Login';});
-            }
+            function (response) {
+                        $localStorage.user = response.user;
+                        $localStorage.token = response.id;
+                        window.location='staff/index.html';
+                       },
+                    function (response) { $scope.formData.errmsg='Invalid Username or Password';});}
         }
-
-
 
     });

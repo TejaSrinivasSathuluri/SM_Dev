@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="row margin-top-10">
+    <div class="col-md-12 col-sm-12">
+      <!-- BEGIN PORTLET-->
+
+      <div class="portlet light ">
+        <div class="portlet-title"><div class="caption caption-md">Timetable</div></div>
+
+        <!-- -----------------------------------Search Form------------------------------->
+        <div class="portlet-body">
+          <div class="row list-separated">
+            <select ng-model="class" ng-change="loadSchedule()" class="form-control">
+              <option value="">Class </option>
+              <option ng-repeat="y in classList"  value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>
+            </select>
+
+            <div class="portlet-body-morris-fit morris-chart flip-scroll" style="margin-right:0px;margin-left:0px;margin-bottom:0px;height: 260px">
+              <table class="table table-bordered table-striped table-condensed flip-content">
+                <thead flip-content>
+                <tr>
+                 
+                  <td>Periods</td>
+                  <td>Monday</td>
+                  <td>Tuesday</td>
+                  <td>Wednesday</td>
+                  <td>Thursday</td>
+                  <td>Friday</td>
+                </tr>
+                </thead>
+
+                <tr ng-repeat = "subject in scheduleList">
+
+              <td>{{ subject.startTime}}-{{subject.endTime}} : </td>
+                  <td><select ng-model="subject.Monday" class="form-control" required>
+                    <option value="">Subject</option>
+                    <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
+                  </select>
+                  </td>
+                  <td><select ng-model="subject.Tuesday" class="form-control" required>
+                    <option value="">Subject</option>
+                    <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
+                  </select>
+                  </td>
+                  <td><select ng-model="subjec.tWednesday" class="form-control" required>
+                    <option value="">Subject</option>
+                    <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
+                  </select>
+                  </td>
+                  <td><select ng-model="subjec.tThursday" class="form-control" required>
+                    <option value="">Subject</option>
+                    <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
+                  </select>
+                  </td>
+                  <td><select ng-model="subject.Friday" class="form-control" required>
+                    <option value="">Subject</option>
+                    <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
+                  </select>
+                  </td>
+                </tr>
+
+              </table>
+              
+            </div>
+
+          </div>
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+</div>

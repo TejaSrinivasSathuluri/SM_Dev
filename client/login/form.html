@@ -1,13 +1,5 @@
 
-<!-- BEGIN LOGO -->
-<div class="logo">
-    <a href="index.html">
-        <img src="../../assets/admin/layout3/img/logo-big.png" alt=""/>
-    </a>
-</div>
-<!-- END LOGO -->
-
-
+<div class="logo"><a href="/"><img src="../../assets/admin/layout3/img/logo-big.png" alt=""/></a></div>
                 <div class="menu-toggler sidebar-toggler">
                     <div id="status-buttons" class="text-center">
                         <a ui-sref-active="active" ui-sref=".student" ng-click="clearErr()" ><span>1</span> Student Login</a>
@@ -17,37 +9,5 @@
 
                     </div>
                 </div>
-                <!-- BEGIN LOGIN -->
-
-                <div class="content">
-                    <!-- BEGIN LOGIN FORM -->
-
-                    <div> <center><h4>{{formData.errmsg}}</h4> </center></div>
-                        <!-- our nested state views will be injected here -->
-                        <div id="form-views" ui-view></div>
-
-
-                    <!-- END LOGIN FORM -->
-
-
-                    <!-- BEGIN FORGOT PASSWORD FORM -->
-                    <form class="forget-form" action="index.html" method="post">
-                        <h3>Forget Password ?</h3>
-                        <p>
-                            Enter your e-mail address below to reset your password.
-                        </p>
-                        <div class="form-group">
-                            <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Email" name="email"/>
-                        </div>
-                        <div class="form-actions">
-                            <button type="button" id="back-btn" class="btn btn-default">Back</button>
-                            <button type="submit" class="btn btn-success uppercase pull-right">Submit</button>
-                        </div>
-                    </form>
-                    <!-- END FORGOT PASSWORD FORM -->
-
-                </div>
-
-                <div class="copyright">
-                    2016 © Study Monitor.
-                </div>
+<div class="content"><div> <center><h4>{{formData.errmsg}}</h4> </center></div><div id="form-views" ui-view></div></div>
+<div class="copyright">                    2016 © Study Monitor.</div>

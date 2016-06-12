@@ -1,0 +1,24 @@
+{
+  "name": "StudentParent",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "parent": {
+      "type": "belongsTo",
+      "model": "Parent",
+      "foreignKey": ""
+    },
+    "student": {
+      "type": "belongsTo",
+      "model": "Student",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

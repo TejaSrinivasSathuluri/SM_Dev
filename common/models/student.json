@@ -8,11 +8,6 @@
   "properties": {},
   "validations": [],
   "relations": {
-    "parents": {
-      "type": "hasAndBelongsToMany",
-      "model": "Parent",
-      "foreignKey": ""
-    },
     "school": {
       "type": "belongsTo",
       "model": "School",
@@ -22,25 +17,18 @@
       "type": "belongsTo",
       "model": "Class",
       "foreignKey": ""
+    },
+    "studentParents": {
+      "type": "hasMany",
+      "model": "StudentParent",
+      "foreignKey": ""
     }
   },
   "acls": [
     {
       "accessType": "*",
       "principalType": "ROLE",
-      "principalId": "$unauthenticated",
-      "permission": "ALLOW"
-    },
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW"
-    },
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "$everyone",
+      "principalId": "$authenticated",
       "permission": "ALLOW"
     }
   ],

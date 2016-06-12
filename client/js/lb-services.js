@@ -586,7 +586,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * The number of instances updated
+         * This method returns no data.
          */
         "updateAll": {
           url: urlBase + "/Users/update",
@@ -616,10 +616,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `User` object.)
-         * </em>
+         * This method returns no data.
          */
         "deleteById": {
           url: urlBase + "/Users/:id",
@@ -1004,7 +1001,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * The number of instances updated
+         * This method returns no data.
          */
         R["update"] = R["updateAll"];
 
@@ -1031,10 +1028,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `User` object.)
-         * </em>
+         * This method returns no data.
          */
         R["destroyById"] = R["deleteById"];
 
@@ -1061,10 +1055,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `User` object.)
-         * </em>
+         * This method returns no data.
          */
         R["removeById"] = R["deleteById"];
 
@@ -1264,60 +1255,6 @@ module.factory(
           method: "PUT"
         },
 
-        // INTERNAL. Use Student.parents.findById() instead.
-        "prototype$__findById__parents": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/Students/:id/parents/:fk",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Student.parents.destroyById() instead.
-        "prototype$__destroyById__parents": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/Students/:id/parents/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Student.parents.updateById() instead.
-        "prototype$__updateById__parents": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/Students/:id/parents/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use Student.parents.link() instead.
-        "prototype$__link__parents": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/Students/:id/parents/rel/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use Student.parents.unlink() instead.
-        "prototype$__unlink__parents": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/Students/:id/parents/rel/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Student.parents.exists() instead.
-        "prototype$__exists__parents": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/Students/:id/parents/rel/:fk",
-          method: "HEAD"
-        },
-
         // INTERNAL. Use Student.school() instead.
         "prototype$__get__school": {
           url: urlBase + "/Students/:id/school",
@@ -1328,6 +1265,33 @@ module.factory(
         "prototype$__get__class": {
           url: urlBase + "/Students/:id/class",
           method: "GET"
+        },
+
+        // INTERNAL. Use Student.studentParents.findById() instead.
+        "prototype$__findById__studentParents": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Students/:id/studentParents/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Student.studentParents.destroyById() instead.
+        "prototype$__destroyById__studentParents": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Students/:id/studentParents/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Student.studentParents.updateById() instead.
+        "prototype$__updateById__studentParents": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Students/:id/studentParents/:fk",
+          method: "PUT"
         },
 
         /**
@@ -1467,28 +1431,28 @@ module.factory(
           method: "GET"
         },
 
-        // INTERNAL. Use Student.parents() instead.
-        "prototype$__get__parents": {
+        // INTERNAL. Use Student.studentParents() instead.
+        "prototype$__get__studentParents": {
           isArray: true,
-          url: urlBase + "/Students/:id/parents",
+          url: urlBase + "/Students/:id/studentParents",
           method: "GET"
         },
 
-        // INTERNAL. Use Student.parents.create() instead.
-        "prototype$__create__parents": {
-          url: urlBase + "/Students/:id/parents",
+        // INTERNAL. Use Student.studentParents.create() instead.
+        "prototype$__create__studentParents": {
+          url: urlBase + "/Students/:id/studentParents",
           method: "POST"
         },
 
-        // INTERNAL. Use Student.parents.destroyAll() instead.
-        "prototype$__delete__parents": {
-          url: urlBase + "/Students/:id/parents",
+        // INTERNAL. Use Student.studentParents.destroyAll() instead.
+        "prototype$__delete__studentParents": {
+          url: urlBase + "/Students/:id/studentParents",
           method: "DELETE"
         },
 
-        // INTERNAL. Use Student.parents.count() instead.
-        "prototype$__count__parents": {
-          url: urlBase + "/Students/:id/parents/count",
+        // INTERNAL. Use Student.studentParents.count() instead.
+        "prototype$__count__studentParents": {
+          url: urlBase + "/Students/:id/studentParents/count",
           method: "GET"
         },
 
@@ -1768,7 +1732,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * The number of instances updated
+         * This method returns no data.
          */
         "updateAll": {
           url: urlBase + "/Students/update",
@@ -1798,10 +1762,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Student` object.)
-         * </em>
+         * This method returns no data.
          */
         "deleteById": {
           url: urlBase + "/Students/:id",
@@ -2081,92 +2042,6 @@ module.factory(
           method: "POST"
         },
 
-        // INTERNAL. Use Parent.students.findById() instead.
-        "::findById::Parent::students": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/Parents/:id/students/:fk",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Parent.students.destroyById() instead.
-        "::destroyById::Parent::students": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/Parents/:id/students/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Parent.students.updateById() instead.
-        "::updateById::Parent::students": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/Parents/:id/students/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use Parent.students.link() instead.
-        "::link::Parent::students": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/Parents/:id/students/rel/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use Parent.students.unlink() instead.
-        "::unlink::Parent::students": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/Parents/:id/students/rel/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Parent.students.exists() instead.
-        "::exists::Parent::students": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/Parents/:id/students/rel/:fk",
-          method: "HEAD"
-        },
-
-        // INTERNAL. Use Parent.students() instead.
-        "::get::Parent::students": {
-          isArray: true,
-          url: urlBase + "/Parents/:id/students",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Parent.students.create() instead.
-        "::create::Parent::students": {
-          url: urlBase + "/Parents/:id/students",
-          method: "POST"
-        },
-
-        // INTERNAL. Use Parent.students.createMany() instead.
-        "::createMany::Parent::students": {
-          isArray: true,
-          url: urlBase + "/Parents/:id/students",
-          method: "POST"
-        },
-
-        // INTERNAL. Use Parent.students.destroyAll() instead.
-        "::delete::Parent::students": {
-          url: urlBase + "/Parents/:id/students",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Parent.students.count() instead.
-        "::count::Parent::students": {
-          url: urlBase + "/Parents/:id/students/count",
-          method: "GET"
-        },
-
         // INTERNAL. Use School.students.findById() instead.
         "::findById::School::students": {
           params: {
@@ -2285,6 +2160,12 @@ module.factory(
           method: "GET"
         },
 
+        // INTERNAL. Use StudentParent.student() instead.
+        "::get::StudentParent::student": {
+          url: urlBase + "/StudentParents/:id/student",
+          method: "GET"
+        },
+
         /**
          * @ngdoc method
          * @name lbServices.Student#getCurrent
@@ -2390,7 +2271,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * The number of instances updated
+         * This method returns no data.
          */
         R["update"] = R["updateAll"];
 
@@ -2417,10 +2298,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Student` object.)
-         * </em>
+         * This method returns no data.
          */
         R["destroyById"] = R["deleteById"];
 
@@ -2447,10 +2325,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Student` object.)
-         * </em>
+         * This method returns no data.
          */
         R["removeById"] = R["deleteById"];
 
@@ -2506,416 +2381,6 @@ module.factory(
     */
     R.modelName = "Student";
 
-    /**
-     * @ngdoc object
-     * @name lbServices.Student.parents
-     * @header lbServices.Student.parents
-     * @object
-     * @description
-     *
-     * The object `Student.parents` groups methods
-     * manipulating `Parent` instances related to `Student`.
-     *
-     * Call {@link lbServices.Student#parents Student.parents()}
-     * to query all related instances.
-     */
-
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Student#parents
-         * @methodOf lbServices.Student
-         *
-         * @description
-         *
-         * Queries parents of Student.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - User id
-         *
-         *  - `filter` – `{object=}` - 
-         *
-         * @param {function(Array.<Object>,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Array.<Object>} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Parent` object.)
-         * </em>
-         */
-        R.parents = function() {
-          var TargetResource = $injector.get("Parent");
-          var action = TargetResource["::get::Student::parents"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Student.parents#count
-         * @methodOf lbServices.Student.parents
-         *
-         * @description
-         *
-         * Counts parents of Student.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - User id
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `count` – `{number=}` - 
-         */
-        R.parents.count = function() {
-          var TargetResource = $injector.get("Parent");
-          var action = TargetResource["::count::Student::parents"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Student.parents#create
-         * @methodOf lbServices.Student.parents
-         *
-         * @description
-         *
-         * Creates a new instance in parents of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - User id
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Parent` object.)
-         * </em>
-         */
-        R.parents.create = function() {
-          var TargetResource = $injector.get("Parent");
-          var action = TargetResource["::create::Student::parents"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Student.parents#createMany
-         * @methodOf lbServices.Student.parents
-         *
-         * @description
-         *
-         * Creates a new instance in parents of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - User id
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Array.<Object>,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Array.<Object>} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Parent` object.)
-         * </em>
-         */
-        R.parents.createMany = function() {
-          var TargetResource = $injector.get("Parent");
-          var action = TargetResource["::createMany::Student::parents"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Student.parents#destroyAll
-         * @methodOf lbServices.Student.parents
-         *
-         * @description
-         *
-         * Deletes all parents of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - User id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R.parents.destroyAll = function() {
-          var TargetResource = $injector.get("Parent");
-          var action = TargetResource["::delete::Student::parents"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Student.parents#destroyById
-         * @methodOf lbServices.Student.parents
-         *
-         * @description
-         *
-         * Delete a related item by id for parents.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - User id
-         *
-         *  - `fk` – `{*}` - Foreign key for parents
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R.parents.destroyById = function() {
-          var TargetResource = $injector.get("Parent");
-          var action = TargetResource["::destroyById::Student::parents"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Student.parents#exists
-         * @methodOf lbServices.Student.parents
-         *
-         * @description
-         *
-         * Check the existence of parents relation to an item by id.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - User id
-         *
-         *  - `fk` – `{*}` - Foreign key for parents
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Parent` object.)
-         * </em>
-         */
-        R.parents.exists = function() {
-          var TargetResource = $injector.get("Parent");
-          var action = TargetResource["::exists::Student::parents"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Student.parents#findById
-         * @methodOf lbServices.Student.parents
-         *
-         * @description
-         *
-         * Find a related item by id for parents.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - User id
-         *
-         *  - `fk` – `{*}` - Foreign key for parents
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Parent` object.)
-         * </em>
-         */
-        R.parents.findById = function() {
-          var TargetResource = $injector.get("Parent");
-          var action = TargetResource["::findById::Student::parents"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Student.parents#link
-         * @methodOf lbServices.Student.parents
-         *
-         * @description
-         *
-         * Add a related item by id for parents.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - User id
-         *
-         *  - `fk` – `{*}` - Foreign key for parents
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Parent` object.)
-         * </em>
-         */
-        R.parents.link = function() {
-          var TargetResource = $injector.get("Parent");
-          var action = TargetResource["::link::Student::parents"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Student.parents#unlink
-         * @methodOf lbServices.Student.parents
-         *
-         * @description
-         *
-         * Remove the parents relation to an item by id.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - User id
-         *
-         *  - `fk` – `{*}` - Foreign key for parents
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R.parents.unlink = function() {
-          var TargetResource = $injector.get("Parent");
-          var action = TargetResource["::unlink::Student::parents"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Student.parents#updateById
-         * @methodOf lbServices.Student.parents
-         *
-         * @description
-         *
-         * Update a related item by id for parents.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - User id
-         *
-         *  - `fk` – `{*}` - Foreign key for parents
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Parent` object.)
-         * </em>
-         */
-        R.parents.updateById = function() {
-          var TargetResource = $injector.get("Parent");
-          var action = TargetResource["::updateById::Student::parents"];
-          return action.apply(R, arguments);
-        };
 
         /**
          * @ngdoc method
@@ -2986,6 +2451,307 @@ module.factory(
         R.class = function() {
           var TargetResource = $injector.get("Class");
           var action = TargetResource["::get::Student::class"];
+          return action.apply(R, arguments);
+        };
+    /**
+     * @ngdoc object
+     * @name lbServices.Student.studentParents
+     * @header lbServices.Student.studentParents
+     * @object
+     * @description
+     *
+     * The object `Student.studentParents` groups methods
+     * manipulating `StudentParent` instances related to `Student`.
+     *
+     * Call {@link lbServices.Student#studentParents Student.studentParents()}
+     * to query all related instances.
+     */
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Student#studentParents
+         * @methodOf lbServices.Student
+         *
+         * @description
+         *
+         * Queries studentParents of Student.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - User id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `StudentParent` object.)
+         * </em>
+         */
+        R.studentParents = function() {
+          var TargetResource = $injector.get("StudentParent");
+          var action = TargetResource["::get::Student::studentParents"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Student.studentParents#count
+         * @methodOf lbServices.Student.studentParents
+         *
+         * @description
+         *
+         * Counts studentParents of Student.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - User id
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        R.studentParents.count = function() {
+          var TargetResource = $injector.get("StudentParent");
+          var action = TargetResource["::count::Student::studentParents"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Student.studentParents#create
+         * @methodOf lbServices.Student.studentParents
+         *
+         * @description
+         *
+         * Creates a new instance in studentParents of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - User id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `StudentParent` object.)
+         * </em>
+         */
+        R.studentParents.create = function() {
+          var TargetResource = $injector.get("StudentParent");
+          var action = TargetResource["::create::Student::studentParents"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Student.studentParents#createMany
+         * @methodOf lbServices.Student.studentParents
+         *
+         * @description
+         *
+         * Creates a new instance in studentParents of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - User id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `StudentParent` object.)
+         * </em>
+         */
+        R.studentParents.createMany = function() {
+          var TargetResource = $injector.get("StudentParent");
+          var action = TargetResource["::createMany::Student::studentParents"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Student.studentParents#destroyAll
+         * @methodOf lbServices.Student.studentParents
+         *
+         * @description
+         *
+         * Deletes all studentParents of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - User id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.studentParents.destroyAll = function() {
+          var TargetResource = $injector.get("StudentParent");
+          var action = TargetResource["::delete::Student::studentParents"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Student.studentParents#destroyById
+         * @methodOf lbServices.Student.studentParents
+         *
+         * @description
+         *
+         * Delete a related item by id for studentParents.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - User id
+         *
+         *  - `fk` – `{*}` - Foreign key for studentParents
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.studentParents.destroyById = function() {
+          var TargetResource = $injector.get("StudentParent");
+          var action = TargetResource["::destroyById::Student::studentParents"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Student.studentParents#findById
+         * @methodOf lbServices.Student.studentParents
+         *
+         * @description
+         *
+         * Find a related item by id for studentParents.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - User id
+         *
+         *  - `fk` – `{*}` - Foreign key for studentParents
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `StudentParent` object.)
+         * </em>
+         */
+        R.studentParents.findById = function() {
+          var TargetResource = $injector.get("StudentParent");
+          var action = TargetResource["::findById::Student::studentParents"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Student.studentParents#updateById
+         * @methodOf lbServices.Student.studentParents
+         *
+         * @description
+         *
+         * Update a related item by id for studentParents.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - User id
+         *
+         *  - `fk` – `{*}` - Foreign key for studentParents
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `StudentParent` object.)
+         * </em>
+         */
+        R.studentParents.updateById = function() {
+          var TargetResource = $injector.get("StudentParent");
+          var action = TargetResource["::updateById::Student::studentParents"];
           return action.apply(R, arguments);
         };
 
@@ -3557,7 +3323,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * The number of instances updated
+         * This method returns no data.
          */
         "updateAll": {
           url: urlBase + "/Staffs/update",
@@ -3587,10 +3353,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Staff` object.)
-         * </em>
+         * This method returns no data.
          */
         "deleteById": {
           url: urlBase + "/Staffs/:id",
@@ -4046,7 +3809,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * The number of instances updated
+         * This method returns no data.
          */
         R["update"] = R["updateAll"];
 
@@ -4073,10 +3836,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Staff` object.)
-         * </em>
+         * This method returns no data.
          */
         R["destroyById"] = R["deleteById"];
 
@@ -4103,10 +3863,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Staff` object.)
-         * </em>
+         * This method returns no data.
          */
         R["removeById"] = R["deleteById"];
 
@@ -4378,58 +4135,31 @@ module.factory(
           method: "PUT"
         },
 
-        // INTERNAL. Use Parent.students.findById() instead.
-        "prototype$__findById__students": {
+        // INTERNAL. Use Parent.studentParents.findById() instead.
+        "prototype$__findById__studentParents": {
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/Parents/:id/students/:fk",
+          url: urlBase + "/Parents/:id/studentParents/:fk",
           method: "GET"
         },
 
-        // INTERNAL. Use Parent.students.destroyById() instead.
-        "prototype$__destroyById__students": {
+        // INTERNAL. Use Parent.studentParents.destroyById() instead.
+        "prototype$__destroyById__studentParents": {
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/Parents/:id/students/:fk",
+          url: urlBase + "/Parents/:id/studentParents/:fk",
           method: "DELETE"
         },
 
-        // INTERNAL. Use Parent.students.updateById() instead.
-        "prototype$__updateById__students": {
+        // INTERNAL. Use Parent.studentParents.updateById() instead.
+        "prototype$__updateById__studentParents": {
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/Parents/:id/students/:fk",
+          url: urlBase + "/Parents/:id/studentParents/:fk",
           method: "PUT"
-        },
-
-        // INTERNAL. Use Parent.students.link() instead.
-        "prototype$__link__students": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/Parents/:id/students/rel/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use Parent.students.unlink() instead.
-        "prototype$__unlink__students": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/Parents/:id/students/rel/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Parent.students.exists() instead.
-        "prototype$__exists__students": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/Parents/:id/students/rel/:fk",
-          method: "HEAD"
         },
 
         /**
@@ -4569,28 +4299,28 @@ module.factory(
           method: "GET"
         },
 
-        // INTERNAL. Use Parent.students() instead.
-        "prototype$__get__students": {
+        // INTERNAL. Use Parent.studentParents() instead.
+        "prototype$__get__studentParents": {
           isArray: true,
-          url: urlBase + "/Parents/:id/students",
+          url: urlBase + "/Parents/:id/studentParents",
           method: "GET"
         },
 
-        // INTERNAL. Use Parent.students.create() instead.
-        "prototype$__create__students": {
-          url: urlBase + "/Parents/:id/students",
+        // INTERNAL. Use Parent.studentParents.create() instead.
+        "prototype$__create__studentParents": {
+          url: urlBase + "/Parents/:id/studentParents",
           method: "POST"
         },
 
-        // INTERNAL. Use Parent.students.destroyAll() instead.
-        "prototype$__delete__students": {
-          url: urlBase + "/Parents/:id/students",
+        // INTERNAL. Use Parent.studentParents.destroyAll() instead.
+        "prototype$__delete__studentParents": {
+          url: urlBase + "/Parents/:id/studentParents",
           method: "DELETE"
         },
 
-        // INTERNAL. Use Parent.students.count() instead.
-        "prototype$__count__students": {
-          url: urlBase + "/Parents/:id/students/count",
+        // INTERNAL. Use Parent.studentParents.count() instead.
+        "prototype$__count__studentParents": {
+          url: urlBase + "/Parents/:id/studentParents/count",
           method: "GET"
         },
 
@@ -4870,7 +4600,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * The number of instances updated
+         * This method returns no data.
          */
         "updateAll": {
           url: urlBase + "/Parents/update",
@@ -4900,10 +4630,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Parent` object.)
-         * </em>
+         * This method returns no data.
          */
         "deleteById": {
           url: urlBase + "/Parents/:id",
@@ -5183,89 +4910,9 @@ module.factory(
           method: "POST"
         },
 
-        // INTERNAL. Use Student.parents.findById() instead.
-        "::findById::Student::parents": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/Students/:id/parents/:fk",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Student.parents.destroyById() instead.
-        "::destroyById::Student::parents": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/Students/:id/parents/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Student.parents.updateById() instead.
-        "::updateById::Student::parents": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/Students/:id/parents/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use Student.parents.link() instead.
-        "::link::Student::parents": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/Students/:id/parents/rel/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use Student.parents.unlink() instead.
-        "::unlink::Student::parents": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/Students/:id/parents/rel/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Student.parents.exists() instead.
-        "::exists::Student::parents": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/Students/:id/parents/rel/:fk",
-          method: "HEAD"
-        },
-
-        // INTERNAL. Use Student.parents() instead.
-        "::get::Student::parents": {
-          isArray: true,
-          url: urlBase + "/Students/:id/parents",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Student.parents.create() instead.
-        "::create::Student::parents": {
-          url: urlBase + "/Students/:id/parents",
-          method: "POST"
-        },
-
-        // INTERNAL. Use Student.parents.createMany() instead.
-        "::createMany::Student::parents": {
-          isArray: true,
-          url: urlBase + "/Students/:id/parents",
-          method: "POST"
-        },
-
-        // INTERNAL. Use Student.parents.destroyAll() instead.
-        "::delete::Student::parents": {
-          url: urlBase + "/Students/:id/parents",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Student.parents.count() instead.
-        "::count::Student::parents": {
-          url: urlBase + "/Students/:id/parents/count",
+        // INTERNAL. Use StudentParent.parent() instead.
+        "::get::StudentParent::parent": {
+          url: urlBase + "/StudentParents/:id/parent",
           method: "GET"
         },
 
@@ -5374,7 +5021,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * The number of instances updated
+         * This method returns no data.
          */
         R["update"] = R["updateAll"];
 
@@ -5401,10 +5048,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Parent` object.)
-         * </em>
+         * This method returns no data.
          */
         R["destroyById"] = R["deleteById"];
 
@@ -5431,10 +5075,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Parent` object.)
-         * </em>
+         * This method returns no data.
          */
         R["removeById"] = R["deleteById"];
 
@@ -5492,27 +5133,27 @@ module.factory(
 
     /**
      * @ngdoc object
-     * @name lbServices.Parent.students
-     * @header lbServices.Parent.students
+     * @name lbServices.Parent.studentParents
+     * @header lbServices.Parent.studentParents
      * @object
      * @description
      *
-     * The object `Parent.students` groups methods
-     * manipulating `Student` instances related to `Parent`.
+     * The object `Parent.studentParents` groups methods
+     * manipulating `StudentParent` instances related to `Parent`.
      *
-     * Call {@link lbServices.Parent#students Parent.students()}
+     * Call {@link lbServices.Parent#studentParents Parent.studentParents()}
      * to query all related instances.
      */
 
 
         /**
          * @ngdoc method
-         * @name lbServices.Parent#students
+         * @name lbServices.Parent#studentParents
          * @methodOf lbServices.Parent
          *
          * @description
          *
-         * Queries students of Parent.
+         * Queries studentParents of Parent.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -5532,23 +5173,23 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Student` object.)
+         * This usually means the response is a `StudentParent` object.)
          * </em>
          */
-        R.students = function() {
-          var TargetResource = $injector.get("Student");
-          var action = TargetResource["::get::Parent::students"];
+        R.studentParents = function() {
+          var TargetResource = $injector.get("StudentParent");
+          var action = TargetResource["::get::Parent::studentParents"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.Parent.students#count
-         * @methodOf lbServices.Parent.students
+         * @name lbServices.Parent.studentParents#count
+         * @methodOf lbServices.Parent.studentParents
          *
          * @description
          *
-         * Counts students of Parent.
+         * Counts studentParents of Parent.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -5570,20 +5211,20 @@ module.factory(
          *
          *  - `count` – `{number=}` - 
          */
-        R.students.count = function() {
-          var TargetResource = $injector.get("Student");
-          var action = TargetResource["::count::Parent::students"];
+        R.studentParents.count = function() {
+          var TargetResource = $injector.get("StudentParent");
+          var action = TargetResource["::count::Parent::studentParents"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.Parent.students#create
-         * @methodOf lbServices.Parent.students
+         * @name lbServices.Parent.studentParents#create
+         * @methodOf lbServices.Parent.studentParents
          *
          * @description
          *
-         * Creates a new instance in students of this model.
+         * Creates a new instance in studentParents of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -5605,23 +5246,23 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Student` object.)
+         * This usually means the response is a `StudentParent` object.)
          * </em>
          */
-        R.students.create = function() {
-          var TargetResource = $injector.get("Student");
-          var action = TargetResource["::create::Parent::students"];
+        R.studentParents.create = function() {
+          var TargetResource = $injector.get("StudentParent");
+          var action = TargetResource["::create::Parent::studentParents"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.Parent.students#createMany
-         * @methodOf lbServices.Parent.students
+         * @name lbServices.Parent.studentParents#createMany
+         * @methodOf lbServices.Parent.studentParents
          *
          * @description
          *
-         * Creates a new instance in students of this model.
+         * Creates a new instance in studentParents of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -5643,23 +5284,23 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Student` object.)
+         * This usually means the response is a `StudentParent` object.)
          * </em>
          */
-        R.students.createMany = function() {
-          var TargetResource = $injector.get("Student");
-          var action = TargetResource["::createMany::Parent::students"];
+        R.studentParents.createMany = function() {
+          var TargetResource = $injector.get("StudentParent");
+          var action = TargetResource["::createMany::Parent::studentParents"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.Parent.students#destroyAll
-         * @methodOf lbServices.Parent.students
+         * @name lbServices.Parent.studentParents#destroyAll
+         * @methodOf lbServices.Parent.studentParents
          *
          * @description
          *
-         * Deletes all students of this model.
+         * Deletes all studentParents of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -5677,26 +5318,26 @@ module.factory(
          *
          * This method returns no data.
          */
-        R.students.destroyAll = function() {
-          var TargetResource = $injector.get("Student");
-          var action = TargetResource["::delete::Parent::students"];
+        R.studentParents.destroyAll = function() {
+          var TargetResource = $injector.get("StudentParent");
+          var action = TargetResource["::delete::Parent::studentParents"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.Parent.students#destroyById
-         * @methodOf lbServices.Parent.students
+         * @name lbServices.Parent.studentParents#destroyById
+         * @methodOf lbServices.Parent.studentParents
          *
          * @description
          *
-         * Delete a related item by id for students.
+         * Delete a related item by id for studentParents.
          *
          * @param {Object=} parameters Request parameters.
          *
          *  - `id` – `{*}` - User id
          *
-         *  - `fk` – `{*}` - Foreign key for students
+         *  - `fk` – `{*}` - Foreign key for studentParents
          *
          * @param {function(Object,Object)=} successCb
          *   Success callback with two arguments: `value`, `responseHeaders`.
@@ -5710,26 +5351,26 @@ module.factory(
          *
          * This method returns no data.
          */
-        R.students.destroyById = function() {
-          var TargetResource = $injector.get("Student");
-          var action = TargetResource["::destroyById::Parent::students"];
+        R.studentParents.destroyById = function() {
+          var TargetResource = $injector.get("StudentParent");
+          var action = TargetResource["::destroyById::Parent::studentParents"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.Parent.students#exists
-         * @methodOf lbServices.Parent.students
+         * @name lbServices.Parent.studentParents#findById
+         * @methodOf lbServices.Parent.studentParents
          *
          * @description
          *
-         * Check the existence of students relation to an item by id.
+         * Find a related item by id for studentParents.
          *
          * @param {Object=} parameters Request parameters.
          *
          *  - `id` – `{*}` - User id
          *
-         *  - `fk` – `{*}` - Foreign key for students
+         *  - `fk` – `{*}` - Foreign key for studentParents
          *
          * @param {function(Object,Object)=} successCb
          *   Success callback with two arguments: `value`, `responseHeaders`.
@@ -5743,65 +5384,29 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Student` object.)
+         * This usually means the response is a `StudentParent` object.)
          * </em>
          */
-        R.students.exists = function() {
-          var TargetResource = $injector.get("Student");
-          var action = TargetResource["::exists::Parent::students"];
+        R.studentParents.findById = function() {
+          var TargetResource = $injector.get("StudentParent");
+          var action = TargetResource["::findById::Parent::studentParents"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.Parent.students#findById
-         * @methodOf lbServices.Parent.students
+         * @name lbServices.Parent.studentParents#updateById
+         * @methodOf lbServices.Parent.studentParents
          *
          * @description
          *
-         * Find a related item by id for students.
+         * Update a related item by id for studentParents.
          *
          * @param {Object=} parameters Request parameters.
          *
          *  - `id` – `{*}` - User id
          *
-         *  - `fk` – `{*}` - Foreign key for students
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Student` object.)
-         * </em>
-         */
-        R.students.findById = function() {
-          var TargetResource = $injector.get("Student");
-          var action = TargetResource["::findById::Parent::students"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Parent.students#link
-         * @methodOf lbServices.Parent.students
-         *
-         * @description
-         *
-         * Add a related item by id for students.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - User id
-         *
-         *  - `fk` – `{*}` - Foreign key for students
+         *  - `fk` – `{*}` - Foreign key for studentParents
          *
          * @param {Object} postData Request data.
          *
@@ -5819,85 +5424,12 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Student` object.)
+         * This usually means the response is a `StudentParent` object.)
          * </em>
          */
-        R.students.link = function() {
-          var TargetResource = $injector.get("Student");
-          var action = TargetResource["::link::Parent::students"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Parent.students#unlink
-         * @methodOf lbServices.Parent.students
-         *
-         * @description
-         *
-         * Remove the students relation to an item by id.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - User id
-         *
-         *  - `fk` – `{*}` - Foreign key for students
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R.students.unlink = function() {
-          var TargetResource = $injector.get("Student");
-          var action = TargetResource["::unlink::Parent::students"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Parent.students#updateById
-         * @methodOf lbServices.Parent.students
-         *
-         * @description
-         *
-         * Update a related item by id for students.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - User id
-         *
-         *  - `fk` – `{*}` - Foreign key for students
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Student` object.)
-         * </em>
-         */
-        R.students.updateById = function() {
-          var TargetResource = $injector.get("Student");
-          var action = TargetResource["::updateById::Parent::students"];
+        R.studentParents.updateById = function() {
+          var TargetResource = $injector.get("StudentParent");
+          var action = TargetResource["::updateById::Parent::studentParents"];
           return action.apply(R, arguments);
         };
 
@@ -6034,6 +5566,33 @@ module.factory(
           method: "DELETE"
         },
 
+        // INTERNAL. Use School.libraries.findById() instead.
+        "prototype$__findById__libraries": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Schools/:id/libraries/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use School.libraries.destroyById() instead.
+        "prototype$__destroyById__libraries": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Schools/:id/libraries/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use School.libraries.updateById() instead.
+        "prototype$__updateById__libraries": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Schools/:id/libraries/:fk",
+          method: "PUT"
+        },
+
         // INTERNAL. Use School.staffs() instead.
         "prototype$__get__staffs": {
           isArray: true,
@@ -6106,6 +5665,31 @@ module.factory(
         // INTERNAL. Use School.classes.count() instead.
         "prototype$__count__classes": {
           url: urlBase + "/Schools/:id/classes/count",
+          method: "GET"
+        },
+
+        // INTERNAL. Use School.libraries() instead.
+        "prototype$__get__libraries": {
+          isArray: true,
+          url: urlBase + "/Schools/:id/libraries",
+          method: "GET"
+        },
+
+        // INTERNAL. Use School.libraries.create() instead.
+        "prototype$__create__libraries": {
+          url: urlBase + "/Schools/:id/libraries",
+          method: "POST"
+        },
+
+        // INTERNAL. Use School.libraries.destroyAll() instead.
+        "prototype$__delete__libraries": {
+          url: urlBase + "/Schools/:id/libraries",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use School.libraries.count() instead.
+        "prototype$__count__libraries": {
+          url: urlBase + "/Schools/:id/libraries/count",
           method: "GET"
         },
 
@@ -6385,7 +5969,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * The number of instances updated
+         * This method returns no data.
          */
         "updateAll": {
           url: urlBase + "/Schools/update",
@@ -6415,10 +5999,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `School` object.)
-         * </em>
+         * This method returns no data.
          */
         "deleteById": {
           url: urlBase + "/Schools/:id",
@@ -6572,6 +6153,12 @@ module.factory(
           url: urlBase + "/Noticeboards/:id/school",
           method: "GET"
         },
+
+        // INTERNAL. Use Library.school() instead.
+        "::get::Library::school": {
+          url: urlBase + "/Libraries/:id/school",
+          method: "GET"
+        },
       }
     );
 
@@ -6639,7 +6226,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * The number of instances updated
+         * This method returns no data.
          */
         R["update"] = R["updateAll"];
 
@@ -6666,10 +6253,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `School` object.)
-         * </em>
+         * This method returns no data.
          */
         R["destroyById"] = R["deleteById"];
 
@@ -6696,10 +6280,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `School` object.)
-         * </em>
+         * This method returns no data.
          */
         R["removeById"] = R["deleteById"];
 
@@ -7812,6 +7393,307 @@ module.factory(
           var action = TargetResource["::update::School::timetables"];
           return action.apply(R, arguments);
         };
+    /**
+     * @ngdoc object
+     * @name lbServices.School.libraries
+     * @header lbServices.School.libraries
+     * @object
+     * @description
+     *
+     * The object `School.libraries` groups methods
+     * manipulating `Library` instances related to `School`.
+     *
+     * Call {@link lbServices.School#libraries School.libraries()}
+     * to query all related instances.
+     */
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School#libraries
+         * @methodOf lbServices.School
+         *
+         * @description
+         *
+         * Queries libraries of School.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Library` object.)
+         * </em>
+         */
+        R.libraries = function() {
+          var TargetResource = $injector.get("Library");
+          var action = TargetResource["::get::School::libraries"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School.libraries#count
+         * @methodOf lbServices.School.libraries
+         *
+         * @description
+         *
+         * Counts libraries of School.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        R.libraries.count = function() {
+          var TargetResource = $injector.get("Library");
+          var action = TargetResource["::count::School::libraries"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School.libraries#create
+         * @methodOf lbServices.School.libraries
+         *
+         * @description
+         *
+         * Creates a new instance in libraries of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Library` object.)
+         * </em>
+         */
+        R.libraries.create = function() {
+          var TargetResource = $injector.get("Library");
+          var action = TargetResource["::create::School::libraries"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School.libraries#createMany
+         * @methodOf lbServices.School.libraries
+         *
+         * @description
+         *
+         * Creates a new instance in libraries of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Library` object.)
+         * </em>
+         */
+        R.libraries.createMany = function() {
+          var TargetResource = $injector.get("Library");
+          var action = TargetResource["::createMany::School::libraries"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School.libraries#destroyAll
+         * @methodOf lbServices.School.libraries
+         *
+         * @description
+         *
+         * Deletes all libraries of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.libraries.destroyAll = function() {
+          var TargetResource = $injector.get("Library");
+          var action = TargetResource["::delete::School::libraries"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School.libraries#destroyById
+         * @methodOf lbServices.School.libraries
+         *
+         * @description
+         *
+         * Delete a related item by id for libraries.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for libraries
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.libraries.destroyById = function() {
+          var TargetResource = $injector.get("Library");
+          var action = TargetResource["::destroyById::School::libraries"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School.libraries#findById
+         * @methodOf lbServices.School.libraries
+         *
+         * @description
+         *
+         * Find a related item by id for libraries.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for libraries
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Library` object.)
+         * </em>
+         */
+        R.libraries.findById = function() {
+          var TargetResource = $injector.get("Library");
+          var action = TargetResource["::findById::School::libraries"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School.libraries#updateById
+         * @methodOf lbServices.School.libraries
+         *
+         * @description
+         *
+         * Update a related item by id for libraries.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for libraries
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Library` object.)
+         * </em>
+         */
+        R.libraries.updateById = function() {
+          var TargetResource = $injector.get("Library");
+          var action = TargetResource["::updateById::School::libraries"];
+          return action.apply(R, arguments);
+        };
 
     return R;
   }]);
@@ -7880,6 +7762,33 @@ module.factory(
           method: "GET"
         },
 
+        // INTERNAL. Use Class.assignments.findById() instead.
+        "prototype$__findById__assignments": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/assignments/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Class.assignments.destroyById() instead.
+        "prototype$__destroyById__assignments": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/assignments/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Class.assignments.updateById() instead.
+        "prototype$__updateById__assignments": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/assignments/:fk",
+          method: "PUT"
+        },
+
         // INTERNAL. Use Class.students() instead.
         "prototype$__get__students": {
           isArray: true,
@@ -7902,6 +7811,31 @@ module.factory(
         // INTERNAL. Use Class.students.count() instead.
         "prototype$__count__students": {
           url: urlBase + "/Classes/:id/students/count",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Class.assignments() instead.
+        "prototype$__get__assignments": {
+          isArray: true,
+          url: urlBase + "/Classes/:id/assignments",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Class.assignments.create() instead.
+        "prototype$__create__assignments": {
+          url: urlBase + "/Classes/:id/assignments",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Class.assignments.destroyAll() instead.
+        "prototype$__delete__assignments": {
+          url: urlBase + "/Classes/:id/assignments",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Class.assignments.count() instead.
+        "prototype$__count__assignments": {
+          url: urlBase + "/Classes/:id/assignments/count",
           method: "GET"
         },
 
@@ -8181,7 +8115,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * The number of instances updated
+         * This method returns no data.
          */
         "updateAll": {
           url: urlBase + "/Classes/update",
@@ -8211,10 +8145,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Class` object.)
-         * </em>
+         * This method returns no data.
          */
         "deleteById": {
           url: urlBase + "/Classes/:id",
@@ -8397,6 +8328,12 @@ module.factory(
           url: urlBase + "/Subjects/:id/class",
           method: "GET"
         },
+
+        // INTERNAL. Use Assignment.class() instead.
+        "::get::Assignment::class": {
+          url: urlBase + "/Assignments/:id/class",
+          method: "GET"
+        },
       }
     );
 
@@ -8464,7 +8401,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * The number of instances updated
+         * This method returns no data.
          */
         R["update"] = R["updateAll"];
 
@@ -8491,10 +8428,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Class` object.)
-         * </em>
+         * This method returns no data.
          */
         R["destroyById"] = R["deleteById"];
 
@@ -8521,10 +8455,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Class` object.)
-         * </em>
+         * This method returns no data.
          */
         R["removeById"] = R["deleteById"];
 
@@ -8910,6 +8841,307 @@ module.factory(
         R.staff = function() {
           var TargetResource = $injector.get("Staff");
           var action = TargetResource["::get::Class::staff"];
+          return action.apply(R, arguments);
+        };
+    /**
+     * @ngdoc object
+     * @name lbServices.Class.assignments
+     * @header lbServices.Class.assignments
+     * @object
+     * @description
+     *
+     * The object `Class.assignments` groups methods
+     * manipulating `Assignment` instances related to `Class`.
+     *
+     * Call {@link lbServices.Class#assignments Class.assignments()}
+     * to query all related instances.
+     */
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class#assignments
+         * @methodOf lbServices.Class
+         *
+         * @description
+         *
+         * Queries assignments of Class.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Assignment` object.)
+         * </em>
+         */
+        R.assignments = function() {
+          var TargetResource = $injector.get("Assignment");
+          var action = TargetResource["::get::Class::assignments"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.assignments#count
+         * @methodOf lbServices.Class.assignments
+         *
+         * @description
+         *
+         * Counts assignments of Class.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        R.assignments.count = function() {
+          var TargetResource = $injector.get("Assignment");
+          var action = TargetResource["::count::Class::assignments"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.assignments#create
+         * @methodOf lbServices.Class.assignments
+         *
+         * @description
+         *
+         * Creates a new instance in assignments of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Assignment` object.)
+         * </em>
+         */
+        R.assignments.create = function() {
+          var TargetResource = $injector.get("Assignment");
+          var action = TargetResource["::create::Class::assignments"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.assignments#createMany
+         * @methodOf lbServices.Class.assignments
+         *
+         * @description
+         *
+         * Creates a new instance in assignments of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Assignment` object.)
+         * </em>
+         */
+        R.assignments.createMany = function() {
+          var TargetResource = $injector.get("Assignment");
+          var action = TargetResource["::createMany::Class::assignments"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.assignments#destroyAll
+         * @methodOf lbServices.Class.assignments
+         *
+         * @description
+         *
+         * Deletes all assignments of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.assignments.destroyAll = function() {
+          var TargetResource = $injector.get("Assignment");
+          var action = TargetResource["::delete::Class::assignments"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.assignments#destroyById
+         * @methodOf lbServices.Class.assignments
+         *
+         * @description
+         *
+         * Delete a related item by id for assignments.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for assignments
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.assignments.destroyById = function() {
+          var TargetResource = $injector.get("Assignment");
+          var action = TargetResource["::destroyById::Class::assignments"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.assignments#findById
+         * @methodOf lbServices.Class.assignments
+         *
+         * @description
+         *
+         * Find a related item by id for assignments.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for assignments
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Assignment` object.)
+         * </em>
+         */
+        R.assignments.findById = function() {
+          var TargetResource = $injector.get("Assignment");
+          var action = TargetResource["::findById::Class::assignments"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.assignments#updateById
+         * @methodOf lbServices.Class.assignments
+         *
+         * @description
+         *
+         * Update a related item by id for assignments.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for assignments
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Assignment` object.)
+         * </em>
+         */
+        R.assignments.updateById = function() {
+          var TargetResource = $injector.get("Assignment");
+          var action = TargetResource["::updateById::Class::assignments"];
           return action.apply(R, arguments);
         };
 
@@ -9475,7 +9707,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * The number of instances updated
+         * This method returns no data.
          */
         "updateAll": {
           url: urlBase + "/Admins/update",
@@ -9505,10 +9737,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Admin` object.)
-         * </em>
+         * This method returns no data.
          */
         "deleteById": {
           url: urlBase + "/Admins/:id",
@@ -9893,7 +10122,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * The number of instances updated
+         * This method returns no data.
          */
         R["update"] = R["updateAll"];
 
@@ -9920,10 +10149,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Admin` object.)
-         * </em>
+         * This method returns no data.
          */
         R["destroyById"] = R["deleteById"];
 
@@ -9950,10 +10176,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Admin` object.)
-         * </em>
+         * This method returns no data.
          */
         R["removeById"] = R["deleteById"];
 
@@ -10368,7 +10591,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * The number of instances updated
+         * This method returns no data.
          */
         "updateAll": {
           url: urlBase + "/Subjects/update",
@@ -10398,10 +10621,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Subject` object.)
-         * </em>
+         * This method returns no data.
          */
         "deleteById": {
           url: urlBase + "/Subjects/:id",
@@ -10586,7 +10806,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * The number of instances updated
+         * This method returns no data.
          */
         R["update"] = R["updateAll"];
 
@@ -10613,10 +10833,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Subject` object.)
-         * </em>
+         * This method returns no data.
          */
         R["destroyById"] = R["deleteById"];
 
@@ -10643,10 +10860,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Subject` object.)
-         * </em>
+         * This method returns no data.
          */
         R["removeById"] = R["deleteById"];
 
@@ -11074,7 +11288,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * The number of instances updated
+         * This method returns no data.
          */
         "updateAll": {
           url: urlBase + "/Buses/update",
@@ -11104,10 +11318,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Bus` object.)
-         * </em>
+         * This method returns no data.
          */
         "deleteById": {
           url: urlBase + "/Buses/:id",
@@ -11286,7 +11497,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * The number of instances updated
+         * This method returns no data.
          */
         R["update"] = R["updateAll"];
 
@@ -11313,10 +11524,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Bus` object.)
-         * </em>
+         * This method returns no data.
          */
         R["destroyById"] = R["deleteById"];
 
@@ -11343,10 +11551,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Bus` object.)
-         * </em>
+         * This method returns no data.
          */
         R["removeById"] = R["deleteById"];
 
@@ -11666,7 +11871,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * The number of instances updated
+         * This method returns no data.
          */
         "updateAll": {
           url: urlBase + "/FeeTypes/update",
@@ -11696,10 +11901,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `FeeType` object.)
-         * </em>
+         * This method returns no data.
          */
         "deleteById": {
           url: urlBase + "/FeeTypes/:id",
@@ -11878,7 +12080,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * The number of instances updated
+         * This method returns no data.
          */
         R["update"] = R["updateAll"];
 
@@ -11905,10 +12107,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `FeeType` object.)
-         * </em>
+         * This method returns no data.
          */
         R["destroyById"] = R["deleteById"];
 
@@ -11935,10 +12134,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `FeeType` object.)
-         * </em>
+         * This method returns no data.
          */
         R["removeById"] = R["deleteById"];
 
@@ -12316,7 +12512,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * The number of instances updated
+         * This method returns no data.
          */
         "updateAll": {
           url: urlBase + "/Timetables/update",
@@ -12346,10 +12542,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Timetable` object.)
-         * </em>
+         * This method returns no data.
          */
         "deleteById": {
           url: urlBase + "/Timetables/:id",
@@ -12565,7 +12758,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * The number of instances updated
+         * This method returns no data.
          */
         R["update"] = R["updateAll"];
 
@@ -12592,10 +12785,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Timetable` object.)
-         * </em>
+         * This method returns no data.
          */
         R["destroyById"] = R["deleteById"];
 
@@ -12622,10 +12812,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Timetable` object.)
-         * </em>
+         * This method returns no data.
          */
         R["removeById"] = R["deleteById"];
 
@@ -13288,7 +13475,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * The number of instances updated
+         * This method returns no data.
          */
         "updateAll": {
           url: urlBase + "/Schedules/update",
@@ -13318,10 +13505,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Schedule` object.)
-         * </em>
+         * This method returns no data.
          */
         "deleteById": {
           url: urlBase + "/Schedules/:id",
@@ -13559,7 +13743,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * The number of instances updated
+         * This method returns no data.
          */
         R["update"] = R["updateAll"];
 
@@ -13586,10 +13770,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Schedule` object.)
-         * </em>
+         * This method returns no data.
          */
         R["destroyById"] = R["deleteById"];
 
@@ -13616,10 +13797,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Schedule` object.)
-         * </em>
+         * This method returns no data.
          */
         R["removeById"] = R["deleteById"];
 
@@ -13975,7 +14153,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * The number of instances updated
+         * This method returns no data.
          */
         "updateAll": {
           url: urlBase + "/Calendars/update",
@@ -14005,10 +14183,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Calendar` object.)
-         * </em>
+         * This method returns no data.
          */
         "deleteById": {
           url: urlBase + "/Calendars/:id",
@@ -14187,7 +14362,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * The number of instances updated
+         * This method returns no data.
          */
         R["update"] = R["updateAll"];
 
@@ -14214,10 +14389,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Calendar` object.)
-         * </em>
+         * This method returns no data.
          */
         R["destroyById"] = R["deleteById"];
 
@@ -14244,10 +14416,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Calendar` object.)
-         * </em>
+         * This method returns no data.
          */
         R["removeById"] = R["deleteById"];
 
@@ -14573,7 +14742,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * The number of instances updated
+         * This method returns no data.
          */
         "updateAll": {
           url: urlBase + "/Noticeboards/update",
@@ -14603,10 +14772,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Noticeboard` object.)
-         * </em>
+         * This method returns no data.
          */
         "deleteById": {
           url: urlBase + "/Noticeboards/:id",
@@ -14785,7 +14951,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * The number of instances updated
+         * This method returns no data.
          */
         R["update"] = R["updateAll"];
 
@@ -14812,10 +14978,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Noticeboard` object.)
-         * </em>
+         * This method returns no data.
          */
         R["destroyById"] = R["deleteById"];
 
@@ -14842,10 +15005,7 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Noticeboard` object.)
-         * </em>
+         * This method returns no data.
          */
         R["removeById"] = R["deleteById"];
 
@@ -14894,6 +15054,2742 @@ module.factory(
         R.school = function() {
           var TargetResource = $injector.get("School");
           var action = TargetResource["::get::Noticeboard::school"];
+          return action.apply(R, arguments);
+        };
+
+    return R;
+  }]);
+
+/**
+ * @ngdoc object
+ * @name lbServices.WorkingDay
+ * @header lbServices.WorkingDay
+ * @object
+ *
+ * @description
+ *
+ * A $resource object for interacting with the `WorkingDay` model.
+ *
+ * ## Example
+ *
+ * See
+ * {@link http://docs.angularjs.org/api/ngResource.$resource#example $resource}
+ * for an example of using this object.
+ *
+ */
+module.factory(
+  "WorkingDay",
+  ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
+    var R = Resource(
+      urlBase + "/WorkingDays/:id",
+      { 'id': '@id' },
+      {
+
+        /**
+         * @ngdoc method
+         * @name lbServices.WorkingDay#create
+         * @methodOf lbServices.WorkingDay
+         *
+         * @description
+         *
+         * Create a new instance of the model and persist it into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `WorkingDay` object.)
+         * </em>
+         */
+        "create": {
+          url: urlBase + "/WorkingDays",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.WorkingDay#createMany
+         * @methodOf lbServices.WorkingDay
+         *
+         * @description
+         *
+         * Create a new instance of the model and persist it into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `WorkingDay` object.)
+         * </em>
+         */
+        "createMany": {
+          isArray: true,
+          url: urlBase + "/WorkingDays",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.WorkingDay#upsert
+         * @methodOf lbServices.WorkingDay
+         *
+         * @description
+         *
+         * Update an existing model instance or insert a new one into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `WorkingDay` object.)
+         * </em>
+         */
+        "upsert": {
+          url: urlBase + "/WorkingDays",
+          method: "PUT"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.WorkingDay#exists
+         * @methodOf lbServices.WorkingDay
+         *
+         * @description
+         *
+         * Check whether a model instance exists in the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `exists` – `{boolean=}` - 
+         */
+        "exists": {
+          url: urlBase + "/WorkingDays/:id/exists",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.WorkingDay#findById
+         * @methodOf lbServices.WorkingDay
+         *
+         * @description
+         *
+         * Find a model instance by id from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         *  - `filter` – `{object=}` - Filter defining fields and include
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `WorkingDay` object.)
+         * </em>
+         */
+        "findById": {
+          url: urlBase + "/WorkingDays/:id",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.WorkingDay#find
+         * @methodOf lbServices.WorkingDay
+         *
+         * @description
+         *
+         * Find all instances of the model matched by filter from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `filter` – `{object=}` - Filter defining fields, where, include, order, offset, and limit
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `WorkingDay` object.)
+         * </em>
+         */
+        "find": {
+          isArray: true,
+          url: urlBase + "/WorkingDays",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.WorkingDay#findOne
+         * @methodOf lbServices.WorkingDay
+         *
+         * @description
+         *
+         * Find first instance of the model matched by filter from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `filter` – `{object=}` - Filter defining fields, where, include, order, offset, and limit
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `WorkingDay` object.)
+         * </em>
+         */
+        "findOne": {
+          url: urlBase + "/WorkingDays/findOne",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.WorkingDay#updateAll
+         * @methodOf lbServices.WorkingDay
+         *
+         * @description
+         *
+         * Update instances of the model matched by where from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        "updateAll": {
+          url: urlBase + "/WorkingDays/update",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.WorkingDay#deleteById
+         * @methodOf lbServices.WorkingDay
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        "deleteById": {
+          url: urlBase + "/WorkingDays/:id",
+          method: "DELETE"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.WorkingDay#count
+         * @methodOf lbServices.WorkingDay
+         *
+         * @description
+         *
+         * Count instances of the model matched by where from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        "count": {
+          url: urlBase + "/WorkingDays/count",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.WorkingDay#prototype$updateAttributes
+         * @methodOf lbServices.WorkingDay
+         *
+         * @description
+         *
+         * Update attributes for a model instance and persist it into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `WorkingDay` object.)
+         * </em>
+         */
+        "prototype$updateAttributes": {
+          url: urlBase + "/WorkingDays/:id",
+          method: "PUT"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.WorkingDay#createChangeStream
+         * @methodOf lbServices.WorkingDay
+         *
+         * @description
+         *
+         * Create a change stream.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         *  - `options` – `{object=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `changes` – `{ReadableStream=}` - 
+         */
+        "createChangeStream": {
+          url: urlBase + "/WorkingDays/change-stream",
+          method: "POST"
+        },
+      }
+    );
+
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.WorkingDay#updateOrCreate
+         * @methodOf lbServices.WorkingDay
+         *
+         * @description
+         *
+         * Update an existing model instance or insert a new one into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `WorkingDay` object.)
+         * </em>
+         */
+        R["updateOrCreate"] = R["upsert"];
+
+        /**
+         * @ngdoc method
+         * @name lbServices.WorkingDay#update
+         * @methodOf lbServices.WorkingDay
+         *
+         * @description
+         *
+         * Update instances of the model matched by where from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R["update"] = R["updateAll"];
+
+        /**
+         * @ngdoc method
+         * @name lbServices.WorkingDay#destroyById
+         * @methodOf lbServices.WorkingDay
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R["destroyById"] = R["deleteById"];
+
+        /**
+         * @ngdoc method
+         * @name lbServices.WorkingDay#removeById
+         * @methodOf lbServices.WorkingDay
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R["removeById"] = R["deleteById"];
+
+
+    /**
+    * @ngdoc property
+    * @name lbServices.WorkingDay#modelName
+    * @propertyOf lbServices.WorkingDay
+    * @description
+    * The name of the model represented by this $resource,
+    * i.e. `WorkingDay`.
+    */
+    R.modelName = "WorkingDay";
+
+
+    return R;
+  }]);
+
+/**
+ * @ngdoc object
+ * @name lbServices.Assignment
+ * @header lbServices.Assignment
+ * @object
+ *
+ * @description
+ *
+ * A $resource object for interacting with the `Assignment` model.
+ *
+ * ## Example
+ *
+ * See
+ * {@link http://docs.angularjs.org/api/ngResource.$resource#example $resource}
+ * for an example of using this object.
+ *
+ */
+module.factory(
+  "Assignment",
+  ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
+    var R = Resource(
+      urlBase + "/Assignments/:id",
+      { 'id': '@id' },
+      {
+
+        // INTERNAL. Use Assignment.class() instead.
+        "prototype$__get__class": {
+          url: urlBase + "/Assignments/:id/class",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Assignment#create
+         * @methodOf lbServices.Assignment
+         *
+         * @description
+         *
+         * Create a new instance of the model and persist it into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Assignment` object.)
+         * </em>
+         */
+        "create": {
+          url: urlBase + "/Assignments",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Assignment#createMany
+         * @methodOf lbServices.Assignment
+         *
+         * @description
+         *
+         * Create a new instance of the model and persist it into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Assignment` object.)
+         * </em>
+         */
+        "createMany": {
+          isArray: true,
+          url: urlBase + "/Assignments",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Assignment#upsert
+         * @methodOf lbServices.Assignment
+         *
+         * @description
+         *
+         * Update an existing model instance or insert a new one into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Assignment` object.)
+         * </em>
+         */
+        "upsert": {
+          url: urlBase + "/Assignments",
+          method: "PUT"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Assignment#exists
+         * @methodOf lbServices.Assignment
+         *
+         * @description
+         *
+         * Check whether a model instance exists in the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `exists` – `{boolean=}` - 
+         */
+        "exists": {
+          url: urlBase + "/Assignments/:id/exists",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Assignment#findById
+         * @methodOf lbServices.Assignment
+         *
+         * @description
+         *
+         * Find a model instance by id from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         *  - `filter` – `{object=}` - Filter defining fields and include
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Assignment` object.)
+         * </em>
+         */
+        "findById": {
+          url: urlBase + "/Assignments/:id",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Assignment#find
+         * @methodOf lbServices.Assignment
+         *
+         * @description
+         *
+         * Find all instances of the model matched by filter from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `filter` – `{object=}` - Filter defining fields, where, include, order, offset, and limit
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Assignment` object.)
+         * </em>
+         */
+        "find": {
+          isArray: true,
+          url: urlBase + "/Assignments",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Assignment#findOne
+         * @methodOf lbServices.Assignment
+         *
+         * @description
+         *
+         * Find first instance of the model matched by filter from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `filter` – `{object=}` - Filter defining fields, where, include, order, offset, and limit
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Assignment` object.)
+         * </em>
+         */
+        "findOne": {
+          url: urlBase + "/Assignments/findOne",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Assignment#updateAll
+         * @methodOf lbServices.Assignment
+         *
+         * @description
+         *
+         * Update instances of the model matched by where from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        "updateAll": {
+          url: urlBase + "/Assignments/update",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Assignment#deleteById
+         * @methodOf lbServices.Assignment
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        "deleteById": {
+          url: urlBase + "/Assignments/:id",
+          method: "DELETE"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Assignment#count
+         * @methodOf lbServices.Assignment
+         *
+         * @description
+         *
+         * Count instances of the model matched by where from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        "count": {
+          url: urlBase + "/Assignments/count",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Assignment#prototype$updateAttributes
+         * @methodOf lbServices.Assignment
+         *
+         * @description
+         *
+         * Update attributes for a model instance and persist it into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Assignment` object.)
+         * </em>
+         */
+        "prototype$updateAttributes": {
+          url: urlBase + "/Assignments/:id",
+          method: "PUT"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Assignment#createChangeStream
+         * @methodOf lbServices.Assignment
+         *
+         * @description
+         *
+         * Create a change stream.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         *  - `options` – `{object=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `changes` – `{ReadableStream=}` - 
+         */
+        "createChangeStream": {
+          url: urlBase + "/Assignments/change-stream",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Class.assignments.findById() instead.
+        "::findById::Class::assignments": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/assignments/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Class.assignments.destroyById() instead.
+        "::destroyById::Class::assignments": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/assignments/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Class.assignments.updateById() instead.
+        "::updateById::Class::assignments": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/assignments/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Class.assignments() instead.
+        "::get::Class::assignments": {
+          isArray: true,
+          url: urlBase + "/Classes/:id/assignments",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Class.assignments.create() instead.
+        "::create::Class::assignments": {
+          url: urlBase + "/Classes/:id/assignments",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Class.assignments.createMany() instead.
+        "::createMany::Class::assignments": {
+          isArray: true,
+          url: urlBase + "/Classes/:id/assignments",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Class.assignments.destroyAll() instead.
+        "::delete::Class::assignments": {
+          url: urlBase + "/Classes/:id/assignments",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Class.assignments.count() instead.
+        "::count::Class::assignments": {
+          url: urlBase + "/Classes/:id/assignments/count",
+          method: "GET"
+        },
+      }
+    );
+
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Assignment#updateOrCreate
+         * @methodOf lbServices.Assignment
+         *
+         * @description
+         *
+         * Update an existing model instance or insert a new one into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Assignment` object.)
+         * </em>
+         */
+        R["updateOrCreate"] = R["upsert"];
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Assignment#update
+         * @methodOf lbServices.Assignment
+         *
+         * @description
+         *
+         * Update instances of the model matched by where from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R["update"] = R["updateAll"];
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Assignment#destroyById
+         * @methodOf lbServices.Assignment
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R["destroyById"] = R["deleteById"];
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Assignment#removeById
+         * @methodOf lbServices.Assignment
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R["removeById"] = R["deleteById"];
+
+
+    /**
+    * @ngdoc property
+    * @name lbServices.Assignment#modelName
+    * @propertyOf lbServices.Assignment
+    * @description
+    * The name of the model represented by this $resource,
+    * i.e. `Assignment`.
+    */
+    R.modelName = "Assignment";
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Assignment#class
+         * @methodOf lbServices.Assignment
+         *
+         * @description
+         *
+         * Fetches belongsTo relation class.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Class` object.)
+         * </em>
+         */
+        R.class = function() {
+          var TargetResource = $injector.get("Class");
+          var action = TargetResource["::get::Assignment::class"];
+          return action.apply(R, arguments);
+        };
+
+    return R;
+  }]);
+
+/**
+ * @ngdoc object
+ * @name lbServices.Library
+ * @header lbServices.Library
+ * @object
+ *
+ * @description
+ *
+ * A $resource object for interacting with the `Library` model.
+ *
+ * ## Example
+ *
+ * See
+ * {@link http://docs.angularjs.org/api/ngResource.$resource#example $resource}
+ * for an example of using this object.
+ *
+ */
+module.factory(
+  "Library",
+  ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
+    var R = Resource(
+      urlBase + "/Libraries/:id",
+      { 'id': '@id' },
+      {
+
+        // INTERNAL. Use Library.school() instead.
+        "prototype$__get__school": {
+          url: urlBase + "/Libraries/:id/school",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Library#create
+         * @methodOf lbServices.Library
+         *
+         * @description
+         *
+         * Create a new instance of the model and persist it into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Library` object.)
+         * </em>
+         */
+        "create": {
+          url: urlBase + "/Libraries",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Library#createMany
+         * @methodOf lbServices.Library
+         *
+         * @description
+         *
+         * Create a new instance of the model and persist it into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Library` object.)
+         * </em>
+         */
+        "createMany": {
+          isArray: true,
+          url: urlBase + "/Libraries",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Library#upsert
+         * @methodOf lbServices.Library
+         *
+         * @description
+         *
+         * Update an existing model instance or insert a new one into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Library` object.)
+         * </em>
+         */
+        "upsert": {
+          url: urlBase + "/Libraries",
+          method: "PUT"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Library#exists
+         * @methodOf lbServices.Library
+         *
+         * @description
+         *
+         * Check whether a model instance exists in the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `exists` – `{boolean=}` - 
+         */
+        "exists": {
+          url: urlBase + "/Libraries/:id/exists",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Library#findById
+         * @methodOf lbServices.Library
+         *
+         * @description
+         *
+         * Find a model instance by id from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         *  - `filter` – `{object=}` - Filter defining fields and include
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Library` object.)
+         * </em>
+         */
+        "findById": {
+          url: urlBase + "/Libraries/:id",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Library#find
+         * @methodOf lbServices.Library
+         *
+         * @description
+         *
+         * Find all instances of the model matched by filter from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `filter` – `{object=}` - Filter defining fields, where, include, order, offset, and limit
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Library` object.)
+         * </em>
+         */
+        "find": {
+          isArray: true,
+          url: urlBase + "/Libraries",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Library#findOne
+         * @methodOf lbServices.Library
+         *
+         * @description
+         *
+         * Find first instance of the model matched by filter from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `filter` – `{object=}` - Filter defining fields, where, include, order, offset, and limit
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Library` object.)
+         * </em>
+         */
+        "findOne": {
+          url: urlBase + "/Libraries/findOne",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Library#updateAll
+         * @methodOf lbServices.Library
+         *
+         * @description
+         *
+         * Update instances of the model matched by where from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        "updateAll": {
+          url: urlBase + "/Libraries/update",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Library#deleteById
+         * @methodOf lbServices.Library
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        "deleteById": {
+          url: urlBase + "/Libraries/:id",
+          method: "DELETE"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Library#count
+         * @methodOf lbServices.Library
+         *
+         * @description
+         *
+         * Count instances of the model matched by where from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        "count": {
+          url: urlBase + "/Libraries/count",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Library#prototype$updateAttributes
+         * @methodOf lbServices.Library
+         *
+         * @description
+         *
+         * Update attributes for a model instance and persist it into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Library` object.)
+         * </em>
+         */
+        "prototype$updateAttributes": {
+          url: urlBase + "/Libraries/:id",
+          method: "PUT"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Library#createChangeStream
+         * @methodOf lbServices.Library
+         *
+         * @description
+         *
+         * Create a change stream.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         *  - `options` – `{object=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `changes` – `{ReadableStream=}` - 
+         */
+        "createChangeStream": {
+          url: urlBase + "/Libraries/change-stream",
+          method: "POST"
+        },
+
+        // INTERNAL. Use School.libraries.findById() instead.
+        "::findById::School::libraries": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Schools/:id/libraries/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use School.libraries.destroyById() instead.
+        "::destroyById::School::libraries": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Schools/:id/libraries/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use School.libraries.updateById() instead.
+        "::updateById::School::libraries": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Schools/:id/libraries/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use School.libraries() instead.
+        "::get::School::libraries": {
+          isArray: true,
+          url: urlBase + "/Schools/:id/libraries",
+          method: "GET"
+        },
+
+        // INTERNAL. Use School.libraries.create() instead.
+        "::create::School::libraries": {
+          url: urlBase + "/Schools/:id/libraries",
+          method: "POST"
+        },
+
+        // INTERNAL. Use School.libraries.createMany() instead.
+        "::createMany::School::libraries": {
+          isArray: true,
+          url: urlBase + "/Schools/:id/libraries",
+          method: "POST"
+        },
+
+        // INTERNAL. Use School.libraries.destroyAll() instead.
+        "::delete::School::libraries": {
+          url: urlBase + "/Schools/:id/libraries",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use School.libraries.count() instead.
+        "::count::School::libraries": {
+          url: urlBase + "/Schools/:id/libraries/count",
+          method: "GET"
+        },
+      }
+    );
+
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Library#updateOrCreate
+         * @methodOf lbServices.Library
+         *
+         * @description
+         *
+         * Update an existing model instance or insert a new one into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Library` object.)
+         * </em>
+         */
+        R["updateOrCreate"] = R["upsert"];
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Library#update
+         * @methodOf lbServices.Library
+         *
+         * @description
+         *
+         * Update instances of the model matched by where from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R["update"] = R["updateAll"];
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Library#destroyById
+         * @methodOf lbServices.Library
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R["destroyById"] = R["deleteById"];
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Library#removeById
+         * @methodOf lbServices.Library
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R["removeById"] = R["deleteById"];
+
+
+    /**
+    * @ngdoc property
+    * @name lbServices.Library#modelName
+    * @propertyOf lbServices.Library
+    * @description
+    * The name of the model represented by this $resource,
+    * i.e. `Library`.
+    */
+    R.modelName = "Library";
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Library#school
+         * @methodOf lbServices.Library
+         *
+         * @description
+         *
+         * Fetches belongsTo relation school.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `School` object.)
+         * </em>
+         */
+        R.school = function() {
+          var TargetResource = $injector.get("School");
+          var action = TargetResource["::get::Library::school"];
+          return action.apply(R, arguments);
+        };
+
+    return R;
+  }]);
+
+/**
+ * @ngdoc object
+ * @name lbServices.StudentParent
+ * @header lbServices.StudentParent
+ * @object
+ *
+ * @description
+ *
+ * A $resource object for interacting with the `StudentParent` model.
+ *
+ * ## Example
+ *
+ * See
+ * {@link http://docs.angularjs.org/api/ngResource.$resource#example $resource}
+ * for an example of using this object.
+ *
+ */
+module.factory(
+  "StudentParent",
+  ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
+    var R = Resource(
+      urlBase + "/StudentParents/:id",
+      { 'id': '@id' },
+      {
+
+        // INTERNAL. Use StudentParent.parent() instead.
+        "prototype$__get__parent": {
+          url: urlBase + "/StudentParents/:id/parent",
+          method: "GET"
+        },
+
+        // INTERNAL. Use StudentParent.student() instead.
+        "prototype$__get__student": {
+          url: urlBase + "/StudentParents/:id/student",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.StudentParent#create
+         * @methodOf lbServices.StudentParent
+         *
+         * @description
+         *
+         * Create a new instance of the model and persist it into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `StudentParent` object.)
+         * </em>
+         */
+        "create": {
+          url: urlBase + "/StudentParents",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.StudentParent#createMany
+         * @methodOf lbServices.StudentParent
+         *
+         * @description
+         *
+         * Create a new instance of the model and persist it into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `StudentParent` object.)
+         * </em>
+         */
+        "createMany": {
+          isArray: true,
+          url: urlBase + "/StudentParents",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.StudentParent#upsert
+         * @methodOf lbServices.StudentParent
+         *
+         * @description
+         *
+         * Update an existing model instance or insert a new one into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `StudentParent` object.)
+         * </em>
+         */
+        "upsert": {
+          url: urlBase + "/StudentParents",
+          method: "PUT"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.StudentParent#exists
+         * @methodOf lbServices.StudentParent
+         *
+         * @description
+         *
+         * Check whether a model instance exists in the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `exists` – `{boolean=}` - 
+         */
+        "exists": {
+          url: urlBase + "/StudentParents/:id/exists",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.StudentParent#findById
+         * @methodOf lbServices.StudentParent
+         *
+         * @description
+         *
+         * Find a model instance by id from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         *  - `filter` – `{object=}` - Filter defining fields and include
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `StudentParent` object.)
+         * </em>
+         */
+        "findById": {
+          url: urlBase + "/StudentParents/:id",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.StudentParent#find
+         * @methodOf lbServices.StudentParent
+         *
+         * @description
+         *
+         * Find all instances of the model matched by filter from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `filter` – `{object=}` - Filter defining fields, where, include, order, offset, and limit
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `StudentParent` object.)
+         * </em>
+         */
+        "find": {
+          isArray: true,
+          url: urlBase + "/StudentParents",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.StudentParent#findOne
+         * @methodOf lbServices.StudentParent
+         *
+         * @description
+         *
+         * Find first instance of the model matched by filter from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `filter` – `{object=}` - Filter defining fields, where, include, order, offset, and limit
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `StudentParent` object.)
+         * </em>
+         */
+        "findOne": {
+          url: urlBase + "/StudentParents/findOne",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.StudentParent#updateAll
+         * @methodOf lbServices.StudentParent
+         *
+         * @description
+         *
+         * Update instances of the model matched by where from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        "updateAll": {
+          url: urlBase + "/StudentParents/update",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.StudentParent#deleteById
+         * @methodOf lbServices.StudentParent
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        "deleteById": {
+          url: urlBase + "/StudentParents/:id",
+          method: "DELETE"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.StudentParent#count
+         * @methodOf lbServices.StudentParent
+         *
+         * @description
+         *
+         * Count instances of the model matched by where from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        "count": {
+          url: urlBase + "/StudentParents/count",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.StudentParent#prototype$updateAttributes
+         * @methodOf lbServices.StudentParent
+         *
+         * @description
+         *
+         * Update attributes for a model instance and persist it into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `StudentParent` object.)
+         * </em>
+         */
+        "prototype$updateAttributes": {
+          url: urlBase + "/StudentParents/:id",
+          method: "PUT"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.StudentParent#createChangeStream
+         * @methodOf lbServices.StudentParent
+         *
+         * @description
+         *
+         * Create a change stream.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         *  - `options` – `{object=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `changes` – `{ReadableStream=}` - 
+         */
+        "createChangeStream": {
+          url: urlBase + "/StudentParents/change-stream",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Student.studentParents.findById() instead.
+        "::findById::Student::studentParents": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Students/:id/studentParents/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Student.studentParents.destroyById() instead.
+        "::destroyById::Student::studentParents": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Students/:id/studentParents/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Student.studentParents.updateById() instead.
+        "::updateById::Student::studentParents": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Students/:id/studentParents/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Student.studentParents() instead.
+        "::get::Student::studentParents": {
+          isArray: true,
+          url: urlBase + "/Students/:id/studentParents",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Student.studentParents.create() instead.
+        "::create::Student::studentParents": {
+          url: urlBase + "/Students/:id/studentParents",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Student.studentParents.createMany() instead.
+        "::createMany::Student::studentParents": {
+          isArray: true,
+          url: urlBase + "/Students/:id/studentParents",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Student.studentParents.destroyAll() instead.
+        "::delete::Student::studentParents": {
+          url: urlBase + "/Students/:id/studentParents",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Student.studentParents.count() instead.
+        "::count::Student::studentParents": {
+          url: urlBase + "/Students/:id/studentParents/count",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Parent.studentParents.findById() instead.
+        "::findById::Parent::studentParents": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Parents/:id/studentParents/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Parent.studentParents.destroyById() instead.
+        "::destroyById::Parent::studentParents": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Parents/:id/studentParents/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Parent.studentParents.updateById() instead.
+        "::updateById::Parent::studentParents": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Parents/:id/studentParents/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Parent.studentParents() instead.
+        "::get::Parent::studentParents": {
+          isArray: true,
+          url: urlBase + "/Parents/:id/studentParents",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Parent.studentParents.create() instead.
+        "::create::Parent::studentParents": {
+          url: urlBase + "/Parents/:id/studentParents",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Parent.studentParents.createMany() instead.
+        "::createMany::Parent::studentParents": {
+          isArray: true,
+          url: urlBase + "/Parents/:id/studentParents",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Parent.studentParents.destroyAll() instead.
+        "::delete::Parent::studentParents": {
+          url: urlBase + "/Parents/:id/studentParents",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Parent.studentParents.count() instead.
+        "::count::Parent::studentParents": {
+          url: urlBase + "/Parents/:id/studentParents/count",
+          method: "GET"
+        },
+      }
+    );
+
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.StudentParent#updateOrCreate
+         * @methodOf lbServices.StudentParent
+         *
+         * @description
+         *
+         * Update an existing model instance or insert a new one into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `StudentParent` object.)
+         * </em>
+         */
+        R["updateOrCreate"] = R["upsert"];
+
+        /**
+         * @ngdoc method
+         * @name lbServices.StudentParent#update
+         * @methodOf lbServices.StudentParent
+         *
+         * @description
+         *
+         * Update instances of the model matched by where from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R["update"] = R["updateAll"];
+
+        /**
+         * @ngdoc method
+         * @name lbServices.StudentParent#destroyById
+         * @methodOf lbServices.StudentParent
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R["destroyById"] = R["deleteById"];
+
+        /**
+         * @ngdoc method
+         * @name lbServices.StudentParent#removeById
+         * @methodOf lbServices.StudentParent
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R["removeById"] = R["deleteById"];
+
+
+    /**
+    * @ngdoc property
+    * @name lbServices.StudentParent#modelName
+    * @propertyOf lbServices.StudentParent
+    * @description
+    * The name of the model represented by this $resource,
+    * i.e. `StudentParent`.
+    */
+    R.modelName = "StudentParent";
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.StudentParent#parent
+         * @methodOf lbServices.StudentParent
+         *
+         * @description
+         *
+         * Fetches belongsTo relation parent.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Parent` object.)
+         * </em>
+         */
+        R.parent = function() {
+          var TargetResource = $injector.get("Parent");
+          var action = TargetResource["::get::StudentParent::parent"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.StudentParent#student
+         * @methodOf lbServices.StudentParent
+         *
+         * @description
+         *
+         * Fetches belongsTo relation student.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Student` object.)
+         * </em>
+         */
+        R.student = function() {
+          var TargetResource = $injector.get("Student");
+          var action = TargetResource["::get::StudentParent::student"];
           return action.apply(R, arguments);
         };
 

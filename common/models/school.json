@@ -27,25 +27,18 @@
       "type": "hasOne",
       "model": "Timetable",
       "foreignKey": ""
+    },
+    "libraries": {
+      "type": "hasMany",
+      "model": "Library",
+      "foreignKey": ""
     }
   },
   "acls": [
     {
       "accessType": "*",
       "principalType": "ROLE",
-      "principalId": "$unauthenticated",
-      "permission": "ALLOW"
-    },
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW"
-    },
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "$everyone",
+      "principalId": "$authenticated",
       "permission": "ALLOW"
     }
   ],

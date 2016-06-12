@@ -1,0 +1,60 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
+
+
+
+
+<div class="container">
+  <div class="row margin-top-10">
+    <div class="col-md-12 col-sm-12">
+      <!-- BEGIN PORTLET-->
+
+      <div class="portlet light ">
+        <div class="portlet-title"><div class="caption caption-md">Timetable</div></div>
+
+        <!-- -----------------------------------Search Form------------------------------->
+        <div class="portlet-body">
+          <div class="row list-separated">
+
+            <div class="portlet-body-morris-fit morris-chart flip-scroll" style="margin-right:0px;margin-left:0px;margin-bottom:0px;height: 260px">
+              <table class="table table-bordered table-striped table-condensed flip-content">
+                <thead flip-content>
+                <tr>
+                  <td>#</td>
+                  <td>Title        </td>
+                  <td>Start time   </td>
+                  <td>End time</td>
+                  <td>Duration(minutes)</td>
+                  <td>Attendance</td>
+                </tr>
+                </thead>
+
+                <tr ng-repeat = "receiver in receivers">
+                  <td>{{$index+1}}</td>
+                  <td><input type="text" class="form-control" ng-model="receiver.title" ng-disabled="true"></td>
+                  <td><input type="time" class="form-control" ng-model="receiver.startTime" ng-disabled="true"></td>
+                  <td><input type="time" class="form-control" ng-model="receiver.endTime" ng-disabled="true"></td>
+                  <td><input type="number" class="form-control" ng-model="receiver.duration" ng-disabled="true"></td>
+                  <td><input type="checkbox" ng-model="receiver.attendance" ng-disabled="true"></td>
+
+                </tr>
+
+              </table>
+              
+            </div>
+
+            </div>
+
+          </div>
+
+
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+
+
