@@ -12,11 +12,16 @@ angular
       function ($scope, Admin, $state, School, Class, Student, Parent, StudentParent, Staff, $rootScope, $window) {
         $scope.user = $window.localStorage.getItem('user');
         var userData = JSON.parse($scope.user);
+        $scope.schoolName= null;
         $scope.schoolId = userData.schoolId;
+        $scope.school = School.findById({id:$scope.schoolId},function(){
+          $rootScope.schoolName = $scope.school.schoolName;
+        });
+
         $scope.date = new Date();
         $scope.classList = Class.find   ({filter: {where: {schoolId: $scope.schoolId}}}, function (response) {
         }, function (response) {
-          console.log(response.data.error.message);
+          console.log("Classes "+response.data.error.message);
         });
         $scope.studentList = Student.find({
           filter: {
@@ -25,22 +30,22 @@ angular
           }
         }, function (response) {
         }, function (response) {
-          console.log(response.data.error.message);
+          console.log("Student Data "+response.data.error.message);
         });
-        $scope.studentParent = StudentParent.find({
-          filter: {
-            where: {schoolId: $scope.schoolId},
-            include: 'parent'
-          }
+        $scope.studentParent = StudentParent.find({filter: {where: {schoolId: $scope.schoolId},include: 'parent'}},
+          function (response) {
+            var i= 0;
+            $scope.parentList =[];
+            response.forEach(function(studentParent){
+              $scope.p = studentParent.toJSON();
+              $scope.parentList[i] =$scope.p.parent;
+              i++;
+            },$scope.parentList);
+
         }, function (response) {
-        }, function (response) {
-          console.log(response.data.error.message);
+          console.log("StudentParent Data "+response.data.error.message);
         });
-        $scope.parentList = Parent.find();
-        console.log($scope.parentList);
-        for(var i=0;i<$scope.parentList.length;i++){
-          console.log($scope.parentList);
-        }
+
         $scope.searchList = $scope.studentList;
         $scope.processSearch = function () {
           if ($scope.formData.staffSearch == true)
@@ -105,6 +110,7 @@ angular
                 function () {
 
                   if ($scope.formData.motherFirstName != null && $scope.formData.motherPassword != null && $scope.formData.motherEmail != null) {
+                    console.log('creating mother');
                     $scope.newParent1 = Parent.create({
                         username: $scope.formData.motherFirstName,
                         lastName: $scope.formData.motherLastName,
@@ -114,6 +120,7 @@ angular
                         type: "Parent",
                         created: $scope.date
                       }, function () {
+                      console.log('creating mother parent relation');
                         StudentParent.create({
                           studentId: $scope.newStudent.id,
                           parentId: $scope.newParent1.id,
@@ -126,6 +133,7 @@ angular
 
                   }
                   if ($scope.formData.fatherFirstName != null && $scope.formData.fatherPassword != null && $scope.formData.fatherEmail != null) {
+                    console.log('creating father');
                     $scope.newParent2 = Parent.create({id: $scope.newStudent.id}, {
                       username: $scope.formData.fatherFirstName,
                       lastName: $scope.formData.fatherLastName,
@@ -135,6 +143,7 @@ angular
                       type: "Parent",
                       created: $scope.date
                     }, function () {
+                      console.log('creating father parent relation');
                       StudentParent.create({
                         studentId: $scope.newStudent.id,
                         parentId: $scope.newParent2.id,
@@ -156,7 +165,17 @@ angular
         $scope.deleteUser = function (x) {
           if (x.type == "Student") {
             Student.delete({id: x.id}, function () {
-              StudentParent.delete({filter: {where: {studentId: x.id}}}, function () {
+              $scope.resultStudentParent =StudentParent.find({filter: {where: {studentId: x.id,schoolId:$scope.schoolId}}}, function (response) {
+                  response.forEach(function(resultStudentParent){
+                    var p = resultStudentParent.toJSON();
+
+                    StudentParent.deleteById({id:p.id},function(){
+                      console.log('deleting student and student relation with parent');
+                      $state.go($state.current, {}, {reload: true});
+                    },function(response){
+                      console.log(response.data.error.message);
+                    });
+                  });
                   $state.go($state.current, {}, {reload: true});
                 },
                 function (response) {
@@ -167,8 +186,20 @@ angular
           }
           else if (x.type == "Parent") {
             Parent.delete({id: x.id}, function () {
-              StudentParent.delete({filter: {where: {parentId: x.id}}}, function () {
-                  $state.go($state.current, {}, {reload: true});
+              $scope.resultStudentParent = StudentParent.find({filter: {where: {parentId: x.id,schoolId:$scope.schoolId}}},
+                function (response) {
+                  response.forEach(function(resultStudentParent){
+                    var p = resultStudentParent.toJSON();
+                    StudentParent.deleteById({id:p.id},function(){
+                      console.log('deleting  parent and  parent relation with student');
+                      $state.go($state.current, {}, {reload: true});
+                    },function(response){
+                      console.log(response.data.error.message);
+                    });
+
+
+                  });
+
                 }, function (response) {
                   console.log(response.data.error.message);
                 }
@@ -224,20 +255,45 @@ angular
 
         }
         $scope.addStaff = function () {
+
           $scope.newStaff = Staff.create({
-              schoolId: $scope.schooId, username: $scope.formData.staffFirstName, lastName: $scope.formData.staffLastName,
-              email: $scope.formData.staffEmail, password: $scope.formData.staffPassword,
-              type: 'Staff',
-              created: $scope.date
+              schoolId: $scope.schoolId, username: $scope.formData.staffFirstName, lastName: $scope.formData.staffLastName,
+              email: $scope.formData.staffEmail, password: $scope.formData.staffPassword,contact: $scope.formData.staffContact,
+              gender: $scope.formData.staffGender,
+              image: $scope.formData.staffImg,
+              dateofBirth: $scope.formData.staffDateOfBirth,
+              rollNo: $scope.formData.staffRollNo,
+              RFID: $scope.formData.staffRFID,
+              dateofJoin: $scope.formData.staffDateOfJoin,
+              status: $scope.formData.staffStatus,
+              regId: $scope.formData.staffRegId,
+              currentAddress: $scope.formData.staffCurrentAddress,
+              currentCity: $scope.formData.staffCurrentCity,
+              currentState: $scope.formData.staffCurrentState,
+              currentPincode: $scope.formData.staffCurrentPincode,
+              bloodGroup: $scope.formData.staffBloodGroup,
+              religion: $scope.formData.staffReligion,
+              caste: $scope.formData.staffCaste,
+              permanentAddress: $scope.formData.staffPermanentAddress,
+              permanentCity: $scope.formData.staffPermanentCity,
+              permanentState: $scope.formData.staffPermanentState,
+              permanentPincode: $scope.formData.staffPermanentPincode,
+              nationalId: $scope.formData.staffNationalId,
+              motherTounge: $scope.formData.staffMotherTounge,
+              nationalIdType: $scope.formData.staffNationalIdType,
+              subCaste: $scope.formData.staffSubCaste,
+              contact: $scope.formData.staffContact,
+              type: 'Staff',created: $scope.date
             },
             function () {
+
+              console.log("Add Staff" +$scope.newStaff);
               $state.go($state.current, {}, {reload: true});
             },
             function (response) {
-              console.log(response.data.error.message);
+              console.log("Add Staff Response" +response.data.error.message);
             }
           )
-          $scope.response = 'Staff ' + $scope.formData.staffFirstName + 'is Created';
         }
       }
     ])
@@ -432,11 +488,18 @@ angular
 
             },
             function () {
+              console.log($scope.viewTimetable.schedule.length);
               for (var i = 0; i < $scope.viewTimetable.schedule.length; i++) {
 
                 $scope.scheduleList[i] = $scope.viewTimetable.schedule[i];
                 $scope.scheduleList[i].startTime = new Date($scope.viewTimetable.schedule[i].startTime);
                 $scope.scheduleList[i].endTime = new Date($scope.viewTimetable.schedule[i].endTime);
+
+                if ($scope.scheduleList[i].attendance == false){
+                  $scope.scheduleList[i].startTime = $scope.viewTimetable.schedule[i].title;
+                  $scope.scheduleList[i].endTime = null;
+                  $scope.scheduleList[i].Monday = null;
+                }
               }
             })
         }, function () {

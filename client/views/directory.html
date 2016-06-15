@@ -27,7 +27,7 @@ $('#accordion2').on('hidden.bs.collapse', function () {
     <div class="col-md-12 col-sm-12">
       <div class="portlet light ">
         <div class="portlet-title">
-          <div class="caption caption-md"> <i class="icon-bar-chart theme-font hide"></i><span class="caption-subject theme-font bold uppercase">Search</span></div>
+          <div class="caption caption-md">Search</div>
           <div class="pull-right"> <button type="button" ng-click="showForm=!showForm" class="btn btn-success uppercase">Admission Forms</button></div>
         </div>
 
@@ -61,8 +61,7 @@ $('#accordion2').on('hidden.bs.collapse', function () {
                       <th>Roll No</th><th>Class/Section</th>
                     <th>Contact</th><th>Action</th>
                   </tr></thead>
-        <!--<tbody data-ng-repeat="x in searchList | filter:search">-->
-        <tbody data-ng-repeat="x in searchList | filter:search">
+         <tbody data-ng-repeat="x in searchList.concat(parentList) | filter:search">
 			<tr>
 
                     <td >{{x.image}}</td><td>{{x.username}}</td><td>{{x.type}}</td><td>{{x.email}}</td><td>{{x.rollNo}}</td>
