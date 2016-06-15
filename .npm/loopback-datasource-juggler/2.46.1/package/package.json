@@ -1,0 +1,52 @@
+{
+  "name": "loopback-datasource-juggler",
+  "version": "2.46.1",
+  "publishConfig": {
+    "export-tests": true
+  },
+  "description": "LoopBack DataSoure Juggler",
+  "keywords": [
+    "StrongLoop",
+    "LoopBack",
+    "DataSource",
+    "Connector",
+    "Database",
+    "Juggler",
+    "ORM"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/strongloop/loopback-datasource-juggler"
+  },
+  "main": "index.js",
+  "browser": {
+    "depd": "./lib/browser.depd.js"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "test": "mocha",
+    "posttest": "npm run lint"
+  },
+  "engines": [
+    "node >= 0.6"
+  ],
+  "devDependencies": {
+    "bluebird": "^2.9.9",
+    "eslint": "^2.5.3",
+    "eslint-config-loopback": "^2.0.0",
+    "mocha": "^2.1.0",
+    "should": "^8.0.2"
+  },
+  "dependencies": {
+    "async": "~1.0.0",
+    "debug": "^2.1.1",
+    "depd": "^1.0.0",
+    "eslint": "^2.9.0",
+    "inflection": "^1.6.0",
+    "loopback-connector": "^2.1.0",
+    "node-uuid": "^1.4.2",
+    "qs": "^3.1.0",
+    "traverse": "^0.6.6"
+  },
+  "license": "MIT"
+}

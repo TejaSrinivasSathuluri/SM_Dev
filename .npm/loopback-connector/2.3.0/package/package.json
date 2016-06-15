@@ -1,0 +1,33 @@
+{
+  "name": "loopback-connector",
+  "version": "2.3.0",
+  "description": "Building blocks for LoopBack connectors",
+  "keywords": [
+    "StrongLoop",
+    "LoopBack",
+    "Connector"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/strongloop/loopback-connector"
+  },
+  "main": "index.js",
+  "scripts": {
+    "pretest": "jshint .",
+    "test": "mocha"
+  },
+  "license": {
+    "name": "Dual MIT/StrongLoop",
+    "url": "https://github.com/strongloop/loopback-connector/blob/master/LICENSE"
+  },
+  "dependencies": {
+    "async": "^1.0.0",
+    "debug": "^2.2.0"
+  },
+  "devDependencies": {
+    "chai": "~2.3.0",
+    "jshint": "^2.7.0",
+    "loopback-datasource-juggler": "^2.29.0",
+    "mocha": "^2.2.5"
+  }
+}
