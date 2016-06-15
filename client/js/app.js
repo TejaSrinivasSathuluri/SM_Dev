@@ -6,7 +6,8 @@
 angular
   .module('app', [
     'ui.router',
-    'lbServices'
+    'lbServices',
+    'ngDialog'
   ])
   .config(['$stateProvider', '$urlRouterProvider', function($stateProvider,$urlRouterProvider) {
     $stateProvider
@@ -96,7 +97,7 @@ angular
       if (!$window.localStorage.getItem('user')) {
         if (next.authenticate && !$rootScope.currentUser) {
           event.preventDefault(); //prevent current page from loading
-          $state.go('forbidden');
+         // $state.go('forbidden');
         }
       }
       $rootScope.currentUser = $window.localStorage.getItem('user');

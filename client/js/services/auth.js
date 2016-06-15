@@ -28,6 +28,7 @@ angular
         .$promise
         .then(function() {
           $rootScope.currentUser = null;
+          $rootScope.schoolName = null;
           $window.localStorage.clear();
         });
     }

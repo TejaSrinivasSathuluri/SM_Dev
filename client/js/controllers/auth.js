@@ -29,8 +29,6 @@ angular
   }])
   .controller('SignUpController', ['$scope', 'AuthService', '$state',
       function($scope, AuthService, $state) {
-    $scope.user = {  email: 'imran@immi.com', password: '123'};
-
     $scope.register = function() {
       AuthService.register($scope.user.email, $scope.user.password)
         .then(function() {

@@ -32,26 +32,30 @@ angular
         }, function (response) {
           console.log("Student Data "+response.data.error.message);
         });
-        $scope.studentParent = StudentParent.find({filter: {where: {schoolId: $scope.schoolId},include: 'parent'}},
-          function (response) {
-            var i= 0;
-            $scope.parentList =[];
-            response.forEach(function(studentParent){
-              $scope.p = studentParent.toJSON();
-              $scope.parentList[i] =$scope.p.parent;
-              i++;
-            },$scope.parentList);
 
-        }, function (response) {
-          console.log("StudentParent Data "+response.data.error.message);
-        });
+          $scope.studentParent = StudentParent.find({filter: {where: {schoolId: $scope.schoolId}, include: 'parent'}},
+            function (response) {
+              var i = 0;
+              $scope.parentList = [];
+              response.forEach(function (studentParent) {
+                $scope.p = studentParent.toJSON();
+                $scope.parentList[i] = $scope.p.parent;
+                i++;
+              }, $scope.parentList);
+
+            }, function (response) {
+              console.log("StudentParent Data " + response.data.error.message);
+            });
 
         $scope.searchList = $scope.studentList;
         $scope.processSearch = function () {
-          if ($scope.formData.staffSearch == true)
+          if ($scope.formData.staffSearch == true) {
             $scope.searchList = Staff.find({filter: {where: {schoolId: $scope.schoolId}}});
-          else              $state.go($state.current, {}, {reload: true});
-          $scope.collapse = !$scope.collapse;
+            $scope.parentList =  null;
+          }
+          else         {
+            $state.go($state.current, {}, {reload: true});
+          }
         }
         //--------------------------------------------------------
         $scope.addStudent = function () {
@@ -295,6 +299,10 @@ angular
             }
           )
         }
+        $scope.sortType     = 'username';
+        $scope.sortReverse  = false;
+        $scope.searchFish   = '';
+
       }
     ])
 
