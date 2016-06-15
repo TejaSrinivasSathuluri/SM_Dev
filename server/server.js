@@ -1,9 +1,8 @@
-
-
 var loopback = require('loopback');
 var boot = require('loopback-boot');
 var path = require('path');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 
 var app = module.exports = loopback();
 
