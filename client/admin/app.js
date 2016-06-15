@@ -331,12 +331,9 @@ angular.module('formApp', ['ngAnimate','ui.router','lbServices','ngResource','ng
               function () {$state.go($state.current, {}, {reload: true});});
           },
           function(value) {
-            //Cancel or do nothing
+
           }
         );
-      }
-      $scope.updateNotice = function (y) {
-
       }
     })
 
