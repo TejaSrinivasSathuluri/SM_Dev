@@ -6198,6 +6198,12 @@ module.factory(
           url: urlBase + "/Libraries/:id/school",
           method: "GET"
         },
+
+        // INTERNAL. Use StudentParent.school() instead.
+        "::get::StudentParent::school": {
+          url: urlBase + "/StudentParents/:id/school",
+          method: "GET"
+        },
       }
     );
 
@@ -17201,6 +17207,12 @@ module.factory(
           method: "GET"
         },
 
+        // INTERNAL. Use StudentParent.school() instead.
+        "prototype$__get__school": {
+          url: urlBase + "/StudentParents/:id/school",
+          method: "GET"
+        },
+
         /**
          * @ngdoc method
          * @name lbServices.StudentParent#create
@@ -17952,6 +17964,42 @@ module.factory(
         R.student = function() {
           var TargetResource = $injector.get("Student");
           var action = TargetResource["::get::StudentParent::student"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.StudentParent#school
+         * @methodOf lbServices.StudentParent
+         *
+         * @description
+         *
+         * Fetches belongsTo relation school.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `School` object.)
+         * </em>
+         */
+        R.school = function() {
+          var TargetResource = $injector.get("School");
+          var action = TargetResource["::get::StudentParent::school"];
           return action.apply(R, arguments);
         };
 

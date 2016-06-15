@@ -20,6 +20,7 @@ angular.module('formApp', ['ngAnimate','ui.router','lbServices','ngResource','ng
             $urlRouterProvider.otherwise('/dashboard');
     })
 
+
     .controller('consoleController',    function($scope,$window,$localStorage) {$scope.user = $localStorage.user;})
     .controller('searchController',     function($scope,$window,$state,$localStorage,ngDialog,School,Class,Student,Parent,StudentParent,Staff) {
       $scope.schoolId = $localStorage.user.schoolId;
@@ -176,7 +177,7 @@ angular.module('formApp', ['ngAnimate','ui.router','lbServices','ngResource','ng
 
         }
         $scope.updateClass = function (x) {
-          Class.upsert({id: JSON.stringify(x.id).replace(/["']/g, ""), staffId: $scope.newStaff},
+          Class.up({id: JSON.stringify(x.id).replace(/["']/g, ""), staffId: $scope.newStaff},
             function () {
               $state.go($state.current, {}, {reload: true});
             },
@@ -238,7 +239,7 @@ angular.module('formApp', ['ngAnimate','ui.router','lbServices','ngResource','ng
        }
 
       })
-    .controller('subjectController',    function($scope,$window,$state,$localStorage,ngDialog,Class,Staff,Subject) {
+    .controller('subjectController',function($scope,$window,$state,$localStorage,ngDialog,Class,Staff,Subject) {
       $scope.schoolId = $localStorage.user.schoolId;
       $scope.staffList  = Staff.find  ({filter: {where: {schoolId: $scope.schoolId}}});
       $scope.classList  = Class.find  ({filter: {where: {schoolId: $scope.schoolId}}});
@@ -314,7 +315,8 @@ angular.module('formApp', ['ngAnimate','ui.router','lbServices','ngResource','ng
       $scope.deleteNotice = function (x) {
         var dialog = ngDialog.open({template: 'deleteNotice'});
         dialog.closePromise.then(function (data) {
-          if (data.value && data.value != '$document') Noticeboard.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")});
+          if (data.value && data.value != '$document')
+            Noticeboard.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")});
           $state.go($state.current, {}, {reload: true});
           return true;
         });

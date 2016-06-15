@@ -1,0 +1,290 @@
+<script type="text/ng-template" id="deleteStudent">
+  <div class="ngdialog-message">
+    Confirm Delete
+    <div class="ngdialog-buttons">
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog('Yes')">Yes</button>
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog()">No</button>
+    </div>
+  </div>
+</script>
+<script>
+$('#accordion1').on('shown.bs.collapse', function () {
+    $("#package1 i.indicator").removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
+});
+$('#accordion1').on('hidden.bs.collapse', function () {
+    $("#package1 i.indicator").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+});
+
+$('#accordion2').on('shown.bs.collapse', function () {
+    $("#package2 i.indicator").removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
+});
+$('#accordion2').on('hidden.bs.collapse', function () {
+    $("#package2 i.indicator").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+});
+</script>
+<div class="container">
+  <div class="row margin-top-10">
+    <div class="col-md-12 col-sm-12">
+      <div class="portlet light ">
+        <div class="portlet-title">
+          <div class="caption caption-md"> <i class="icon-bar-chart theme-font hide"></i><span class="caption-subject theme-font bold uppercase">Search</span></div>
+          <div class="pull-right"> <button type="button" ng-click="showForm=!showForm" class="btn btn-success uppercase">Admission Forms</button></div>
+        </div>
+
+        <!-- -----------------------------------Search Form------------------------------->
+        <div ng-show="!showForm">
+          <div class="row list-separated">
+            <div class="col-sm-12">
+              <div class="col-sm-2" style="min-height:50px">
+                <input type="text" ng-model="search.username" placeholder="Search By Name" class="form-control"> </input>
+              </div>
+              <div class="col-sm-2" style="min-height:50px">
+                <input type="text" ng-model="search.rollNo" placeholder="Search By Roll Number" class="form-control"> </input>
+              </div>
+
+              <div class="col-sm-2" style="min-height:50px">
+                <select ng-model="search.class.id" class="form-control">
+                  <option value="">Class </option>
+                  <option ng-repeat="y in classList" value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>
+                </select>
+              </div>
+
+              <div class="col-sm-2" style="min-height:50px"> <input type="checkbox" ng-model="formData.staffSearch" ng-click="processSearch(a)">Staff</div>
+              <div class="col-sm-2" style="min-height:50px">
+
+              </div>
+              <div class="portlet-body-morris-fit morris-chart flip-scroll" style="margin-right:0px;margin-left:0px;margin-bottom:0px;height: 260px">
+                 <div id="Directory">
+    <table id="tableSearchResults" class="table table-hover table-bordered table-striped table-condensed flip-content">
+         <thead flip-content>
+                  <tr><th>Photo</th><th>First Name</th><th>Type</th><th>Email</th>
+                      <th>Roll No</th><th>Class/Section</th>
+                    <th>Contact</th><th>Action</th>
+                  </tr></thead>
+        <!--<tbody data-ng-repeat="x in searchList | filter:search">-->
+        <tbody data-ng-repeat="x in searchList | filter:search">
+			<tr>
+
+                    <td >{{x.image}}</td><td>{{x.username}}</td><td>{{x.type}}</td><td>{{x.email}}</td><td>{{x.rollNo}}</td>
+                    <td>{{x.class.className}}-{{x.class.sectionName}}</td><td>{{x.contact}}</td>
+
+                    <td style="width: 50%">
+                                    <i class="glyphicon glyphicon-edit" id="package1" class="accordion-toggle" data-toggle="collapse" data-parent="#Directory" data-target=".packageDetails1" ng-click="editUser(x)"></i>
+                                    <i class="glyphicon glyphicon-remove"  ng-click="deleteUser(x)"></i>
+                                    <i class="indicator glyphicon glyphicon-chevron-up pull-right"></i>
+					           </td>
+      </tr>
+          <div class="accordion-body collapse packageDetails1" id="accordion1">
+            <form role="form">
+              <div class="form-group">
+                <input type="text" class="form-control newName" ng-model="formData.newName" />
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control newContact" ng-model="formData.newContact" />
+              </div>
+              <button type="submit" class="btn btn-default"  ng-click="updateUser()">Save</button>
+            </form>
+          </div>
+
+
+
+
+
+
+
+           </tbody>
+    </table>
+</div>
+
+
+
+</div>
+              <div class="portlet-body-morris-fit morris-chart" style="height: 260px"></div>
+            </div>
+
+          </div>
+        </div>
+
+        <div ng-show="showForm">
+          <div  class="row margin-top-10" >
+            <div class="col-sm-12">
+              <div class="col-sm-2" ng-show="!collapsed1"><button type="button" ng-click="collapsed=!collapsed"   class="btn btn-success">Add Student</button></div>
+              <div class="col-sm-2" ng-show="!collapsed"><button type="button"  ng-click="collapsed1=!collapsed1" class="btn btn-success">Add Staff  </button></div>
+            </div>
+
+
+            <div ng-show="collapsed">
+              <form id="signup-form" name='studentForm' class="login-form"  ng-submit="addStudent()" >
+                <div class="col-sm-12">
+                  <div class="col-sm-4"></div>
+                  <div class="col-sm-4"><h4><b>Student Information</b></h4></div>
+                  <div class="col-sm-4"></div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="col-sm-6"><input  type="text" class="form-control" placeholder="First Name*"  ng-model="formData.studentFirstName" ng-mouseover="tag1=true" ng-mouseleave="tag1=false" style="width:50%" required><div class="tag1" ng-show="tag1">Enter First Name</div><br></div>
+                  <div class="col-sm-6"><input  type="text" class="form-control" placeholder="Last Name*"   ng-model="formData.studentLastName"   ng-mouseover="tag2=true" ng-mouseleave="tag2=false" style="width:50%" required ><div class="tag2" ng-show="tag2">Enter Last  Name</div><br></div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="col-sm-6"><input  type="text" class="form-control" placeholder="Email*"       ng-model="formData.studentEmail"      ng-mouseover="tag3=true" ng-mouseleave="tag3=false" style="width:50%" required><div class="tag3" ng-show="tag3">Enter Email   </div><br></div>
+                  <div class="col-sm-6"><input  type="password" class="form-control" placeholder="Password*"    ng-model="formData.studentPassword"   ng-mouseover="tag4=true" ng-mouseleave="tag4=false" style="width:50%" required><div class="tag4" ng-show="tag4">Enter Password</div><br></div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="col-sm-6"><input  type="text" class="form-control" placeholder="RollNo*"      ng-model="formData.studentRollNo"     ng-mouseover="tag5=true" ng-mouseleave="tag5=false" style="width:50%" required><div class="tag5" ng-show="tag5">Enter Roll Number</div><br></div>
+                  <div class="col-sm-6"><input  type="text" class="form-control" placeholder="Reg Id*"      ng-model="formData.studentRegId"      ng-mouseover="tag6=true" ng-mouseleave="tag6=false" style="width:50%" required><div class="tag6" ng-show="tag6">Enter Registered Id</div><br></div>
+                </div><br>
+                <div class="col-sm-12">
+                  <div class="col-sm-6"><select class="form-control"   ng-model="formData.studentGender"  style="width:50%">
+                    <option value="">Gender</option>
+                    <option value="F">Female</option>
+                    <option value="M">Male</option>
+                  </select > <br></div>
+                  <div class="col-sm-6"><select class="form-control" ng-model="formData.studentClass"   style="width : 50%;" required>
+                    <option value="">Class-Section*</option>
+                    <option ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
+                  </select><br></div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="col-sm-6"><input  type="date" class="form-control" ng-model="formData.studentDateOfBirth" ng-mouseover="tag7=true" ng-mouseleave="tag7=false" style="width:50%" required>	<br><div class="tag7" ng-show="tag7">Date Of Birth</div><br></div>
+                  <div class="col-sm-6"><input  type="date" class="form-control" ng-model="formData.studentDateOfJoin"  ng-mouseover="tag8=true" ng-mouseleave="tag8=false" style="width:50%" required> <br><div class="tag8" ng-show="tag8">Joining Date</div><br></div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="col-sm-6"><input type="text"                         class="form-control" placeholder="RFID"  ng-model="formData.studentRFID"  ng-mouseover="tag9=true" ng-mouseleave="tag9=false"	style="width:50%"><br><div class="tag9" ng-show="tag9">RFID</div><br></div>
+                  <div class="col-sm-6"><input type = "file" file-model = "myFile" class="form-control" placeholder="Image" ng-model="formData.studentImage" ng-mouseover="tag10=true" ng-mouseleave="tag10=false"	style="width:50%"><br><div class="tag10" ng-show="tag10">Profile Image</div><br></div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="col-sm-6"><input  type="text" class="form-control" placeholder="Previous School"  ng-model="formData.studentPreviousSchool"  ng-mouseover="tag11=true" ng-mouseleave="tag11=false" style="width:50%" >	<br><div class="tag11" ng-show="tag11">Previous School</div><br></div>
+                  <div class="col-sm-6"><input type = "file" file-model = "myFile" class="form-control" ng-model="formData.studentImage" ng-mouseover="tag12=true" ng-mouseleave="tag12=false"	style="width:50%"><br></div><div class="tag12" ng-show="tag12">Previous School TC</div><br></div>
+                <div class="col-sm-12">
+                  <div class="col-sm-6"><input  type="text" class="form-control" placeholder="Status"     ng-model="formData.studentStatus"       ng-mouseover="tag13=true" ng-mouseleave="tag13=false" style="width:50%" ><div class="tag13" ng-show="tag13">Status</div><br></div>
+                  <div class="col-sm-6"><input  type="text" class="form-control" placeholder="isDisabled" ng-model="formData.studentIsDisable"    ng-mouseover="tag14=true" ng-mouseleave="tag14=false" style="width:50%" ><div class="tag14" ng-show="tag14">Is Disabled</div><br></div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="col-sm-12">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4"><h4><b>Personal Information</b></h4></div>
+                    <div class="col-sm-4"></div>
+                  </div>
+                  <br><br>
+                  <div class="col-sm-6">
+                    <input  type="text" class="form-control" placeholder="Permanent Address"   ng-model="formData.studentPermanentAddress"   	ng-mouseover="tag15=true" ng-mouseleave="tag15=false" style="width:50%" ><div class="tag15" ng-show="tag15">Permanent Address</div><br>
+                    <input  type="text" class="form-control" placeholder="Permanent city"      ng-model="formData.studentPermanentCity"   		ng-mouseover="tag16=true" ng-mouseleave="tag16=false" style="width:50%" ><div class="tag16" ng-show="tag16">Permanent City</div><br>
+                    <input  type="text" class="form-control" placeholder="Permanent State"     ng-model="formData.studentPermanentState"   		ng-mouseover="tag17=true" ng-mouseleave="tag17=false" style="width:50%" ><div class="tag17" ng-show="tag17">Permanent State</div><br>
+                    <input  type="text" class="form-control" placeholder="Permanent Pincode"   ng-model="formData.studentPermanentPincode"   	ng-mouseover="tag18=true" ng-mouseleave="tag18=false" style="width:50%" ><div class="tag18" ng-show="tag18">Permanent Pincode</div><br>
+                    <input  type="text" class="form-control" placeholder="National ID Type"    ng-model="formData.studentNationalIdType"   		ng-mouseover="tag19=true" ng-mouseleave="tag19=false" style="width:50%" ><div class="tag19" ng-show="tag19">National ID Type</div><br>
+                    <input  type="text" class="form-control" placeholder="Mother Tounge"       ng-model="formData.studentMotherTounge"   		  ng-mouseover="tag20=true" ng-mouseleave="tag20=false" style="width:50%" ><div class="tag20" ng-show="tag20">Mother Tounge</div><br>
+                    <input  type="text" class="form-control" placeholder="SubCaste"   		   ng-model="formData.studentSubCaste"   			      ng-mouseover="tag21=true" ng-mouseleave="tag21=false" style="width:50%" ><div class="tag21" ng-show="tag21">SubCaste</div><br>
+                    <input  type="text" class="form-control" placeholder="Contact Number"      ng-model="formData.studentContact"   			    ng-mouseover="tag22=true" ng-mouseleave="tag22=false" style="width:50%" ><div class="tag22" ng-show="tag22">Contact Number</div><br>
+                  </div>
+                  <div class="col-sm-6">
+                    <input  type="text" class="form-control" placeholder="Current Address"   	ng-model="formData.studentCurrentAddress"   	ng-mouseover="tag23=true" ng-mouseleave="tag23=false" style="width:50%" ><div class="tag23" ng-show="tag23">Current Address</div><br>
+                    <input  type="text" class="form-control" placeholder="Current city"      	ng-model="formData.studentCurrentCity"   		  ng-mouseover="tag24=true" ng-mouseleave="tag24=false" style="width:50%" ><div class="tag24" ng-show="tag24">Current City</div><br>
+                    <input  type="text" class="form-control" placeholder="Current State"     	ng-model="formData.studentCurrentState"   		ng-mouseover="tag25=true" ng-mouseleave="tag25=false" style="width:50%" ><div class="tag25" ng-show="tag25">Current State</div><br>
+                    <input  type="text" class="form-control" placeholder="Current Pincode"   	ng-model="formData.studentCurrentPincode"   	ng-mouseover="tag26=true" ng-mouseleave="tag26=false" style="width:50%" ><div class="tag26" ng-show="tag26">Current Pincode</div><br>
+                    <input  type="text" class="form-control" placeholder="National ID"    		ng-model="formData.studentNationalId"   		  ng-mouseover="tag27=true" ng-mouseleave="tag27=false" style="width:50%" ><div class="tag27" ng-show="tag27">National ID</div><br>
+                    <input  type="text" class="form-control" placeholder="Blood Group*"    	 	ng-model="formData.studentBloodGroup"   		  ng-mouseover="tag28=true" ng-mouseleave="tag28=false" style="width:50%" required ><div class="tag28" ng-show="tag28">Blood Group</div><br>
+                    <input  type="text" class="form-control" placeholder="Religion"       	 	ng-model="formData.studentReligion"   			  ng-mouseover="tag29=true" ng-mouseleave="tag29=false" style="width:50%" ><div class="tag29" ng-show="tag29">Religion</div><br>
+                    <input  type="text" class="form-control" placeholder="Caste"   		     	ng-model="formData.studentCaste"   				      ng-mouseover="tag30=true" ng-mouseleave="tag30=false" style="width:50%" ><div class="tag30" ng-show="tag30">Caste</div><br>
+                    <input  type="text" class="form-control" placeholder="Alternate Contact No" ng-model="formData.studentAlternateContact"   	ng-mouseover="tag31=true" ng-mouseleave="tag31=false" style="width:50%" ><div class="tag31" ng-show="tag31">Alternate Contact Number</div><br>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="col-sm-12">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4"><h4><b>Parent Information</b></h4></div>
+                    <div class="col-sm-4"></div>
+                  </div><br><br>
+                  <div class="col-sm-6">
+                    <input  type="text"     class="form-control" placeholder="FirstName"   		   ng-model="formData.fatherFirstName"   			ng-mouseover="tag32=true" ng-mouseleave="tag32=false" style="width:50%" ><div class="tag32" ng-show="tag32">Enter Father FirstName</div><br>
+                    <input  type="text"     class="form-control" placeholder="LastName"      	   ng-model="formData.fatherLastName"    			ng-mouseover="tag33=true" ng-mouseleave="tag33=false" style="width:50%" ><div class="tag33" ng-show="tag33">Enter Father LastName</div><br>
+                    <input  type="email"    class="form-control" placeholder="Email"     		   ng-model="formData.fatherEmail"   	 			    ng-mouseover="tag34=true" ng-mouseleave="tag34=false" style="width:50%" ><div class="tag34" ng-show="tag34">Enter Father Email</div><br>
+                    <input  type="password" class="form-control" placeholder="Password"   	       ng-model="formData.fatherPassword"    		ng-mouseover="tag35=true" ng-mouseleave="tag35=false" style="width:50%" ><div class="tag35" ng-show="tag35">Enter Password</div><br>
+                    <input  type="text"     class="form-control" placeholder="Contact Number"      ng-model="formData.fatherPhone"   	 			ng-mouseover="tag36=true" ng-mouseleave="tag36=false" style="width:50%" ><div class="tag36" ng-show="tag36">Enter Father Contact Number</div><br>
+                  </div>
+                  <div class="col-sm-6">
+                    <input  type="text"     class="form-control" placeholder="FirstName"   		   ng-model="formData.motherFirstName"   			ng-mouseover="tag37=true" ng-mouseleave="tag37=false" style="width:50%" ><div class="tag37" ng-show="tag37">Enter Mather FirstName</div><br>
+                    <input  type="text"     class="form-control" placeholder="LastName"      	   ng-model="formData.motherLastName"   			ng-mouseover="tag38=true" ng-mouseleave="tag38=false" style="width:50%" ><div class="tag38" ng-show="tag38">Enter Mother LastName</div><br>
+                    <input  type="email"    class="form-control" placeholder="Email"     		   ng-model="formData.motherEmail"   				    ng-mouseover="tag39=true" ng-mouseleave="tag39=false" style="width:50%" ><div class="tag39" ng-show="tag39">Enter Mother Email</div><br>
+                    <input  type="password" class="form-control" placeholder="Password"      	   ng-model="formData.motherPassword"   			ng-mouseover="tag40=true" ng-mouseleave="tag40=false" style="width:50%" ><div class="tag40" ng-show="tag40">Enter Password</div><br>
+                    <input  type="text"     class="form-control" placeholder="Contact Number"      ng-model="formData.motherPhone"   				ng-mouseover="tag41=true" ng-mouseleave="tag41=false" style="width:50%" ><div class="tag41" ng-show="tag41">Enter Mother COntact Number</div><br>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="col-sm-4"></div>
+                  <div class="col-sm-4"><button type="submit" name ="Add Student" class="btn btn-success uppercase">Add Student</button><br><span>{{responsemessage}}</span></div>
+                  <div class="col-sm-4"></div>
+                </div>
+
+              </form>
+            </div>
+            <!---------------------------------------------------Staff Form------------------------------------------------------------------------------------------>
+            <div ng-show="collapsed1">
+              <form id="signup-form" class="login-form"  ng-submit = "addStaff()" >
+                <div class="col-sm-12"><div class="col-sm-4"></div><div class="col-sm-4"><h4><b>Staff Information</b></h4></div><div class="col-sm-4"></div></div><br><br>
+                <div class="col-sm-12">
+                  <div class="col-sm-6">
+                    <input  type="text"   class="form-control"   name="First Name"     placeholder="First Name"    ng-model="formData.staffFirstName"     ng-mouseup="tag1=true" ng-mouseleave="tag1=false"   style="width:50%" required><div class="tag1" ng-show="tag1">Enter First Name</div><br>
+                    <input  type="email"  class="form-control"   name="Email"          placeholder="Email"         ng-model="formData.staffEmail"         ng-mouseup="tag2=true" ng-mouseleave="tag2=false"   style="width:50%" required><div class="tag2" ng-show="tag2">Enter Staff Email</div><br>
+                    <select               class="form-control"                                                            ng-model="formData.staffGender"                                                            style="width:50%" required><option value="">Gender</option><option value="F">Female</option><option value="M">Male</option></select><br>
+                    <input  type="date"   class="form-control"   name="Date of Birth"  placeholder="Date of Birth"  ng-model="formData.staffDateOfBirth"  ng-mouseup="tag10=true" ng-mouseleave="tag10=false"   style="width:50%" required><div class="tag10" ng-show="tag10">Enter Date of Birth</div><br>
+                    <input  type="date"   class="form-control"   name="Joining Date"   placeholder="Joining Date"  ng-model="formData.staffDateOfJoin"    ng-mouseup="tag5=true" ng-mouseleave="tag5=false"   style="width:50%"  required><div class="tag5" ng-show="tag5">Enter Date of Join</div><br>
+                    <input  type="text"   class="form-control"   name="RFID"           placeholder="RFID"          ng-model="formData.staffRFID"          ng-mouseup="tag7=true" ng-mouseleave="tag7=false"   style="width:50%"><div class="tag7" ng-show="tag7">Enter RFID</div>
+                  </div>
+                  <div class="col-sm-6">
+
+                    <input  type="text"     class="form-control"     name="Last Name"  placeholder="Last Name"      ng-model="formData.staffLastName"     ng-mouseup="tag8=true"  ng-mouseleave="tag8=false"    style="width:50%" required><div class="tag8" ng-show="tag8">Enter Last Name</div><br>
+                    <input  type="password" class="form-control"     name="Password"   placeholder="Password"       ng-model="formData.staffPassword "    ng-mouseup="tag9=true"  ng-mouseleave="tag9=false"    style="width:50%" required><div class="tag9" ng-show="tag9">Enter Password</div><br>
+                    <input  type = "file"   class="form-control"     name="Image "     placeholder="Image "        ng-model="formData.staffImg"    file-model = "myFile"                                      style="width:50%"> <br>
+                    <input  type="text"     class="form-control"     name="Status"     placeholder="Status"         ng-model="formData.staffStatus"       ng-mouseup="tag12=true" ng-mouseleave="tag12=false"   style="width:50%" required><div class="tag12" ng-show="tag12">Enter Status</div><br>
+                    <input  type="text"     class="form-control"     name="Reg Id"     placeholder="Reg Id"         ng-model="formData.staffRegId "       ng-mouseup="tag13=true" ng-mouseleave="tag13=false"   style="width:50%" required><div class="tag13" ng-show="tag13">Enter Reg Id</div><br>
+                    <input  type="text"     class="form-control"     name="Isdisabled  placeholder="Isdisabled"     ng-model="formData.staffIsDisable "   ng-mouseup="tag14=true" ng-mouseleave="tag14=false"   style="width:50%"><div class="tag14" ng-show="tag14">Enter Isdisabled</div>
+
+                  </div>
+                </div><br>
+                <div class="col-sm-12"><div class="col-sm-4"></div><div class="col-sm-4"><h4><b>Personal Information</b></h4></div><div class="col-sm-4"></div></div><br><br>
+                <div class="col-sm-12">
+                  <div class="col-sm-6">
+                    <textarea           class="form-control" placeholder="Current Address"       ng-model="formData.staffCurrentAddress"   ng-mouseup="tag23=true" ng-mouseleave="tag23=false"   style="width:50%"></textarea><div class="tag23" ng-show="tag23">Enter Temporary Address</div><br>
+                    <input  type="text" class="form-control" placeholder="Current City"          ng-model="formData.staffCurrentCity"      ng-mouseup="tag24=true" ng-mouseleave="tag24=false"   style="width:50%"><div class="tag24" ng-show="tag24">Enter Current City</div><br>
+                    <input  type="text" class="form-control" placeholder="State"                 ng-model="formData.staffCurrentState"     ng-mouseup="tag25=true" ng-mouseleave="tag25=false"   style="width:50%"><div class="tag25" ng-show="tag25">Enter Current State</div><br>
+                    <input  type="text" class="form-control" placeholder="Pincode"               ng-model="formData.staffCurrentPincode"   ng-mouseup="tag26=true" ng-mouseleave="tag26=false"   style="width:50%"><div class="tag26" ng-show="tag26">Enter Current Pincode</div><br>
+                    <input  type="text" class="form-control" placeholder="Blood Group"           ng-model="formData.staffBloodGroup"       ng-mouseup="tag27=true" ng-mouseleave="tag27=false"   style="width:50%"><div class="tag27" ng-show="tag27">Enter Blood Group</div><br>
+                    <input  type="text" class="form-control" placeholder="Religion"              ng-model="formData.staffReligion"         ng-mouseup="tag28=true" ng-mouseleave="tag28=false"   style="width:50%"><div class="tag28" ng-show="tag28">Enter Religion</div><br>
+                    <input  type="text" class="form-control" placeholder="Caste"                 ng-model="formData.staffCaste"            ng-mouseup="tag29=true" ng-mouseleave="tag29=false"   style="width:50%"><div class="tag29" ng-show="tag29">Enter Caste</div><br>
+                    <input  type="text" class="form-control" placeholder="Alternate Contact No"  ng-model="formData.staffAlternateContact" ng-mouseup="tag30=true" ng-mouseleave="tag30=false"   style="width:50%"><div class="tag30" ng-show="tag30">Enter Alternate Contact No</div>
+                  </div>
+                  <div class="col-sm-6">
+                    <textarea           class="form-control" placeholder="Permanent Address"     ng-model="formData.staffPermanentAddress" ng-mouseup="tag15=true" ng-mouseleave="tag15=false"   style="width:50%"></textarea><div class="tag15" ng-show="tag15">Enter Permanent Address</div><br>
+                    <input  type="text" class="form-control" placeholder="Present City"          ng-model="formData.staffPermanentCity"    ng-mouseup="tag16=true" ng-mouseleave="tag16=false"   style="width:50%">           <div class="tag25" ng-show="tag25">Enter Permanent City   </div><br>
+                    <input  type="text" class="form-control" placeholder="State"                 ng-model="formData.staffPermanentState"   ng-mouseup="tag25=true" ng-mouseleave="tag25=false"   style="width:50%">           <div class="tag25" ng-show="tag25">Enter Permanent State  </div><br>
+                    <input  type="text" class="form-control" placeholder="Pincode"               ng-model="formData.staffPermanentPincode" ng-mouseup="tag26=true" ng-mouseleave="tag26=false"   style="width:50%">           <div class="tag26" ng-show="tag26">Enter Permanent Pincode</div><br>
+                    <input  type="text" class="form-control" placeholder="NationalIdType"        ng-model="formData.staffNationalIdType"   ng-mouseup="tag26=true" ng-mouseleave="tag26=false"   style="width:50%">           <div class="tag26" ng-show="tag26">Enter National Id Type </div><br>
+                    <input  type="text" class="form-control" placeholder="NationalId"            ng-model="formData.staffNationalId"       ng-mouseup="tag26=true" ng-mouseleave="tag26=false"   style="width:50%">           <div class="tag26" ng-show="tag26">Enter National Id      </div><br>
+                    <input  type="text" class="form-control" placeholder="MotherTounge"          ng-model="formData.staffMotherToungue"    ng-mouseup="tag26=true" ng-mouseleave="tag26=false"   style="width:50%">           <div class="tag26" ng-show="tag26">Enter Mother Toungue   </div><br>
+                    <input  type="text" class="form-control" placeholder="Sub-Caste"             ng-model="formData.staffSubCaste"         ng-mouseup="tag26=true" ng-mouseleave="tag26=false"   style="width:50%">           <div class="tag26" ng-show="tag26">Enter Sub    Caste     </div><br>
+
+                  </div>
+                </div>
+                <div class="col-sm-12"><div class="col-sm-4"></div><div class="col-sm-4"><h4><b>Qualification Information</b></h4></div><div class="col-sm-4"></div></div>
+                <div class="col-sm-12">
+                  <div class="col-sm-6">
+                    <input  type="text" class="form-control" placeholder="Qualification"    ng-model="formData.staffQualification"    ng-mouseup="tag29=true" ng-mouseleave="tag29=false"   style="width:50%"><div class="tag29" ng-show="tag29">Enter Qualification</div><br>
+                    <input  type="text" class="form-control" placeholder="StaffPercentage"  ng-model="formData.staffAlternateContact" ng-mouseup="tag30=true" ng-mouseleave="tag30=false"   style="width:50%"><div class="tag30" ng-show="tag30">Enter Percentage</div>
+                  </div>
+                  <div class="col-sm-6">
+                    <input  type="text"     class="form-control" placeholder="University"     ng-model="formData.staffQualifiedUniversity"    ng-mouseup="tag26=true" ng-mouseleave="tag26=false"   style="width:50%">           <div class="tag26" ng-show="tag26">Enter Qualified University</div><br>
+                    <input  type="checkbox"                                                   ng-model="formData.staffBED">BED
+
+                  </div>
+                </div>
+                <div class="col-sm-12"><div class="col-sm-4"></div><div class="col-sm-4"><button type="submit" name ="staff" class="btn btn-success uppercase">Add Staff</button></div><div class="col-sm-4"></div></div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+</div>

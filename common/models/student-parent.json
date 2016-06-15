@@ -17,13 +17,18 @@
       "type": "belongsTo",
       "model": "Student",
       "foreignKey": ""
+    },
+    "school": {
+      "type": "belongsTo",
+      "model": "School",
+      "foreignKey": ""
     }
   },
   "acls": [
     {
       "accessType": "*",
       "principalType": "ROLE",
-      "principalId": "$everyone",
+      "principalId": "$authenticated",
       "permission": "ALLOW"
     }
   ],

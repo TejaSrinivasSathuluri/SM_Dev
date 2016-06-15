@@ -35,7 +35,7 @@
     padding: 0px !important; }
     .page-container .page-content {
       padding: 0 !important;
-      margin: 15px 15px !important; }
+      margin: 0 !important; }
       .page-container .page-content > .container {
         width: 100%;
         max-width: none !important;
@@ -555,14 +555,13 @@ Page Header
       width: 255px;
       height: 75px; }
       .page-header .page-header-top .page-logo .logo-default {
-        margin: 38px;
-        height:20px }
+        margin: 29.5px 0 0 0; }
     .page-header .page-header-top .top-menu {
       margin: 13px 0 0;
-      padding: 0px;
+      padding: 0;
       float: right; }
       .page-header .page-header-top .top-menu .navbar-nav {
-        padding: 0px;
+        padding: 0;
         margin-right: 0;
         display: block;
         /* Top Links */
@@ -1641,8 +1640,7 @@ Quick Sidebar Content
   .page-head .page-title {
     display: inline-block;
     float: left;
-    padding: 19px 0;
-  margin-left:0px}
+    padding: 19px 0; }
     .page-head .page-title > h1 {
       color: #697882;
       font-size: 22px;
@@ -1676,8 +1674,7 @@ Quick Sidebar Content
 
 .page-content {
   background: #eff3f8;
-<!--  padding: 15px 0 15px; -->
-  }
+  padding: 15px 0 15px; }
 
 @media (max-width: 991px) {
   /* 991px */

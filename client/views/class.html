@@ -1,0 +1,110 @@
+<script type="text/ng-template" id="deleteClass">
+  <div class="ngdialog-message">
+    <h1>Confirm Delete</h1>
+    <div class="ngdialog-buttons">
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog('Yes')">Yes</button>
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog()">No</button>
+    </div>
+  </div>
+</script>
+
+<div class="container">
+  <div class="row margin-top-10">
+    <div class="col-md-12 col-sm-12">
+      <!-- BEGIN PORTLET-->
+      <div class="portlet light ">
+        <div class="portlet-title">
+          <div class="caption caption-md">
+            <span class="caption-subject uppercase">Classes</span>
+            <span class="caption-subject uppercase pull-right" ng-click="collapsed=!collapsed"> Add Class</></span>
+          </div>
+
+        </div>
+        <div class="portlet-body">
+          <div class="row list-separated">
+            <div ng-show="collapsed">
+              <div>
+                <form ng-submit="addClass()">
+                  <div class="col-sm-12">
+                    <div class="col-sm-2"> <input type="text" class="form-control Class" placeholder="Class Name"  ng-model="formData.className" required> </div>
+                    <div class="col-sm-2"> <input type="text" class="form-control Section" placeholder="Section Name" ng-model="formData.sectionName" required> </div>
+                    <div class="col-sm-2">  <select ng-model="formData.staffSelected" class="form-control Staff" required>
+                      <option value="">Class Teacher</option>
+                      <option ng-repeat="x in staffList" value="{{x.id}}">{{x.username}}</option>
+                    </select>
+                    </div>
+                    <div class="col-sm-2">  <button type="submit" class="btn btn-success uppercase">Create Class</button></div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div style="color: red;" class="col-sm-6">{{response}}</div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <br/>
+            <div>
+              <!---->
+              <div class="col-sm-12">
+                <div class="col-sm-3">
+                  <select ng-model="search.id" class="form-control">
+                    <option value="">Class </option>
+                    <option ng-repeat="y in classList" value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>
+                  </select>
+                <br>
+
+                  <input type="text" ng-model="search.staff.username" placeholder="Search By Teacher" class="form-control"> </input>
+                </div>
+                <div class="col-sm-9">
+                  <div class="portlet-body-morris-fit morris-chart flip-scroll" style="margin-right:0px;margin-left:0px;margin-bottom:0px;height: 260px">
+                  <table class="table table-bordered table-striped table-condensed flip-content">
+                    <thead flip-content>
+                    <tr>
+                      <th>Class</th>
+                      <th>Section</th>
+                      <th>Teacher</th>
+                      <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-ng-repeat="x in classList | filter:search ">
+                      <div data-ng-bind-html="x.id">
+                        <td style="width: 5%">{{x.className}}</td>
+                        <td style="width: 5%">{{x.sectionName}}</td>
+                        <td style="width: 5%">{{x.staff.username}}</td>
+                        <td style="width: 100%">
+                          <div class="col-sm-3">
+                            <i class="glyphicon glyphicon-edit" ng-model="collapsed1" ng-click="collapsed1=!collapsed1 ;editClass(x)"></i>
+                            <i class="glyphicon glyphicon-remove"  ng-click="deleteClass(x)"></i>
+                          </div>
+                          <div class="col-sm-9" ng-show="collapsed1">
+                            <form ng-submit="updateClass(x)">
+                              <div class="col-sm-12">
+                                <div class="col-sm-5">
+                                  <select ng-model="formData.newStaff" id="newStaff"  required>
+                                    <option value="">Class Teacher</option>
+                                    <option data-ng-repeat="y in staffList" value="{{y.id}}">{{y.username}}</option>
+                                  </select>
+                                </div>
+                                <div class="col-sm-7">
+                                  <button type="submit" class="btn btn-success uppercase">Update</button><span>{{response}}</span>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </td>
+                      </div>
+                    </tr>
+                    </tbody>
+                  </table>
+                  </div>
+                  <!---->
+                 </div>
+              </div>
+            </div>
+          </div>
+          <!-- END PORTLET-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
