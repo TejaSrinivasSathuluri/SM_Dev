@@ -1,0 +1,114 @@
+<script type="text/ng-template" id="deleteAssignment">
+  <div class="ngdialog-message">
+    <h3>Confirm Delete</h3>
+    <div class="ngdialog-buttons">
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog('Yes')">Yes</button>
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog()">No</button>
+    </div>
+  </div>
+</script>
+
+<script type="text/ng-template" id="editAssignment">
+  <div class="ngdialog-message">
+    <h3>Edit Assignment</h3>
+
+    <form>
+
+      <input  type="text" class="form-control" placeholder="Title" ng-model="formData.title"><br>
+      <select ng-model="formData.classSelected" id="repeatSelect1" class="form-control" required>
+        <option value="">Class-Section</option>
+        <option ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
+      </select>
+      <br>
+      <textarea rows="4" cols="50" class="form-control" placeholder="Description of Assignment " ng-model="formData.description"></textarea><br>
+      <input  type="date" class="form-control"  ng-model="formData.fromDate"><br>
+      <input  type="date" class="form-control"  ng-model="formData.toDate"><br>
+      <input type = "file" file-model = "myFile" class="form-control" placeholder="Image" ng-model="formData.uploadFile"><br>
+      <button type="submit" class="btn btn-success uppercase" ng-click=confirm(formData)>Save</button>
+      <button type="button" class="btn btn-success uppercase" ng-click=closeThisDialog("Cancel")>Cancel</button>
+
+    </form>
+  </div>
+</script>
+
+<div class="container">
+  <div class="row margin-top-10">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <!-- BEGIN PORTLET-->
+
+      <div class="portlet light ">
+        <div class="portlet-title">
+          <div class="caption caption-md">ASSIGNMENT</div>
+        </div>
+
+        <!-- -----------------------------------Search Form------------------------------->
+        <div class="portlet-body" ng-show="!showForm">
+          <div class="row list-separated">
+            <!---->
+
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <form ng-submit="addAssignment()">
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12" style="min-height:50px">
+                  <input  type="text" class="form-control" placeholder="Title" ng-model="formData.title"  required><br>
+                  <select ng-model="formData.classSelected" id="repeatSelect1" class="form-control" required>
+                    <option value="">Class-Section</option>
+                    <option ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
+                  </select>
+                  <br>
+                  <textarea rows="4" cols="50" class="form-control" placeholder="Description of Assignment " ng-model="formData.description" required></textarea><br>
+                  <input  type="date" class="form-control"  ng-model="formData.fromDate" required><br>
+                  <input  type="date" class="form-control"  ng-model="formData.toDate" required><br>
+                  <input type = "file" file-model = "myFile" class="form-control" placeholder="Image" ng-model="formData.uploadFile"><br>
+                  <button type="submit"  class="btn btn-success uppercase">Post Assignment</button>
+                </div>
+
+
+
+              </form>
+
+
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" style="min-height:50px" >
+                <table class="table table-bordered table-striped table-condensed flip-content">
+                  <thead flip-content>
+                  <tr>
+                    <!--<th>#</th>-->
+                    <th>Title</th>
+					<th>Class</th>
+                    <th>Description</th>
+                    <th>From  Date</th>
+                    <th>To Date</th>
+                    <th>File</th>
+                    <th>Option</th>
+                  </tr>
+                  </thead>
+
+                  <tbody>
+                  <tr data-ng-repeat="x in assignmentlist">
+                    <div data-ng-bind-html="x.id">
+                      <td style="width: 20%">{{x.title}}</td>
+					  <td style="width: 20%">{{x.class.className}}--{{x.class.sectionName}}</td>
+                      <td style="width: 40%">{{x.description}}</td>
+                      <td style="width: 20%">{{x.fromDate}}</td>
+                      <td style="width: 20%">{{x.toDate}}</td>
+                      <td style="width: 20%">{{x.chooseFile}}</td>
+                      <td style="width: 50%"><div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
+                        <i class="glyphicon glyphicon-edit" ng-model="collapsed1" ng-click="editAssignment(x)"></i>
+                        <i class="glyphicon glyphicon-remove"  ng-click="deleteAssignment(x)"></i>
+                      </div></td>
+                    </div>
+                  </tr>
+                  </tbody>
+                </table></div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
