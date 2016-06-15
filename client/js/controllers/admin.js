@@ -8,8 +8,8 @@ angular
   }
   ])
   .controller('DirectoryController',
-    ['$scope', 'Admin', '$state', 'School', 'Class', 'Student', 'Parent', 'StudentParent', 'Staff', '$rootScope', '$window',
-      function ($scope, Admin, $state, School, Class, Student, Parent, StudentParent, Staff, $rootScope, $window) {
+    ['$scope', 'ngDialog','Admin', '$state', 'School', 'Class', 'Student', 'Parent', 'StudentParent', 'Staff', '$rootScope', '$window',
+      function ($scope,ngDialog, Admin, $state, School, Class, Student, Parent, StudentParent, Staff, $rootScope, $window) {
         $scope.user = $window.localStorage.getItem('user');
         var userData = JSON.parse($scope.user);
         $scope.schoolName= null;
@@ -37,21 +37,20 @@ angular
             function (response) {
               var i = 0;
               $scope.parentList = [];
-              response.forEach(function (studentParent) {
-                $scope.p = studentParent.toJSON();
-                $scope.parentList[i] = $scope.p.parent;
-                i++;
-              }, $scope.parentList);
+              response.forEach(function (studentParent) { $scope.p = studentParent.toJSON();
+                                                          $scope.parentList[i] = $scope.p.parent;
+                                                          i++;
+                                                        }, $scope.parentList);
 
             }, function (response) {
-              console.log("StudentParent Data " + response.data.error.message);
+                                    console.log("StudentParent Data " + response.data.error.message);
             });
 
         $scope.searchList = $scope.studentList;
         $scope.processSearch = function () {
           if ($scope.formData.staffSearch == true) {
-            $scope.searchList = Staff.find({filter: {where: {schoolId: $scope.schoolId}}});
-            $scope.parentList =  null;
+            $scope.searchList = [];
+            $scope.parentList = Staff.find({filter: {where: {schoolId: $scope.schoolId}}});
           }
           else         {
             $state.go($state.current, {}, {reload: true});
@@ -167,62 +166,114 @@ angular
             });
         }
         $scope.deleteUser = function (x) {
-          if (x.type == "Student") {
-            Student.delete({id: x.id}, function () {
-              $scope.resultStudentParent =StudentParent.find({filter: {where: {studentId: x.id,schoolId:$scope.schoolId}}}, function (response) {
-                  response.forEach(function(resultStudentParent){
-                    var p = resultStudentParent.toJSON();
+          var dialog = ngDialog.open({template: 'deleteUser'});
+          dialog.closePromise.then(function (data) {
+            if (data.value && data.value != '$document')  {
 
-                    StudentParent.deleteById({id:p.id},function(){
-                      console.log('deleting student and student relation with parent');
+
+              if (x.type == "Student") {
+                Student.delete({id: x.id}, function () {
+                  $scope.resultStudentParent =StudentParent.find({filter: {where: {studentId: x.id,schoolId:$scope.schoolId}}}, function (response) {
+                      response.forEach(function(resultStudentParent){
+                        var p = resultStudentParent.toJSON();
+
+                        StudentParent.deleteById({id:p.id},function(){
+                          console.log('deleting student and student relation with parent');
+                          $state.go($state.current, {}, {reload: true});
+                        },function(response){
+                          console.log(response.data.error.message);
+                        });
+                      });
                       $state.go($state.current, {}, {reload: true});
-                    },function(response){
+                    },
+                    function (response) {
                       console.log(response.data.error.message);
-                    });
-                  });
+                    }
+                  );
+                });
+              }
+              else if (x.type == "Parent") {
+                Parent.delete({id: x.id}, function () {
+                  $scope.resultStudentParent = StudentParent.find({filter: {where: {parentId: x.id,schoolId:$scope.schoolId}}},
+                    function (response) {
+                      response.forEach(function(resultStudentParent){
+                        var p = resultStudentParent.toJSON();
+                        StudentParent.deleteById({id:p.id},function(){
+                          console.log('deleting  parent and  parent relation with student');
+                          $state.go($state.current, {}, {reload: true});
+                        },function(response){
+                          console.log(response.data.error.message);
+                        });
+
+
+                      });
+
+                    }, function (response) {
+                      console.log(response.data.error.message);
+                    }
+                  );
+                });
+
+              }
+              else if (x.type == "Staff") {
+                Staff.delete({id: x.id}, function () {
                   $state.go($state.current, {}, {reload: true});
-                },
-                function (response) {
-                  console.log(response.data.error.message);
-                }
-              );
-            });
-          }
-          else if (x.type == "Parent") {
-            Parent.delete({id: x.id}, function () {
-              $scope.resultStudentParent = StudentParent.find({filter: {where: {parentId: x.id,schoolId:$scope.schoolId}}},
-                function (response) {
-                  response.forEach(function(resultStudentParent){
-                    var p = resultStudentParent.toJSON();
-                    StudentParent.deleteById({id:p.id},function(){
-                      console.log('deleting  parent and  parent relation with student');
-                      $state.go($state.current, {}, {reload: true});
-                    },function(response){
-                      console.log(response.data.error.message);
-                    });
+                });
+              }
+            }
+
+            return true;
+          });
 
 
-                  });
-
-                }, function (response) {
-                  console.log(response.data.error.message);
-                }
-              );
-            });
-
-          }
-          else if (x.type == "Staff") {
-            Staff.delete({id: x.id}, function () {
-              $state.go($state.current, {}, {reload: true});
-            });
-          }
 
 
         }
         $scope.editUser = function (x) {
-          $scope.formData = x;
-          $('.newName').val(x.username);
-          $('.newContact').val(x.contact);
+          ngDialog.openConfirm({template: 'editStudent',
+            scope: $scope //Pass the scope object if you need to access in the template
+          }).then(
+            function(formData) {
+              Student.upsert({id:x.id,
+                  username: $scope.formData.studentFirstName,
+                  lastName: $scope.formData.studentLastName,
+                  email: $scope.formData.studentEmail,
+                  password: $scope.formData.studentPassword,
+                  gender: $scope.formData.studentGender,
+                  image: $scope.formData.studentImg,
+                  dateofBirth: $scope.formData.studentDateOfBirth,
+                  rollNo: $scope.formData.studentRollNo,
+                  RFID: $scope.formData.studentRFID,
+                  prevSchool: $scope.formData.studentPreviousSchool,
+                  dateofJoin: $scope.formData.studentDateOfJoin,
+                  classId: $scope.formData.studentClass,
+                  status: $scope.formData.studentStatus,
+                  regId: $scope.formData.studentRegId,
+                  isDisable: $scope.formData.studentIsDisable,
+                  prevSchoolTC: $scope.formData.studentPreviousTC,
+                  currentAddress: $scope.formData.studentCurrentAddress,
+                  currentCity: $scope.formData.studentCurrentCity,
+                  currentState: $scope.formData.studentCurrentState,
+                  currentPincode: $scope.formData.studentCurrentPincode,
+                  bloodGroup: $scope.formData.studentBloodGroup,
+                  religion: $scope.formData.studentReligion,
+                  caste: $scope.formData.studentCaste,
+                  alternateContact: $scope.formData.studentAlternateContact,
+                  permanentAddress: $scope.formData.studentPermanentAddress,
+                  permanentCity: $scope.formData.studentPermanentCity,
+                  permanentState: $scope.formData.studentPermanentState,
+                  permanentPincode: $scope.formData.studentPermanentPincode,
+                  nationalId: $scope.formData.studentNationalId,
+                  motherTounge: $scope.formData.studentMotherTounge,
+                  nationalIdType: $scope.formData.studentNationalIdType,
+                  subCaste: $scope.formData.studentSubCaste,
+                  contact: $scope.formData.studentContact
+
+              },
+                function () {$state.go($state.current, {}, {reload: true});});
+            },
+            function(value) {}
+          );
         }
         $scope.updateUser = function () {
           if ($scope.formData.type == "Student") {
