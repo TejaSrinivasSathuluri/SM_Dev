@@ -336,7 +336,6 @@ angular.module('formApp', ['ngAnimate','ui.router','lbServices','ngResource','ng
         );
       }
     })
-
     .controller('assignmentController', function($scope,$localStorage,$state,ngDialog,Assignment,Class){
        $scope.schoolId = $localStorage.user.schoolId;
       $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}}});

@@ -35,6 +35,12 @@ angular
         controller: 'SubjectController',
         authenticate: true
       })
+      .state('attendance', {
+        url: '/attendance',
+        templateUrl: 'views/attendance.html',
+        controller: 'AttendanceController',
+        authenticate: true
+      })
      .state('timetable', {
         url: '/timetable',
         templateUrl: 'views/timetable.html',

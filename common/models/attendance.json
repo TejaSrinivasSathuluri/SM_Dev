@@ -1,0 +1,29 @@
+{
+  "name": "Attendance",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "class": {
+      "type": "belongsTo",
+      "model": "Class",
+      "foreignKey": ""
+    },
+    "student": {
+      "type": "belongsTo",
+      "model": "Student",
+      "foreignKey": ""
+    },
+    "school": {
+      "type": "belongsTo",
+      "model": "School",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
