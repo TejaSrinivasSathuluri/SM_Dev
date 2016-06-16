@@ -2178,6 +2178,12 @@ module.factory(
           method: "GET"
         },
 
+        // INTERNAL. Use Attendance.student() instead.
+        "::get::Attendance::student": {
+          url: urlBase + "/Attendances/:id/student",
+          method: "GET"
+        },
+
         /**
          * @ngdoc method
          * @name lbServices.Student#getCurrent
@@ -6204,6 +6210,12 @@ module.factory(
           url: urlBase + "/StudentParents/:id/school",
           method: "GET"
         },
+
+        // INTERNAL. Use Attendance.school() instead.
+        "::get::Attendance::school": {
+          url: urlBase + "/Attendances/:id/school",
+          method: "GET"
+        },
       }
     );
 
@@ -8386,6 +8398,12 @@ module.factory(
         // INTERNAL. Use Assignment.class() instead.
         "::get::Assignment::class": {
           url: urlBase + "/Assignments/:id/class",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Attendance.class() instead.
+        "::get::Attendance::class": {
+          url: urlBase + "/Attendances/:id/class",
           method: "GET"
         },
       }
@@ -18008,13 +18026,13 @@ module.factory(
 
 /**
  * @ngdoc object
- * @name lbServices.Container
- * @header lbServices.Container
+ * @name lbServices.Attendance
+ * @header lbServices.Attendance
  * @object
  *
  * @description
  *
- * A $resource object for interacting with the `Container` model.
+ * A $resource object for interacting with the `Attendance` model.
  *
  * ## Example
  *
@@ -18024,351 +18042,35 @@ module.factory(
  *
  */
 module.factory(
-  "Container",
+  "Attendance",
   ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
     var R = Resource(
-      urlBase + "/Containers/:id",
+      urlBase + "/Attendances/:id",
       { 'id': '@id' },
       {
 
-        /**
-         * @ngdoc method
-         * @name lbServices.Container#getContainers
-         * @methodOf lbServices.Container
-         *
-         * @description
-         *
-         * <em>
-         * (The remote method definition does not provide any description.)
-         * </em>
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *   This method does not accept any parameters.
-         *   Supply an empty object or omit this argument altogether.
-         *
-         * @param {function(Array.<Object>,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Array.<Object>} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Container` object.)
-         * </em>
-         */
-        "getContainers": {
-          isArray: true,
-          url: urlBase + "/Containers",
+        // INTERNAL. Use Attendance.class() instead.
+        "prototype$__get__class": {
+          url: urlBase + "/Attendances/:id/class",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Attendance.student() instead.
+        "prototype$__get__student": {
+          url: urlBase + "/Attendances/:id/student",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Attendance.school() instead.
+        "prototype$__get__school": {
+          url: urlBase + "/Attendances/:id/school",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Container#createContainer
-         * @methodOf lbServices.Container
-         *
-         * @description
-         *
-         * <em>
-         * (The remote method definition does not provide any description.)
-         * </em>
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *   This method does not accept any parameters.
-         *   Supply an empty object or omit this argument altogether.
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Container` object.)
-         * </em>
-         */
-        "createContainer": {
-          url: urlBase + "/Containers",
-          method: "POST"
-        },
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Container#destroyContainer
-         * @methodOf lbServices.Container
-         *
-         * @description
-         *
-         * <em>
-         * (The remote method definition does not provide any description.)
-         * </em>
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `container` – `{string=}` - 
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `` – `{undefined=}` - 
-         */
-        "destroyContainer": {
-          url: urlBase + "/Containers/:container",
-          method: "DELETE"
-        },
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Container#getContainer
-         * @methodOf lbServices.Container
-         *
-         * @description
-         *
-         * <em>
-         * (The remote method definition does not provide any description.)
-         * </em>
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `container` – `{string=}` - 
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Container` object.)
-         * </em>
-         */
-        "getContainer": {
-          url: urlBase + "/Containers/:container",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Container#getFiles
-         * @methodOf lbServices.Container
-         *
-         * @description
-         *
-         * <em>
-         * (The remote method definition does not provide any description.)
-         * </em>
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `container` – `{string=}` - 
-         *
-         * @param {function(Array.<Object>,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Array.<Object>} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Container` object.)
-         * </em>
-         */
-        "getFiles": {
-          isArray: true,
-          url: urlBase + "/Containers/:container/files",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Container#getFile
-         * @methodOf lbServices.Container
-         *
-         * @description
-         *
-         * <em>
-         * (The remote method definition does not provide any description.)
-         * </em>
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `container` – `{string=}` - 
-         *
-         *  - `file` – `{string=}` - 
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Container` object.)
-         * </em>
-         */
-        "getFile": {
-          url: urlBase + "/Containers/:container/files/:file",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Container#removeFile
-         * @methodOf lbServices.Container
-         *
-         * @description
-         *
-         * <em>
-         * (The remote method definition does not provide any description.)
-         * </em>
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `container` – `{string=}` - 
-         *
-         *  - `file` – `{string=}` - 
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `` – `{undefined=}` - 
-         */
-        "removeFile": {
-          url: urlBase + "/Containers/:container/files/:file",
-          method: "DELETE"
-        },
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Container#upload
-         * @methodOf lbServices.Container
-         *
-         * @description
-         *
-         * <em>
-         * (The remote method definition does not provide any description.)
-         * </em>
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *   This method does not accept any parameters.
-         *   Supply an empty object or omit this argument altogether.
-         *
-         * @param {Object} postData Request data.
-         *
-         *  - `req` – `{object=}` - 
-         *
-         *  - `res` – `{object=}` - 
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `result` – `{object=}` - 
-         */
-        "upload": {
-          url: urlBase + "/Containers/:container/upload",
-          method: "POST"
-        },
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Container#download
-         * @methodOf lbServices.Container
-         *
-         * @description
-         *
-         * <em>
-         * (The remote method definition does not provide any description.)
-         * </em>
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `container` – `{string=}` - 
-         *
-         *  - `file` – `{string=}` - 
-         *
-         *  - `req` – `{object=}` - 
-         *
-         *  - `res` – `{object=}` - 
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        "download": {
-          url: urlBase + "/Containers/:container/download/:file",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Container#create
-         * @methodOf lbServices.Container
+         * @name lbServices.Attendance#create
+         * @methodOf lbServices.Attendance
          *
          * @description
          *
@@ -18395,18 +18097,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Container` object.)
+         * This usually means the response is a `Attendance` object.)
          * </em>
          */
         "create": {
-          url: urlBase + "/Containers",
+          url: urlBase + "/Attendances",
           method: "POST"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Container#createMany
-         * @methodOf lbServices.Container
+         * @name lbServices.Attendance#createMany
+         * @methodOf lbServices.Attendance
          *
          * @description
          *
@@ -18433,19 +18135,19 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Container` object.)
+         * This usually means the response is a `Attendance` object.)
          * </em>
          */
         "createMany": {
           isArray: true,
-          url: urlBase + "/Containers",
+          url: urlBase + "/Attendances",
           method: "POST"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Container#upsert
-         * @methodOf lbServices.Container
+         * @name lbServices.Attendance#upsert
+         * @methodOf lbServices.Attendance
          *
          * @description
          *
@@ -18472,18 +18174,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Container` object.)
+         * This usually means the response is a `Attendance` object.)
          * </em>
          */
         "upsert": {
-          url: urlBase + "/Containers",
+          url: urlBase + "/Attendances",
           method: "PUT"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Container#exists
-         * @methodOf lbServices.Container
+         * @name lbServices.Attendance#exists
+         * @methodOf lbServices.Attendance
          *
          * @description
          *
@@ -18508,14 +18210,14 @@ module.factory(
          *  - `exists` – `{boolean=}` - 
          */
         "exists": {
-          url: urlBase + "/Containers/:id/exists",
+          url: urlBase + "/Attendances/:id/exists",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Container#findById
-         * @methodOf lbServices.Container
+         * @name lbServices.Attendance#findById
+         * @methodOf lbServices.Attendance
          *
          * @description
          *
@@ -18539,18 +18241,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Container` object.)
+         * This usually means the response is a `Attendance` object.)
          * </em>
          */
         "findById": {
-          url: urlBase + "/Containers/:id",
+          url: urlBase + "/Attendances/:id",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Container#find
-         * @methodOf lbServices.Container
+         * @name lbServices.Attendance#find
+         * @methodOf lbServices.Attendance
          *
          * @description
          *
@@ -18572,19 +18274,19 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Container` object.)
+         * This usually means the response is a `Attendance` object.)
          * </em>
          */
         "find": {
           isArray: true,
-          url: urlBase + "/Containers",
+          url: urlBase + "/Attendances",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Container#findOne
-         * @methodOf lbServices.Container
+         * @name lbServices.Attendance#findOne
+         * @methodOf lbServices.Attendance
          *
          * @description
          *
@@ -18606,18 +18308,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Container` object.)
+         * This usually means the response is a `Attendance` object.)
          * </em>
          */
         "findOne": {
-          url: urlBase + "/Containers/findOne",
+          url: urlBase + "/Attendances/findOne",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Container#updateAll
-         * @methodOf lbServices.Container
+         * @name lbServices.Attendance#updateAll
+         * @methodOf lbServices.Attendance
          *
          * @description
          *
@@ -18644,14 +18346,14 @@ module.factory(
          * The number of instances updated
          */
         "updateAll": {
-          url: urlBase + "/Containers/update",
+          url: urlBase + "/Attendances/update",
           method: "POST"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Container#deleteById
-         * @methodOf lbServices.Container
+         * @name lbServices.Attendance#deleteById
+         * @methodOf lbServices.Attendance
          *
          * @description
          *
@@ -18673,18 +18375,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Container` object.)
+         * This usually means the response is a `Attendance` object.)
          * </em>
          */
         "deleteById": {
-          url: urlBase + "/Containers/:id",
+          url: urlBase + "/Attendances/:id",
           method: "DELETE"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Container#count
-         * @methodOf lbServices.Container
+         * @name lbServices.Attendance#count
+         * @methodOf lbServices.Attendance
          *
          * @description
          *
@@ -18709,14 +18411,14 @@ module.factory(
          *  - `count` – `{number=}` - 
          */
         "count": {
-          url: urlBase + "/Containers/count",
+          url: urlBase + "/Attendances/count",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Container#prototype$updateAttributes
-         * @methodOf lbServices.Container
+         * @name lbServices.Attendance#prototype$updateAttributes
+         * @methodOf lbServices.Attendance
          *
          * @description
          *
@@ -18742,18 +18444,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Container` object.)
+         * This usually means the response is a `Attendance` object.)
          * </em>
          */
         "prototype$updateAttributes": {
-          url: urlBase + "/Containers/:id",
+          url: urlBase + "/Attendances/:id",
           method: "PUT"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Container#createChangeStream
-         * @methodOf lbServices.Container
+         * @name lbServices.Attendance#createChangeStream
+         * @methodOf lbServices.Attendance
          *
          * @description
          *
@@ -18783,7 +18485,7 @@ module.factory(
          *  - `changes` – `{ReadableStream=}` - 
          */
         "createChangeStream": {
-          url: urlBase + "/Containers/change-stream",
+          url: urlBase + "/Attendances/change-stream",
           method: "POST"
         },
       }
@@ -18793,8 +18495,8 @@ module.factory(
 
         /**
          * @ngdoc method
-         * @name lbServices.Container#updateOrCreate
-         * @methodOf lbServices.Container
+         * @name lbServices.Attendance#updateOrCreate
+         * @methodOf lbServices.Attendance
          *
          * @description
          *
@@ -18821,15 +18523,15 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Container` object.)
+         * This usually means the response is a `Attendance` object.)
          * </em>
          */
         R["updateOrCreate"] = R["upsert"];
 
         /**
          * @ngdoc method
-         * @name lbServices.Container#update
-         * @methodOf lbServices.Container
+         * @name lbServices.Attendance#update
+         * @methodOf lbServices.Attendance
          *
          * @description
          *
@@ -18859,8 +18561,8 @@ module.factory(
 
         /**
          * @ngdoc method
-         * @name lbServices.Container#destroyById
-         * @methodOf lbServices.Container
+         * @name lbServices.Attendance#destroyById
+         * @methodOf lbServices.Attendance
          *
          * @description
          *
@@ -18882,15 +18584,15 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Container` object.)
+         * This usually means the response is a `Attendance` object.)
          * </em>
          */
         R["destroyById"] = R["deleteById"];
 
         /**
          * @ngdoc method
-         * @name lbServices.Container#removeById
-         * @methodOf lbServices.Container
+         * @name lbServices.Attendance#removeById
+         * @methodOf lbServices.Attendance
          *
          * @description
          *
@@ -18912,7 +18614,7 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Container` object.)
+         * This usually means the response is a `Attendance` object.)
          * </em>
          */
         R["removeById"] = R["deleteById"];
@@ -18920,14 +18622,122 @@ module.factory(
 
     /**
     * @ngdoc property
-    * @name lbServices.Container#modelName
-    * @propertyOf lbServices.Container
+    * @name lbServices.Attendance#modelName
+    * @propertyOf lbServices.Attendance
     * @description
     * The name of the model represented by this $resource,
-    * i.e. `Container`.
+    * i.e. `Attendance`.
     */
-    R.modelName = "Container";
+    R.modelName = "Attendance";
 
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Attendance#class
+         * @methodOf lbServices.Attendance
+         *
+         * @description
+         *
+         * Fetches belongsTo relation class.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Class` object.)
+         * </em>
+         */
+        R.class = function() {
+          var TargetResource = $injector.get("Class");
+          var action = TargetResource["::get::Attendance::class"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Attendance#student
+         * @methodOf lbServices.Attendance
+         *
+         * @description
+         *
+         * Fetches belongsTo relation student.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Student` object.)
+         * </em>
+         */
+        R.student = function() {
+          var TargetResource = $injector.get("Student");
+          var action = TargetResource["::get::Attendance::student"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Attendance#school
+         * @methodOf lbServices.Attendance
+         *
+         * @description
+         *
+         * Fetches belongsTo relation school.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `School` object.)
+         * </em>
+         */
+        R.school = function() {
+          var TargetResource = $injector.get("School");
+          var action = TargetResource["::get::Attendance::school"];
+          return action.apply(R, arguments);
+        };
 
     return R;
   }]);

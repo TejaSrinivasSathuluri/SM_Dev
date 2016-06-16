@@ -3,7 +3,7 @@ angular
   .controller('LandingPageController', ['$scope', function ($scope) {
 
   }])
-  .controller('DashboardController', ['$scope', 'Admin', '$state', function ($scope, Admin, $rootScope, $state) {
+  .controller('DashboardController', ['$scope', 'Admin', '$state', function ($scope, Admin, $state) {
 
   }
   ])
@@ -111,7 +111,6 @@ angular
                   created: $scope.date
                 },
                 function () {
-
                   if ($scope.formData.motherFirstName != null && $scope.formData.motherPassword != null && $scope.formData.motherEmail != null) {
                     console.log('creating mother');
                     $scope.newParent1 = Parent.create({
@@ -158,7 +157,9 @@ angular
                       console.log(response.data.error.message);
                     });
                   }
-
+                  else{
+                    $state.go($state.current, {}, {reload: true});
+                  }
                 }
               );
 
@@ -464,7 +465,8 @@ angular
         }
       }])
 
-  .controller('TimetableController', ['$scope', 'Admin', '$state', 'School', 'Timetable', '$rootScope', '$window',
+  .controller('TimetableController',
+    ['$scope', 'Admin', '$state', 'School', 'Timetable', '$rootScope', '$window',
     function ($scope, Admin, $state, School, Timetable, $rootScope, $window) {
       $scope.user = $window.localStorage.getItem('user');
       var userData = JSON.parse($scope.user);
@@ -604,7 +606,8 @@ angular
   .controller('NoticeboardController', ['$scope', '$state', 'School', 'Noticeboard', '$rootScope', '$window',
     function ($scope, $state, School, Noticeboard, $rootScope, $window) {
       $scope.user = $window.localStorage.getItem('user');
-      $scope.schoolId = $scope.user.schoolId;
+      var userData = JSON.parse($scope.user);
+      $scope.schoolId = userData.schoolId;
       $scope.addNotice = function () {
         $scope.formData.date1 = new Date($scope.formData.date1);
         $scope.formData.date2 = new Date($scope.formData.date2);
@@ -636,7 +639,8 @@ angular
   .controller('LibraryController', ['$scope', '$state', 'School', 'Library', '$rootScope', '$window',
     function ($scope, $state, School, Library, $rootScope, $window) {
       $scope.user = $window.localStorage.getItem('user');
-      $scope.schoolId = $scope.user.schoolId;
+      var userData = JSON.parse($scope.user);
+      $scope.schoolId = userData.schoolId;
       $scope.addLibrary = function () {
         Library.create({
           schoolId: $scope.schoolId, name: $scope.formData.name, author: $scope.formData.author,
@@ -660,7 +664,8 @@ angular
   .controller('AssignmentController', ['$scope', '$state', 'Class', 'Assignment', '$rootScope', '$window',
     function ($scope, $state, Class, Assignment, $rootScope, $window) {
       $scope.user = $window.localStorage.getItem('user');
-      $scope.schoolId = $scope.user.schoolId;
+      var userData = JSON.parse($scope.user);
+      $scope.schoolId = userData.schoolId;
       $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}}});
       $scope.addAssignment = function () {
         Assignment.create({
@@ -688,8 +693,59 @@ angular
 
     }])
 
-;
+  .controller('AttendanceController', ['$scope', '$state','$window','Class','School','Attendance','Student',
+    function ($scope,$state,$window,Class,School,Attendance,Student) {
+      $scope.user = $window.localStorage.getItem('user');
+      var userData = JSON.parse($scope.user);
+      $scope.schoolId = userData.schoolId;
+      $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}}});
+      $scope.classStudentList =[];
+      $scope.loadAttendance = function() {
+        $scope.newAttendance = Attendance.find({filter: {where: {schoolId: $scope.schoolId,classId :$scope.classSelected,year :$scope.yearSelected }}},
+            function(){
+                    $scope.classStudentList = Student.find({filter:{where:{schoolId: $scope.schoolId,classId :$scope.classSelected},include:'class'}},
+                    function(response){
+                            response.forEach(function (classStudentList) {
+                                            $scope.studentData =  classStudentList.toJSON();
+                                            console.log("Student" + $scope.studentData.id);
 
+                                            Attendance.findOne({filter: {where: {schoolId: $scope.schoolId,classId :$scope.classSelected, studentId:$scope.studentData.id,year :$scope.yearSelected }}},
+                                                                 function(response){},
+                                                                 function(){
+                                                                          $scope.data =[[]];
+                                                                          for(var i=0; i<12 ; i++) $scope.data[i] = [$scope.getMonth(i+1,$scope.yearSelected)];
+                                                                          console.log("Adding" + $scope.studentData.id);
+                                                                          //Attendance.create({schoolId: $scope.schoolId,classId:$scope.classSelected,studentId:$scope.studentData.id,year :$scope.yearSelected,data:$scope.data});
+                                                                          });
+                                             console.log("Student1" + $scope.studentData.id);
+                                            });
+                     },
+                    function(){ });
+          }
+
+        );
+      }
+      //$scope.saveAttendance = function(){
+      //     Attendance.create({schoolId: $scope.schoolId,classId :$scope.classSelected,year:$scope.yearSelected }
+      //     ,function(){},
+      //     function(response){
+      //       console.log(response.data.error.message);
+      //     });
+      //
+      //}
+    //--------------
+
+      $scope.getDays =function(month,year) { return new Date(year, month, 0).getDate();}
+      $scope.getMonth = function(m,year) {
+        $scope.month=[];
+        for (var i = 0; i < $scope.getDays(m,year); i++) { $scope.month[i] = false; }
+        return $scope.month;
+      }
+  //-------------------------
+  }])
+
+
+;
 
 
 
