@@ -693,60 +693,61 @@ angular
 
     }])
 
-  .controller('AttendanceController', ['$scope', '$state','$window','Class','School','Attendance','Student',
-    function ($scope,$state,$window,Class,School,Attendance,Student) {
+  .controller('AttendanceController', ['$scope', '$state','$window','Class','Attendance','Student',
+    function ($scope,$state,$window,Class,Attendance,Student) {
       $scope.user = $window.localStorage.getItem('user');
       var userData = JSON.parse($scope.user);
       $scope.schoolId = userData.schoolId;
       $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}}});
-      $scope.classStudentList =[];
-      $scope.loadAttendance = function() {
-        $scope.newAttendance = Attendance.find({filter: {where: {schoolId: $scope.schoolId,classId :$scope.classSelected,year :$scope.yearSelected }}},
-            function(){
-                    $scope.classStudentList = Student.find({filter:{where:{schoolId: $scope.schoolId,classId :$scope.classSelected},include:'class'}},
-                    function(response){
-                            response.forEach(function (classStudentList) {
-                                            $scope.studentData =  classStudentList.toJSON();
-                                            console.log("Student" + $scope.studentData.id);
-
-                                            Attendance.findOne({filter: {where: {schoolId: $scope.schoolId,classId :$scope.classSelected, studentId:$scope.studentData.id,year :$scope.yearSelected }}},
-                                                                 function(response){},
-                                                                 function(){
-                                                                          $scope.data =[[]];
-                                                                          for(var i=0; i<12 ; i++) $scope.data[i] = [$scope.getMonth(i+1,$scope.yearSelected)];
-                                                                          console.log("Adding" + $scope.studentData.id);
-                                                                          //Attendance.create({schoolId: $scope.schoolId,classId:$scope.classSelected,studentId:$scope.studentData.id,year :$scope.yearSelected,data:$scope.data});
-                                                                          });
-                                             console.log("Student1" + $scope.studentData.id);
-                                            });
-                     },
-                    function(){ });
-          }
-
-        );
-      }
-      //$scope.saveAttendance = function(){
-      //     Attendance.create({schoolId: $scope.schoolId,classId :$scope.classSelected,year:$scope.yearSelected }
-      //     ,function(){},
-      //     function(response){
-      //       console.log(response.data.error.message);
-      //     });
-      //
-      //}
-    //--------------
-
-      $scope.getDays =function(month,year) { return new Date(year, month, 0).getDate();}
-      $scope.getMonth = function(m,year) {
-        $scope.month=[];
-        for (var i = 0; i < $scope.getDays(m,year); i++) { $scope.month[i] = false; }
-        return $scope.month;
-      }
-  //-------------------------
-  }])
+      $scope.studentList =[];
+	  var flag = true;
+	          $scope.loadDates = function() 
+			  {        $scope.studentList =[];
+					  $scope.list = Student.find({filter:{where:{classId:$scope.classSelected}}},function(){
+						  for(var i=0;i<$scope.list.length;i++){   
+                         
+						 
+						 $scope.chk($scope.list[i].id,$scope.list[i].username,i);
+						   
+ 
+						  }						 
+					  });
+					  
+        
+			  }
+			   var i=0;
+              $scope.chk = function(studentId,username,i) 
+			  {    
+					  $scope.attendanceRecord = Attendance.findOne({filter:{where:{date:$scope.dateSelected,studentId:studentId}}},function(response){
+							
+							 $scope.studentList[i] ={id:studentId ,username :username,attendanceId :response.id,status:true} 
+						console.log($scope.studentList[i]);	
+						 },function(){
+							 							 $scope.studentList[i] ={id:studentId,username : username,status:false} 
+                         });
+			  }
+			  $scope.addAttendance = function(x){
+				  if (x.status == true) { 
+				      Attendance.findOne({filter:{where:{studentId:x.id,date:$scope.dateSelected}}},function(){
+						 
+					  },function(){
+						  Attendance.create({studentId:x.id,date:$scope.dateSelected});
+					  });
+			        	  
+				  }
+				  else {      
+           			 if (x.id != null) {
+						 Attendance.delete({id:JSON.stringify(x.attendanceId).replace(/["']/g, "")},function(){},function(response){ console.log(response.data.error.message);});
+					 }				
+				}
+			  }
+              
+		
+		          
+ }])
 
 
 ;
-
 
 
 
