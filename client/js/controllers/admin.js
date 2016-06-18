@@ -19,6 +19,7 @@ angular
         });
 
         $scope.date = new Date();
+		
         $scope.classList = Class.find   ({filter: {where: {schoolId: $scope.schoolId}}}, function (response) {
         }, function (response) {
           console.log("Classes "+response.data.error.message);
@@ -56,6 +57,12 @@ angular
             $state.go($state.current, {}, {reload: true});
           }
         }
+		$scope.currentPage = 0;
+		$scope.pageSize = 10;
+		$scope.data = ($scope.searchList.concat($scope.parentList)).length;
+		$scope.numberOfPages=function(){
+        return Math.ceil($scope.data/$scope.pageSize); 
+		}		
         //--------------------------------------------------------
         $scope.addStudent = function () {
           $scope.studentExists = Student.findOne({
@@ -359,8 +366,8 @@ angular
     ])
 
   .controller('ClassController',
-    ['$scope', 'Admin', '$state', 'School', 'Class', 'Student', 'Staff', '$rootScope', '$window',
-      function ($scope, Admin, $state, School, Class, Student, Staff, $rootScope, $window) {
+    ['$scope', 'Admin', '$state', 'School', 'Class', 'Student', 'Staff', '$rootScope', '$window','ngDialog',
+      function ($scope, Admin, $state, School, Class, Student, Staff, $rootScope, $window,ngDialog) {
         $scope.user = $window.localStorage.getItem('user');
         var userData = JSON.parse($scope.user);
         $scope.schoolId = userData.schoolId;
@@ -398,8 +405,12 @@ angular
           $('#newStaff').val(x.staff.id);
         }
         $scope.deleteClass = function (x) {
-          Class.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")});
-          $state.go($state.current, {}, {reload: true});
+          var dialog = ngDialog.open({template: 'deleteClass'});
+          dialog.closePromise.then(function (data) {
+            if (data.value && data.value != '$document' && data.value != '$closeButton') Class.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")});
+            $state.go($state.current, {}, {reload: true});
+            return true;
+          });
         }
         $scope.updateClass = function (x) {
           Class.upsert({id: x.id, staffId: $scope.formData.newStaff},
@@ -412,8 +423,8 @@ angular
     ])
 
   .controller('SubjectController',
-    ['$scope', 'Admin', '$state', 'School', 'Class', 'Student', 'Staff', 'Subject', '$rootScope', '$window',
-      function ($scope, Admin, $state, School, Class, Student, Staff, Subject, $rootScope, $window) {
+    ['$scope', 'Admin', '$state', 'School', 'Class', 'Student', 'Staff', 'Subject', '$rootScope', '$window','ngDialog',
+      function ($scope, Admin, $state, School, Class, Student, Staff, Subject, $rootScope, $window,ngDialog) {
         $scope.user = $window.localStorage.getItem('user');
         var userData = JSON.parse($scope.user);
         $scope.schoolId = userData.schoolId;
@@ -460,8 +471,18 @@ angular
             });
         }
         $scope.deleteSubject = function (x) {
-          Subject.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")});
-          $state.go($state.current, {}, {reload: true});
+ 
+        var dialog = ngDialog.open({template: 'deleteSubject'});
+        dialog.closePromise.then(function (data) {
+
+          if (data.value && data.value != '$document' && data.value != '$closeButton')
+          {
+            Subject.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")});
+            $state.go($state.current, {}, {reload: true});
+          }
+          return true;
+        });
+
         }
       }])
 
@@ -603,8 +624,8 @@ angular
       }
 }])
 
-  .controller('NoticeboardController', ['$scope', '$state', 'School', 'Noticeboard', '$rootScope', '$window',
-    function ($scope, $state, School, Noticeboard, $rootScope, $window) {
+  .controller('NoticeboardController', ['$scope', '$state', 'School', 'Noticeboard', '$rootScope', '$window','ngDialog',
+    function ($scope, $state, School, Noticeboard, $rootScope, $window,ngDialog) {
       $scope.user = $window.localStorage.getItem('user');
       var userData = JSON.parse($scope.user);
       $scope.schoolId = userData.schoolId;
@@ -628,16 +649,32 @@ angular
       $scope.noticeList = Noticeboard.find({filter: {where: {schoolId: $scope.schoolId}}}, function () {
       });
       $scope.deleteNotice = function (x) {
-        Noticeboard.delete({id: x.id});
-        $state.go($state.current, {}, {reload: true});
+        var dialog = ngDialog.open({template: 'deleteNotice'});
+        dialog.closePromise.then(function (data) {
+          if (data.value && data.value != '$document' && data.value != '$closeButton')
+            Noticeboard.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")});
+          $state.go($state.current, {}, {reload: true});
+          return true;
+        });
 
       }
       $scope.editNotice = function (x) {
+		   ngDialog.openConfirm({template: 'editNotice',
+          scope: $scope //Pass the scope object if you need to access in the template
+        }).then(
+          function(formData) {
+            Noticeboard.upsert({id:x.id, title : formData.title,description: formData.description,date1: formData.date1,date2:formData.date2,uploadFile:formData.uploadFile},
+              function () {$state.go($state.current, {}, {reload: true});});
+          },
+          function(value) {
+
+          }
+        );
       }
     }])
 
-  .controller('LibraryController', ['$scope', '$state', 'School', 'Library', '$rootScope', '$window',
-    function ($scope, $state, School, Library, $rootScope, $window) {
+  .controller('LibraryController', ['$scope', '$state', 'School', 'Library', '$rootScope', '$window','ngDialog',
+    function ($scope, $state, School, Library, $rootScope, $window,ngDialog) {
       $scope.user = $window.localStorage.getItem('user');
       var userData = JSON.parse($scope.user);
       $scope.schoolId = userData.schoolId;
@@ -652,17 +689,40 @@ angular
       $scope.librarylist = [];
       $scope.librarylist = Library.find({filter: {where: {schoolId: $scope.schoolId}}});
       $scope.deleteLibrary = function (x) {
-        Library.delete({id: x.id});
-        $state.go($state.current, {}, {reload: true});
+         var dialog = ngDialog.open({template: 'deleteLibrary'});
+
+        dialog.closePromise.then(function (data) {
+
+          if (data.value && data.value != '$document' && data.value != '$closeButton') {
+            Library.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")});
+            $state.go($state.current, {}, {reload: true});
+            //$scope.showClass();
+          }
+
+
+          return true;
+        });
 
       }
       $scope.editLibrary = function (x) {
+		   ngDialog.openConfirm({template: 'editLibrary',
+          scope: $scope //Pass the scope object if you need to access in the template
+        }).then(
+          function(formData) {
+            console.log(x.id);
+            Library.upsert({id:x.id, name : formData.name,author : formData.author,description: formData.description,price: formData.price,available:formData.available},
+              function () {$state.go($state.current, {}, {reload: true});});
+          },
+          function(value) {
+            //Cancel or do nothing
+          }
+        );
       }
 
     }])
 
-  .controller('AssignmentController', ['$scope', '$state', 'Class', 'Assignment', '$rootScope', '$window',
-    function ($scope, $state, Class, Assignment, $rootScope, $window) {
+  .controller('AssignmentController', ['$scope', '$state', 'Class', 'Assignment', '$rootScope', '$window','ngDialog',
+    function ($scope, $state, Class, Assignment, $rootScope, $window,ngDialog) {
       $scope.user = $window.localStorage.getItem('user');
       var userData = JSON.parse($scope.user);
       $scope.schoolId = userData.schoolId;
@@ -687,8 +747,28 @@ angular
       $scope.assignmentlist = [];
       $scope.assignmentlist = Assignment.find({filter: {where: {schoolId: $scope.schoolId}, include: 'class'}});
       $scope.deleteAssignment = function (x) {
-        Assignment.delete({id: x.id});
-        $state.go($state.current, {}, {reload: true});
+         var dialog = ngDialog.open({template: 'deleteAssignment'});
+        dialog.closePromise.then(function (data) {
+          if (data.value && data.value != '$document' && data.value != '$closeButton') {
+            Assignment.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")});
+            $state.go($state.current, {}, {reload: true});
+          }
+          return true;
+        });
+
+      }
+	   $scope.editAssignment =function (x){
+        ngDialog.openConfirm({template: 'editAssignment',
+          scope: $scope //Pass the scope object if you need to access in the template
+        }).then(
+          function(formData) {
+            console.log(x.id);
+            Assignment.upsert({id:x.id, title : formData.title,classId: formData.classSelected,
+			                   description: formData.description,toDate: formData.toDate,fromDate:formData.fromDate,
+							   uploadFile:formData.uploadFile},
+              function () {$state.go($state.current, {}, {reload: true});});
+          }
+        );
       }
 
     }])
@@ -745,8 +825,13 @@ angular
 		
 		          
  }])
-
-
+  .filter('startFrom', function() {
+    return function(input, start) {
+        start = +start; //parse to int
+        return input.slice(start);
+    }
+	})
+    
 ;
 
 

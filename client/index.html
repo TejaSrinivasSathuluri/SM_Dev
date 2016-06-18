@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="app">
   <head>
+    <title> Study Monitor</title>
     <meta charset="utf-8">
     <script src="vendor/angular.min.js"></script>
     <script src="vendor/angular-resource.js"></script>
@@ -9,7 +10,6 @@
     <script src="js/lb-services.js"></script>
     <script src="js/controllers/auth.js"></script>
     <script src="js/controllers/admin.js"></script>
-    <script src="js/controllers/admin2.js"></script>
     <script src="js/services/auth.js"></script>
     <link href="css/style.css" rel="stylesheet">
 
@@ -36,24 +36,21 @@
     <!--------------------------------------->
 
     <!---->
-    <link href="bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="dataTables.bootstrap.min.css" rel="stylesheet" type="text/css">
-    <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/> -->
-    <link href="bootstrap.min.css" rel="stylesheet"/>
-    <script src="ui-bootstrap.js"></script>
-    <script src="ui-bootstrap-tpls.js"></script>
+    <link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="styles/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css">
+   <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/> -->
+    <script src="styles/ui-bootstrap.js"></script>
+    <script src="styles/ui-bootstrap-tpls.js"></script>
     <!--------------------------------------->
 
 
 
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="fonts.css" rel="stylesheet" type="text/css">
+    <link href="styles/fonts.css" rel="stylesheet" type="text/css">
     <link href="../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <script src="jquery-2.1.4.min.js"></script>
+    <script src="styles/jquery-2.1.4.min.js"></script>
     <link href="../../assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css">
     <link href="../../assets/admin/layout3/css/layout.css" rel="stylesheet" type="text/css">
-
-
   </head>
 
 
@@ -61,21 +58,23 @@
   <body>
 
   <div class="page-header" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px">
-    <div class="container">
-      <!-- BEGIN HEADER TOP -->
-      <div class="page-header-top" style="margin: 0px;height:0px">
+  <div class="container">
+   
+    <div class="page-header-top" style="margin: 0px;height:0px">
 
-        <!-- BEGIN LOGO -->
-
-        <div class="page-logo ">
-          <a href="index.html"><img src="/js/logo.png" alt="logo" class="logo-default" style="    width: 31%;
+     
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs--12">
+        <div class="col-lg-2 col-md-2 col-sm-2col-xs-12">
+      <div class="page-logo ">
+        <a href="/"><img src="../../images/l.png" alt="logo" class="logo-default" style="width: 61%;
     margin: 2px;
     height: 70px;
-    margin-top: 1px;"></a>
-
+    margin-top: 1px;
+    "></a>
+      </div>
         </div>
         <!-- END LOGO -->
-        <h3>{{schoolName}}</h3>
+       
         <!-- BEGIN RESPONSIVE MENU TOGGLER -->
         <a href="javascript:;" class="menu-toggler"></a>
         <!-- END RESPONSIVE MENU TOGGLER -->
@@ -86,15 +85,15 @@
             <!-- BEGIN USER LOGIN DROPDOWN -->
             <li class="dropdown dropdown-user dropdown-dark">
 
-              <div ng-hide="currentUser"><a ui-sref="login" ui-sref-active="active">Login</a> </div>
+              <div ng-hide="currentUser"><a ui-sref="login" >Login</a> </div>
 
               <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                <img alt="" class="img-circle" src="../../assets/admin/layout3/img/avatar9.jpg">
+                <img alt="" ng-show="currentUser" class="img-circle" src="../../assets/admin/layout3/img/avatar9.jpg">
                 <span class="username username-hide-mobile" ng-hide="currentUser">{{user.username}}</span>
               </a>
               <ul class="dropdown-menu dropdown-menu-default">
                 <li ng-show="currentUser">
-                    <i class="icon-user"></i> My Profile </a>
+                    
                 </li>
                 <li ng-show="currentUser">
                   <a ui-sref="logout" ui-sref-active="active">Log out</a>
@@ -111,7 +110,7 @@
 
 
     <!-- BEGIN HEADER MENU -->
-    <div class="page-header-menu">
+    <div class="page-header-menu" ng-show="currentUser">
       <div class="container">
         <!-- BEGIN HEADER SEARCH BOX -->
         <form class="search-form" action="#" method="GET">
@@ -126,7 +125,7 @@
 
 
         <!-- BEGIN MEGA MENU -->
-        <div class="hor-menu" ng-show="currentUser">
+        <div class="hor-menu">
           <ul class="nav navbar-nav">
             <li class="active">
               <a ui-sref=".dashboardform">Console</a>

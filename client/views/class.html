@@ -14,9 +14,9 @@
       <!-- BEGIN PORTLET-->
       <div class="portlet light ">
         <div class="portlet-title">
-          <div class="caption caption-md">
-            <span class="caption-subject uppercase">Classes</span>
-            <span class="caption-subject uppercase pull-right" ng-click="collapsed=!collapsed"> Add Class</></span>
+          <div class="caption caption-md col-sm-12">
+            <span class="caption-subject uppercase col-sm-4">Classes</span><span class="caption-subject uppercase col-sm-6"></span>
+            <span class="caption-subject uppercase col-sm-2" ng-click="collapsed=!collapsed"> Add Class</></span>
           </div>
 
         </div>
@@ -24,24 +24,24 @@
           <div class="row list-separated">
             <div ng-show="collapsed">
               <div>
-                <form ng-submit="addClass()">
-                  <div class="col-sm-12">
-                    <div class="col-sm-2"> <input type="text" class="form-control Class" placeholder="Class Name"  ng-model="formData.className" required> </div>
-                    <div class="col-sm-2"> <input type="text" class="form-control Section" placeholder="Section Name" ng-model="formData.sectionName" required> </div>
-                    <div class="col-sm-2">  <select ng-model="formData.staffSelected" class="form-control Staff" required>
-                      <option value="">Class Teacher</option>
-                      <option ng-repeat="x in staffList" value="{{x.id}}">{{x.username}}</option>
-                    </select>
-                    </div>
-                    <div class="col-sm-2">  <button type="submit" class="btn btn-success uppercase">Create Class</button></div>
-                  </div>
-                  <div class="col-sm-12">
-                    <div style="color: red;" class="col-sm-6">{{response}}</div>
-                  </div>
-                </form>
+							<form ng-submit="addClass()">
+							  <div class="col-sm-12">
+								<div class="col-sm-2"> <input type="text" class="form-control Class" placeholder="Class Name"  ng-model="formData.className" required> </div>
+								<div class="col-sm-2"> <input type="text" class="form-control Section" placeholder="Section Name" ng-model="formData.sectionName" required> </div>
+								<div class="col-sm-2">  <select ng-model="formData.staffSelected" class="form-control Staff" required>
+								  <option value="">Class Teacher</option>
+								  <option ng-repeat="x in staffList" value="{{x.id}}">{{x.username}}</option>
+								</select>
+								</div>
+								<div class="col-sm-2">  <button type="submit" class="btn btn-success uppercase">Create Class</button></div>
+							  </div>
+							  <div class="col-sm-12">
+								<div style="color: red;" class="col-sm-6">{{response}}</div>
+							  </div>
+							</form>
               </div>
             </div>
-            <br/>
+           <br><br><br><br> 
             <div>
               <!---->
               <div class="col-sm-12">
