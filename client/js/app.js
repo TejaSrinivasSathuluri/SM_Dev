@@ -73,9 +73,9 @@ angular
       })
 
       //--------------Auth Services
-      .state('home', {
-        url: '/home',
-        templateUrl: 'views/home.html',
+      .state('index', {
+        url: '/index',
+        templateUrl: 'index.html',
         controller: 'LandingPageController'
       })
       .state('forbidden', {
@@ -92,7 +92,7 @@ angular
         url: '/logout',
         controller: 'AuthLogoutController'
       })
-     $urlRouterProvider.otherwise('home');
+     $urlRouterProvider.otherwise('/index/login');
   }])
 
 

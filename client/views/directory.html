@@ -181,7 +181,7 @@ $('#accordion2').on('hidden.bs.collapse', function () {
                                                                 <th>Action</th>
                                                             </tr>
                                                    </thead>
-                                                   <tbody data-ng-repeat="x in searchList.concat(parentList) | orderBy:sortType:sortReverse| filter:search">
+                                                   <tbody data-ng-repeat="x in searchList.concat(parentList) | orderBy:sortType:sortReverse | filter:search | startFrom : currentPage*pageSize | limitTo:pageSize">
                                                           <tr>
 
                                                                   <td >{{x.image}}</td><td>{{x.username}}</td><td>{{x.type}}</td>
@@ -193,13 +193,18 @@ $('#accordion2').on('hidden.bs.collapse', function () {
 
                                                                    </td>
                                                           </tr>
+														 
                                                      </tbody>
+													 
                                               </table>
-                                                </div>
+											   <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
+    <button ng-disabled="currentPage >= data/pageSize-1" ng-click="currentPage=currentPage+1">Next</button>
+                                         
+											   </div>
 
-              <div class="portlet-" style="height: 260px"></div>
-              <div class="portlet-" style="height: 260px"></div>
+              
          </div>
+		 <br><br><br><br><br> <br><br><br><br><br><br><br><br><br><br> <br><br><br><br><br><br><br><br><br><br> <br><br><br><br><br>
         </div>
         <!-- -----------------------------------Admission Form------------------------------->
         <div ng-show="showForm" class="row list-separated">
@@ -268,7 +273,7 @@ $('#accordion2').on('hidden.bs.collapse', function () {
                     <input  type="text" class="form-control" placeholder="National ID Type"    ng-model="formData.studentNationalIdType"   		ng-mouseover="tag19=true" ng-mouseleave="tag19=false" style="width:50%" ><div class="tag19" ng-show="tag19">National ID Type</div><br>
                     <input  type="text" class="form-control" placeholder="Mother Tounge"       ng-model="formData.studentMotherTounge"   		  ng-mouseover="tag20=true" ng-mouseleave="tag20=false" style="width:50%" ><div class="tag20" ng-show="tag20">Mother Tounge</div><br>
                     <input  type="text" class="form-control" placeholder="SubCaste"   		   ng-model="formData.studentSubCaste"   			      ng-mouseover="tag21=true" ng-mouseleave="tag21=false" style="width:50%" ><div class="tag21" ng-show="tag21">SubCaste</div><br>
-                    <input  type="text" class="form-control" placeholder="Contact Number"    require ng-pattern="/^\d{0,9}(\.\d{1,9})?$/"  ng-model="formData.studentContact"   			    ng-mouseover="tag22=true" ng-mouseleave="tag22=false" style="width:50%" ><div class="tag22" ng-show="tag22">Contact Number</div><br>
+                    <input  type="text" class="form-control" placeholder="Contact Number"     min="0"  max="9999999999"   ng-model="formData.studentContact"   			    ng-mouseover="tag22=true" ng-mouseleave="tag22=false" style="width:50%" ><div class="tag22" ng-show="tag22">Contact Number</div><br>
                   </div>
                   <div class="col-sm-6">
                     <input  type="text" class="form-control" placeholder="Current Address"   	ng-model="formData.studentCurrentAddress"   	ng-mouseover="tag23=true" ng-mouseleave="tag23=false" style="width:50%" ><div class="tag23" ng-show="tag23">Current Address</div><br>
@@ -279,7 +284,7 @@ $('#accordion2').on('hidden.bs.collapse', function () {
                     <input  type="text" class="form-control" placeholder="Blood Group*"    	 	ng-model="formData.studentBloodGroup"   		  ng-mouseover="tag28=true" ng-mouseleave="tag28=false" style="width:50%" required ><div class="tag28" ng-show="tag28">Blood Group</div><br>
                     <input  type="text" class="form-control" placeholder="Religion"       	 	ng-model="formData.studentReligion"   			  ng-mouseover="tag29=true" ng-mouseleave="tag29=false" style="width:50%" ><div class="tag29" ng-show="tag29">Religion</div><br>
                     <input  type="text" class="form-control" placeholder="Caste"   		     	ng-model="formData.studentCaste"   				      ng-mouseover="tag30=true" ng-mouseleave="tag30=false" style="width:50%" ><div class="tag30" ng-show="tag30">Caste</div><br>
-                    <input  type="text" class="form-control" placeholder="Alternate Contact No" ng-model="formData.studentAlternateContact"   require ng-pattern="/^\d{0,9}(\.\d{1,9})?$/"	ng-mouseover="tag31=true" ng-mouseleave="tag31=false" style="width:50%" ><div class="tag31" ng-show="tag31">Alternate Contact Number</div><br>
+                    <input  type="text" class="form-control" placeholder="Alternate Contact No" ng-model="formData.studentAlternateContact"    min="0"  max="9999999999" 	ng-mouseover="tag31=true" ng-mouseleave="tag31=false" style="width:50%" ><div class="tag31" ng-show="tag31">Alternate Contact Number</div><br>
                   </div>
                 </div>
                 <div class="col-sm-12">
@@ -293,14 +298,14 @@ $('#accordion2').on('hidden.bs.collapse', function () {
                     <input  type="text"     class="form-control" placeholder="LastName"      	   ng-model="formData.fatherLastName"    			ng-mouseover="tag33=true" ng-mouseleave="tag33=false" style="width:50%" ><div class="tag33" ng-show="tag33">Enter Father LastName</div><br>
                     <input  type="email"    class="form-control" placeholder="Email"     		   ng-model="formData.fatherEmail"   	 			    ng-mouseover="tag34=true" ng-mouseleave="tag34=false" style="width:50%" ><div class="tag34" ng-show="tag34">Enter Father Email</div><br>
                     <input  type="password" class="form-control" placeholder="Password"   	       ng-model="formData.fatherPassword"    		ng-mouseover="tag35=true" ng-mouseleave="tag35=false" style="width:50%" ><div class="tag35" ng-show="tag35">Enter Password</div><br>
-                    <input  type="text"     class="form-control" placeholder="Contact Number"    require ng-pattern="/^\d{0,9}(\.\d{1,9})?$/"  ng-model="formData.fatherPhone"   	 			ng-mouseover="tag36=true" ng-mouseleave="tag36=false" style="width:50%" ><div class="tag36" ng-show="tag36">Enter Father Contact Number</div><br>
+                    <input  type="text"     class="form-control" placeholder="Contact Number"    min="0"  max="9999999999"    ng-model="formData.fatherPhone"   	 			ng-mouseover="tag36=true" ng-mouseleave="tag36=false" style="width:50%" ><div class="tag36" ng-show="tag36">Enter Father Contact Number</div><br>
                   </div>
                   <div class="col-sm-6">
                     <input  type="text"     class="form-control" placeholder="FirstName"   		   ng-model="formData.motherFirstName"   			ng-mouseover="tag37=true" ng-mouseleave="tag37=false" style="width:50%" ><div class="tag37" ng-show="tag37">Enter Mather FirstName</div><br>
                     <input  type="text"     class="form-control" placeholder="LastName"      	   ng-model="formData.motherLastName"   			ng-mouseover="tag38=true" ng-mouseleave="tag38=false" style="width:50%" ><div class="tag38" ng-show="tag38">Enter Mother LastName</div><br>
                     <input  type="email"    class="form-control" placeholder="Email"     		   ng-model="formData.motherEmail"   				    ng-mouseover="tag39=true" ng-mouseleave="tag39=false" style="width:50%" ><div class="tag39" ng-show="tag39">Enter Mother Email</div><br>
                     <input  type="password" class="form-control" placeholder="Password"      	   ng-model="formData.motherPassword"   			ng-mouseover="tag40=true" ng-mouseleave="tag40=false" style="width:50%" ><div class="tag40" ng-show="tag40">Enter Password</div><br>
-                    <input  type="text"     class="form-control" placeholder="Contact Number"    require ng-pattern="/^\d{0,9}(\.\d{1,9})?$/"  ng-model="formData.motherPhone"   				ng-mouseover="tag41=true" ng-mouseleave="tag41=false" style="width:50%" ><div class="tag41" ng-show="tag41">Enter Mother COntact Number</div><br>
+                    <input  type="text"     class="form-control" placeholder="Contact Number"   min="0"  max="9999999999"     ng-model="formData.motherPhone"   				ng-mouseover="tag41=true" ng-mouseleave="tag41=false" style="width:50%" ><div class="tag41" ng-show="tag41">Enter Mother COntact Number</div><br>
                   </div>
                 </div>
                 <div class="col-sm-12">
@@ -388,7 +393,7 @@ $('#accordion2').on('hidden.bs.collapse', function () {
                     <input  type="text" class="form-control" placeholder="National ID Type"    ng-model="formData.staffNationalIdType"   		ng-mouseover="tag56=true" ng-mouseleave="tag56=false" style="width:50%" ><div class="tag56" ng-show="tag56">National ID Type</div><br>
                     <input  type="text" class="form-control" placeholder="Mother Tounge"       ng-model="formData.staffMotherTounge"   		  ng-mouseover="tag57=true" ng-mouseleave="tag57=false" style="width:50%" ><div class="tag57" ng-show="tag57">Mother Tounge</div><br>
                     <input  type="text" class="form-control" placeholder="SubCaste"   		   ng-model="formData.staffSubCaste"   			      ng-mouseover="tag58=true" ng-mouseleave="tag58=false" style="width:50%" ><div class="tag58" ng-show="tag58">SubCaste</div><br>
-                    <input  type="text" class="form-control" placeholder="Contact Number"    require ng-pattern="/^\d{0,9}(\.\d{1,9})?$/"  ng-model="formData.staffContact"   			    ng-mouseover="tag59=true" ng-mouseleave="tag59=false" style="width:50%" ><div class="tag59" ng-show="tag59">Contact Number</div><br>
+                    <input  type="text" class="form-control" placeholder="Contact Number"     min="0"  max="9999999999"   ng-model="formData.staffContact"   			    ng-mouseover="tag59=true" ng-mouseleave="tag59=false" style="width:50%" ><div class="tag59" ng-show="tag59">Contact Number</div><br>
                   </div>
                   <div class="col-sm-6">
                     <input  type="text" class="form-control" placeholder="Current Address"   	ng-model="formData.staffCurrentAddress"   	ng-mouseover="tag60=true" ng-mouseleave="tag60=false" style="width:50%" ><div class="tag60" ng-show="tag60">Current Address</div><br>
