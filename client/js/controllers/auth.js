@@ -20,10 +20,10 @@ angular
     AuthService.logout()
       .then(function() {
         $window.localStorage.clear();
-        $state.go('home');
+        $state.go('login');
       },function(response){
         $window.localStorage.clear();
-          $state.go('home');
+          $state.go('login');
           console.log(response.data.error.message);
         });
   }])

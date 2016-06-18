@@ -14,15 +14,15 @@
 
     <form>
 
-      <input  type="text" class="form-control" placeholder="Title" ng-model="formData.title"><br>
-      <select ng-model="formData.classSelected" id="repeatSelect1" class="form-control" required>
+      <input  type="text" class="form-control" placeholder="Title" ng-value="title" ng-model="formData.title"><br>
+      <select ng-model="formData.classSelected" id="repeatSelect1" ng-value="classSelected" class="form-control" required>
         <option value="">Class-Section</option>
         <option ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
       </select>
       <br>
-      <textarea rows="4" cols="50" class="form-control" placeholder="Description of Assignment " ng-model="formData.description"></textarea><br>
-      <input  type="date" class="form-control"  ng-model="formData.fromDate"><br>
-      <input  type="date" class="form-control"  ng-model="formData.toDate"><br>
+      <textarea rows="4" cols="50" class="form-control" placeholder="Description"  ng-model="formData.description"></textarea><br>
+      <input  type="date" class="form-control" ng-value="fromDate" ng-model="formData.fromDate"><br>
+      <input  type="date" class="form-control" ng-value="toDate" ng-model="formData.toDate"><br>
       <input type = "file" file-model = "myFile" class="form-control" placeholder="Image" ng-model="formData.uploadFile"><br>
       <button type="submit" class="btn btn-success uppercase" ng-click=confirm(formData)>Save</button>
       <button type="button" class="btn btn-success uppercase" ng-click=closeThisDialog("Cancel")>Cancel</button>

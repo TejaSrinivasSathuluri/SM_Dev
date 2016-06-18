@@ -41,7 +41,7 @@
                   </td>
                   <td><input type="text"   class="form-control" ng-model="receiver.title"></td>
                   <td><input type="time"   class="form-control" ng-model="receiver.startTime"></td>
-                  <td><input type="time"   class="form-control" ng-model="receiver.endTime"></td>
+                  <td><input type="time"   class="form-control" min={{receiver.startTime | date:'HH:mm:ss'}} ng-model="receiver.endTime"></td>
                   <td><input type="number" class="form-control" ng-model="receiver.duration" ng-disabled="true"></td>
                   <td><input type="checkbox"                    ng-model="receiver.attendance"></td>
 

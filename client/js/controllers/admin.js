@@ -512,32 +512,43 @@ angular
       );
 
       $scope.addRecipient = function (receiver) {
-        if (receiver.title.length != 0) {
-          $scope.receivers.push({title: "", startTime: "", endTime: "", duration: "", attendance: ""});
+        if (receiver.title.length != 0 ) {
+			if (receiver.startTime < receiver.endTime)
+			{       
+		            receiver.duration = (receiver.endTime-receiver.startTime)/60000;
+                   $scope.receivers.push({title: "", startTime: "", endTime: "", duration: "", attendance: ""});
+			}
+			else
+			{
+			       alert('Start Time Should Be Lessthan End Time '); 	
+			}	 
         }
         else {
           alert('Please fill the fields');
         }
       }
-      $scope.deleteRecipient = function (receiver) {
-        for (var i = 0; i < $scope.receivers.length; i++) {
-          if ($scope.receivers[i] === receiver) {
-            $scope.receivers.splice(i, 1);
-            break;
-          }
+      $scope.deleteRecipient = function (receiver) 
+	    {
+        for (var i = 1; i < $scope.receivers.length; i++) 
+	     	{
+               if ($scope.receivers[i] === receiver) 
+		       {
+			
+                $scope.receivers.splice(i, 1);
+                break;
+               } 
+           }
         }
-      }
-      $scope.saveTimetable = function () {
-        $scope.chkTimetable = School.timetables({"id": $scope.schoolId}, function () {
-            if ($scope.receivers[0].title.length != 0 && $scope.receivers[0].startTime.length != 0 && $scope.receivers[0].endTime.length != 0) {
-              $scope.newTimetable = Timetable.upsert({id: $scope.chkTimetable.id, schedule: $scope.receivers},
-                function () {
-                  $state.go($state.current, {}, {reload: true});
-                });
+      $scope.saveTimetable = function () 
+	  {
+        $scope.chkTimetable = School.timetables({"id": $scope.schoolId}, function () 
+		{
+           if ($scope.receivers[$scope.receivers.length-1].title.length != 0 && $scope.receivers[$scope.receivers.length-1].startTime != null && $scope.receivers[$scope.receivers.length-1].endTime != null) 
+			{
+               $scope.newTimetable = Timetable.upsert({id: $scope.chkTimetable.id, schedule: $scope.receivers},
+                function () {   $state.go($state.current, {}, {reload: true});});
             }
-            else {
-              alert('Please fill the fields');
-            }
+            else { alert('Please fill the fields'); }
 
           },
           function () {
@@ -570,14 +581,15 @@ angular
 
             },
             function () {
-              console.log($scope.viewTimetable.schedule.length);
+         
               for (var i = 0; i < $scope.viewTimetable.schedule.length; i++) {
 
                 $scope.scheduleList[i] = $scope.viewTimetable.schedule[i];
                 $scope.scheduleList[i].startTime = new Date($scope.viewTimetable.schedule[i].startTime);
                 $scope.scheduleList[i].endTime = new Date($scope.viewTimetable.schedule[i].endTime);
 
-                if ($scope.scheduleList[i].attendance == false){
+                if ($scope.scheduleList[i].attendance != true){
+					$scope.scheduleList[i].attendance == false;
                   $scope.scheduleList[i].startTime = $scope.viewTimetable.schedule[i].title;
                   $scope.scheduleList[i].endTime = null;
                   $scope.scheduleList[i].Monday = null;
@@ -610,6 +622,7 @@ angular
                 });
             },
             function () {
+			
               Schedule.create({
                 timetableId: $scope.viewTimetable.id,
                 classId: $scope.class,
@@ -624,8 +637,8 @@ angular
       }
 }])
 
-  .controller('NoticeboardController', ['$scope', '$state', 'School', 'Noticeboard', '$rootScope', '$window','ngDialog',
-    function ($scope, $state, School, Noticeboard, $rootScope, $window,ngDialog) {
+  .controller('NoticeboardController', ['$scope', '$state', 'School', 'Noticeboard', '$rootScope', '$window','ngDialog','$filter',
+    function ($scope, $state, School, Noticeboard, $rootScope, $window,ngDialog,$filter) {
       $scope.user = $window.localStorage.getItem('user');
       var userData = JSON.parse($scope.user);
       $scope.schoolId = userData.schoolId;
@@ -659,6 +672,10 @@ angular
 
       }
       $scope.editNotice = function (x) {
+		    $scope.title = x.title;
+		    $scope.formData = {description:x.description};
+		    $scope.date1 = $filter('date')(new Date(x.date1), 'yyyy-MM-dd');
+		    $scope.date2 = $filter('date')(new Date(x.date2), 'yyyy-MM-dd');
 		   ngDialog.openConfirm({template: 'editNotice',
           scope: $scope //Pass the scope object if you need to access in the template
         }).then(
@@ -705,6 +722,11 @@ angular
 
       }
       $scope.editLibrary = function (x) {
+		    $scope.name = x.name;
+		    $scope.author = x.author;
+		    $scope.price = x.price;
+		    $scope.available = x.available;
+		    $scope.formData = {description:x.description};
 		   ngDialog.openConfirm({template: 'editLibrary',
           scope: $scope //Pass the scope object if you need to access in the template
         }).then(
@@ -713,16 +735,14 @@ angular
             Library.upsert({id:x.id, name : formData.name,author : formData.author,description: formData.description,price: formData.price,available:formData.available},
               function () {$state.go($state.current, {}, {reload: true});});
           },
-          function(value) {
-            //Cancel or do nothing
-          }
+          function(value) {}
         );
       }
 
     }])
 
-  .controller('AssignmentController', ['$scope', '$state', 'Class', 'Assignment', '$rootScope', '$window','ngDialog',
-    function ($scope, $state, Class, Assignment, $rootScope, $window,ngDialog) {
+  .controller('AssignmentController', ['$scope', '$state', 'Class', 'Assignment', '$rootScope', '$window','ngDialog','$filter',
+    function ($scope, $state, Class, Assignment, $rootScope, $window,ngDialog,$filter) {
       $scope.user = $window.localStorage.getItem('user');
       var userData = JSON.parse($scope.user);
       $scope.schoolId = userData.schoolId;
@@ -758,6 +778,11 @@ angular
 
       }
 	   $scope.editAssignment =function (x){
+		    $scope.title = x.title;	 
+		    $scope.classSelected = x.classSelected;	 
+			$scope.fromDate = $filter('date')(new Date(x.fromDate), 'yyyy-MM-dd');
+			$scope.toDate = $filter('date')(new Date(x.toDate), 'yyyy-MM-dd');
+		    $scope.formData = {description:x.description};
         ngDialog.openConfirm({template: 'editAssignment',
           scope: $scope //Pass the scope object if you need to access in the template
         }).then(

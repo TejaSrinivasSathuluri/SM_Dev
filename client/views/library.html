@@ -9,14 +9,14 @@
 </script>
 <script type="text/ng-template" id="editLibrary">
   <div class="ngdialog-message">
-    <h3>Edit Assignment</h3>
+    <h3>Edit Book</h3>
     <div class="ngdialog-contents">
       <form>
-        <input  type="text" class="form-control"   placeholder="Name"                  ng-model="formData.name"><br>
-        <input  type="text" class="form-control"   placeholder="Author"                ng-model="formData.author" ><br>
+        <input  type="text" class="form-control"   placeholder="Name"   ng-value="name"    ng-model="formData.name"><br>
+        <input  type="text" class="form-control"   placeholder="Author"  ng-value="author"              ng-model="formData.author" ><br>
         <textarea rows="4" cols="50" class="form-control" placeholder="Description  "  ng-model="formData.description"></textarea><br>
-        <input  type="number" class="form-control" placeholder="Price"                 ng-model="formData.price"><br>
-        <input  type="number" class="form-control" placeholder="No.of Books Available" ng-model="formData.available"><br>
+        <input  type="number" class="form-control" placeholder="Price"      ng-value="price"           ng-model="formData.price"><br>
+        <input  type="number" class="form-control" placeholder="No.of Books Available" ng-value="available" ng-model="formData.available"><br>
         <button type="submit" class="btn btn-success uppercase" ng-click=confirm(formData)>Save</button>
         <button type="button" class="btn btn-success uppercase" ng-click=closeThisDialog("Cancel")>Cancel</button>
 

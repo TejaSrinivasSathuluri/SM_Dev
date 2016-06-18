@@ -89,7 +89,7 @@ angular
         controller: 'AuthLoginController',
       })
       .state('logout', {
-        url: '/logout',
+        url: '/login',
         controller: 'AuthLogoutController'
       })
      $urlRouterProvider.otherwise('/index/login');
@@ -103,7 +103,7 @@ angular
       if (!$window.localStorage.getItem('user')) {
         if (next.authenticate && !$rootScope.currentUser) {
           event.preventDefault(); //prevent current page from loading
-         // $state.go('forbidden');
+          $state.go('forbidden');
         }
       }
       $rootScope.currentUser = $window.localStorage.getItem('user');
