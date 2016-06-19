@@ -103,7 +103,10 @@ angular
       if (!$window.localStorage.getItem('user')) {
         if (next.authenticate && !$rootScope.currentUser) {
           event.preventDefault(); //prevent current page from loading
-          $state.go('forbidden');
+          $rootScope.currentUser = null;
+          $rootScope.schoolName = null;
+          $window.localStorage.clear();
+          $state.go('login');
         }
       }
       $rootScope.currentUser = $window.localStorage.getItem('user');

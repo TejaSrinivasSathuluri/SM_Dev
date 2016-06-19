@@ -36,12 +36,14 @@
     <!--------------------------------------->
 
     <!---->
-    <!-- <link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css"> -->
+    <!--<link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css">-->
     <link href="styles/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/> 
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
     <script src="styles/ui-bootstrap.js"></script>
     <script src="styles/ui-bootstrap-tpls.js"></script>
     <!--------------------------------------->
+    <!--------------------------------------->
+
 
 
 
@@ -59,22 +61,20 @@
 
   <div class="page-header" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px">
   <div class="container">
-   
+
     <div class="page-header-top" style="margin: 0px;height:0px">
 
-     
+
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs--12">
         <div class="col-lg-2 col-md-2 col-sm-2col-xs-12">
       <div class="page-logo ">
-        <a href="/"><img src="../../images/l.png" alt="logo" class="logo-default" style="width: 61%;
-    margin: 2px;
-    height: 70px;
-    margin-top: 1px;
-    "></a>
+        <a href="/">
+      <img src="../../images/l.png" alt="logo" class="logo-default" style="width: 61%;margin: 2px;height: 70px;margin-top: 1px;">
+        </a>
       </div>
         </div>
         <!-- END LOGO -->
-       
+
         <!-- BEGIN RESPONSIVE MENU TOGGLER -->
         <a href="javascript:;" class="menu-toggler"></a>
         <!-- END RESPONSIVE MENU TOGGLER -->
@@ -89,15 +89,10 @@
 
               <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                 <img alt="" ng-show="currentUser" class="img-circle" src="../../assets/admin/layout3/img/avatar9.jpg">
-                <span class="username username-hide-mobile" ng-hide="currentUser">{{user.username}}</span>
+                <span ng-show="currentUser">{{user.username}}</span>
               </a>
               <ul class="dropdown-menu dropdown-menu-default">
-                <li ng-show="currentUser">
-                    
-                </li>
-                <li ng-show="currentUser">
-                  <a ui-sref="logout" ui-sref-active="active">Log out</a>
-                </li>
+                <li ng-show="currentUser">  <a ui-sref="logout" ui-sref-active="active">Log out</a> </li>
               </ul>
             </li>
             <!-- END USER LOGIN DROPDOWN -->
@@ -113,7 +108,7 @@
     <div class="page-header-menu" ng-show="currentUser">
       <div class="container">
         <!-- BEGIN HEADER SEARCH BOX -->
-        <form class="search-form" action="#" method="GET">
+        <form class="search-form">
           <div class="input-group">
             <input type="text" class="form-control" placeholder="Search" name="query">
 					<span class="input-group-btn">
