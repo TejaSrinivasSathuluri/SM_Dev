@@ -1,15 +1,56 @@
 angular
   .module('app')
-  .controller('LandingPageController', ['$scope', function ($scope) {
+  .directive('fileModel', ['$parse', function ($parse) {
+            return {
+               restrict: 'A',
+               link: function(scope, element, attrs) {
+                  var model = $parse(attrs.fileModel);
+                  var modelSetter = model.assign;
+                  element.bind('change', function(){
+                     scope.$apply(function(){
+                        modelSetter(scope, element[0].files[0]);
 
+                     });
+                  });
+               }
+            };
+         }])
+  .service('fileUpload', ['$http', function ($http) {
+            this.uploadFileToUrl = function(file, uploadUrl){
+               var fd = new FormData();
+               fd.append('file', file);
+               $http.post(uploadUrl, fd, {
+                  transformRequest: angular.identity,
+                  headers: {'Content-Type': undefined}
+               })
+
+               .success(function(response){
+                 console.log("Uploaded File" + response.result.files);
+               })
+
+               .error(function(response){
+                 console.log("File Not Upload Becasue" + response.data.error);
+               });
+            }
+         }])
+
+  .controller('DashboardController', ['$scope', 'Admin', 'Container','$state','fileUpload', function ($scope, Admin,Container, $state,fileUpload) {
+		$scope.uploadFile = function(){
+               var file =  $scope.myFile;
+               delete file['name'];
+
+
+               var uploadUrl = "/api/Containers/images/upload";
+               fileUpload.uploadFileToUrl(file, uploadUrl);
+
+            };
   }])
-  .controller('DashboardController', ['$scope', 'Admin', '$state', function ($scope, Admin, $state) {
 
-  }
-  ])
+
+
   .controller('DirectoryController',
-    ['$scope', 'ngDialog','Admin', '$state', 'School', 'Class', 'Student', 'Parent', 'StudentParent', 'Staff', '$rootScope', '$window',
-      function ($scope,ngDialog, Admin, $state, School, Class, Student, Parent, StudentParent, Staff, $rootScope, $window) {
+    ['$scope', 'ngDialog','Admin', '$state', 'School', 'Class', 'Student', 'Parent', 'StudentParent', 'Staff', '$rootScope', '$window','Container','fileUpload',
+      function ($scope,ngDialog, Admin, $state, School, Class, Student, Parent, StudentParent, Staff, $rootScope, $window,Container,fileUpload) {
         $scope.user = $window.localStorage.getItem('user');
         var userData = JSON.parse($scope.user);
         $scope.schoolName= null;
@@ -19,7 +60,7 @@ angular
         });
 
         $scope.date = new Date();
-		
+
         $scope.classList = Class.find   ({filter: {where: {schoolId: $scope.schoolId}}}, function (response) {
         }, function (response) {
           console.log("Classes "+response.data.error.message);
@@ -31,7 +72,7 @@ angular
           }
         }, function (response) {
         }, function (response) {
-          console.log("Student Data "+response.data.error.message);
+            if (response.status =401) $state.go('forbidden', {}, {reload: true}) ;
         });
 
           $scope.studentParent = StudentParent.find({filter: {where: {schoolId: $scope.schoolId}, include: 'parent'}},
@@ -45,6 +86,7 @@ angular
 
             }, function (response) {
                                     console.log("StudentParent Data " + response.data.error.message);
+									if (response.status =401) $state.go('forbidden', {}, {reload: true}) ;
             });
 
         $scope.searchList = $scope.studentList;
@@ -61,8 +103,8 @@ angular
 		$scope.pageSize = 10;
 		$scope.data = ($scope.searchList.concat($scope.parentList)).length;
 		$scope.numberOfPages=function(){
-        return Math.ceil($scope.data/$scope.pageSize); 
-		}		
+        return Math.ceil($scope.data/$scope.pageSize);
+		}
         //--------------------------------------------------------
         $scope.addStudent = function () {
           $scope.studentExists = Student.findOne({
@@ -86,7 +128,7 @@ angular
                   email: $scope.formData.studentEmail,
                   password: $scope.formData.studentPassword,
                   gender: $scope.formData.studentGender,
-                  image: $scope.formData.studentImg,
+                  image: "../../uploads/students",
                   dateofBirth: $scope.formData.studentDateOfBirth,
                   rollNo: $scope.formData.studentRollNo,
                   RFID: $scope.formData.studentRFID,
@@ -96,7 +138,7 @@ angular
                   status: $scope.formData.studentStatus,
                   regId: $scope.formData.studentRegId,
                   isDisable: $scope.formData.studentIsDisable,
-                  prevSchoolTC: $scope.formData.studentPreviousTC,
+                  prevSchoolTC: "../../uploads/students",
                   currentAddress: $scope.formData.studentCurrentAddress,
                   currentCity: $scope.formData.studentCurrentCity,
                   currentState: $scope.formData.studentCurrentState,
@@ -118,6 +160,15 @@ angular
                   created: $scope.date
                 },
                 function () {
+                  $scope.formData.studentImg['title'] = $scope.newStudent.id + ".PNG";
+                  var file = $scope.formData.studentImg;
+
+
+                  console.log('file is ' );
+                  console.dir(file);
+
+                  var uploadUrl = "/api/Containers/students/upload";
+                  fileUpload.uploadFileToUrl(file, uploadUrl);
                   if ($scope.formData.motherFirstName != null && $scope.formData.motherPassword != null && $scope.formData.motherEmail != null) {
                     console.log('creating mother');
                     $scope.newParent1 = Parent.create({
@@ -167,7 +218,11 @@ angular
                   else{
                     $state.go($state.current, {}, {reload: true});
                   }
-                }
+                },function(response){
+					console.log(response.data.error.message);
+					$scope.responsemessage = response.data.error.message;
+					if (response.status =401) $state.go('forbidden', {}, {reload: true}) ;
+				}
               );
 
 
@@ -238,6 +293,7 @@ angular
 
         }
         $scope.editUser = function (x) {
+			if (x.type == "Student"){
           ngDialog.openConfirm({template: 'editStudent',
             scope: $scope //Pass the scope object if you need to access in the template
           }).then(
@@ -282,41 +338,32 @@ angular
             },
             function(value) {}
           );
+			}
+			else if (x.type == "Parent"){
+				$scope.firstName = x.username;
+				$scope.lastName = x.lastName;
+				$scope.email = x.email;
+				$scope.password = x.password;
+				$scope.contact = x.contact;
+				 ngDialog.openConfirm({template: 'editParent',
+            scope: $scope //Pass the scope object if you need to access in the template
+          }).then(
+            function(formData) {
+				console.log(formData);
+                Parent.prototype$updateAttributes({id:x.id},{
+                  username: formData.firstName,
+                  lastName: formData.lastName,
+                  email:    formData.email,
+                  password: formData.password,
+                  contact: formData.contact
+              },
+                function () {$state.go($state.current, {}, {reload: true});},function(response){ console.log(response.data.error.message);});
+            },
+            function(value) {}
+          );
+			}
         }
-        $scope.updateUser = function () {
-          if ($scope.formData.type == "Student") {
-            Student.prototype$updateAttributes({id: $scope.formData.id},
-              {contact: $scope.formData.newContact, username: $scope.formData.newName},
-              function () {
-                $state.go($state.current, {}, {reload: true});
-              }, function (response) {
-                if (response.data.error.status == 500)        $state.go($state.current, {}, {reload: true});
-                console.log(response.data.error.message);
-              });
-          }
-          else if ($scope.formData.type == "Parent") {
-            Parent.prototype$updateAttributes({id: $scope.formData.id},
-              {contact: $scope.formData.newContact, username: $scope.formData.newName},
-              function () {
-                $state.go($state.current, {}, {reload: true});
-              }, function (response) {
-                if (response.data.error.status == 500)        $state.go($state.current, {}, {reload: true});
-                console.log(response.data.error.message);
-              });
-          }
-          else if ($scope.formData.type == "Staff") {
-            Staff.prototype$updateAttributes({id: $scope.formData.id},
-              {contact: $scope.formData.newContact, username: $scope.formData.newName},
-              function () {
-                $state.go($state.current, {}, {reload: true});
-              }, function (response) {
-                if (response.data.error.status == 500)        $state.go($state.current, {}, {reload: true});
-                console.log(response.data.error.message);
-              });
-          }
 
-
-        }
         $scope.addStaff = function () {
 
           $scope.newStaff = Staff.create({
@@ -372,8 +419,8 @@ angular
         var userData = JSON.parse($scope.user);
         $scope.schoolId = userData.schoolId;
         $scope.formData = [];
-        $scope.staffList = Staff.find({filter: {where: {schoolId: $scope.schoolId}}});
-        $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}, include: 'staff'}});
+        $scope.staffList = Staff.find({filter: {where: {schoolId: $scope.schoolId}}},function(){},function(response){if (response.status =401) $state.go('forbidden', {}, {reload: true}) ;});
+        $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}, include: 'staff'}},function(){},function(response){if (response.status =401) $state.go('forbidden', {}, {reload: true}) ;});
         $scope.addClass = function () {
           $scope.classExists = Class.findOne({
               filter: {
@@ -429,8 +476,8 @@ angular
         var userData = JSON.parse($scope.user);
         $scope.schoolId = userData.schoolId;
         $scope.formData = [];
-        $scope.staffList = Staff.find  ({filter: {where: {schoolId: $scope.schoolId}}});
-        $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}}});
+        $scope.staffList = Staff.find  ({filter: {where: {schoolId: $scope.schoolId}}},function(){},function(response){if (response.status =401) $state.go('forbidden', {}, {reload: true}) ;});
+        $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}}},function(){},function(response){if (response.status =401) $state.go('forbidden', {}, {reload: true}) ;});
         $scope.subjectList = Subject.find({filter: {include: ['staff', 'class']}});
         $scope.addSubject = function () {
           $scope.checkSub = Subject.findOne({
@@ -471,7 +518,7 @@ angular
             });
         }
         $scope.deleteSubject = function (x) {
- 
+
         var dialog = ngDialog.open({template: 'deleteSubject'});
         dialog.closePromise.then(function (data) {
 
@@ -514,36 +561,36 @@ angular
       $scope.addRecipient = function (receiver) {
         if (receiver.title.length != 0 ) {
 			if (receiver.startTime < receiver.endTime)
-			{       
+			{
 		            receiver.duration = (receiver.endTime-receiver.startTime)/60000;
                    $scope.receivers.push({title: "", startTime: "", endTime: "", duration: "", attendance: ""});
 			}
 			else
 			{
-			       alert('Start Time Should Be Lessthan End Time '); 	
-			}	 
+			       alert('Start Time Should Be Lessthan End Time ');
+			}
         }
         else {
           alert('Please fill the fields');
         }
       }
-      $scope.deleteRecipient = function (receiver) 
+      $scope.deleteRecipient = function (receiver)
 	    {
-        for (var i = 1; i < $scope.receivers.length; i++) 
+        for (var i = 1; i < $scope.receivers.length; i++)
 	     	{
-               if ($scope.receivers[i] === receiver) 
+               if ($scope.receivers[i] === receiver)
 		       {
-			
+
                 $scope.receivers.splice(i, 1);
                 break;
-               } 
+               }
            }
         }
-      $scope.saveTimetable = function () 
+      $scope.saveTimetable = function ()
 	  {
-        $scope.chkTimetable = School.timetables({"id": $scope.schoolId}, function () 
+        $scope.chkTimetable = School.timetables({"id": $scope.schoolId}, function ()
 		{
-           if ($scope.receivers[$scope.receivers.length-1].title.length != 0 && $scope.receivers[$scope.receivers.length-1].startTime != null && $scope.receivers[$scope.receivers.length-1].endTime != null) 
+           if ($scope.receivers[$scope.receivers.length-1].title.length != 0 && $scope.receivers[$scope.receivers.length-1].startTime != null && $scope.receivers[$scope.receivers.length-1].endTime != null)
 			{
                $scope.newTimetable = Timetable.upsert({id: $scope.chkTimetable.id, schedule: $scope.receivers},
                 function () {   $state.go($state.current, {}, {reload: true});});
@@ -581,7 +628,7 @@ angular
 
             },
             function () {
-         
+
               for (var i = 0; i < $scope.viewTimetable.schedule.length; i++) {
 
                 $scope.scheduleList[i] = $scope.viewTimetable.schedule[i];
@@ -622,7 +669,7 @@ angular
                 });
             },
             function () {
-			
+
               Schedule.create({
                 timetableId: $scope.viewTimetable.id,
                 classId: $scope.class,
@@ -778,8 +825,8 @@ angular
 
       }
 	   $scope.editAssignment =function (x){
-		    $scope.title = x.title;	 
-		    $scope.classSelected = x.classSelected;	 
+		    $scope.title = x.title;
+		    $scope.classSelected = x.classSelected;
 			$scope.fromDate = $filter('date')(new Date(x.fromDate), 'yyyy-MM-dd');
 			$scope.toDate = $filter('date')(new Date(x.toDate), 'yyyy-MM-dd');
 		    $scope.formData = {description:x.description};
@@ -806,58 +853,52 @@ angular
       $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}}});
       $scope.studentList =[];
 	  var flag = true;
-	          $scope.loadDates = function() 
+	          $scope.loadDates = function()
 			  {        $scope.studentList =[];
 					  $scope.list = Student.find({filter:{where:{classId:$scope.classSelected}}},function(){
-						  for(var i=0;i<$scope.list.length;i++){   
-                         
-						 
+						  for(var i=0;i<$scope.list.length;i++){
+
+
 						 $scope.chk($scope.list[i].id,$scope.list[i].username,i);
-						   
- 
-						  }						 
+
+
+						  }
 					  });
-					  
-        
+
+
 			  }
 			   var i=0;
-              $scope.chk = function(studentId,username,i) 
-			  {    
+              $scope.chk = function(studentId,username,i)
+			  {
 					  $scope.attendanceRecord = Attendance.findOne({filter:{where:{date:$scope.dateSelected,studentId:studentId}}},function(response){
-							
-							 $scope.studentList[i] ={id:studentId ,username :username,attendanceId :response.id,status:true} 
-						console.log($scope.studentList[i]);	
+
+							 $scope.studentList[i] ={id:studentId ,username :username,attendanceId :response.id,status:true}
+						console.log($scope.studentList[i]);
 						 },function(){
-							 							 $scope.studentList[i] ={id:studentId,username : username,status:false} 
+							 							 $scope.studentList[i] ={id:studentId,username : username,status:false}
                          });
 			  }
 			  $scope.addAttendance = function(x){
-				  if (x.status == true) { 
+				  if (x.status == true) {
 				      Attendance.findOne({filter:{where:{studentId:x.id,date:$scope.dateSelected}}},function(){
-						 
+
 					  },function(){
 						  Attendance.create({studentId:x.id,date:$scope.dateSelected});
 					  });
-			        	  
+
 				  }
-				  else {      
+				  else {
            			 if (x.id != null) {
 						 Attendance.delete({id:JSON.stringify(x.attendanceId).replace(/["']/g, "")},function(){},function(response){ console.log(response.data.error.message);});
-					 }				
+					 }
 				}
 			  }
-              
-		
-		          
+
  }])
   .filter('startFrom', function() {
     return function(input, start) {
         start = +start; //parse to int
         return input.slice(start);
     }
-	})
-    
-;
-
-
+	});
 
