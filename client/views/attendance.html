@@ -11,7 +11,7 @@
         <div class="portlet-body">
           <div class="row list-separated">
             <form ng-submit="loadDates()">
-             
+
             <div class="col-sm-3">
               <select ng-model="classSelected" class="form-control" required>
                 <option value="">Class </option>
@@ -34,19 +34,19 @@
                     <thead flip-content><tr>
                       <th>Student</th>
 					  <th>Present</th>
-                            
+
                     </tr></thead>
                     <tbody>
                     <tr data-ng-repeat="x in studentList">
-                        <td> {{x.username}}</td>
+                        <td> {{x.firstName}}</td>
 						<td> <input type="checkbox" ng-model="x.status" ng-click="addAttendance(x)" > </input></td>
                     </tr>
                     </tbody>
                   </table>
 
-             
-                    
-                 
+
+
+
                 </div>
                 <!---->
               </div>

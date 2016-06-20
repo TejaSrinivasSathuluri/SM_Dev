@@ -86,17 +86,16 @@
 
                   <tbody>
                   <tr data-ng-repeat="x in assignmentlist">
-                    <div data-ng-bind-html="x.id">
+                    <div data-ng-bind-html="x.id">s
                       <td style="width: 20%">{{x.title}}</td>
-					  <td style="width: 20%">{{x.class.className}}--{{x.class.sectionName}}</td>
+					  <td style="width: 20%">{{x.class.className}}-{{x.class.sectionName}}</td>
                       <td style="width: 40%">{{x.description}}</td>
                       <td style="width: 20%">{{x.fromDate | date:'MM/dd/yyyy'}}</td>
                       <td style="width: 20%">{{x.toDate | date:'MM/dd/yyyy'}}</td>
-                      <td style="width: 20%">{{x.chooseFile}}</td>
-                      <td style="width: 50%"><div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
-                        <i class="glyphicon glyphicon-edit" ng-model="collapsed1" ng-click="editAssignment(x)"></i>
+                      <td style="width: 20%"><a href="{{x.uploadFile}}" target="_blank"/>Download</td>
+                      <td style="width: 50%"><i class="glyphicon glyphicon-edit" ng-model="collapsed1" ng-click="editAssignment(x)"></i>
                         <i class="glyphicon glyphicon-remove"  ng-click="deleteAssignment(x)"></i>
-                      </div></td>
+                      </td>
                     </div>
                   </tr>
                   </tbody>
