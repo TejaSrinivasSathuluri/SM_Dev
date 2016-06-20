@@ -9,16 +9,15 @@
     </div>
   </div>
 </script>
-
 <script type="text/ng-template" id="editParent">
   <div class="ngdialog-message">
     Edit Parent
     <form>
-    <input  type="text"     class="form-control" placeholder="FirstName"   		   ng-model="formData.firstName" ng-value="firstName"   		                      ng-mouseover="tag32=true" ng-mouseleave="tag32=false" style="width:50%" ><div class="tag32" ng-show="tag32">Enter Father FirstName</div><br>
-		<input  type="text"     class="form-control" placeholder="LastName"      	   ng-model="formData.lastName"  ng-value="lastName"    	                        ng-mouseover="tag33=true" ng-mouseleave="tag33=false" style="width:50%" ><div class="tag33" ng-show="tag33">Enter Father LastName</div><br>
-		<input  type="email"    class="form-control" placeholder="Email"     		     ng-model="formData.email"   	 ng-value="email"   	 		                        ng-mouseover="tag34=true" ng-mouseleave="tag34=false" style="width:50%" ><div class="tag34" ng-show="tag34">Enter Father Email</div><br>
-		<input  type="password" class="form-control" placeholder="Password"   	     ng-model="formData.password"  ng-value="password"    		                      ng-mouseover="tag35=true" ng-mouseleave="tag35=false" style="width:50%" ><div class="tag35" ng-show="tag35">Enter Password</div><br>
-		<input  type="number"   class="form-control" placeholder="Contact Number"    ng-model="formData.contact"   ng-value="contact"    min="0"  max="9999999999"  ng-mouseover="tag36=true" ng-mouseleave="tag36=false" style="width:50%" ><div class="tag36" ng-show="tag36">Enter Father Contact Number</div><br>
+    <input  type="text"     class="form-control" placeholder="FirstName"   		   ng-model="formData.firstName"     		                      ng-mouseover="tag32=true" ng-mouseleave="tag32=false" style="width:50%" ><div class="tag32" ng-show="tag32">Enter  FirstName</div><br>
+		<input  type="text"     class="form-control" placeholder="LastName"      	   ng-model="formData.lastName"      	                        ng-mouseover="tag33=true" ng-mouseleave="tag33=false" style="width:50%" ><div class="tag33" ng-show="tag33">Enter  LastName</div><br>
+		<input  type="email"    class="form-control" placeholder="Email"     		     ng-model="formData.email"   	   		                        ng-mouseover="tag34=true" ng-mouseleave="tag34=false" style="width:50%" ><div class="tag34" ng-show="tag34">Enter  Email</div><br>
+		<input  type="password" class="form-control" placeholder="Password"   	     ng-model="formData.password"      		                      ng-mouseover="tag35=true" ng-mouseleave="tag35=false" style="width:50%" ><div class="tag35" ng-show="tag35">Enter Password</div><br>
+		<input  type="number"   class="form-control" placeholder="Contact Number"    ng-model="formData.contact"      min="0"  max="9999999999"  ng-mouseover="tag36=true" ng-mouseleave="tag36=false" style="width:50%" ><div class="tag36" ng-show="tag36">Enter  Contact Number</div><br>
 
 		<button type="submit" class="btn btn-success uppercase" ng-click=confirm(formData)>Save</button>
         <button type="button" class="btn btn-success uppercase" ng-click=closeThisDialog("Cancel")>Cancel</button>
@@ -36,11 +35,10 @@
       </div>
     </div>
 <br>
-
     <form>
       <div class="col-sm-12">
       <div class="col-sm-6">
-      <input  type="text" class="form-control" placeholder="First Name*"  ng-model="formData.firstName"   required><br>
+      <input  type="text" class="form-control" placeholder="First Name*"  ng-model="formData.firstName"  required><br>
       </div>
         <div class="col-sm-6">
       <input  type="text" class="form-control" placeholder="Last Name*"   ng-model="formData.lastName"  required ><br>
@@ -369,7 +367,7 @@
                                                                   <td>{{x.firstName}}                              </td>
                                                                   <td>{{x.type}}                                   </td>
                                                                   <td>{{x.email}}                                  </td>
-                                                                  <td ng-show="x.type == 'Student'">{{x.rollNo}}                                 </td>
+                                                                  <td ng-show="x.type == 'Student'">{{x.rollNo   }}                                 </td>
                                                                   <td ng-show="x.type == 'Parent'"></td>
                                                                   <td ng-show="x.type == 'Staff'"></td>
                                                                   <td ng-show="x.type == 'Staff'"></td>
