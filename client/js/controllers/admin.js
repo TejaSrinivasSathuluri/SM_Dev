@@ -34,19 +34,12 @@ angular
             }
          }])
 
-  .controller('DashboardController', ['$scope', 'Admin', 'Container','$state','fileUpload', function ($scope, Admin,Container, $state,fileUpload) {
-		$scope.uploadFile = function(){
-               var file =  $scope.myFile;
-               delete file['name'];
+  .controller('DashboardController', ['$scope', 'Admin', 'Container','$state','fileUpload',
+    function ($scope, Admin,Container, $state,fileUpload) {
+        //$scope.day = moment();
+   }
 
-
-               var uploadUrl = "/api/Containers/images/upload";
-               fileUpload.uploadFileToUrl(file, uploadUrl);
-
-            };
-  }])
-
-
+  ])
 
   .controller('DirectoryController',
     ['$scope', 'ngDialog','Admin', '$state', 'School', 'Class', 'Student', 'Parent', 'StudentParent', 'Staff', '$rootScope', '$window','Container','fileUpload','$filter',
@@ -322,12 +315,15 @@ angular
 
         $scope.editUser = function (x) {
                                       if      (x.type == "Student"){
-                                        $scope.formData = x;
+                                           $scope.formData = x;
                                            ngDialog.openConfirm({template: 'editStudent',
                                             scope: $scope //Pass the scope object if you need to access in the template
                                           }).then(
                                             function(formData) {
-                                              console.log(formData);
+                                              if (formData.firstName == null || formData.lastName == null || formData.email == null || formData.bloodGroup == null ||
+                                              formData.contact == null || formData.status == null || formData.dateofBirth == null || formData.dateofJoin == null )
+                                              {
+
                                               Student.prototype$updateAttributes({id:x.id},{
                                                   firstName: formData.firstName,
                                                   lastName: formData.lastName,
@@ -366,6 +362,7 @@ angular
                                               function(response){
                                                 console.log(response.data.error.message);
                                               });
+                                            }
                                             },
                                             function(value) {}
                                           );
@@ -1008,5 +1005,5 @@ angular
         start = +start; //parse to int
         return input.slice(start);
     }
-	});
-
+	})
+  ;
