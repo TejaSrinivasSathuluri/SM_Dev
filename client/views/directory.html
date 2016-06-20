@@ -370,10 +370,10 @@
                                                                   <td>{{x.type}}                                   </td>
                                                                   <td>{{x.email}}                                  </td>
                                                                   <td ng-show="x.type == 'Student'">{{x.rollNo}}                                 </td>
-                                                                  <td ng-show="x.type == 'Parent'">NA                                 </td>
-                                                                  <td ng-show="x.type == 'Staff'">NA                                 </td>
-                                                                  <td ng-show="x.type == 'Staff'">NA                                 </td>
-                                                                  <td ng-show="x.type == 'Parent'">NA                                 </td>
+                                                                  <td ng-show="x.type == 'Parent'"></td>
+                                                                  <td ng-show="x.type == 'Staff'"></td>
+                                                                  <td ng-show="x.type == 'Staff'"></td>
+                                                                  <td ng-show="x.type == 'Parent'"></td>
                                                                   <td ng-show="x.type == 'Student'">{{x.class.className}}-{{x.class.sectionName}}</td>
                                                                   <td>{{x.contact}}                                </td>
                                                                   <td style="width: 50%">
@@ -409,7 +409,7 @@
                   <div class="col-sm-4"></div>
                 </div>
                 <div class="col-sm-12">
-                  <div class="col-sm-6"><input  type="text" class="form-control" placeholder="First Name*"  ng-model="formData.firstName" ng-mouseover="tag1=true" ng-mouseleave="tag1=false" style="width:50%" ><div class="tag1" ng-show="tag1">Enter First Name</div><br></div>
+                  <div class="col-sm-6"><input  type="text" class="form-control" placeholder="First Name*"  ng-model="formData.firstName" ng-mouseover="tag1=true" ng-mouseleave="tag1=false" style="width:50%" required><div class="tag1" ng-show="tag1">Enter First Name</div><br></div>
                   <div class="col-sm-6"><input  type="text" class="form-control" placeholder="Last Name*"   ng-model="formData.lastName"   ng-mouseover="tag2=true" ng-mouseleave="tag2=false" style="width:50%" required ><div class="tag2" ng-show="tag2">Enter Last  Name</div><br></div>
                 </div>
                 <div class="col-sm-12">
