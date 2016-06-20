@@ -49,8 +49,8 @@ angular
 
 
   .controller('DirectoryController',
-    ['$scope', 'ngDialog','Admin', '$state', 'School', 'Class', 'Student', 'Parent', 'StudentParent', 'Staff', '$rootScope', '$window','Container','fileUpload',
-      function ($scope,ngDialog, Admin, $state, School, Class, Student, Parent, StudentParent, Staff, $rootScope, $window,Container,fileUpload) {
+    ['$scope', 'ngDialog','Admin', '$state', 'School', 'Class', 'Student', 'Parent', 'StudentParent', 'Staff', '$rootScope', '$window','Container','fileUpload','$filter',
+      function ($scope,ngDialog, Admin, $state, School, Class, Student, Parent, StudentParent, Staff, $rootScope, $window,Container,fileUpload,$filter) {
         $scope.user = $window.localStorage.getItem('user');
         var userData = JSON.parse($scope.user);
         $scope.schoolName= null;
@@ -105,74 +105,86 @@ angular
 		$scope.numberOfPages=function(){
         return Math.ceil($scope.data/$scope.pageSize);
 		}
+
+
+
         //--------------------------------------------------------
+        $scope.clearForm = function(){ $scope.formData={};}
+
+
+
+
+        //--------------------------------------------------------
+        //                  ADD STUDENT  STARTS
+        // --------------------------------------------------------
         $scope.addStudent = function () {
-          $scope.studentExists = Student.findOne({
+              $scope.studentExists = Student.findOne({
               filter: {
                 where: {
                   schoolId: $scope.schoolId,
-                  classId: $scope.formData.studentClass,
-                  rollNo: $scope.formData.studentRollNo
+                  classId: $scope.formData.class,
+                  rollNo: $scope.formData.rollNo
                 }
               }
             },
-            function () {
-              $scope.responsemessage = 'Student Already Exists For This Class With This Roll Number';
+            function (response) {
+              console.log(response);
+              $scope.response = 'Student Already Exists For This Class With This Roll Number';
             },
             function () {
 
-              $scope.newStudent = Student.create({
+                  $scope.newStudent = Student.create({
                   schoolId: $scope.schoolId,
-                  username: $scope.formData.studentFirstName,
-                  lastName: $scope.formData.studentLastName,
-                  email: $scope.formData.studentEmail,
-                  password: $scope.formData.studentPassword,
-                  gender: $scope.formData.studentGender,
+                  firstName: $scope.formData.firstName,
+                  lastName: $scope.formData.lastName,
+                  email: $scope.formData.email,
+                  password: $scope.formData.password,
+                  gender: $scope.formData.gender,
                   image: "../../uploads/students",
-                  dateofBirth: $scope.formData.studentDateOfBirth,
-                  rollNo: $scope.formData.studentRollNo,
-                  RFID: $scope.formData.studentRFID,
-                  prevSchool: $scope.formData.studentPreviousSchool,
-                  dateofJoin: $scope.formData.studentDateOfJoin,
-                  classId: $scope.formData.studentClass,
-                  status: $scope.formData.studentStatus,
-                  regId: $scope.formData.studentRegId,
-                  isDisable: $scope.formData.studentIsDisable,
-                  prevSchoolTC: "../../uploads/students",
-                  currentAddress: $scope.formData.studentCurrentAddress,
-                  currentCity: $scope.formData.studentCurrentCity,
-                  currentState: $scope.formData.studentCurrentState,
-                  currentPincode: $scope.formData.studentCurrentPincode,
-                  bloodGroup: $scope.formData.studentBloodGroup,
-                  religion: $scope.formData.studentReligion,
-                  caste: $scope.formData.studentCaste,
-                  alternateContact: $scope.formData.studentAlternateContact,
-                  permanentAddress: $scope.formData.studentPermanentAddress,
-                  permanentCity: $scope.formData.studentPermanentCity,
-                  permanentState: $scope.formData.studentPermanentState,
-                  permanentPincode: $scope.formData.studentPermanentPincode,
-                  nationalId: $scope.formData.studentNationalId,
-                  motherTounge: $scope.formData.studentMotherTounge,
-                  nationalIdType: $scope.formData.studentNationalIdType,
-                  subCaste: $scope.formData.studentSubCaste,
-                  contact: $scope.formData.studentContact,
+                  dateofBirth: $scope.formData.dateOfBirth,
+                  rollNo: $scope.formData.rollNo,
+                  RFID: $scope.formData.RFID,
+                  prevSchool: $scope.formData.previousSchool,
+                  dateofJoin: $scope.formData.dateOfJoin,
+                  classId: $scope.formData.class,
+                  status: $scope.formData.status,
+                  regId: $scope.formData.regId,
+                  isDisable: $scope.formData.isDisable,
+                  prevSchoolTC: "../../uploads/students/TC",
+                  currentAddress: $scope.formData.currentAddress,
+                  currentCity: $scope.formData.currentCity,
+                  currentState: $scope.formData.currentState,
+                  currentPincode: $scope.formData.currentPincode,
+                  bloodGroup: $scope.formData.bloodGroup,
+                  religion: $scope.formData.religion,
+                  caste: $scope.formData.caste,
+                  alternateContact: $scope.formData.alternateContact,
+                  permanentAddress: $scope.formData.permanentAddress,
+                  permanentCity: $scope.formData.permanentCity,
+                  permanentState: $scope.formData.permanentState,
+                  permanentPincode: $scope.formData.permanentPincode,
+                  nationalId: $scope.formData.nationalId,
+                  motherTounge: $scope.formData.motherTounge,
+                  nationalIdType: $scope.formData.nationalIdType,
+                  subCaste: $scope.formData.subCaste,
+                  contact: $scope.formData.contact,
                   type: "Student",
                   created: $scope.date
                 },
                 function () {
-                  $scope.formData.studentImg['title'] = $scope.newStudent.id + ".PNG";
-                  var file = $scope.formData.studentImg;
-
-
-                  console.log('file is ' );
-                  console.dir(file);
-
-                  var uploadUrl = "/api/Containers/students/upload";
-                  fileUpload.uploadFileToUrl(file, uploadUrl);
+                  //$scope.formData.studentImg['title'] = $scope.newStudent.id + ".PNG";
+                  //var file = $scope.formData.studentImg;
+                  //
+                  //
+                  //console.log('file is ' );
+                  //console.dir(file);
+                  //
+                  //var uploadUrl = "/api/Containers/students/upload";
+                  //fileUpload.uploadFileToUrl(file, uploadUrl);
                   if ($scope.formData.motherFirstName != null && $scope.formData.motherPassword != null && $scope.formData.motherEmail != null) {
                     console.log('creating mother');
                     $scope.newParent1 = Parent.create({
-                        username: $scope.formData.motherFirstName,
+                        firstName: $scope.formData.motherFirstName,
                         lastName: $scope.formData.motherLastName,
                         email: $scope.formData.motherEmail,
                         contact: $scope.formData.motherPhone,
@@ -194,46 +206,53 @@ angular
                   }
                   if ($scope.formData.fatherFirstName != null && $scope.formData.fatherPassword != null && $scope.formData.fatherEmail != null) {
                     console.log('creating father');
-                    $scope.newParent2 = Parent.create({id: $scope.newStudent.id}, {
-                      username: $scope.formData.fatherFirstName,
+                     $scope.newParent2 = Parent.create({id: $scope.newStudent.id}, {
+                      firstName: $scope.formData.fatherFirstName,
                       lastName: $scope.formData.fatherLastName,
                       email: $scope.formData.fatherEmail,
                       contact: $scope.formData.fatherPhone,
                       password: $scope.formData.fatherPassword,
                       type: "Parent",
                       created: $scope.date
-                    }, function () {
-                      console.log('creating father parent relation');
-                      StudentParent.create({
-                        studentId: $scope.newStudent.id,
-                        parentId: $scope.newParent2.id,
-                        schoolId: $scope.schoolId
-                      });
-                      $state.go($state.current, {}, {reload: true});
+                      },
+                       function ()
+                       {
+                                  console.log('creating father parent relation');
+                                  StudentParent.create({ studentId: $scope.newStudent.id,parentId: $scope.newParent2.id,schoolId: $scope.schoolId});
+                                  $state.go($state.current, {}, {reload: true});
 
-                    }, function (response) {
-                      console.log(response.data.error.message);
+                      },
+                      function (response) {
+                                  console.log(response.data.error.message);
                     });
                   }
                   else{
                     $state.go($state.current, {}, {reload: true});
                   }
-                },function(response){
-					console.log(response.data.error.message);
-					$scope.responsemessage = response.data.error.message;
-					if (response.status =401) $state.go('forbidden', {}, {reload: true}) ;
-				}
+                },
+                function(response){
+                            console.log(response.data.error.message);
+                            $scope.response = response.data.error.message;
+                            if (response.status =401) $state.go('forbidden', {}, {reload: true}) ;
+                }
               );
-
 
             });
         }
+        //--------------------------------------------------------
+        //                 ADD STUDENT ENDS
+        //--------------------------------------------------------
+
+
+
+        //--------------------------------------------------------
+        //                 DELETE STUDENT/PARENT/STAFF STARTS
+        //--------------------------------------------------------
+
         $scope.deleteUser = function (x) {
           var dialog = ngDialog.open({template: 'deleteUser'});
           dialog.closePromise.then(function (data) {
-            if (data.value && data.value != '$document')  {
-
-
+            if (data.value && data.value != '$document' && data.value !='$closeButton')  {
               if (x.type == "Student") {
                 Student.delete({id: x.id}, function () {
                   $scope.resultStudentParent =StudentParent.find({filter: {where: {studentId: x.id,schoolId:$scope.schoolId}}}, function (response) {
@@ -280,6 +299,7 @@ angular
               }
               else if (x.type == "Staff") {
                 Staff.delete({id: x.id}, function () {
+                  console.log('Staff Deleted Successfully');
                   $state.go($state.current, {}, {reload: true});
                 });
               }
@@ -292,120 +312,188 @@ angular
 
 
         }
+
+        //--------------------------------------------------------
+        //                 DELETE STUDENT/PARENT/STAFF ENDS
+        //--------------------------------------------------------
+
+
+
+
         $scope.editUser = function (x) {
-			if (x.type == "Student"){
-          ngDialog.openConfirm({template: 'editStudent',
-            scope: $scope //Pass the scope object if you need to access in the template
-          }).then(
-            function(formData) {
-              Student.upsert({id:x.id,
-                  username: $scope.formData.studentFirstName,
-                  lastName: $scope.formData.studentLastName,
-                  email: $scope.formData.studentEmail,
-                  password: $scope.formData.studentPassword,
-                  gender: $scope.formData.studentGender,
-                  image: $scope.formData.studentImg,
-                  dateofBirth: $scope.formData.studentDateOfBirth,
-                  rollNo: $scope.formData.studentRollNo,
-                  RFID: $scope.formData.studentRFID,
-                  prevSchool: $scope.formData.studentPreviousSchool,
-                  dateofJoin: $scope.formData.studentDateOfJoin,
-                  classId: $scope.formData.studentClass,
-                  status: $scope.formData.studentStatus,
-                  regId: $scope.formData.studentRegId,
-                  isDisable: $scope.formData.studentIsDisable,
-                  prevSchoolTC: $scope.formData.studentPreviousTC,
-                  currentAddress: $scope.formData.studentCurrentAddress,
-                  currentCity: $scope.formData.studentCurrentCity,
-                  currentState: $scope.formData.studentCurrentState,
-                  currentPincode: $scope.formData.studentCurrentPincode,
-                  bloodGroup: $scope.formData.studentBloodGroup,
-                  religion: $scope.formData.studentReligion,
-                  caste: $scope.formData.studentCaste,
-                  alternateContact: $scope.formData.studentAlternateContact,
-                  permanentAddress: $scope.formData.studentPermanentAddress,
-                  permanentCity: $scope.formData.studentPermanentCity,
-                  permanentState: $scope.formData.studentPermanentState,
-                  permanentPincode: $scope.formData.studentPermanentPincode,
-                  nationalId: $scope.formData.studentNationalId,
-                  motherTounge: $scope.formData.studentMotherTounge,
-                  nationalIdType: $scope.formData.studentNationalIdType,
-                  subCaste: $scope.formData.studentSubCaste,
-                  contact: $scope.formData.studentContact
+                                      if      (x.type == "Student"){
+                                        $scope.formData = x;
+                                           ngDialog.openConfirm({template: 'editStudent',
+                                            scope: $scope //Pass the scope object if you need to access in the template
+                                          }).then(
+                                            function(formData) {
+                                              console.log(formData);
+                                              Student.prototype$updateAttributes({id:x.id},{
+                                                  firstName: formData.firstName,
+                                                  lastName: formData.lastName,
+                                                  email: formData.email,
+                                                  password: formData.password,
+                                                  gender: formData.gender,
+                                                  dateofBirth: formData.dateOfBirth,
+                                                  rollNo: formData.rollNo,
+                                                  RFID: formData.RFID,
+                                                  prevSchool: formData.previousSchool,
+                                                  dateofJoin: formData.dateOfJoin,
+                                                  classId: formData.class,
+                                                  status: formData.status,
+                                                  regId: formData.regId,
+                                                  isDisable: formData.isDisable,
+                                                  currentAddress: formData.currentAddress,
+                                                  currentCity: formData.currentCity,
+                                                  currentState: formData.currentState,
+                                                  currentPincode: formData.currentPincode,
+                                                  bloodGroup: formData.bloodGroup,
+                                                  religion: formData.religion,
+                                                  caste: formData.caste,
+                                                  alternateContact: formData.alternateContact,
+                                                  permanentAddress: formData.permanentAddress,
+                                                  permanentCity: formData.permanentCity,
+                                                  permanentState: formData.permanentState,
+                                                  permanentPincode: formData.permanentPincode,
+                                                  nationalId: formData.nationalId,
+                                                  motherTounge: formData.motherTounge,
+                                                  nationalIdType: formData.nationalIdType,
+                                                  subCaste: formData.subCaste,
+                                                  contact: formData.contact
+
+                                              },
+                                                function () {$state.go($state.current, {}, {reload: true});},
+                                              function(response){
+                                                console.log(response.data.error.message);
+                                              });
+                                            },
+                                            function(value) {}
+                                          );
+                                      }
+                                      else if (x.type == "Parent"){
+                                          $scope.formData = x;
+                                          ngDialog.openConfirm({template: 'editParent', scope: $scope //Pass the scope object if you need to access in the template
+                                          }).then(
+                                            function(formData) {
+                                                Parent.prototype$updateAttributes({id:x.id},{
+                                                  firstName: formData.firstName,
+                                                  lastName: formData.lastName,
+                                                  email:    formData.email,
+                                                  password: formData.password,
+                                                  contact: formData.contact
+                                              },
+                                                function () {$state.go($state.current, {}, {reload: true});},function(response){ console.log(response.data.error.message);});
+                                            },
+                                            function(value) {}
+                                          );
+                                      }
+                                      else if (x.type == "Staff") {
+        $scope.formData = x;
+        //$scope.dateofBirth = $filter('date')(new Date(x.dateOfBirth), 'MM/dd/yyyy');
+        ngDialog.openConfirm({template: 'editStaff',
+          scope: $scope
+        }).then(
+          function(formData) {
+            Staff.prototype$updateAttributes({id:x.id},{
+                firstName: formData.firstName,
+                lastName: formData.lastName,
+                email: formData.email,
+                password: formData.password,
+                gender: formData.gender,
+                dateofBirth: formData.dateOfBirth,
+                rollNo: formData.rollNo,
+                RFID: formData.RFID,
+                prevSchool: formData.previousSchool,
+                dateofJoin: formData.dateOfJoin,
+                classId: formData.class,
+                status: formData.status,
+                regId: formData.regId,
+                isDisable: formData.isDisable,
+                currentAddress: formData.currentAddress,
+                currentCity: formData.currentCity,
+                currentState: formData.currentState,
+                currentPincode: formData.currentPincode,
+                bloodGroup: formData.bloodGroup,
+                religion: formData.religion,
+                caste: formData.caste,
+                alternateContact: formData.alternateContact,
+                permanentAddress: formData.permanentAddress,
+                permanentCity: formData.permanentCity,
+                permanentState: formData.permanentState,
+                permanentPincode: formData.permanentPincode,
+                nationalId: formData.nationalId,
+                motherTounge: formData.motherTounge,
+                nationalIdType: formData.nationalIdType,
+                subCaste: formData.subCaste,
+                contact: formData.contact,
+                qualification: formData.qualification,
+                qualifiedUniversity: formData.qualifiedUniversity,
+                percentage: formData.percentage,
+                BED: formData.BED
 
               },
-                function () {$state.go($state.current, {}, {reload: true});});
-            },
-            function(value) {}
-          );
-			}
-			else if (x.type == "Parent"){
-				$scope.firstName = x.username;
-				$scope.lastName = x.lastName;
-				$scope.email = x.email;
-				$scope.password = x.password;
-				$scope.contact = x.contact;
-				 ngDialog.openConfirm({template: 'editParent',
-            scope: $scope //Pass the scope object if you need to access in the template
-          }).then(
-            function(formData) {
-				console.log(formData);
-                Parent.prototype$updateAttributes({id:x.id},{
-                  username: formData.firstName,
-                  lastName: formData.lastName,
-                  email:    formData.email,
-                  password: formData.password,
-                  contact: formData.contact
-              },
-                function () {$state.go($state.current, {}, {reload: true});},function(response){ console.log(response.data.error.message);});
-            },
-            function(value) {}
-          );
-			}
+              function () {$state.go($state.current, {}, {reload: true});},
+              function(response){
+                console.log(response.data.error.message);
+              });
+          },
+          function(value) {}
+        );
+      }
         }
-
         $scope.addStaff = function () {
 
           $scope.newStaff = Staff.create({
-              schoolId: $scope.schoolId, username: $scope.formData.staffFirstName, lastName: $scope.formData.staffLastName,
-              email: $scope.formData.staffEmail, password: $scope.formData.staffPassword,contact: $scope.formData.staffContact,
-              gender: $scope.formData.staffGender,
-              image: $scope.formData.staffImg,
-              dateofBirth: $scope.formData.staffDateOfBirth,
-              rollNo: $scope.formData.staffRollNo,
-              RFID: $scope.formData.staffRFID,
-              dateofJoin: $scope.formData.staffDateOfJoin,
-              status: $scope.formData.staffStatus,
-              regId: $scope.formData.staffRegId,
-              currentAddress: $scope.formData.staffCurrentAddress,
-              currentCity: $scope.formData.staffCurrentCity,
-              currentState: $scope.formData.staffCurrentState,
-              currentPincode: $scope.formData.staffCurrentPincode,
-              bloodGroup: $scope.formData.staffBloodGroup,
-              religion: $scope.formData.staffReligion,
-              caste: $scope.formData.staffCaste,
-              permanentAddress: $scope.formData.staffPermanentAddress,
-              permanentCity: $scope.formData.staffPermanentCity,
-              permanentState: $scope.formData.staffPermanentState,
-              permanentPincode: $scope.formData.staffPermanentPincode,
-              nationalId: $scope.formData.staffNationalId,
-              motherTounge: $scope.formData.staffMotherTounge,
-              nationalIdType: $scope.formData.staffNationalIdType,
-              subCaste: $scope.formData.staffSubCaste,
-              contact: $scope.formData.staffContact,
+              schoolId: $scope.schoolId,
+              firstName: $scope.formData.firstName,
+              lastName: $scope.formData.lastName,
+              email: $scope.formData.email,
+              password: $scope.formData.password,
+              contact: $scope.formData.contact,
+              gender: $scope.formData.gender,
+              image: "../../uploads/staff",
+              dateofBirth: $scope.formData.dateOfBirth,
+              RFID: $scope.formData.RFID,
+              isDisable : $scope.formData.isDisable,
+              dateofJoin: $scope.formData.dateOfJoin,
+              status: $scope.formData.status,
+              regId: $scope.formData.regId,
+              currentAddress: $scope.formData.currentAddress,
+              currentCity: $scope.formData.currentCity,
+              currentState: $scope.formData.currentState,
+              currentPincode: $scope.formData.currentPincode,
+              bloodGroup: $scope.formData.bloodGroup,
+              religion: $scope.formData.religion,
+              caste: $scope.formData.caste,
+              permanentAddress: $scope.formData.permanentAddress,
+              permanentCity: $scope.formData.permanentCity,
+              permanentState: $scope.formData.permanentState,
+              permanentPincode: $scope.formData.permanentPincode,
+              nationalId: $scope.formData.nationalId,
+              motherTounge: $scope.formData.motherTounge,
+              nationalIdType: $scope.formData.nationalIdType,
+              subCaste: $scope.formData.subCaste,
+              qualification: $scope.formData.qualification,
+              qualifiedUniversity: $scope.formData.qualifiedUniversity,
+              percentage: $scope.formData.percentage,
+              BED: $scope.formData.BED,
               type: 'Staff',created: $scope.date
             },
             function () {
 
-              console.log("Add Staff" +$scope.newStaff);
+              console.log("Staff Added Successfully");
               $state.go($state.current, {}, {reload: true});
             },
             function (response) {
-              console.log("Add Staff Response" +response.data.error.message);
+              $scope.response = "Staff Is Not Created " + response.data.error.message;
+              console.log("Error In Adding Staff " + response.data.error.message);
             }
           )
         }
-        $scope.sortType     = 'username';
+
+
+        //----------Sorting Table Technique
+        $scope.sortType     = 'firstName';
         $scope.sortReverse  = false;
         $scope.searchFish   = '';
 
@@ -436,9 +524,7 @@ angular
             },
             function () {
               Class.create({
-                  schoolId: $scope.schoolId, className: $scope.formData.className,
-                  sectionName: $scope.formData.sectionName,
-                  staffId: $scope.formData.staffSelected
+                  schoolId: $scope.schoolId, className: $scope.formData.className, sectionName: $scope.formData.sectionName,staffId: $scope.formData.staffSelected
                 }, function () {
                   $state.go($state.current, {}, {reload: true});
                 },
@@ -448,8 +534,11 @@ angular
 
             });
         }
-        $scope.editClass = function (x) {
-          $('#newStaff').val(x.staff.id);
+        $scope.updateClass = function (x) {
+            Class.upsert({id: x.id,staffId: x.staff.id}, function (response) {
+              console.log(response);
+            });
+
         }
         $scope.deleteClass = function (x) {
           var dialog = ngDialog.open({template: 'deleteClass'});
@@ -459,13 +548,7 @@ angular
             return true;
           });
         }
-        $scope.updateClass = function (x) {
-          Class.upsert({id: x.id, staffId: $scope.formData.newStaff},
-            function () {
-              $state.go($state.current, {}, {reload: true});
-            }, function (response) {
-            });
-        }
+
       }
     ])
 
@@ -507,9 +590,8 @@ angular
             });
 
         }
-        $scope.updateSubject = function (y) {
-          console.log($scope.formData.newStaff);
-          Subject.upsert({id: JSON.stringify(y.id).replace(/["']/g, ""), staffId: $scope.formData.newStaff},
+        $scope.updateSubject = function (a) {
+          Subject.upsert({id:a.id, staffId: a.staff.id},
             function () {
               $state.go($state.current, {}, {reload: true});
             },
@@ -788,20 +870,27 @@ angular
 
     }])
 
-  .controller('AssignmentController', ['$scope', '$state', 'Class', 'Assignment', '$rootScope', '$window','ngDialog','$filter',
-    function ($scope, $state, Class, Assignment, $rootScope, $window,ngDialog,$filter) {
+  .controller('AssignmentController', ['$scope', '$state', 'Class', 'Assignment', '$rootScope', '$window','ngDialog','$filter','fileUpload','Container',
+    function ($scope, $state, Class, Assignment, $rootScope, $window,ngDialog,$filter,fileUpload,Container) {
       $scope.user = $window.localStorage.getItem('user');
       var userData = JSON.parse($scope.user);
       $scope.schoolId = userData.schoolId;
       $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}}});
       $scope.addAssignment = function () {
+          var file =  $scope.myFile;
+          var uploadUrl = "/api/Containers/assignments/upload";
+          fileUpload.uploadFileToUrl(file, uploadUrl);
+        console.log(file['name']);
+        Container.download({container:"assignments",file:file['name']},function(response){
+          console.dir(response);
+        });
         Assignment.create({
             title: $scope.formData.title,
             classId: $scope.formData.classSelected,
             description: $scope.formData.description,
             fromDate: $scope.formData.fromDate,
             toDate: $scope.formData.toDate,
-            uploadFile: $scope.formData.uploadFile,
+            uploadFile: uploadUrl +"/"+file['name'],
             schoolId: $scope.schoolId
           },
           function () {
@@ -830,6 +919,7 @@ angular
 			$scope.fromDate = $filter('date')(new Date(x.fromDate), 'yyyy-MM-dd');
 			$scope.toDate = $filter('date')(new Date(x.toDate), 'yyyy-MM-dd');
 		    $scope.formData = {description:x.description};
+
         ngDialog.openConfirm({template: 'editAssignment',
           scope: $scope //Pass the scope object if you need to access in the template
         }).then(
@@ -859,7 +949,7 @@ angular
 						  for(var i=0;i<$scope.list.length;i++){
 
 
-						 $scope.chk($scope.list[i].id,$scope.list[i].username,i);
+						 $scope.chk($scope.list[i].id,$scope.list[i].firstName,i);
 
 
 						  }
@@ -868,14 +958,14 @@ angular
 
 			  }
 			   var i=0;
-              $scope.chk = function(studentId,username,i)
+              $scope.chk = function(studentId,firstName,i)
 			  {
 					  $scope.attendanceRecord = Attendance.findOne({filter:{where:{date:$scope.dateSelected,studentId:studentId}}},function(response){
 
-							 $scope.studentList[i] ={id:studentId ,username :username,attendanceId :response.id,status:true}
+							 $scope.studentList[i] ={id:studentId ,firstName :firstName,attendanceId :response.id,status:true}
 						console.log($scope.studentList[i]);
 						 },function(){
-							 							 $scope.studentList[i] ={id:studentId,username : username,status:false}
+							 							 $scope.studentList[i] ={id:studentId,firstName : firstName,status:false}
                          });
 			  }
 			  $scope.addAttendance = function(x){

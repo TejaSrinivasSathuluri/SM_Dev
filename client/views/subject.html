@@ -42,7 +42,7 @@
                 <div class="col-sm-2">
                   <select ng-model="formData.staffSelected" id="repeatSelect2" class="form-control" required>
                     <option value="">Select Teacher</option>
-                    <option ng-repeat="option1 in staffList" value=" {{option1.id}}">{{option1.username}}</option>
+                    <option ng-repeat="option1 in staffList" value=" {{option1.id}}">{{option1.firstName}}</option>
                   </select>
                 </div>
 
@@ -71,7 +71,7 @@
                 </select>
 
               <br>
-                <input type="text" ng-model="search.staff.username" placeholder="Search By Teacher" class="form-control">
+                <input type="text" ng-model="search.staff.firstName" placeholder="Search By Teacher" class="form-control">
               <br>
                 <input type="text" ng-model="search.subjectName" placeholder="Search By Subject" class="form-control"> </input>
               </div>
@@ -88,28 +88,15 @@
                 <tr ng-repeat="a in subjectList | filter:search">
                   <td>{{a.subjectName}}</td>
                   <td>{{a.class.className}}-{{a.class.sectionName}}</td>
-                  <td>{{a.staff.username}}</td>
+                  <td><select ng-model="a.staff.id" class="form-control Staff" required>
+                      <option value="">Teacher</option>
+                      <option ng-repeat="y in staffList" value="{{y.id}}">{{y.firstName}}</option>
+                    </select></td>
                   <td>
                     <div class="col-sm-3">
-                      <i class="glyphicon glyphicon-edit" ng-model="collapsed1" ng-click="collapsed1=!collapsed1"></i>
+                      <i class="glyphicon glyphicon-edit" ng-click="updateSubject(a)"></i>
                       <i class="glyphicon glyphicon-remove"  ng-click="deleteSubject(a)"></i>
-                      <div class="col-sm-9" ng-show="collapsed1">
-                        <form ng-submit="updateSubject(a)">
-                          <div class="col-sm-12">
-                            <div class="col-sm-5">
-                              <select ng-model="formData.newStaff" class="form-control Staff" required>
-                                <option value="">Teacher</option>
-                                <option ng-repeat="y in staffList" value="{{y.id}}">{{y.username}}</option>
-                              </select>
-                            </div>
-                            <div class="col-sm-5">
-                              <button type="submit" class="btn btn-default" aria-label="Left Align">
-                                <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
-                              </button>
-                              <span>{{response}}</span></div>
-                          </div>
-                        </form>
-                      </div>
+
                    </div>
 
                   </td>

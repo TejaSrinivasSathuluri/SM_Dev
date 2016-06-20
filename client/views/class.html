@@ -8,6 +8,7 @@
   </div>
 </script>
 
+
 <div class="container">
   <div class="row margin-top-10">
     <div class="col-md-12 col-sm-12">
@@ -30,7 +31,7 @@
 								<div class="col-sm-2"> <input type="text" class="form-control Section" placeholder="Section Name" ng-model="formData.sectionName" required> </div>
 								<div class="col-sm-2">  <select ng-model="formData.staffSelected" class="form-control Staff" required>
 								  <option value="">Class Teacher</option>
-								  <option ng-repeat="x in staffList" value="{{x.id}}">{{x.username}}</option>
+								  <option ng-repeat="x in staffList" value="{{x.id}}">{{x.firstName}}</option>
 								</select>
 								</div>
 								<div class="col-sm-2">  <button type="submit" class="btn btn-success uppercase">Create Class</button></div>
@@ -41,7 +42,7 @@
 							</form>
               </div>
             </div>
-           <br><br><br><br> 
+           <br><br><br><br>
             <div>
               <!---->
               <div class="col-sm-12">
@@ -52,7 +53,7 @@
                   </select>
                 <br>
 
-                  <input type="text" ng-model="search.staff.username" placeholder="Search By Teacher" class="form-control"> </input>
+                  <input type="text" ng-model="search.staff.firstName" placeholder="Search By Teacher" class="form-control"> </input>
                 </div>
                 <div class="col-sm-9">
                   <div class="portlet-body-morris-fit morris-chart flip-scroll" style="margin-right:0px;margin-left:0px;margin-bottom:0px;height: 260px">
@@ -62,35 +63,21 @@
                       <th>Class</th>
                       <th>Section</th>
                       <th>Teacher</th>
-                      <th></th>
+                      <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr data-ng-repeat="x in classList | filter:search ">
                       <div data-ng-bind-html="x.id">
-                        <td style="width: 5%">{{x.className}}</td>
-                        <td style="width: 5%">{{x.sectionName}}</td>
-                        <td style="width: 5%">{{x.staff.username}}</td>
-                        <td style="width: 100%">
-                          <div class="col-sm-3">
-                            <i class="glyphicon glyphicon-edit" ng-model="collapsed1" ng-click="collapsed1=!collapsed1 ;editClass(x)"></i>
+                        <td>{{x.className}}</td>
+                        <td>{{x.sectionName}}</td>
+                        <td> <select ng-model="x.staff.id" class="form-control Staff" required>
+                          <option value="">Class Teacher</option>
+                          <option ng-repeat="y in staffList" value="{{y.id}}">{{y.firstName}}</option>
+                        </select></td>
+                        <td>
+                            <i class="glyphicon glyphicon-edit"    ng-click="updateClass(x)"></i>
                             <i class="glyphicon glyphicon-remove"  ng-click="deleteClass(x)"></i>
-                          </div>
-                          <div class="col-sm-9" ng-show="collapsed1">
-                            <form ng-submit="updateClass(x)">
-                              <div class="col-sm-12">
-                                <div class="col-sm-5">
-                                  <select ng-model="formData.newStaff" id="newStaff"  required>
-                                    <option value="">Class Teacher</option>
-                                    <option data-ng-repeat="y in staffList" value="{{y.id}}">{{y.username}}</option>
-                                  </select>
-                                </div>
-                                <div class="col-sm-7">
-                                  <button type="submit" class="btn btn-success uppercase">Update</button><span>{{response}}</span>
-                                </div>
-                              </div>
-                            </form>
-                          </div>
                         </td>
                       </div>
                     </tr>
