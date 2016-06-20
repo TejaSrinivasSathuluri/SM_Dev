@@ -84,7 +84,7 @@
       <br>
       <div class="col-sm-12">
         <div class="col-sm-6">
-          <input  type="date" class="form-control" ng-model="formData.dateOfBirth"   required>	<br>
+          <input  type="date" class="form-control hasDatepicker" ng-model="formData.dateOfBirth"  required>	<br>
         </div>
         <div class="col-sm-6">
           <input  type="date" class="form-control" ng-model="formData.dateOfJoin"  ng-value="dateOfJoin" required> <br>
@@ -345,9 +345,9 @@
               <div class="col-sm-2" style="min-height:50px">
 
               </div>
-            </div>
+            
                <div class="portlet-body-morris-fit morris-chart flip-scroll" style="margin-right:0px;margin-left:0px;margin-bottom:0px;height: 260px">
-                                                  <div id="Directory">
+                                                 
                                                 <table id="tableSearchResults" class="table table-hover table-bordered table-striped table-condensed flip-content">
                                                    <thead flip-content>
                                                             <tr>
@@ -385,12 +385,14 @@
 											   <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
     <button ng-disabled="currentPage >= data/pageSize-1" ng-click="currentPage=currentPage+1">Next</button>
 
-											   </div>
+											  
 
 
          </div>
+		 
 		 <br><br><br><br><br> <br><br><br><br><br><br><br><br><br><br> <br><br><br><br><br><br><br><br><br><br> <br><br><br><br><br>
         </div>
+		</div>
         <!-- -----------------------------------------------------------------------------Admission Form-------------------------------------------------->
         <div ng-show="showForm" class="row list-separated">
             <div class="col-sm-12">
@@ -430,8 +432,8 @@
                   </select><br></div>
                 </div>
                 <div class="col-sm-12">
-                  <div class="col-sm-6"><input  type="date" class="form-control" ng-model="formData.dateOfBirth" ng-mouseover="tag7=true" ng-mouseleave="tag7=false" style="width:50%" required>	<br><div class="tag7" ng-show="tag7">Date Of Birth</div><br></div>
-                  <div class="col-sm-6"><input  type="date" class="form-control" ng-model="formData.dateOfJoin"  ng-mouseover="tag8=true" ng-mouseleave="tag8=false" style="width:50%" required> <br><div class="tag8" ng-show="tag8">Joining Date</div><br></div>
+                  <div class="col-sm-6"><input  type="date" class="form-control" ng-model="formData.dateOfBirth"  ng-mouseover="tag7=true" ng-mouseleave="tag7=false" style="width:50%" required>	<br><div class="tag7" ng-show="tag7">Date Of Birth</div><br></div>
+                  <div class="col-sm-6"><input  type="date" class="form-control" ng-model="formData.dateOfJoin"   ng-mouseover="tag8=true" ng-mouseleave="tag8=false" style="width:50%" required> <br><div class="tag8" ng-show="tag8">Joining Date</div><br></div>
                 </div>
                 <div class="col-sm-12">
                   <div class="col-sm-6"><input type="text"  class="form-control" placeholder="RFID"  ng-model="formData.RFID"  ng-mouseover="tag9=true" ng-mouseleave="tag9=false"	style="width:50%"><br><div class="tag9" ng-show="tag9">RFID</div><br></div>
