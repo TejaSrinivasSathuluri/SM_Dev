@@ -29,7 +29,7 @@ angular
                })
 
                .error(function(response){
-                 console.log("File Not Upload Becasue" + response.data.error);
+                 console.log("File Not Upload Becasue" + response);
                });
             }
          }])
@@ -766,20 +766,25 @@ angular
       }
 }])
 
-  .controller('NoticeboardController', ['$scope', '$state', 'School', 'Noticeboard', '$rootScope', '$window','ngDialog','$filter',
-    function ($scope, $state, School, Noticeboard, $rootScope, $window,ngDialog,$filter) {
+  .controller('NoticeboardController',
+    ['$scope', '$state', 'School', 'Noticeboard', '$rootScope', '$window','ngDialog','$filter','Container','fileUpload',
+    function ($scope, $state, School, Noticeboard, $rootScope, $window,ngDialog,$filter,Container,fileUpload) {
       $scope.user = $window.localStorage.getItem('user');
       var userData = JSON.parse($scope.user);
       $scope.schoolId = userData.schoolId;
       $scope.addNotice = function () {
         $scope.formData.date1 = new Date($scope.formData.date1);
         $scope.formData.date2 = new Date($scope.formData.date2);
+        var file =  $scope.myFile;
+        var uploadUrl = "/api/Containers/noticeboard/upload";
+        fileUpload.uploadFileToUrl(file, uploadUrl);
         Noticeboard.create({
             title: $scope.formData.title,
             description: $scope.formData.description,
             date1: $scope.formData.date1,
             date2: $scope.formData.date2,
-            uploadFile: $scope.formData.uploadFile,
+            uploadFile: "http://localhost:3000/api/Containers/noticeboard/download/" +file['name'],
+            name: file['name'],
             schoolId: $scope.schoolId
           },
           function () {
@@ -794,7 +799,11 @@ angular
         var dialog = ngDialog.open({template: 'deleteNotice'});
         dialog.closePromise.then(function (data) {
           if (data.value && data.value != '$document' && data.value != '$closeButton')
-            Noticeboard.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")});
+            Noticeboard.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")},function(){
+              Container.removeFile({container:"noticeboard",file:x.name},function(){},function(response){
+                console.log(response.data.error.message);
+              });
+            });
           $state.go($state.current, {}, {reload: true});
           return true;
         });
@@ -880,17 +889,14 @@ angular
           var file =  $scope.myFile;
           var uploadUrl = "/api/Containers/assignments/upload";
           fileUpload.uploadFileToUrl(file, uploadUrl);
-        console.log(file['name']);
-        Container.download({container:"assignments",file:file['name']},function(response){
-          console.dir(response);
-        });
         Assignment.create({
             title: $scope.formData.title,
             classId: $scope.formData.classSelected,
             description: $scope.formData.description,
             fromDate: $scope.formData.fromDate,
             toDate: $scope.formData.toDate,
-            uploadFile: uploadUrl +"/"+file['name'],
+            uploadFile: "http://localhost:3000/api/Containers/assignments/download/" +file['name'],
+            name: file['name'],
             schoolId: $scope.schoolId
           },
           function () {
@@ -900,13 +906,21 @@ angular
             console.log(response.data.error.message);
           });
       }
+
+
+
       $scope.assignmentlist = [];
       $scope.assignmentlist = Assignment.find({filter: {where: {schoolId: $scope.schoolId}, include: 'class'}});
       $scope.deleteAssignment = function (x) {
          var dialog = ngDialog.open({template: 'deleteAssignment'});
         dialog.closePromise.then(function (data) {
           if (data.value && data.value != '$document' && data.value != '$closeButton') {
-            Assignment.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")});
+
+            Assignment.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")},function(){
+              Container.removeFile({container:"assignments",file:x.name},function(){},function(response){
+                console.log(response.data.error.message);
+              });
+            });
             $state.go($state.current, {}, {reload: true});
           }
           return true;
