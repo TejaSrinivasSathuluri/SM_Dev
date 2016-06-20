@@ -616,8 +616,8 @@ angular
       }])
 
   .controller('TimetableController',
-    ['$scope', 'Admin', '$state', 'School', 'Timetable', '$rootScope', '$window',
-    function ($scope, Admin, $state, School, Timetable, $rootScope, $window) {
+    ['$scope', 'Admin', '$state', 'School', 'Timetable','Schedule', '$rootScope', '$window',
+    function ($scope, Admin, $state, School, Timetable,Schedule, $rootScope, $window) {
       $scope.user = $window.localStorage.getItem('user');
       var userData = JSON.parse($scope.user);
       $scope.schoolId = userData.schoolId;
@@ -675,7 +675,11 @@ angular
            if ($scope.receivers[$scope.receivers.length-1].title.length != 0 && $scope.receivers[$scope.receivers.length-1].startTime != null && $scope.receivers[$scope.receivers.length-1].endTime != null)
 			{
                $scope.newTimetable = Timetable.upsert({id: $scope.chkTimetable.id, schedule: $scope.receivers},
-                function () {   $state.go($state.current, {}, {reload: true});});
+                function () {
+                  Timetable.schedules.destroyAll({id: $scope.chkTimetable.id},function(){
+                    $state.go($state.current, {}, {reload: true});});
+                  });
+
             }
             else { alert('Please fill the fields'); }
 
