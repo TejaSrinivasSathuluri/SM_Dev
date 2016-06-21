@@ -951,42 +951,84 @@ angular
 
   .controller('AssignmentController', ['$scope', '$state', 'Class', 'Assignment', '$rootScope', '$window','ngDialog','$filter','fileUpload','Container','$location',
     function ($scope, $state, Class, Assignment, $rootScope, $window,ngDialog,$filter,fileUpload,Container,$location) {
+
+      //--------------------------------------------------------
+      //                 GET USER DATA && INITIALIZATION
+      //--------------------------------------------------------
+
       $scope.user = $window.localStorage.getItem('user');
       var userData = JSON.parse($scope.user);
       $scope.schoolId = userData.schoolId;
       var baseApi = $location.$$protocol + "://"+ $location.$$host + ":" +$location.$$port + "/api/Containers/assignments/download/";
 
 
-
+      //--------------------------------------------------------
+      //                 GET CLASS LIST
+      //--------------------------------------------------------
 
       $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}}});
+
+      //--------------------------------------------------------
+      //                 ADD ASSIGNMENT
+      //--------------------------------------------------------
+
       $scope.addAssignment = function () {
-          var file =  $scope.myFile;
-          var uploadUrl = "/api/Containers/assignments/upload";
-          fileUpload.uploadFileToUrl(file, uploadUrl);
-        Assignment.create({
-            title: $scope.formData.title,
-            classId: $scope.formData.classSelected,
-            description: $scope.formData.description,
-            fromDate: $scope.formData.fromDate,
-            toDate: $scope.formData.toDate,
-            uploadFile: baseApi+file['name'],
-            name: file['name'],
-            schoolId: $scope.schoolId
-          },
-          function () {
-            $state.go($state.current, {}, {reload: true});
-          },
+
+
+
+        if ($scope.myFile != null){
+          $scope.downloadFile = baseApi +$scope.myFile.name;
+
+          //-----CHECK IF SCHOOL CONTAINER EXISTS
+          Container.getContainers({name:$scope.schoolId},
+            //      CONTAINER EXISTS
+            function()
+            {
+              Container.getFile({container:$scope.schoolId,file:"assignments"},
+                //   FILE ASSIGNMENT EXISTS
+                function () {
+                  var file =  $scope.myFile;
+                  var uploadUrl = "/api/Containers/assignments/upload";
+                  fileUpload.uploadFileToUrl(file, uploadUrl);
+
+
+                },
+                //    FILE ASSIGNMENTS DOES NOT EXISTS
+                function(){
+
+                });
+            },
+            //       CONTAINER DOES NOT EXISTS
+            function(response)
+            {
+              console.log(response.data.error.message);
+            });
+        }
+
+        Assignment.create({schoolId :$scope.schoolId,title:$scope.formData.title,classId:$scope.formData.classSelected,description:$scope.formData.description,
+          fromDate:$scope.formData.fromDate,toDate:$scope.formData.toDate,downloadFile:$scope.downloadFile},function(){  $state.go($state.current, {}, {reload: true});},
           function (response) {
-            console.log(response.data.error.message);
-          });
+            $scope.response ="Error Occurred In Creating Assignment ";
+                console.log(response.data.error.message);
+        });
+
       }
 
 
+      //--------------------------------------------------------
+      //                 SHOW ASSIGNMENT LIST
+      //--------------------------------------------------------
 
       $scope.assignmentlist = [];
       $scope.assignmentlist = Assignment.find({filter: {where: {schoolId: $scope.schoolId}, include: 'class'}});
-      $scope.deleteAssignment = function (x) {
+
+
+
+      //--------------------------------------------------------
+      //                 DELETE ASSIGNMENT LIST
+      //--------------------------------------------------------
+
+       $scope.deleteAssignment = function (x) {
          var dialog = ngDialog.open({template: 'deleteAssignment'});
         dialog.closePromise.then(function (data) {
           if (data.value && data.value != '$document' && data.value != '$closeButton') {
@@ -1002,7 +1044,13 @@ angular
         });
 
       }
-	   $scope.editAssignment =function (x){
+
+
+      //--------------------------------------------------------
+      //                 EDIT ASSIGNMENT LIST
+      //--------------------------------------------------------
+
+  	   $scope.editAssignment =function (x){
 		    $scope.title = x.title;
 		    $scope.classSelected = x.classSelected;
 			$scope.fromDate = $filter('date')(new Date(x.fromDate), 'yyyy-MM-dd');
