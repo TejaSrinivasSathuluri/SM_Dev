@@ -5,19 +5,43 @@
 
 angular
   .module('app')
-  .controller('AuthLoginController', ['$scope', 'AuthService', '$state',
-      function($scope, AuthService, $state) {
-     
-    $scope.login = function() {
-      AuthService.login($scope.user.email, $scope.user.password)
-        .then(function() {
-          $state.go('console');
-        });
+  .controller('AuthLoginController', ['$scope', 'AuthServiceAdmin','AuthServiceStudent','AuthServiceStaff','AuthServiceParent', '$state',
+      function($scope, AuthServiceAdmin,AuthServiceStudent,AuthServiceStaff,AuthServiceParent, $state) {
+
+    $scope.login = function(T) {
+      if (T == 'A') {
+        AuthServiceAdmin.login($scope.user.email, $scope.user.password)
+          .then(function () {
+            $state.go('console');
+          });
+      }
+      else if (T == 'S')
+      {
+        AuthServiceStudent.login($scope.user.email, $scope.user.password)
+          .then(function () {
+            $state.go('console');
+          });
+      }
+      else if (T == 'ST')
+      {
+        AuthServiceStaff.login($scope.user.email, $scope.user.password)
+          .then(function () {
+            $state.go('console');
+          });
+      }
+      else if (T == 'P')
+      {
+        AuthServiceParent.login($scope.user.email, $scope.user.password)
+          .then(function () {
+            $state.go('console');
+          });
+      }
+
     };
   }])
-  .controller('AuthLogoutController', ['$scope', 'AuthService', '$state','$window',
-      function($scope, AuthService, $state,$window) {
-    AuthService.logout()
+  .controller('AuthLogoutController', ['$scope', 'AuthServiceAdmin', '$state','$window',
+      function($scope, AuthServiceAdmin, $state,$window) {
+        AuthServiceAdmin.logout()
       .then(function() {
         $window.localStorage.clear();
         $state.go('login');
@@ -27,12 +51,40 @@ angular
           console.log(response.data.error.message);
         });
   }])
-  .controller('SignUpController', ['$scope', 'AuthService', '$state',
-      function($scope, AuthService, $state) {
-    $scope.register = function() {
-      AuthService.register($scope.user.email, $scope.user.password)
-        .then(function() {
-          $state.transitionTo('sign-up-success');
+  .controller('AuthLogoutController', ['$scope', 'AuthServiceStudent', '$state','$window',
+      function($scope, AuthServiceStudent, $state,$window) {
+        AuthServiceStudent.logout()
+      .then(function() {
+        $window.localStorage.clear();
+        $state.go('login');
+      },function(response){
+        $window.localStorage.clear();
+          $state.go('login');
+          console.log(response.data.error.message);
         });
-    };
-  }]);
+  }])
+  .controller('AuthLogoutController', ['$scope', 'AuthServiceParent', '$state','$window',
+      function($scope, AuthServiceParent, $state,$window) {
+        AuthServiceParent.logout()
+      .then(function() {
+        $window.localStorage.clear();
+        $state.go('login');
+      },function(response){
+        $window.localStorage.clear();
+          $state.go('login');
+          console.log(response.data.error.message);
+        });
+  }]).controller('AuthLogoutController', ['$scope', 'AuthServiceStaff', '$state','$window',
+      function($scope, AuthServiceStaff, $state,$window) {
+        AuthServiceStaff.logout()
+      .then(function() {
+        $window.localStorage.clear();
+        $state.go('login');
+      },function(response){
+        $window.localStorage.clear();
+          $state.go('login');
+          console.log(response.data.error.message);
+        });
+  }])
+
+;

@@ -1,39 +1,24 @@
 
 <div class="container">
     <div class="row margin-top-10">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">           
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
             <div class="portlet light ">
                 <div class="portlet-title">
                     <div class="caption caption-md">LOGIN FORM</div>
                 </div>
                 <!-- -----------------------------------Search Form------------------------------->
 				<br><br><br><br><br>
+              <a ui-sref="login.admin">Admin</a>
+              <a ui-sref="login.student">Student</a>
+              <a ui-sref="login.parent">Parent</a>
+              <a ui-sref="login.staff">Staff</a>
 			   <div class="portlet-body">
-				
-                    <div class="row list-separated">
-                        <form name="form" ng-submit="login()">
-                            <center>
-                                    <div class="form-group" style="width:50%">
-                                     
-                                      <input class="form-control form-control-solid placeholder-no-fix" type="text" ng-model="user.email" placeholder="Email">
-                                      
-                                    </div>
-                                    <div class="form-group" style="width:50%">
-                                         
-                                          <input class="form-control form-control-solid placeholder-no-fix" type="password"ng-model="user.password" placeholder="password">
+                             <div ui-view></div>
 
-                                    </div>
-                                    <div class="form-group">    
-                                        <button type="submit" class="btn btn-success uppercase">Login</button>
-                                    </div>
-                            </center>
-                        </form>
-                    </div>
-                </div>
-				<br><br><br><br><br>
+
 				<div class="portlet-body">
 				</div>
-                    
+
         </div>
     </div>
 </div>

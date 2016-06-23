@@ -17,16 +17,17 @@
         <div class="portlet-title">
           <div class="caption caption-md col-sm-12">
             <span class="caption-subject uppercase col-sm-4">Subjects</span><span class="caption-subject uppercase col-sm-6"></span>
-            <span class="caption-subject uppercase col-sm-2" ng-click="collapsed=!collapsed"> Add Subject</span>
+            <span class="caption-subject uppercase col-sm-2" ng-show="Admin" ng-click="collapsed=!collapsed ;clearResponse()"> Add Subject</span>
           </div>
         </div>
         <div class="portlet-body">
           <div class="row list-separated">
 
             <!---->
+			{{responseAddSubject}}
             <div class="col-sm-12" ng-show="collapsed">
               <form ng-submit="addSubject()" >
-                {{response}}
+                
 
                 <div class="col-sm-2">
                   <input  type="text" class="form-control" placeholder="Subject Name" ng-model="formData.subjectName" required>
@@ -64,7 +65,7 @@
    <br><br><br><br>
             <!---->
             <div class="col-sm-12">
-              <div class="col-sm-3">
+              <div ng-hide="Student" class="col-sm-3">
                 <select ng-model="search.class.id" class="form-control">
                   <option value="">Class </option>
                   <option ng-repeat="y in classList" value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>
@@ -78,23 +79,29 @@
               <div class="col-sm-9">
               <div class="portlet-body-morris-fit morris-chart flip-scroll" style="margin-right:0px;margin-left:0px;margin-bottom:0px;height: 260px">
               <table class="table table-bordered table-striped table-condensed flip-content">
-                <thead flip-content><tr><th>Subject</th>
-                  <th>Class</th>
-                  <th>Teacher</th>
-                  <th>Action</th>
+                <thead flip-content><tr>
+				  <th><a ng-click="sortType = 'subjectName'; sortReverse = !sortReverse">Subject</th>
+                  <th><a ng-click="sortType = 'className'; sortReverse = !sortReverse">Class</th>
+                  <th><a ng-click="sortType = 'class.staffName'; sortReverse = !sortReverse">Teacher</th>
+                  <th ng-show="Admin">Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="a in subjectList | filter:search">
+                <tr ng-repeat="a in subjectList | filter:search |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize"">
                   <td>{{a.subjectName}}</td>
                   <td>{{a.class.className}}-{{a.class.sectionName}}</td>
-                  <td><select ng-model="a.staff.id" class="form-control Staff" required>
-                      <option value="">Teacher</option>
-                      <option ng-repeat="y in staffList" value="{{y.id}}">{{y.firstName}}</option>
-                    </select></td>
-                  <td>
+                  <td ng-hide="Admin">{{a.staff.firstName}}</td>
+                  <td ng-show="Admin">
+						  <p ng-hide="editsubject">{{a.staff.firstName}}</p>
+						  <select ng-show="editsubject" ng-model="a.staff.id" class="form-control Staff" required>
+							  <option value="">Teacher</option>
+							  <option ng-repeat="y in staffList" value="{{y.id}}">{{y.firstName}}</option>
+							</select>
+				  </td>
+                  <td ng-show="Admin">
                     <div class="col-sm-3">
-                      <i class="glyphicon glyphicon-edit" ng-click="updateSubject(a)"></i>
+                      <i class="glyphicon glyphicon-edit" ng-hide="editsubject" ng-click="clearResponse();editsubject=true"></i>
+                      <i class="glyphicon glyphicon-save" ng-show="editsubject" ng-click="updateSubject(a)"></i>
                       <i class="glyphicon glyphicon-remove"  ng-click="deleteSubject(a)"></i>
 
                    </div>
@@ -103,6 +110,8 @@
                 </tbody>
 
               </table>
+			  <button ng-disabled="currentPage == 0"               ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
+              <button ng-disabled="currentPage >= subjectList.length/pageSize-1"   ng-click="currentPage=currentPage+1">Next</button>
             </div>
             </div>
 
@@ -114,3 +123,6 @@
     </div>
   </div>
 </div>
+
+</div>
+  </div>

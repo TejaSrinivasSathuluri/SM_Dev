@@ -88,6 +88,26 @@ angular
         templateUrl: 'views/login.html',
         controller: 'AuthLoginController',
       })
+      .state('login.admin', {
+        url: '/admin',
+        templateUrl: 'views/admin.html',
+        controller: 'AuthLoginController',
+      })
+      .state('login.staff', {
+        url: '/staff',
+        templateUrl: 'views/staff.html',
+        controller: 'AuthLoginController',
+      })
+      .state('login.parent', {
+        url: '/parent',
+        templateUrl: 'views/parent.html',
+        controller: 'AuthLoginController',
+      })
+      .state('login.student', {
+        url: '/student',
+        templateUrl: 'views/student.html',
+        controller: 'AuthLoginController',
+      })
       .state('logout', {
         url: '/login',
         controller: 'AuthLogoutController'
