@@ -74,18 +74,18 @@
                   <thead flip-content>
                   <tr>
                     <th>#</th>
-                    <th>Title</th>
-					<th>Class</th>
-                    <th>Description</th>
-                    <th>From  Date</th>
-                    <th>To Date</th>
+                    <th><a ng-click="sortType = 'title'; sortReverse = !sortReverse">Title</a></th>
+					<th><a ng-click="sortType = 'className'; sortReverse = !sortReverse">Class</a></th>
+                    <th><a ng-click="sortType = 'description'; sortReverse = !sortReverse">Description</a></th>
+                    <th><a ng-click="sortType = 'fromDate'; sortReverse = !sortReverse">From  Date</a></th>
+                    <th><a ng-click="sortType = 'toDate'; sortReverse = !sortReverse">To  Date</a></th>
                     <th>File</th>
                     <th ng-show="Admin || Staff">Option</th>
                   </tr>
                   </thead>
 
                   <tbody>
-                  <tr data-ng-repeat="x in assignmentlist">
+                  <tr data-ng-repeat="x in assignmentlist | orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
                     <div data-ng-bind-html="x.id">s
                       <td>{{$index+1}}</td>
                       <td>{{x.title}}</td>
