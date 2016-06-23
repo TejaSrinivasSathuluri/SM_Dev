@@ -12,11 +12,11 @@
     <h3>Edit Book</h3>
     <div class="ngdialog-contents">
       <form>
-        <input  type="text" class="form-control"   placeholder="Name"   ng-value="name"    ng-model="formData.name"><br>
-        <input  type="text" class="form-control"   placeholder="Author"  ng-value="author"              ng-model="formData.author" ><br>
-        <textarea rows="4" cols="50" class="form-control" placeholder="Description  "  ng-model="formData.description"></textarea><br>
-        <input  type="number" class="form-control" placeholder="Price"      ng-value="price"           ng-model="formData.price"><br>
-        <input  type="number" class="form-control" placeholder="No.of Books Available" ng-value="available" ng-model="formData.available"><br>
+        <input  type="text" class="form-control"   placeholder="Name"   ng-value="name"    ng-model="formData.name" ng-mouseover="tag1=true" required ng-mouseleave="tag1=false"><div class="tag1" ng-show="tag1">Name</div><br>
+        <input  type="text" class="form-control"   placeholder="Author"  ng-value="author"      required        ng-model="formData.author" ng-mouseover="tag2=true" ng-mouseleave="tag2=false"><div class="tag2" ng-show="tag2">Author</div><br>
+        <textarea rows="4" cols="50" class="form-control" placeholder="Description"  required ng-model="formData.description" ng-mouseover="tag3=true" ng-mouseleave="tag3=false"></textarea><div class="tag3" ng-show="tag3">Description</div><br>
+        <input  type="number" class="form-control" placeholder="Price"      ng-value="price"      required     ng-model="formData.price" ng-mouseover="tag4=true" ng-mouseleave="tag4=false"><div class="tag4" ng-show="tag4">Price</div><br>
+        <input  type="number" class="form-control" placeholder="No.of Books Available" ng-value="available" required ng-model="formData.available" ng-mouseover="tag5=true" ng-mouseleave="tag5=false"><div class="tag5" ng-show="tag5">No.Of Books Available</div><br>
         <button type="submit" class="btn btn-success uppercase" ng-click=confirm(formData)>Save</button>
         <button type="button" class="btn btn-success uppercase" ng-click=closeThisDialog("Cancel")>Cancel</button>
 
@@ -39,35 +39,36 @@
           <div class="row list-separated">
             <!---->
 
-
+ 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <form ng-submit="addLibrary()" ng-show="Admin">
                 <div class="col-sm-3"style="min-height:50px">
-                  <input  type="text"   class="form-control" placeholder="Name" 				 ng-model="formData.name"        required><br>
-                  <input  type="text"   class="form-control" placeholder="Author"    			 ng-model="formData.author"      required><br>
-                  <textarea rows="4" cols="50" class="form-control" placeholder="Description  "  ng-model="formData.description" required></textarea><br>
-                  <input  type="number" class="form-control" placeholder="Price"                 ng-model="formData.price"     min="0"  max="100000" required><br>
-                  <input  type="number" class="form-control" placeholder="No.of Books Available" ng-model="formData.available" min="0"  max="100000" required><br>
+                  <input  type="text"   class="form-control" placeholder="Name*" 				 ng-model="formData.name"        required><br>
+                  <input  type="text"   class="form-control" placeholder="Author*"    			 ng-model="formData.author"      required><br>
+                  <textarea rows="4" cols="50" class="form-control" placeholder="Description*"  ng-model="formData.description" required></textarea><br>
+                  <input  type="number" class="form-control" placeholder="Price*"                 ng-model="formData.price"   step="0.01"  min="0"  max="100000" required><br>
+                  <input  type="number" class="form-control" placeholder="No.of Books Available*" ng-model="formData.available" min="0"  max="100000" required><br>
                   <button type="submit" class="btn btn-success uppercase">Add Book</button><br></div>
               </form>
 
 
               <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" style="min-height:50px" >
+			               <p  style="color:red">{{responseAddLibrary}} </p>
                 <table class="table table-bordered table-striped table-condensed flip-content">
                   <thead flip-content>
                   <tr>
                     <th>#</th>
-                    <th>BookName</th>
-                    <th>Author</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>No.Of Books Available</th>
-                    <th ng-show="Admin">Option</th>
+                    <th><a ng-click="sortType = 'name'; sortReverse = !sortReverse">BookName</a></th>
+                    <th><a ng-click="sortType = 'author'; sortReverse = !sortReverse">Author</a></th>
+                    <th><a ng-click="sortType = 'description'; sortReverse = !sortReverse">Description</a></th>
+                    <th><a ng-click="sortType = 'price'; sortReverse = !sortReverse">Price</a></th>
+                    <th><a ng-click="sortType = 'available'; sortReverse = !sortReverse">No.Of Books Available</a></th>
+                    <th ng-show="Admin">Option</th>	
                   </tr>
                   </thead>
 
                   <tbody>
-                  <tr data-ng-repeat="x in librarylist">
+                  <tr data-ng-repeat="x in libraryList | orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
                     <div data-ng-bind-html="x.id">
                       <td>{{$index+1}}</td>
                       <td>{{x.name}}</td>
@@ -83,7 +84,9 @@
                     </div>
                   </tr>
                   </tbody>
-                </table></div>
+                </table>
+				  <button ng-disabled="currentPage == 0"               ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
+              <button ng-disabled="currentPage >= libraryList.length/pageSize-1"   ng-click="currentPage=currentPage+1">Next</button></div>
 
             </div>
           </div>

@@ -897,6 +897,7 @@ angular
       if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
       $scope.schoolId = $scope.userData.schoolId;
       $scope.scheduleList = [];
+	  
       if ($scope.Admin) {
         $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}}});
         $scope.loadSchedule = function () {
@@ -1115,23 +1116,59 @@ angular
       if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
       if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
       $scope.addLibrary = function () {
-        Library.create({
-          schoolId: $scope.schoolId, name: $scope.formData.name, author: $scope.formData.author,
-          description: $scope.formData.description, price: $scope.formData.price, available: $scope.formData.available
-        }, function () {
-          $state.go($state.current, {}, {reload: true});
-        });
-      }
-      $scope.librarylist = [];
-      $scope.librarylist = Library.find({filter: {where: {schoolId: $scope.schoolId}}});
+  
+            Library.findOne({filter:{where:{schoolId: $scope.schoolId, name: $scope.formData.name, author: $scope.formData.author}}},function(){
+					
+					$scope.responseAddLibrary = "Book & Author Combination Already Exists";
+					 setTimeout( function()
+						{
+						   	$state.go($state.current, {}, {reload: true});
+							$scope.$apply();
+						}, 1000 );
+				
+			},function(response){
+			  
+				  Library.create({
+							  schoolId: $scope.schoolId, name: $scope.formData.name, author: $scope.formData.author,
+							  description: $scope.formData.description, price: $scope.formData.price, available: $scope.formData.available
+							}, function () {
+							   $scope.responseAddLibrary="Book Added Successfully.";
+							     setTimeout( function()
+    {
+       
+        $state.go($state.current, {}, {reload: true});
+        $scope.$apply();
+    }, 500 );
+							   
+							  
+							});
+				
+			});
+							
+    
+
+	}
+      $scope.libraryList = [];
+      $scope.libraryList = Library.find({filter: {where: {schoolId: $scope.schoolId}}});
+	  
       $scope.deleteLibrary = function (x) {
          var dialog = ngDialog.open({template: 'deleteLibrary'});
 
         dialog.closePromise.then(function (data) {
 
           if (data.value && data.value != '$document' && data.value != '$closeButton') {
-            Library.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")});
-            $state.go($state.current, {}, {reload: true});
+            Library.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")},function(){
+		 
+				  $scope.responseAddLibrary = "Book Deleted Successfully";
+				   setTimeout( function()
+						{
+						   	$state.go($state.current, {}, {reload: true});
+							 
+						}, 500 );
+			});
+	 
+			
+           
           }
           return true;
         });
@@ -1149,12 +1186,27 @@ angular
           function(formData) {
             console.log(x.id);
             Library.upsert({id:x.id, name : formData.name,author : formData.author,description: formData.description,price: formData.price,available:formData.available},
-              function () {$state.go($state.current, {}, {reload: true});});
+              function () {
+				  $scope.responseAddLibrary = "Book Edited Successfully";
+				   setTimeout( function()
+						{
+						   	$state.go($state.current, {}, {reload: true});
+							$scope.$apply();
+						}, 500 );
+			  });
           },
           function(value) {}
         );
       }
-
+	  
+        $scope.sortType     = 'className';
+        $scope.sortReverse  = false;
+        $scope.searchFish   = '';
+        $scope.currentPage = 0;
+        $scope.pageSize = 3;
+        $scope.numberOfPages=function(){    return Math.ceil($scope.libraryList.length/$scope.pageSize);}
+	  
+	   
     }])
 
   .controller('AssignmentController', ['$scope', '$state', 'Class', 'Assignment', '$rootScope', '$window','ngDialog','$filter','fileUpload','Container','$location','$http',
@@ -1305,36 +1357,39 @@ angular
         $scope.test= [{date :new Date(2014,0,i+1)}];
       }
 
-      console.log($scope.test);
+      
 
       //
       $scope.loadDates = function() {
         $scope.studentList = [];
         if ($scope.Admin || $scope.Staff){
           $scope.list = Student.find({filter: {where: {classId: $scope.classSelected}}}, function () {
-            for (var i = 0; i < $scope.list.length; i++) {
+            for (var i = 0; i < $scope.list.length-1; i++) {
               $scope.studentList[i]={studentId:$scope.list[i].id,data:$scope.test};
-              console.log($scope.studentList);
-              //$scope.chk($scope.list[i].id, $scope.list[i].firstName,i);
+          
+              $scope.chk($scope.list[i].id, $scope.list[i].firstName,i);
             }
           });
 
           $scope.chk = function(studentId,firstName,i)
           {
-            var firstDay = new Date($scope.dateSelected.getFullYear(), $scope.dateSelected.getMonth(), 1);
-            var lastDay  = new Date($scope.dateSelected.getFullYear(), $scope.dateSelected.getMonth()+1, 0);
-            $scope.attendanceRecord = Attendance.find({filter:{where:{studentId:studentId,date:{between:[firstDay,lastDay]}}}},function(response){
-
-              $scope.studentList[i] ={id:studentId ,firstName :firstName,attendanceId :response.id,status:true}
-            },function(){
-              $scope.studentList[i] ={id:studentId,firstName : firstName,status:false}
-            });
-          }
-
-          //-----------------
-
-
-          //------------------
+              var firstDay = new Date($scope.dateSelected.getFullYear(), $scope.dateSelected.getMonth(), 1);
+              var lastDay  = new Date($scope.dateSelected.getFullYear(), $scope.dateSelected.getMonth()+1, 0);
+            $scope.attendanceRecord = Attendance.find({filter:{where:{date:{between:[firstDay,lastDay]}}}});
+			 
+			var j=0;
+             
+			for(var i=0;i<$scope.attendanceRecord.length;i++)
+			{     
+				if ($scope.attendanceRecord.studentId == studentId)
+				{
+					$scope.student[j] = {studentId:studentId,status:true,date:$scope.attendanceRecord.date };
+				}
+			}
+			
+		
+		  }
+           	
           $scope.addAttendance = function(x){
             if (x.status == true) {
               Attendance.findOne({filter:{where:{studentId:x.id,date:$scope.dateSelected}}},function(){
@@ -1346,6 +1401,7 @@ angular
             }
             else {
               if (x.id != null) {
+				  console.log(x.id);
                 Attendance.delete({id:JSON.stringify(x.attendanceId).replace(/["']/g, "")},function(){},function(response){ console.log(response.data.error.message);});
               }
             }

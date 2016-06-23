@@ -38,8 +38,8 @@
 
                     </tr></thead>
                     <tbody>
-                    <tr data-ng-repeat="x in studentList">
-                        <td> {{x.firstName}}</td>
+                    <tr data-ng-repeat="x in attendanceRecord">
+                        <td> {{x.studentId}}</td>
 						<td ng-show="Admin || Staff"> <input type="checkbox"  ng-model="x.status"  ng-click="addAttendance(x)" > </td>
 											<td ng-hide="Admin || Staff"> <p ng-show="x.status">Present</p><p ng-hide="x.status">Absent</p> </td>
                     </tr>
