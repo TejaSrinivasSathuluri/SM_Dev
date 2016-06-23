@@ -41,7 +41,7 @@
 
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-              <form ng-submit="addLibrary()">
+              <form ng-submit="addLibrary()" ng-show="Admin">
                 <div class="col-sm-3"style="min-height:50px">
                   <input  type="text"   class="form-control" placeholder="Name" 				 ng-model="formData.name"        required><br>
                   <input  type="text"   class="form-control" placeholder="Author"    			 ng-model="formData.author"      required><br>
@@ -62,20 +62,20 @@
                     <th>Description</th>
                     <th>Price</th>
                     <th>No.Of Books Available</th>
-                    <th>Option</th>
+                    <th ng-show="Admin">Option</th>
                   </tr>
                   </thead>
 
                   <tbody>
                   <tr data-ng-repeat="x in librarylist">
                     <div data-ng-bind-html="x.id">
-                      <td style="width:5%">{{$index+1}}</td>
-                      <td style="width: 20%">{{x.name}}</td>
-                      <td style="width: 10%">{{x.author}}</td>
-                      <td style="width: 20%">{{x.description}}</td>
-                      <td style="width: 20%">{{x.price}}</td>
-                      <td style="width: 25%">{{x.available}}</td>
-                      <td style="width: 50%"><div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
+                      <td>{{$index+1}}</td>
+                      <td>{{x.name}}</td>
+                      <td>{{x.author}}</td>
+                      <td>{{x.description}}</td>
+                      <td>{{x.price}}</td>
+                      <td>{{x.available}}</td>
+                      <td ng-show="Admin"><div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
                         <i class="glyphicon glyphicon-edit" ng-model="collapsed1" ng-click="editLibrary(x)"></i>
                         <i class="glyphicon glyphicon-remove"  ng-click="deleteLibrary(x)"></i>
                       </div>

@@ -74,7 +74,7 @@
       </select ><br>
         </div>
         <div class="col-sm-6">
-          <select class="form-control" ng-model="formData.studentClass"    required>
+          <select class="form-control" ng-model="formData.classId"    required>
         <option value="">Class-Section*</option>
         <option ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
       </select><br>
@@ -321,9 +321,8 @@
       <div class="portlet light ">
         <div class="portlet-title">
           <div class="caption caption-md">Search</div>
-          <div class="pull-right"> <button type="button" ng-click="showForm=!showForm" class="btn btn-success uppercase">Admission Forms</button></div>
+          <div class="pull-right"> <button type="button" ng-show="Admin" ng-click="showForm=!showForm" class="btn btn-success uppercase">Admission Forms</button></div>
         </div>
-
         <!-- -------------------------------------------------------------------Search Form--------------------------------------------------------------->
         <div ng-show="!showForm" class="row list-separated">
                <div class="col-sm-12">
@@ -358,7 +357,7 @@
                                                                 <th><a ng-click="sortType = 'rollNo'; sortReverse = !sortReverse">   Roll No      </a></th>
                                                                 <th><a ng-click="sortType = 'className'; sortReverse = !sortReverse">Class/Section</a></th>
                                                                 <th><a ng-click="sortType = 'contact'; sortReverse = !sortReverse">  Contact      </a></th>
-                                                                <th>Action</th>
+                                                                <th ng-show="Admin">Action</th>
                                                             </tr>
                                                    </thead>
                                                    <tbody data-ng-repeat="x in searchList.concat(parentList) | orderBy:sortType:sortReverse | filter:search | startFrom : currentPage*pageSize | limitTo:pageSize">
@@ -367,23 +366,26 @@
                                                                   <td>{{x.firstName}}                              </td>
                                                                   <td>{{x.type}}                                   </td>
                                                                   <td>{{x.email}}                                  </td>
+
                                                                   <td ng-show="x.type == 'Student'">{{x.rollNo   }}                                 </td>
                                                                   <td ng-show="x.type == 'Parent'"></td>
+
                                                                   <td ng-show="x.type == 'Staff'"></td>
                                                                   <td ng-show="x.type == 'Staff'"></td>
                                                                   <td ng-show="x.type == 'Parent'"></td>
-                                                                  <td ng-show="x.type == 'Student'">{{x.class.className}}-{{x.class.sectionName}}</td>
+                                                                  <td ng-show="x.type = 'Student'">{{x.class.className}}-{{x.class.sectionName}}</td>
                                                                   <td>{{x.contact}}                                </td>
-                                                                  <td style="width: 50%">
+                                                                  <td ng-show="Admin" style="width: 50%">
                                                                                   <i class="glyphicon glyphicon-edit" id="package1" class="accordion-toggle" data-toggle="collapse" data-parent="#Directory" data-target=".packageDetails1" ng-click="editUser(x)"></i>
                                                                                   <i class="glyphicon glyphicon-remove"  ng-click="deleteUser(x)"></i>
                                                                    </td>
+
                                                           </tr>
                                                      </tbody>
 
                                               </table>
-											   <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
-    <button ng-disabled="currentPage >= data/pageSize-1" ng-click="currentPage=currentPage+1">Next</button>
+	<button ng-disabled="currentPage == 0"               ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
+    <button ng-disabled="currentPage >= data/pageSize" ng-click="currentPage=currentPage+1">Next</button>
 
 
 
@@ -467,16 +469,12 @@
                       <option value="O+"> O+  </option>  <option value="O-"> O- </option>
                     </select > <br>
                     <select class="form-control"   ng-model="formData.nationalIdType"  style="width:50%">
-                      <option value="">National Id</option>
+                      <option value="">National Id Type</option>
                       <option value="Aadhar">Aadhar ID</option>
                       <option value="Passport">Passport</option>
                     </select > <br>
-                    <input  type="text" class="form-control" placeholder="National ID"    		ng-model="formData.nationalId"   		  ng-mouseover="tag27=true" ng-mouseleave="tag27=false" style="width:50%" ><div class="tag27" ng-show="tag27">National ID</div><br>
-
+                    <input  type="text" class="form-control" placeholder="National ID Number"    		ng-model="formData.nationalId"   		  ng-mouseover="tag27=true" ng-mouseleave="tag27=false" style="width:50%" ><div class="tag27" ng-show="tag27">National ID</div><br>
                     <input  type="text" class="form-control" placeholder="Mother Tounge"       ng-model="formData.motherTounge"   		  ng-mouseover="tag20=true" ng-mouseleave="tag20=false" style="width:50%" ><div class="tag20" ng-show="tag20">Mother Tounge</div><br>
-
-
-
                     <input  type="number" class="form-control" placeholder="Contact Number"     min="0"  max="9999999999"   ng-model="formData.contact"   			    ng-mouseover="tag22=true" ng-mouseleave="tag22=false" style="width:50%" ><div class="tag22" ng-show="tag22">Contact Number</div><br>
                   </div>
                   <div class="col-sm-6">
@@ -508,20 +506,20 @@
                     <input  type="text"     class="form-control" placeholder="LastName"      	   ng-model="formData.fatherLastName"    			ng-mouseover="tag33=true" ng-mouseleave="tag33=false" style="width:50%" ><div class="tag33" ng-show="tag33">Enter Father LastName</div><br>
                     <input  type="email"    class="form-control" placeholder="Email"     		   ng-model="formData.fatherEmail"   	 			    ng-mouseover="tag34=true" ng-mouseleave="tag34=false" style="width:50%" ><div class="tag34" ng-show="tag34">Enter Father Email</div><br>
                     <input  type="password" class="form-control" placeholder="Password"   	       ng-model="formData.fatherPassword"    		ng-mouseover="tag35=true" ng-mouseleave="tag35=false" style="width:50%" ><div class="tag35" ng-show="tag35">Enter Password</div><br>
-                    <input  type="text"     class="form-control" placeholder="Contact Number"    min="0"  max="9999999999"    ng-model="formData.fatherPhone"   	 			ng-mouseover="tag36=true" ng-mouseleave="tag36=false" style="width:50%" ><div class="tag36" ng-show="tag36">Enter Father Contact Number</div><br>
+                    <input  type="number"     class="form-control" placeholder="Contact Number"    min="0"  max="9999999999"    ng-model="formData.fatherPhone"   	 			ng-mouseover="tag36=true" ng-mouseleave="tag36=false" style="width:50%" ><div class="tag36" ng-show="tag36">Enter Father Contact Number</div><br>
                   </div>
                   <div class="col-sm-6">
                     <input  type="text"     class="form-control" placeholder="FirstName"   		   ng-model="formData.motherFirstName"   			ng-mouseover="tag37=true" ng-mouseleave="tag37=false" style="width:50%" ><div class="tag37" ng-show="tag37">Enter Mather FirstName</div><br>
                     <input  type="text"     class="form-control" placeholder="LastName"      	   ng-model="formData.motherLastName"   			ng-mouseover="tag38=true" ng-mouseleave="tag38=false" style="width:50%" ><div class="tag38" ng-show="tag38">Enter Mother LastName</div><br>
                     <input  type="email"    class="form-control" placeholder="Email"     		   ng-model="formData.motherEmail"   				    ng-mouseover="tag39=true" ng-mouseleave="tag39=false" style="width:50%" ><div class="tag39" ng-show="tag39">Enter Mother Email</div><br>
                     <input  type="password" class="form-control" placeholder="Password"      	   ng-model="formData.motherPassword"   			ng-mouseover="tag40=true" ng-mouseleave="tag40=false" style="width:50%" ><div class="tag40" ng-show="tag40">Enter Password</div><br>
-                    <input  type="text"     class="form-control" placeholder="Contact Number"   min="0"  max="9999999999"     ng-model="formData.motherPhone"   				ng-mouseover="tag41=true" ng-mouseleave="tag41=false" style="width:50%" ><div class="tag41" ng-show="tag41">Enter Mother COntact Number</div><br>
+                    <input  type="number"     class="form-control" placeholder="Contact Number"   min="0"  max="9999999999"     ng-model="formData.motherPhone"   				ng-mouseover="tag41=true" ng-mouseleave="tag41=false" style="width:50%" ><div class="tag41" ng-show="tag41">Enter Mother COntact Number</div><br>
 
                   </div>
                 </div>
                 <div class="col-sm-12">
                   <div class="col-sm-4"></div>
-                  <div class="col-sm-4"><button type="submit" name ="Add Student" class="btn btn-success uppercase">Add Student</button><br><span>{{response}}</span></div>
+                  <div class="col-sm-4"><button type="submit" name ="Add Student" class="btn btn-success uppercase">Create</button><br><span>{{response}}</span></div>
                   <div class="col-sm-4"></div>
                 </div>
 
@@ -616,12 +614,12 @@
                       <option value="O+"> O+  </option>  <option value="O-"> O- </option>
                     </select > <br>
                     <select class="form-control"   ng-model="formData.staffNationalIdType"  style="width:50%">
-                      <option value="">National Id</option>
+                      <option value="">National Id Type</option>
                       <option value="Aadhar">Aadhar ID</option>
                       <option value="Passport">Passport</option>
                     </select > <br>
 
-                    <input  type="text" class="form-control" placeholder="National ID"    		ng-model="formData.nationalId"   		  ng-mouseover="tag64=true" ng-mouseleave="tag64=false" style="width:50%" ><div class="tag64" ng-show="tag64">National ID</div><br>
+                    <input  type="text" class="form-control" placeholder="National ID Number"    		ng-model="formData.nationalId"   		  ng-mouseover="tag64=true" ng-mouseleave="tag64=false" style="width:50%" ><div class="tag64" ng-show="tag64">National ID</div><br>
                     <input  type="text" class="form-control" placeholder="Contact Number"     min="0"  max="9999999999"   ng-model="formData.contact"   			    ng-mouseover="tag59=true" ng-mouseleave="tag59=false" style="width:50%" ><div class="tag59" ng-show="tag59">Contact Number</div><br>
 
                   </div>

@@ -19,10 +19,11 @@
               </select>
             </div>
               <div class="col-sm-3">
-                <input type="date" class="form-control" ng-model="dateSelected">
+                <input type="date" class="form-control" ng-model="dateSelected" required>
             </div>
             <div class="col-sm-2">
-              <input type="submit" class="btn btn-success uppercase" value="Generate Attendance"/>
+              <input type="submit" ng-show="Admin || Staff" class="btn btn-success uppercase" value="Generate Attendance"/>
+              <input type="submit" ng-hide="Admin" class="btn btn-success uppercase" value="View Attendance"/>
             </div>
             </form>
             <!---->
@@ -33,19 +34,17 @@
                   <table class="table table-bordered table-striped table-condensed flip-content">
                     <thead flip-content><tr>
                       <th>Student</th>
-					  <th>Present</th>
+					  <th>Present/Absent</th>
 
                     </tr></thead>
                     <tbody>
                     <tr data-ng-repeat="x in studentList">
                         <td> {{x.firstName}}</td>
-						<td> <input type="checkbox" ng-model="x.status" ng-click="addAttendance(x)" > </input></td>
+						<td ng-show="Admin || Staff"> <input type="checkbox"  ng-model="x.status"  ng-click="addAttendance(x)" > </td>
+											<td ng-hide="Admin || Staff"> <p ng-show="x.status">Present</p><p ng-hide="x.status">Absent</p> </td>
                     </tr>
                     </tbody>
                   </table>
-
-
-
 
                 </div>
                 <!---->
