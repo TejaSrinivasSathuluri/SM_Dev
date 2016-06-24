@@ -613,10 +613,9 @@ angular
         $scope.sortReverse  = false;
         $scope.searchFish   = '';
         $scope.currentPage = 0;
-        $scope.pageSize = 3;
-        $scope.data = ($scope.searchList.concat($scope.parentList)).length;
+        $scope.pageSize = 15;
         $scope.numberOfPages=function(){
-          return Math.ceil($scope.data/$scope.pageSize);
+          return Math.ceil($scope.searchList.length/$scope.pageSize);
         }
 
       }
