@@ -340,10 +340,8 @@
                 </select>
               </div>
 
-              <div class="col-sm-2" style="min-height:50px"> <input type="checkbox" ng-model="formData.staffSearch" ng-click="processSearch(a)">Staff</div>
-              <div class="col-sm-2" style="min-height:50px">
-
-              </div>
+              <div class="col-sm-2" style="min-height:50px"> <input type="checkbox" ng-model="formData.staffSearch" ng-disabled="disableStaff" ng-click="processSearch(a);disableParent=true">Staff</div>
+              <div class="col-sm-2" style="min-height:50px"> <input type="checkbox" ng-model="formData.parentSearch" ng-disabled="disableParent" ng-click="processSearch(a);disableStaff=true">Parents </div>
 
                <div class="portlet-body-morris-fit morris-chart flip-scroll" style="margin-right:0px;margin-left:0px;margin-bottom:0px;height: 260px">
 
@@ -360,22 +358,17 @@
                                                                 <th ng-show="Admin">Action</th>
                                                             </tr>
                                                    </thead>
-                                                   <tbody data-ng-repeat="x in searchList.concat(parentList) | orderBy:sortType:sortReverse | filter:search | startFrom : currentPage*pageSize | limitTo:pageSize">
+                                                   <tbody data-ng-repeat="x in searchList | orderBy:sortType:sortReverse | filter:search | startFrom : currentPage*pageSize | limitTo:pageSize">
                                                           <tr>
-                                                                  <td ></td>
-                                                                  <td>{{x.firstName}}                              </td>
+                                                                  <td style="width:10%"></td>
+                                                                  <td style="width:30%">{{x.firstName}} {{x.lastName}}    </td>
                                                                   <td>{{x.type}}                                   </td>
-                                                                  <td>{{x.email}}                                  </td>
+                                                                  <td style="width:25%">{{x.email}}                                  </td>
 
-                                                                  <td ng-show="x.type == 'Student'">{{x.rollNo   }}                                 </td>
-                                                                  <td ng-show="x.type == 'Parent'"></td>
-
-                                                                  <td ng-show="x.type == 'Staff'"></td>
-                                                                  <td ng-show="x.type == 'Staff'"></td>
-                                                                  <td ng-show="x.type == 'Parent'"></td>
-                                                                  <td ng-show="x.type = 'Student'">{{x.class.className}}-{{x.class.sectionName}}</td>
-                                                                  <td>{{x.contact}}                                </td>
-                                                                  <td ng-show="Admin" style="width: 50%">
+                                                                  <td style="width:15%">{{x.rollNo   }}                                 </td>
+                                                                  <td>{{x.class.className}}-{{x.class.sectionName}}</td>
+                                                                  <td style="width:20%">{{x.contact}}                                </td>
+                                                                  <td ng-show="Admin" style="width: 10%">
                                                                                   <i class="glyphicon glyphicon-edit" id="package1" class="accordion-toggle" data-toggle="collapse" data-parent="#Directory" data-target=".packageDetails1" ng-click="editUser(x)"></i>
                                                                                   <i class="glyphicon glyphicon-remove"  ng-click="deleteUser(x)"></i>
                                                                    </td>
@@ -385,7 +378,7 @@
 
                                               </table>
 	<button ng-disabled="currentPage == 0"               ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
-    <button ng-disabled="currentPage >= data/pageSize" ng-click="currentPage=currentPage+1">Next</button>
+    <button ng-disabled="currentPage >= data/pageSize-1" ng-click="currentPage=currentPage+1">Next</button>
 
 
 

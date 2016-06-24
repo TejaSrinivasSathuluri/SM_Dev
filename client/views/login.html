@@ -1,17 +1,33 @@
 
 <div class="container">
     <div class="row margin-top-10">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
             <div class="portlet light ">
                 <div class="portlet-title">
                     <div class="caption caption-md">LOGIN FORM</div>
+                  <div class="pull-right">
+                    <ul class="nav navbar-nav">
+
+                      <li class="menu-dropdown classic-menu-dropdown">
+                        <button  class="caption caption-md" data-toggle="dropdown" href="javascript:;">
+                          Type Of Login <i class="fa fa-angle-down"></i>
+                        </button>
+                        <ul class="dropdown-menu pull-left">
+                          <li> <a ui-sref="login.admin">Admin</a></li>
+                          <li> <a ui-sref="login.student">Student</a></li>
+                          <li> <a ui-sref="login.parent">Parent</a></li>
+                          <li> <a ui-sref="login.staff">Staff</a></li>
+                          <li></li>
+                        </ul>
+                      </li>
+
+                    </ul>
+                  </div>
                 </div>
                 <!-- -----------------------------------Search Form------------------------------->
-				<br><br><br><br><br>
-              <a ui-sref="login.admin">Admin</a>
-              <a ui-sref="login.student">Student</a>
-              <a ui-sref="login.parent">Parent</a>
-              <a ui-sref="login.staff">Staff</a>
+
+
 			   <div class="portlet-body">
                              <div ui-view></div>
 
@@ -22,5 +38,35 @@
         </div>
     </div>
 </div>
+      <div ng-hide="currentUser" class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+        <div class="portlet light ">
+          <div class="portlet-title">
+            <div class="caption caption-md">ABOUT US</div>
+
+          </div>
+          <!-- -----------------------------------About US Form------------------------------->
+          <p>
+            STUDY Monitor® was launched in early 2015 with a mission to provide safety & security to school-going students. Parents concerned about their children's safety want to ensure that they reach school & back home safely. Busy, working parents need time to check their kids attendance & syllabus completion regularly, keep track of current home work & assignments, see how their kid is faring in school etc. A monthly parent-teacher meeting is not sufficient to meet this demand. With this concern in mind, the experts at STUDY Monitor® came up with an innovative mobile solution that could meet this demand and provide other valuable services to parents, students, teachers and the educational institution in general.
+          <br>
+          <br>
+          <br>
+            STUDY Monitor® is a real time mobile app that can be downloaded by students, teachers and parents. It is also available as a fully integrated online web application that can be used anytime and anywhere. Parents can keep track of their children's whereabouts just by tapping a button. Our integrated RFID & CCTV monitoring system track students in real-time, whether in the school bus or in the classroom. It assists in attendance tracking giving parents and teachers peace of mind.
+
+          </p>
+
+          <div class="portlet-body">
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+
+</div>
+
+   </div>
+   </div>
 
 

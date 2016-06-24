@@ -7,11 +7,12 @@ angular
   .module('app', [
     'ui.router',
     'lbServices',
-    'ngDialog'
+    'ngDialog',
+    'mgo-angular-wizard'
   ])
   .config(['$stateProvider', '$urlRouterProvider', function($stateProvider,$urlRouterProvider) {
     $stateProvider
-     .state('console', {
+     .state('dashboard', {
         url: '/dashboard',
         templateUrl: 'views/dashboard.html',
         controller: 'DashboardController',
@@ -103,6 +104,25 @@ angular
         templateUrl: 'views/parent.html',
         controller: 'AuthLoginController',
       })
+      .state('collaborate', {
+        url: '/collaborate',
+        templateUrl: 'views/collaborate.html'
+
+      })
+      .state('commute', {
+        url: '/commute',
+        templateUrl: 'views/commute.html'
+
+      })
+      .state('compete', {
+        url: '/compete',
+        templateUrl: 'views/compete.html'
+
+      })
+      .state('communicate', {
+        url: '/communicate',
+        templateUrl: 'views/communicate.html'
+      })
       .state('login.student', {
         url: '/student',
         templateUrl: 'views/student.html',
@@ -112,7 +132,7 @@ angular
         url: '/login',
         controller: 'AuthLogoutController'
       })
-     $urlRouterProvider.otherwise('/index/login');
+     $urlRouterProvider.otherwise('/login');
   }])
 
 

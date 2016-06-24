@@ -34,9 +34,38 @@ angular
             }
          }])
 
-  .controller('DashboardController', ['$scope', 'Admin', 'Container','$state','fileUpload',
-    function ($scope, Admin,Container, $state,fileUpload) {
-        //$scope.day = moment();
+  .controller('DashboardController',
+    ['$scope', 'Admin','Student' ,'Parent','Staff','Noticeboard','School','$window','$rootScope','$filter',
+    function ($scope,Admin,Student,Parent,Staff,Noticeboard,School,$window,$rootScope,$filter) {
+      //--------------------------------------------------------
+      //                  BASIC USER DATA
+      // --------------------------------------------------------
+
+      $scope.user = $window.localStorage.getItem('user');
+      $scope.userData = JSON.parse($scope.user);
+      if ($scope.userData.type == 'Admin') { $scope.Admin = true;}
+      if ($scope.userData.type == 'Student') { $scope.Student = true;}
+      if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
+      if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
+      $scope.schoolName= null;
+      $scope.schoolId = $scope.userData.schoolId;
+      $scope.date = new Date();
+      $scope.school = School.findById({id:$scope.schoolId},function(){ $rootScope.schoolName = $scope.school.schoolName;});
+      //--------------------------------------------------------
+      //                  GET NOTICE LIST
+      // --------------------------------------------------------
+
+
+      var previousDay = new Date($scope.date);
+      $scope.nextDay =new Date(previousDay.setDate($scope.date.getDate()-1));
+      $scope.day =$filter('date')(new Date($scope.date), 'yyyy-MM-dd');
+      console.log($scope.day);
+
+
+
+      $scope.noticeList = Noticeboard.find({filter:{where:{schoolId:$scope.schoolId,date1:{lt:$scope.day}}}});
+
+
    }
 
   ])
@@ -52,7 +81,6 @@ angular
 
         $scope.user = $window.localStorage.getItem('user');
         $scope.userData = JSON.parse($scope.user);
-        console.log($scope.userData);
         if ($scope.userData.type == 'Admin') { $scope.Admin = true;}
         if ($scope.userData.type == 'Student') { $scope.Student = true;}
         if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
@@ -80,8 +108,8 @@ angular
         }, function (response) {
             if (response.status =401) $state.go('forbidden', {}, {reload: true}) ;
         });
-        console.log($scope.userData.type);
-        if ($scope.userData.type== 'Admin') {
+
+        if (Admin) {
           $scope.studentParent = StudentParent.find({filter: {where: {schoolId: $scope.schoolId}, include: 'parent'}},
             function (response) {
               var i = 0;
@@ -97,7 +125,7 @@ angular
               if (response.status = 401) $state.go('forbidden', {}, {reload: true});
             });
         }
-        else if ($scope.userData.type== 'Student'){
+        else if (Student){
           $scope.studentParent = StudentParent.find({filter: {where: {studentId: $scope.userData.id}, include: 'parent'}},
             function (response) {
               var i = 0;
@@ -116,6 +144,7 @@ angular
 
 
         $scope.searchList = $scope.studentList;
+        console.log($scope.searchList);
 
 
 
@@ -125,9 +154,15 @@ angular
         $scope.processSearch = function () {
                   if ($scope.formData.staffSearch == true) {
                     $scope.searchList = [];
-                    $scope.parentList = Staff.find({filter: {where: {schoolId: $scope.schoolId}}});
+                    $scope.searchList = Staff.find({filter: {where: {schoolId: $scope.schoolId}}});
                   }
-                  else         { $state.go($state.current, {}, {reload: true}); }
+                   else if ($scope.formData.parentSearch == true) {
+                    $scope.searchList = [];
+                    $scope.searchList =  $scope.parentList ;
+
+                  }
+                  else
+                  { $state.go($state.current, {}, {reload: true}); }
                 }
 
 
@@ -282,34 +317,36 @@ angular
             var dialog = ngDialog.open({template: 'deleteUser'});
             dialog.closePromise.then(function (data) {
               if (data.value && data.value != '$document' && data.value != '$closeButton') {
-                if (x.type == "Student") {
-                  Student.delete({id: x.id}, function () {
-                    $scope.resultStudentParent = StudentParent.find({
-                        filter: {
-                          where: {
-                            studentId: x.id,
-                            schoolId: $scope.schoolId
-                          }
-                        }
-                      }, function (response) {
-                        response.forEach(function (resultStudentParent) {
-                          var p = resultStudentParent.toJSON();
+							   if (x.type == "Student")    {
+										Student.delete({id: x.id}, function ()
+                    {
+                              console.log('Student ' + x.firstName + ' ' + x.lastName +' Is Deleted');
+                              $scope.resultStudentParent = StudentParent.find({
+                                filter: {
+                                  where: {
+                                  studentId: x.id,
+                                  schoolId: $scope.schoolId
+                                  }
+                                }
+                                }, function (response) {
+                                    response.forEach(function (resultStudentParent) {
+                                    var p = resultStudentParent.toJSON();
+                                    StudentParent.deleteById({id: p.id}, function () {
+                                    console.log('deleting student and student relation with parent');
+                                    $state.go($state.current, {}, {reload: true});
+                                    }, function (response) {
+                                    console.log(response.data.error.message);
+                                    });
+                                  });
+                                  $state.go($state.current, {}, {reload: true});
+                                  },
+                                  function (response) {
+                                  console.log(response.data.error.message);
+                                  }
+                                  );
+												});
 
-                          StudentParent.deleteById({id: p.id}, function () {
-                            console.log('deleting student and student relation with parent');
-                            $state.go($state.current, {}, {reload: true});
-                          }, function (response) {
-                            console.log(response.data.error.message);
-                          });
-                        });
-                        $state.go($state.current, {}, {reload: true});
-                      },
-                      function (response) {
-                        console.log(response.data.error.message);
-                      }
-                    );
-                  });
-                }
+                  }
                 else if (x.type == "Parent") {
                   Parent.delete({id: x.id}, function () {
                     $scope.resultStudentParent = StudentParent.find({
@@ -342,7 +379,7 @@ angular
                 }
                 else if (x.type == "Staff") {
                   Staff.delete({id: x.id}, function () {
-                    console.log('Staff Deleted Successfully');
+                    console.log('Staff' + x.firstName + ' ' + x.lastName + 'Deleted Successfully');
                     $state.go($state.current, {}, {reload: true});
                   });
                 }
@@ -350,7 +387,6 @@ angular
 
               return true;
             });
-
 
           }
 
@@ -601,7 +637,7 @@ angular
         if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
         $scope.schoolId = $scope.userData.schoolId;
         $scope.formData = [];
-	
+
         if($scope.Student){
           $scope.classList = Class.find  ({filter: {where: {id:$scope.userData.classId}, include: 'staff'}},function(){},function(response){if (response.status =401) $state.go('forbidden', {}, {reload: true}) ;});
         }
@@ -616,9 +652,9 @@ angular
 		   $scope.clearResponse = function (){
 			   $scope.response = null;
 			   $scope.responseAddClass = null;
-		   }       
-		  
-		  
+		   }
+
+
           //--------------------------------------------------------
           //                  ADD CLASS
           // --------------------------------------------------------
@@ -683,9 +719,9 @@ angular
         $scope.sortReverse  = false;
         $scope.searchFish   = '';
         $scope.currentPage = 0;
-        $scope.pageSize = 3;
+        $scope.pageSize = 10;
         $scope.numberOfPages=function(){    return Math.ceil($scope.classList.length/$scope.pageSize);}
-			  
+
 	  }
     ])
 
@@ -701,21 +737,21 @@ angular
         if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
         $scope.formData = [];
         if($scope.Admin) {
-			
+
 		  //--------------------------------------------------------
           //                  CLEAR RESPONSE
           // --------------------------------------------------------
 		   $scope.clearResponse = function (){
 			   $scope.response = null;
 			   $scope.responseAddSubject = null;
-		   } 
-		   
+		   }
+
           $scope.staffList = Staff.find  ({filter: {where: {schoolId: $scope.schoolId}}}, function () {
           }, function (response) {
             if (response.status = 401) $state.go('forbidden', {}, {reload: true});
           });
-		  
-		  
+
+
           $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}}}, function () {
           }, function (response) {
             if (response.status = 401) $state.go('forbidden', {}, {reload: true});
@@ -727,7 +763,7 @@ angular
 
 
           $scope.addSubject = function () {
-			 
+
             $scope.checkSub = Subject.findOne({
                 filter: {
                   where: {
@@ -750,7 +786,7 @@ angular
 									$scope.responseAddSubject ="Subject "+ $scope.formData.subjectName + " created Successfully in Class";
 							  },
 							  function (response) {
-								  
+
 								$scope.responseAddSubject = "Subject Already Exists";
 							  }
 							);
@@ -769,7 +805,7 @@ angular
 						  });
           }
 
-		  
+
           $scope.deleteSubject = function (x) {
 
             var dialog = ngDialog.open({template: 'deleteSubject'});
@@ -796,11 +832,11 @@ angular
         $scope.sortReverse  = false;
         $scope.searchFish   = '';
         $scope.currentPage = 0;
-        $scope.pageSize = 3;
+        $scope.pageSize = 10;
         $scope.numberOfPages=function(){    return Math.ceil($scope.subjectList.length/$scope.pageSize);}
-			  
-	  
-		
+
+
+
       }])
 
   .controller('TimetableController',
@@ -897,7 +933,7 @@ angular
       if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
       $scope.schoolId = $scope.userData.schoolId;
       $scope.scheduleList = [];
-	  
+
       if ($scope.Admin) {
         $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}}});
         $scope.loadSchedule = function () {
@@ -1036,21 +1072,38 @@ angular
       //------------------------------------------------
 
       $scope.addNotice = function () {
-                        $scope.formData.date1 = new Date($scope.formData.date1);
-                        $scope.formData.date2 = new Date($scope.formData.date2);
-                        var file =  $scope.myFile;
-                        var uploadUrl = "/api/Containers/noticeboard/upload";
-                        if ($scope.myFile != null)
-                        {
-                          fileUpload.uploadFileToUrl(file, uploadUrl);
-                        }
 
-                        Noticeboard.create({
-                            title: $scope.formData.title,description: $scope.formData.description,date1: $scope.formData.date1,date2: $scope.formData.date2,
-                            uploadFile: baseApi +file['name'],name: file['name'],schoolId: $scope.schoolId
-                          },
-                          function () { $state.go($state.current, {}, {reload: true});}
-                        );
+
+        ngDialog.openConfirm({template: 'addNotice',
+          scope: $scope //Pass the scope object if you need to access in the template
+        }).then(
+          function(formData) {
+            console.log(formData);
+            formData.date1 = $filter('date')(new Date(formData.date1), 'yyyy-MM-dd');
+            formData.date2 = $filter('date')(new Date(formData.date2), 'yyyy-MM-dd');
+            Noticeboard.create({title : formData.title,description: formData.description,date1: formData.date1,
+              date2:formData.date2,schoolId:$scope.schoolId,
+              uploadFile:formData.uploadFile},
+              function ()
+              {
+                $scope.responseNotice = "Notice Added Successfully";
+                setTimeout( function()
+                {
+                  $state.go($state.current, {}, {reload: true});
+                  $scope.$apply();
+                }, 1000 );
+
+              },function(response){
+                console.log(response.data.error.message);
+              });
+
+              },
+              function (value)
+              {
+
+              }
+        );
+
       }
 
 
@@ -1071,6 +1124,12 @@ angular
         dialog.closePromise.then(function (data) {
           if (data.value && data.value != '$document' && data.value != '$closeButton')
             Noticeboard.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")},function(){
+              $scope.responseNotice = "Notice Deleted Successfully";
+              setTimeout( function()
+              {
+                $state.go($state.current, {}, {reload: true});
+                $scope.$apply();
+              }, 1000 );
               Container.removeFile({container:"noticeboard",file:x.name},function(){
                 console.log("File Deleted");
               },function(response){
@@ -1097,13 +1156,42 @@ angular
         }).then(
           function(formData) {
             Noticeboard.upsert({id:x.id, title : formData.title,description: formData.description,date1: formData.date1,date2:formData.date2,uploadFile:formData.uploadFile},
-              function () {$state.go($state.current, {}, {reload: true});});
+              function () {
+                $scope.responseNotice = "Notice Saved Successfully";
+                setTimeout( function()
+                {
+                  $state.go($state.current, {}, {reload: true});
+                  $scope.$apply();
+                }, 1000 );
+              });
           },
           function(value) {
+            $scope.responseNotice = "Notice Was Not Edited.Please Fill All Required Fields";
+            setTimeout( function()
+            {
+              $state.go($state.current, {}, {reload: true});
+              $scope.$apply();
+            }, 1000 );
 
           }
         );
       }
+
+        // --------------------------------------------------------
+        //                 SORT TABLE TECHNIQUE
+        //--------------------------------------------------------
+
+        $scope.sortType     = 'title';
+      $scope.sortReverse  = false;
+      $scope.searchFish   = '';
+      $scope.currentPage = 0;
+      $scope.pageSize = 10;
+      $scope.numberOfPages=function(){    return Math.ceil($scope.noticeList.length/$scope.pageSize);}
+
+
+
+
+
     }])
 
   .controller('LibraryController', ['$scope', '$state', 'School', 'Library', '$rootScope', '$window','ngDialog',
@@ -1116,18 +1204,18 @@ angular
       if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
       if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
       $scope.addLibrary = function () {
-  
+
             Library.findOne({filter:{where:{schoolId: $scope.schoolId, name: $scope.formData.name, author: $scope.formData.author}}},function(){
-					
+
 					$scope.responseAddLibrary = "Book & Author Combination Already Exists";
 					 setTimeout( function()
 						{
 						   	$state.go($state.current, {}, {reload: true});
 							$scope.$apply();
 						}, 1000 );
-				
+
 			},function(response){
-			  
+
 				  Library.create({
 							  schoolId: $scope.schoolId, name: $scope.formData.name, author: $scope.formData.author,
 							  description: $scope.formData.description, price: $scope.formData.price, available: $scope.formData.available
@@ -1135,22 +1223,22 @@ angular
 							   $scope.responseAddLibrary="Book Added Successfully.";
 							     setTimeout( function()
     {
-       
+
         $state.go($state.current, {}, {reload: true});
         $scope.$apply();
     }, 500 );
-							   
-							  
+
+
 							});
-				
+
 			});
-							
-    
+
+
 
 	}
       $scope.libraryList = [];
       $scope.libraryList = Library.find({filter: {where: {schoolId: $scope.schoolId}}});
-	  
+
       $scope.deleteLibrary = function (x) {
          var dialog = ngDialog.open({template: 'deleteLibrary'});
 
@@ -1158,17 +1246,17 @@ angular
 
           if (data.value && data.value != '$document' && data.value != '$closeButton') {
             Library.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")},function(){
-		 
+
 				  $scope.responseAddLibrary = "Book Deleted Successfully";
 				   setTimeout( function()
 						{
 						   	$state.go($state.current, {}, {reload: true});
-							 
+
 						}, 500 );
 			});
-	 
-			
-           
+
+
+
           }
           return true;
         });
@@ -1198,15 +1286,15 @@ angular
           function(value) {}
         );
       }
-	  
+
         $scope.sortType     = 'className';
         $scope.sortReverse  = false;
         $scope.searchFish   = '';
         $scope.currentPage = 0;
         $scope.pageSize = 3;
         $scope.numberOfPages=function(){    return Math.ceil($scope.libraryList.length/$scope.pageSize);}
-	  
-	   
+
+
     }])
 
   .controller('AssignmentController', ['$scope', '$state', 'Class', 'Assignment', '$rootScope', '$window','ngDialog','$filter','fileUpload','Container','$location','$http',
@@ -1357,7 +1445,7 @@ angular
         $scope.test= [{date :new Date(2014,0,i+1)}];
       }
 
-      
+
 
       //
       $scope.loadDates = function() {
@@ -1366,7 +1454,7 @@ angular
           $scope.list = Student.find({filter: {where: {classId: $scope.classSelected}}}, function () {
             for (var i = 0; i < $scope.list.length-1; i++) {
               $scope.studentList[i]={studentId:$scope.list[i].id,data:$scope.test};
-          
+
               $scope.chk($scope.list[i].id, $scope.list[i].firstName,i);
             }
           });
@@ -1376,20 +1464,20 @@ angular
               var firstDay = new Date($scope.dateSelected.getFullYear(), $scope.dateSelected.getMonth(), 1);
               var lastDay  = new Date($scope.dateSelected.getFullYear(), $scope.dateSelected.getMonth()+1, 0);
             $scope.attendanceRecord = Attendance.find({filter:{where:{date:{between:[firstDay,lastDay]}}}});
-			 
+
 			var j=0;
-             
+
 			for(var i=0;i<$scope.attendanceRecord.length;i++)
-			{     
+			{
 				if ($scope.attendanceRecord.studentId == studentId)
 				{
 					$scope.student[j] = {studentId:studentId,status:true,date:$scope.attendanceRecord.date };
 				}
 			}
-			
-		
+
+
 		  }
-           	
+
           $scope.addAttendance = function(x){
             if (x.status == true) {
               Attendance.findOne({filter:{where:{studentId:x.id,date:$scope.dateSelected}}},function(){
