@@ -19,11 +19,12 @@
     "loopback": "^2.29.0",
     "loopback-boot": "^2.18.1",
     "loopback-component-explorer": "^2.5.0",
-    "loopback-component-storage": "^1.8.1",
+    "loopback-component-storage": "~1.8.1",
     "loopback-connector-mongodb": "^1.15.2",
     "loopback-datasource-juggler": "^2.46.1",
     "rootpath": "^0.1.2",
-    "serve-favicon": "^2.0.1"
+    "serve-favicon": "^2.0.1",
+    "cookie-parser": "~1.4.3"
   },
   "devDependencies": {
     "jshint": "^2.5.6",

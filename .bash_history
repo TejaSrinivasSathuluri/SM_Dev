@@ -110,3 +110,37 @@ sudo service mongodb start
 node .
 git
 git init
+git commit -m "1"
+git pull https://mansoorshaik@bitbucket.org/mansoorshaik/sm_dev.git
+git commit -m "2"
+git pull https://mansoorshaik@bitbucket.org/mansoorshaik/sm_dev.git
+git pull origin master
+git pull git@bitbucket.org:mansoorshaik/sm_dev.git
+git pull git@bitbucket.org:mansoorshaik/sm_dev.git 
+sudo git pull git@bitbucket.org:mansoorshaik/sm_dev.git 
+dir
+git
+git status
+git commit -a
+git pull https://mansoorshaik@bitbucket.org/mansoorshaik/sm_dev.git
+git commit -m "4"
+git pull https://mansoorshaik@bitbucket.org/mansoorshaik/sm_dev.git
+git
+git status
+git add *
+git pull https://mansoorshaik@bitbucket.org/mansoorshaik/sm_dev.git
+dir
+cd common
+dir
+cd models
+ls
+view container.json
+cd
+slc loopback:datasource
+sudo slc loopback:datasource
+sudo apt-get install heimdal-multidev
+
+slc loopback:datasource
+git pull https://mansoorshaik@bitbucket.org/mansoorshaik/sm_dev.git
+screen
+git pull https://mansoorshaik@bitbucket.org/mansoorshaik/sm_dev.git
