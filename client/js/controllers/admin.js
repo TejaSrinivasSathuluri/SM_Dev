@@ -59,11 +59,11 @@ angular
       var previousDay = new Date($scope.date);
       $scope.nextDay =new Date(previousDay.setDate($scope.date.getDate()-1));
       $scope.day =$filter('date')(new Date($scope.date), 'yyyy-MM-dd');
-      console.log($scope.day);
 
 
 
-      $scope.noticeList = Noticeboard.find({filter:{where:{schoolId:$scope.schoolId,date1:{lt:$scope.day}}}});
+
+      $scope.noticeList = Noticeboard.find({filter:{where:{schoolId:$scope.schoolId,date1:{lt:$scope.day},date2:{lt:$scope.day}}}});
 
 
    }
@@ -613,7 +613,7 @@ angular
         $scope.sortReverse  = false;
         $scope.searchFish   = '';
         $scope.currentPage = 0;
-        $scope.pageSize = 3;
+        $scope.pageSize = 20;
         $scope.data = ($scope.searchList.concat($scope.parentList)).length;
         $scope.numberOfPages=function(){
           return Math.ceil($scope.data/$scope.pageSize);
