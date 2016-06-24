@@ -11,23 +11,13 @@
     <script src="js/controllers/auth.js"></script>
     <script src="js/controllers/admin.js"></script>
     <script src="js/services/auth.js"></script>
-    <link href="css/style.css" rel="stylesheet">
+
 
   <!---->
-    <script src="/js/ngStorage.min.js"></script>
+
     <!--------------------------------------->
     <script src="/js/ngDialog/ngDialog.js" type="text/javascript"></script>
     <script src="/js/ngDialog/ngDialog.min.js" type="text/javascript"></script>
-    <!--------------------------------------->
-
-    <!--------------------------------------->
-    <script src="/js/ngAnimate/angular-animate.js" type="text/javascript"></script>
-    <script src="/js/ngAnimate/angular-animate.min.js" type="text/javascript"></script>
-    <!--------------------------------------->
-
-    <!--------------------------------------->
-    <script src="/js/ngRoute/angular-route.min.js" type="text/javascript"></script>
-    <script src="/js/ngRoute/angular-route.js" type="text/javascript"></script>
     <!--------------------------------------->
 
     <!--------------------------------------->
@@ -35,77 +25,117 @@
     <link href="/styles/ngDialog-theme-default.css" rel="stylesheet" type="text/css">
     <!--------------------------------------->
 
-    <!---->
+     <!--------------------------------------->
     <!--<link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css">-->
     <link href="styles/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="styles/fonts.css" rel="stylesheet" type="text/css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
     <script src="styles/ui-bootstrap.js"></script>
     <script src="styles/ui-bootstrap-tpls.js"></script>
+
     <!--------------------------------------->
+    <!--------------------------------------->
+    <script src="/styles/angular-wizard.min.js"></script>
+    <link href="/styles/angular-wizard.min.css" rel="stylesheet" type="text/css">
+    <!--------------------------------------->
+    <!--------------------------------------->
+    <script src="/styles/angular-material.min.js"></script>
+    <link href="/styles/angular-material.min.css"  rel="stylesheet" type="text/css">
     <!--------------------------------------->
 
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="styles/fonts.css" rel="stylesheet" type="text/css">
+
     <link href="../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <script src="styles/jquery-2.1.4.min.js"></script>
     <link href="../../assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css">
     <link href="../../assets/admin/layout3/css/layout.css" rel="stylesheet" type="text/css">
+
+	<script src="../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+  <script src="../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+  <script src="../../assets/admin/layout3/scripts/layout.js" type="text/javascript"></script>
   </head>
+
+
 
 
 
   <body>
 
   <div class="page-header" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px">
-  <div class="container">
+    <div class="container">
+      <!-- BEGIN HEADER TOP -->
+      <div class="page-header-top" style="margin: 0px;height:0px">
 
-    <div class="page-header-top" style="margin: 0px;height:0px">
+        <!-- BEGIN LOGO -->
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+        <div class="page-logo ">
+          <a href="index.html"><img src="/js/logo.png" alt="logo" class="logo-default" style="    width: 31%;
+    margin: 2px;
+    height: 70px;
+    margin-top: 1px;
+    margin-left: -24px"></a>
 
-
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs--12">
-        <div class="col-lg-2 col-md-2 col-sm-2col-xs-12">
-      <div class="page-logo ">
-        <a href="/">
-      <!--<img src="../../images/l.png" alt="logo" class="logo-default" style="width: 61%;margin: 2px;height: 70px;margin-top: 1px;">-->
-        </a>
-      </div>
         </div>
+  </div>
         <!-- END LOGO -->
-
+       <div ng-show="currentUser" class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+         <!--<h3>{{schoolimage}}</h3>-->
+         <img src="" alt="logo" class="logo-default" style="    width:100%;
+    margin: 2px;
+    height: 70px;
+    margin-top: 1px;">
+       </div>
+  <div ng-hide ="currentUser" class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+    <!--<h3>{{schoolimage}}</h3>-->
+    <img src="/js/studymonitor-default.png" alt="logo" class="logo-default" style="    width:100%;
+    margin: 2px;
+    height: 30px;
+    margin-top: 15px;">
+  </div>
         <!-- BEGIN RESPONSIVE MENU TOGGLER -->
         <a href="javascript:;" class="menu-toggler"></a>
         <!-- END RESPONSIVE MENU TOGGLER -->
 
         <!-- BEGIN TOP NAVIGATION MENU -->
-        <div class="top-menu">
+  <div col-lg-3 col-md-3 col-sm-3 col-xs-12>
+    <div class="top-menu">
           <ul class="nav navbar-nav pull-right ">
             <!-- BEGIN USER LOGIN DROPDOWN -->
             <li class="dropdown dropdown-user dropdown-dark">
 
-              <div ng-hide="currentUser"><a ui-sref="login" >Login</a> </div>
+              <div ng-hide="currentUser"><a ui-sref="login" class="caption-subject uppercase" ui-sref-active="active">Login</a> </div>
 
-              <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                <img alt="" ng-show="currentUser" class="img-circle" src="../../assets/admin/layout3/img/avatar9.jpg">
-                <span ng-show="currentUser">{{user.username}}</span>
+              <a ng-show="currentUser"   href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                <img alt="" class="img-circle" src="../../assets/admin/layout3/img/avatar9.jpg">
+                <span class="username username-hide-mobile" ng-hide="currentUser">{{user.username}}</span>
               </a>
               <ul class="dropdown-menu dropdown-menu-default">
-                <li ng-show="currentUser">  <a ui-sref="logout" ui-sref-active="active">Log out</a> </li>
+                <li ng-show="currentUser">
+                    <i class="icon-user"></i> My Profile </a>
+                </li>
+                <li ng-show="currentUser">
+                  <a ui-sref="logout" ui-sref-active="active">Log out</a>
+                </li>
               </ul>
             </li>
             <!-- END USER LOGIN DROPDOWN -->
           </ul>
         </div>
+  </div>
         <!-- END TOP NAVIGATION MENU -->
+</div>
       </div>
     </div>
     <!-- END HEADER TOP -->
 
 
     <!-- BEGIN HEADER MENU -->
-    <div class="page-header-menu" ng-show="currentUser">
+    <div class="page-header-menu">
       <div class="container">
         <!-- BEGIN HEADER SEARCH BOX -->
-        <form class="search-form">
+        <form ng-show="currentUser" class="search-form" action="#" method="GET">
           <div class="input-group">
             <input type="text" class="form-control" placeholder="Search" name="query">
 					<span class="input-group-btn">
@@ -117,10 +147,10 @@
 
 
         <!-- BEGIN MEGA MENU -->
-        <div class="hor-menu">
+        <div class="hor-menu" ng-show="currentUser">
           <ul class="nav navbar-nav">
             <li class="active">
-              <a ui-sref=".dashboardform">Console</a>
+              <a ui-sref=".dashboard">Console</a>
             </li>
             <li class="menu-dropdown classic-menu-dropdown ">
               <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">
@@ -131,13 +161,7 @@
                 <li><a ui-sref="class"><i class="icon-wallet"></i>Classes </a></li>
                 <li><a ui-sref="subject"><i class="icon-bar-chart"></i>Subjects </a></li>
                 <li><a ui-sref="attendance"><i class="icon-pointer"></i>Attandance </a></li>
-                <li class=" dropdown-submenu">
-                  <a><i class="icon-pointer"></i>Time Table </a>
-                  <ul class="dropdown-menu">
-                    <li class=" "><a ui-sref="timetable">School TimeTable </a></li>
-                    <li class=" "><a ui-sref="schedule">Class TimeTable </a></li>
-                  </ul>
-                </li>
+                <li><a ui-sref="schedule"><i class="icon-pointer"></i>Time Table </a></li>
               </ul>
             </li>
             <li class="menu-dropdown classic-menu-dropdown ">
@@ -162,7 +186,7 @@
                 Settings <i class="fa fa-angle-down"></i>
               </a>
               <ul class="dropdown-menu pull-left">
-                <li><a ui-sref=".settings"><i class="icon-briefcase"></i>School Working Days </a></li>
+                <li><a ui-sref=".timetable"><i class="icon-briefcase"></i>School Timetable </a></li>
               </ul>
             </li>
           </ul>
@@ -180,22 +204,104 @@
   <!-- BEGIN PAGE CONTAINER -->
   <div class="page-container">
     <!-- BEGIN PAGE CONTENT -->
-    <div class="page-content"> <div ui-view></div></div>
+    <div class="page-content">
+      <div ui-view>
+
+      </div>
+
+
+  <div ng-hide="currentUser" class="container">
+  <div class="row margin-top-10">
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="portlet light ">
+        <div class="portlet-title">
+<h4>THE 'C' s  of STUDY MONITOR</h4>
+        </div>
+          <div class="portlet-body">
+
+
+            <wizard>
+
+              <wz-step wz-title="COLLABORATE"><input type="submit"  wz-next  class="pull-right" value="NEXT"/>
+                <h5>COLLABORATE</h5>
+                <p>This advanced module believes in generating tangible services for all people involved in an effective and easy way. Bridging the gap into one single stream, parents and teachers can have a one on one personalized conversation about students’ performance and progress. That apart, few other features are attendance log, reports, curriculum or syllabus schedules, assignment submission, school calendar or events can be conveyed day to day providing a stress-free access for both parent and teacher/ school admin.</p>
+
+              </wz-step>
+              <wz-step wz-title="COMMUTE" ><input type="submit"  wz-next  class="pull-right" value="NEXT"/>
+                <h5>COMMUTE</h5>
+                <p> STUDY Monitor takes comprehensive measures to ensure student security and safety by monitoring and tracking school vehicles real-time. Parents can have an anxiety free day keeping track of their children by knowing details of bus routes and their current location via GPS mapping. The track detection rooted for school vehicles also gives details about vehicle speed providing alerts in case of emergency or immediate aid. The other features include automatic attendance via SMART ID cards , live CCTV monitoring on buses. </p>
+
+              </wz-step>
+              <wz-step wz-title="COMPETE" ><input type="submit"  wz-next  class="pull-right" value="NEXT"/>
+                <h5>COMPETE</h5>
+                <p>A systematic coordination of books in a school’s library has always been a tussle in any traditional school management system. Here our product inspires students to learn and collaborate well with educational resources be it in a classroom or a library. It allows to maintain a centralized access of book keeping and enriched study material that help librarians, teachers and students locate and share resources effectively. The automated tool keeps track of books that are due and also sends reminders when required.</p>
+
+              </wz-step>
+
+
+
+            </wizard>
+
+
+          </div>
+        <br>
+        <br>
+        <br>
+      </div>
+      </div>
+    </div>
+</div>
+
+
+
+    <!-- END PAGE CONTENT -->
+  </div>
+
+
+  <div class="page-container">
+    <!-- BEGIN PAGE CONTENT -->
+    <div class="page-content">
+
+      <div ng-hide="currentUser" class="container">
+        <div class="row margin-top-10">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="portlet light ">
+              <div class="portlet-title">
+                <div class="caption caption-md">ABOUT US</div>
+
+              </div>
+              <!-- -----------------------------------About US Form------------------------------->
+              <p>
+                STUDY Monitor® is a comprehensive Next Generation student monitoring and attendance tracking security system specifically designed to cater to educational establishments. With easy-to-use and efficient modules, Schools, Colleges & other institutions can use this product as a school management system that will increase the security of the students, ease the burden on staff, manage assignments & tests easily, generate reports, monitor student performance and do a host of other things through its fast, reliable, seamless process automation and control.
+              </p>
+
+              <div class="portlet-body">
+
+
+
+
+
+              </div>
+            </div>
+          </div>
+
+
+        </div>
     <!-- END PAGE CONTENT -->
   </div>
 
 
   <div class="page-footer">
     <div class="container">
-      <center>2014 &copy; Study Monitor <a href="www.cyluscreators.com" title="" target="_blank"></a></center>
+      <center>2014 &copy; Study Monitor <a href="" title="" target="_blank"></a></center>
     </div>
   </div>
+      </div>
+
+    </div>
 
 
-  <script src="../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-  <script src="../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
-  <script src="../../assets/global/scripts/metronic.js" type="text/javascript"></script>
-  <script src="../../assets/admin/layout3/scripts/layout.js" type="text/javascript"></script>
 
   <script>
     jQuery(document).ready(function() {
@@ -208,5 +314,7 @@
   </script>
   <!-- END JAVASCRIPTS -->
 
+
+  </div>
   </body>
 </html>

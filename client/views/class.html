@@ -17,14 +17,15 @@
         <div class="portlet-title">
           <div class="caption caption-md col-sm-12">
             <span class="caption-subject uppercase col-sm-4">Classes</span><span class="caption-subject uppercase col-sm-6"></span>
-            <span class="caption-subject uppercase col-sm-2" ng-show="Admin" ng-click="collapsed=!collapsed ;clearResponse()"> Add Class</span>
+            <span class="btn btn-success uppercase col-sm-2" ng-show="Admin" ng-click="collapsed=!collapsed ;clearResponse()"> Add Class</span>
           </div>
+
 
         </div>
         <div class="portlet-body">
           <div class="row list-separated">
-            <div ng-show="collapsed">
-              <div> <p style="color:red">{{responseAddClass}}</p>
+            <div class="col-sm-12" ng-show="collapsed">
+
 							<form ng-submit="addClass()">
 							  <div class="col-sm-12">
 								<div class="col-sm-2"> <input type="text" class="form-control Class" placeholder="Class Name"  ng-model="formData.className" required> </div>
@@ -37,13 +38,16 @@
 								<div class="col-sm-2">  <button type="submit" class="btn btn-success uppercase">Create Class</button></div>
 							  </div>
 							  <div class="col-sm-12">
-								<div style="color: red;" class="col-sm-6">{{response}}</div>
+								<div style="color: red;" class="col-sm-6">{{responseAddClass}}</div>
 							  </div>
 							</form>
+							<br><br><br>
+
               </div>
-            </div>
-           <br><br><br><br>
-            <div>
+
+
+            <br><br><br><br>
+
               <!---->
               <div class="col-sm-12">
                 <div class="col-sm-3">
@@ -58,7 +62,7 @@
                 <div class="col-sm-9">
 				<div class="portlet-body-morris-fit morris-chart flip-scroll" style="color:red"> {{ response}} 	</div>
                 <div class="portlet-body-morris-fit morris-chart flip-scroll" style="margin-right:0px;margin-left:0px;margin-bottom:0px;height: 260px">
-                       
+
 		            <table class="table table-bordered table-striped table-condensed flip-content">
                     <thead flip-content>
                     <tr>
@@ -68,14 +72,18 @@
                       <th ng-show="Admin">Action</th>
                     </tr>
                     </thead>
+
+
+
+
                     <tbody>
-                    <tr data-ng-repeat="x in classList | filter:search |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
+                    <tr style="height:20px" data-ng-repeat="x in classList | filter:search |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
                         <div data-ng-bind-html="x.id">
                         <td>{{x.className}}</td>
                         <td>{{x.sectionName}}</td>
                         <td ng-hide="Admin">{{x.staff.firstName}}</td>
-                        <td ng-show="Admin"> 
-                        <p ng-hide="editclass">{{x.staff.firstName}}</p>
+                        <td ng-show="Admin">
+                        <address style="height:0.5px" ng-hide="editclass">{{x.staff.firstName}}</address>
 						<select ng-model="x.staff.id" class="form-control Staff" ng-show="editclass" required>
                           <option value="">Class Teacher</option>
                           <option ng-repeat="y in staffList" value="{{y.id}}">{{y.firstName}}</option>
@@ -90,7 +98,7 @@
                     </tr>
                     </tbody>
                   </table>
-				  
+
 				  <button ng-disabled="currentPage == 0"                        ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
                   <button ng-disabled="currentPage >= classList.length/pageSize-1" ng-click="currentPage=currentPage+1">Next</button>
                   </div>
@@ -99,9 +107,18 @@
               </div>
             </div>
           </div>
+        <div class="portlet-body-morris-fit morris-chart" style="height:120px">
+        </div>
           <!-- END PORTLET-->
         </div>
+
+
+
+
+
+
+        </div>
       </div>
-    </div>
+      </div>
   </div>
 </div>

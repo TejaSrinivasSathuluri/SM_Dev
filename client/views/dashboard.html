@@ -1,1 +1,70 @@
-<calendar selected="day"></calendar>
+
+<div class="container">
+  <div class="row margin-top-10">
+    <div class="col-md-8 col-sm-8">
+      <div class="portlet light ">
+          <div class="portlet-title">
+          <div class="caption caption-md">Dashboard</div>
+        </div>
+          <div class="row list-separated">
+          <div class="col-sm-12">
+
+
+            </div>
+
+            <div class="portlet-body-morris-fit morris-chart flip-scroll" style="margin-right:0px;margin-left:0px;margin-bottom:0px;height: 260px">
+
+
+            </div>
+
+
+          </div>
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-4">
+      <div class="portlet light ">
+        <div class="portlet-title">
+          <div class="caption caption-md">Notices</div>
+        </div>
+        <div class="row list-separated">
+
+
+          <div class="portlet-body-morris-fit morris-chart flip-scroll" style="margin-right:0px;margin-left:0px;margin-bottom:0px;height: 260px">
+            <table class="table bordered">
+              <thead>
+              <th>#</th>
+              <th>Notices</th>
+              <th>Description</th>
+              </thead>
+              <tr ng-repeat="x in noticeList">
+                <td>{{$index}} </td>
+                <td>{{x.name}} </td>
+                <td>{{x.description}} </td>
+                <td>{{x.date1 | date:'medium'}} </td>
+                <td>{{x.date2 | date: 'medium'}} </td>
+
+              </tr>
+            </table>
+          </div>
+
+
+      </div>
+       </div>
+
+      <div class="portlet light ">
+        <div class="portlet-title">
+          <div class="caption caption-md">Videos</div>
+        </div>
+        <div class="row list-separated">
+
+
+
+
+
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

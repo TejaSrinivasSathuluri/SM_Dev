@@ -12,28 +12,28 @@ angular
       if (T == 'A') {
         AuthServiceAdmin.login($scope.user.email, $scope.user.password)
           .then(function () {
-            $state.go('console');
+            $state.go('dashboard');
           });
       }
       else if (T == 'S')
       {
         AuthServiceStudent.login($scope.user.email, $scope.user.password)
           .then(function () {
-            $state.go('console');
+            $state.go('dashboard');
           });
       }
       else if (T == 'ST')
       {
         AuthServiceStaff.login($scope.user.email, $scope.user.password)
           .then(function () {
-            $state.go('console');
+            $state.go('dashboard');
           });
       }
       else if (T == 'P')
       {
         AuthServiceParent.login($scope.user.email, $scope.user.password)
           .then(function () {
-            $state.go('console');
+            $state.go('dashboard');
           });
       }
 
