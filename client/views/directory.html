@@ -689,19 +689,19 @@
                <div class="col-sm-12">
 
 
-              <div class="col-sm-2" style="min-height:50px"> <input type="checkbox" ng-model="formData.studentSearch" ng-click="processSearch(s);formData.staffSearch=false;formData.parentSearch=false">Students</div>
-              <div class="col-sm-2" style="min-height:50px"> <input type="checkbox" ng-model="formData.staffSearch"   ng-click="processSearch(t);formData.studentSearch=false;formData.parentSearch=false">Staff</div>
-              <div class="col-sm-2" style="min-height:50px"> <input type="checkbox" ng-model="formData.parentSearch"  ng-click="processSearch(p);;formData.studentSearch=false;formData.staffSearch=false">Parents </div>
+              <div class="col-sm-2" style="min-height:50px"> <input type="checkbox" ng-model="formData.studentSearch" ng-disabled="studentBox" ng-click="processSearch('s')">Students</input></div>
+              <div class="col-sm-2" style="min-height:50px"> <input type="checkbox" ng-model="formData.staffSearch"   ng-disabled="staffBox"   ng-click="processSearch('t')">Staff   </input></div>
+              <div class="col-sm-2" style="min-height:50px"> <input type="checkbox" ng-model="formData.parentSearch"  ng-disabled="parentBox"  ng-click="processSearch('p')">Parents </input></div>
 
                  <div class="col-sm-2" style="min-height:50px">
-                   <input type="text" ng-model="search.firstName" placeholder="Search By Name" class="form-control"> </input>
+                   <input type="text" ng-model="search.firstName" ng-hide="nameSearch" placeholder="Search By Name" class="form-control"> </input>
                  </div>
                  <div class="col-sm-2" style="min-height:50px">
-                   <input type="text" ng-model="search.rollNo" placeholder="Search By Roll Number" class="form-control"> </input>
+                   <input type="text" ng-model="search.rollNo" ng-hide="rollSearch" placeholder="Search By Roll Number" class="form-control"> </input>
                  </div>
 
                  <div class="col-sm-2" style="min-height:50px">
-                   <select ng-model="search.class.id" class="form-control">
+                   <select ng-model="search.class.id" class="form-control" ng-hide="classSearch">
                      <option value="">Class </option>
                      <option ng-repeat="y in classList" value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>
                    </select>
@@ -742,6 +742,9 @@
                                               </table>
                  <div class="pull-left">
                    Total Results :{{ searchList.length}}
+
+
+
                  </div>
                  <div class="pull-right">
                    <button ng-disabled="currentPage == 0"               ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}

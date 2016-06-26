@@ -60,6 +60,7 @@ angular
 
 
 
+
       //--------------------------------------------------------
       //
       // --------------------------------------------------------
@@ -82,17 +83,26 @@ angular
 
       function createRandomEvents() {
         var events = [];
-        for (var i = 0; i < 20; i += 1) {
+        //for (var i = 0; i < 20; i += 1) {
           var date = new Date();
-          var startDay = Math.floor(Math.random() * 90) - 45;
-          var endDay = Math.floor(Math.random() * 2) + startDay;
+          //var startDay = Math.floor(Math.random() * 90) - 45;
+          //var endDay = Math.floor(Math.random() * 2) + startDay;
+          //
+          //
+          //  startTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + startDay));
 
-            startTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + startDay));
-            if (endDay === startDay) {      endDay += 1; }
-            endTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + endDay));
-            events.push({ title:  i,startTime: startTime,endTime: endTime,allDay: true });
+            //startTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
+          //  if (endDay === startDay) {      endDay += 1; }
+          //  endTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + endDay));
+          //  endTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() ));
 
-        }
+          for(var i=0;i<$scope.noticeList.length;i++){
+            console.log($scope.noticeList[i].date1);
+            events.push({ title:  $scope.noticeList[i].title });
+
+          }
+
+        //}
         return events;
       }
 
@@ -132,89 +142,14 @@ angular
           }
         }
       }, function (response) {
-        if (response.status =401) $state.go('login', {}, {reload: true}) ;
+        if (response.status =401) $state.go('logout', {}, {reload: true}) ;
       });
 
 
    }
 
   ])
-  .controller('DashboardController',
-    ['$scope', 'Admin','Student' ,'Parent','Staff','Noticeboard','School','$window','$rootScope','$filter','$state',
-    function ($scope,Admin,Student,Parent,Staff,Noticeboard,School,$window,$rootScope,$filter,$state) {
-      //--------------------------------------------------------
-      //                  BASIC USER DATA
-      // --------------------------------------------------------
 
-      $scope.user = $window.localStorage.getItem('user');
-      $scope.userData = JSON.parse($scope.user);
-      if ($scope.userData.type == 'Admin') { $scope.Admin = true;}
-      if ($scope.userData.type == 'Student') { $scope.Student = true;}
-      if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
-      if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
-      $scope.schoolName= null;
-      $scope.schoolId = $scope.userData.schoolId;
-      $scope.date = new Date();
-      $scope.school = School.findById({id:$scope.schoolId},function(){ $rootScope.schoolName = $scope.school.schoolName;});
-
-
-
-      //--------------------------------------------------------
-      //
-      // --------------------------------------------------------
-      //
-      //$scope.images = [1, 2, 3, 4, 5, 6, 7, 8];
-      //
-      //$scope.loadMore = function() {
-      //  var last = $scope.images[$scope.images.length - 1];
-      //  for(var i = 1; i <= 8; i++) {
-      //    $scope.images.push(last + i);
-      //  }
-      //};
-
-
-
-
-      // --------------------------------------------------------
-      //                  GET NOTICE LIST
-      // --------------------------------------------------------
-
-      $scope.day =$filter('date')(new Date($scope.date), 'yyyy-MM-dd');
-      $scope.noticeList = Noticeboard.find({filter:{where:{schoolId:$scope.schoolId,date1:{lt:$scope.day},date2:{gt:$scope.day}}}});
-
-
-
-      //--------------------------------------------------------
-      //                  GET BIRTHDAY LIST
-      // --------------------------------------------------------
-      $scope.studentList = Student.find({
-        filter: {
-          where: {schoolId: $scope.schoolId},
-          include: 'class'
-        }
-      }, function (response) {
-        $scope.birthdayList =[];
-        var j =0;
-        for(var i=0;i<$scope.studentList.length;i++)
-        {
-          var a =  $filter('date')(new Date($scope.studentList[i].dateofBirth), 'MM-dd')    ;
-          var b =  $filter('date')(new Date(), 'MM-dd')    ;
-          var c= (new Date(a)-new Date(b)) / (1000 * 3600 * 24);
-          if ( c ==0){
-               $scope.birthdayList[j] = { studentId:$scope.studentList[i].id,firstName:$scope.studentList[i].firstName,
-               class:($scope.studentList[i].class.className + '-' +$scope.studentList[i].class.sectionName),
-                 dateofBirth:$scope.studentList[i].dateofBirth};
-               j++;
-          }
-        }
-      }, function (response) {
-        if (response.status =401) $state.go('login', {}, {reload: true}) ;
-      });
-
-
-   }
-
-  ])
 
   .controller('DirectoryController',
     ['$scope', 'ngDialog','Admin', '$state', 'School', 'Class', 'Student', 'Parent', 'StudentParent', 'Staff', '$rootScope', '$window','Container','fileUpload','$filter',
@@ -252,7 +187,7 @@ angular
           }
         }, function (response) {
         }, function (response) {
-            if (response.status =401) $state.go('forbidden', {}, {reload: true}) ;
+            if (response.status =401) $state.go('logout', {}, {reload: true}) ;
         });
 
         if (Admin) {
@@ -268,7 +203,7 @@ angular
 
             }, function (response) {
               console.log("StudentParent Data " + response.data.error.message);
-              if (response.status = 401) $state.go('forbidden', {}, {reload: true});
+              if (response.status = 401) $state.go('logout', {}, {reload: true});
             });
         }
         else if (Student){
@@ -284,7 +219,7 @@ angular
 
             }, function (response) {
               console.log("StudentParent Data " + response.data.error.message);
-              if (response.status = 401) $state.go('forbidden', {}, {reload: true});
+              if (response.status = 401) $state.go('logout', {}, {reload: true});
             });
         }
 
@@ -298,12 +233,46 @@ angular
         //--------------------------------------------------------
         //                  PROCESS SEARCH FORM
         // --------------------------------------------------------
-        $scope.processSearch = function () {
-                  $scope.searchList = [];
-                  if      ($scope.formData.staffSearch   == true) $scope.searchList = Staff.find({filter: {where: {schoolId: $scope.schoolId}}});
-                  else if ($scope.formData.parentSearch  == true) $scope.searchList =  $scope.parentList ;
-                  else if ($scope.formData.studentSearch == true) $scope.searchList =  $scope.studentList ;
-                  else $state.go($state.current, {}, {reload: true});
+        $scope.processSearch = function (searchUser) {
+
+
+
+          $scope.searchList = [];
+
+                  if      (searchUser   == 't') {
+                    $scope.studentBox = false;$scope.parentBox = false;
+
+                    if($scope.formData.staffSearch)
+                    {
+                      $scope.studentBox = true;
+                      $scope.parentBox = true;
+                      $scope.rollSearch = true;
+                      $scope.classSearch = true;
+                    $scope.searchList = Staff.find({filter: {where: {schoolId: $scope.schoolId}}});
+                    }
+                  }
+                  else if (searchUser  == 'p') {
+                    alert('Parent Access is Under Developement. Will Be Activated Soon');
+                    //$scope.studentBox = false;$scope.staffBox = false;
+                    //if($scope.formData.parentSearch) {
+                    //  $scope.studentBox = true;
+                    //  $scope.staffBox = true;
+                    //  $scope.rollSearch = true;
+                    //  $scope.classSearch = true;
+                    //  $scope.searchList = $scope.parentList;
+                    //}
+                  }
+                  else if (searchUser  == 's') {
+                      $scope.parentBox = false;$scope.staffBox = false;$scope.rollSearch = true;$scope.classSearch = true;
+                      if($scope.formData.studentSearch) {
+                        $scope.parentBox = true;
+                        $scope.staffBox = true;
+                        $scope.rollSearch = false;
+                        $scope.classSearch = false;
+                        $scope.searchList = $scope.studentList;
+                      }
+                  }
+                  else    $state.go($state.current, {}, {reload: true});
         }
 
 
@@ -843,9 +812,8 @@ angular
         $scope.searchFish   = '';
         $scope.currentPage = 0;
         $scope.pageSize = 15;
-        $scope.numberOfPages=function(){
-          return Math.ceil($scope.searchList.length/$scope.pageSize);
-        }
+
+        $scope.numberOfPages=function(){return Math.ceil($scope.searchList.length/$scope.pageSize);}
 
       }
     ])
@@ -867,12 +835,12 @@ angular
         $scope.formData = [];
 
         if($scope.Student){
-          $scope.classList = Class.find  ({filter: {where: {id:$scope.userData.classId}, include: 'staff'}},function(){},function(response){if (response.status =401) $state.go('forbidden', {}, {reload: true}) ;});
+          $scope.classList = Class.find  ({filter: {where: {id:$scope.userData.classId}, include: 'staff'}},function(){},function(response){if (response.status =401) $state.go('logout', {}, {reload: true}) ;});
         }
 
         if ($scope.Admin) {
-          $scope.staffList = Staff.find({filter: {where: {schoolId: $scope.schoolId}}},function(){},function(response){if (response.status =401) $state.go('forbidden', {}, {reload: true}) ;});
-          $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}, include: 'staff'}},function(){},function(response){if (response.status =401) $state.go('forbidden', {}, {reload: true}) ;});
+          $scope.staffList = Staff.find({filter: {where: {schoolId: $scope.schoolId}}},function(){},function(response){if (response.status =401) $state.go('logout', {}, {reload: true}) ;});
+          $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}, include: 'staff'}},function(){},function(response){if (response.status =401) $state.go('logout', {}, {reload: true}) ;});
 
 		  //--------------------------------------------------------
           //                  CLEAR RESPONSE
@@ -993,13 +961,13 @@ angular
 
           $scope.staffList = Staff.find  ({filter: {where: {schoolId: $scope.schoolId}}}, function () {
           }, function (response) {
-            if (response.status = 401) $state.go('forbidden', {}, {reload: true});
+            if (response.status = 401) $state.go('logout', {}, {reload: true});
           });
 
 
           $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}}}, function () {
           }, function (response) {
-            if (response.status = 401) $state.go('forbidden', {}, {reload: true});
+            if (response.status = 401) $state.go('logout', {}, {reload: true});
           });
 
 
