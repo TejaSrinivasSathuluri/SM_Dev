@@ -13,7 +13,7 @@ module.exports = function (server) {
 
       var c = 0;
       for(var fi in filesInfo){
-         console.log('Mansoor');
+
         var fileInfo = filesInfo[fi];
         var fileName = fileInfo.name;
         var container = fileInfo.container;

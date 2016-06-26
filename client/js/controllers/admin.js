@@ -33,10 +33,115 @@ angular
                });
             }
          }])
+  .value('THROTTLE_MILLISECONDS', 250)
 
+  .controller('LandingPageController',
+    ['$scope', 'Admin','Student' ,'Parent','Staff','Noticeboard','School','$window','$rootScope','$filter','$state',
+    function ($scope,Admin,Student,Parent,Staff,Noticeboard,School,$window,$rootScope,$filter,$state) {
+      //--------------------------------------------------------
+      //                  BASIC USER DATA
+      // --------------------------------------------------------
+
+      if ($window.localStorage.getItem('user'))
+      {
+        $scope.user = $window.localStorage.getItem('user');
+        $scope.userData = JSON.parse($scope.user);
+        if ($scope.userData.type == 'Admin') { $scope.Admin = true;}
+        if ($scope.userData.type == 'Student') { $scope.Student = true;}
+        if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
+        if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
+        $scope.schoolName= null;
+        $scope.schoolId = $scope.userData.schoolId;
+        $scope.date = new Date();
+        $scope.school = School.findById({id:$scope.schoolId},function(){ $rootScope.schoolName = $scope.school.schoolName;});
+        var day =$filter('date')(new Date(), 'yyyy-MM-dd');
+        $scope.noticeList = Noticeboard.find({filter:{where:{schoolId:$scope.schoolId,date1:{lt:day},date2:{gt:day}}}});
+      }
+
+
+
+      //--------------------------------------------------------
+      //
+      // --------------------------------------------------------
+      //
+      $scope.changeMode = function (mode) {
+        $scope.mode = mode;
+      };
+
+      $scope.today = function () {   $scope.currentDate = new Date(); }
+
+      $scope.isToday = function () {  var today = new Date(), currentCalendarDate = new Date($scope.currentDate);
+        today.setHours(0, 0, 0, 0);
+        currentCalendarDate.setHours(0, 0, 0, 0);
+        return today.getTime() === currentCalendarDate.getTime();
+      }
+
+      $scope.loadEvents = function () {    $scope.eventSource = createRandomEvents();};
+
+      $scope.onEventSelected = function (event) {   $scope.event = event; };
+
+      function createRandomEvents() {
+        var events = [];
+        for (var i = 0; i < 20; i += 1) {
+          var date = new Date();
+          var startDay = Math.floor(Math.random() * 90) - 45;
+          var endDay = Math.floor(Math.random() * 2) + startDay;
+
+            startTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + startDay));
+            if (endDay === startDay) {      endDay += 1; }
+            endTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + endDay));
+            events.push({ title:  i,startTime: startTime,endTime: endTime,allDay: true });
+
+        }
+        return events;
+      }
+
+
+
+
+      // --------------------------------------------------------
+      //                  GET NOTICE LIST
+      // --------------------------------------------------------
+
+      $scope.day =$filter('date')(new Date($scope.date), 'yyyy-MM-dd');
+      $scope.noticeList = Noticeboard.find({filter:{where:{schoolId:$scope.schoolId,date1:{lt:$scope.day},date2:{gt:$scope.day}}}});
+
+
+
+      //--------------------------------------------------------
+      //                  GET BIRTHDAY LIST
+      // --------------------------------------------------------
+      $scope.studentList = Student.find({
+        filter: {
+          where: {schoolId: $scope.schoolId},
+          include: 'class'
+        }
+      }, function (response) {
+        $scope.birthdayList =[];
+        var j =0;
+        for(var i=0;i<$scope.studentList.length;i++)
+        {
+          var a =  $filter('date')(new Date($scope.studentList[i].dateofBirth), 'MM-dd')    ;
+          var b =  $filter('date')(new Date(), 'MM-dd')    ;
+          var c= (new Date(a)-new Date(b)) / (1000 * 3600 * 24);
+          if ( c ==0){
+               $scope.birthdayList[j] = { studentId:$scope.studentList[i].id,firstName:$scope.studentList[i].firstName,
+               class:($scope.studentList[i].class.className + '-' +$scope.studentList[i].class.sectionName),
+                 dateofBirth:$scope.studentList[i].dateofBirth};
+               j++;
+          }
+        }
+      }, function (response) {
+        if (response.status =401) $state.go('login', {}, {reload: true}) ;
+      });
+
+
+   }
+
+  ])
   .controller('DashboardController',
-    ['$scope', 'Admin','Student' ,'Parent','Staff','Noticeboard','School','$window','$rootScope','$filter',
-    function ($scope,Admin,Student,Parent,Staff,Noticeboard,School,$window,$rootScope,$filter) {
+    ['$scope', 'Admin','Student' ,'Parent','Staff','Noticeboard','School','$window','$rootScope','$filter','$state',
+    function ($scope,Admin,Student,Parent,Staff,Noticeboard,School,$window,$rootScope,$filter,$state) {
       //--------------------------------------------------------
       //                  BASIC USER DATA
       // --------------------------------------------------------
@@ -51,19 +156,60 @@ angular
       $scope.schoolId = $scope.userData.schoolId;
       $scope.date = new Date();
       $scope.school = School.findById({id:$scope.schoolId},function(){ $rootScope.schoolName = $scope.school.schoolName;});
+
+
+
       //--------------------------------------------------------
+      //
+      // --------------------------------------------------------
+      //
+      //$scope.images = [1, 2, 3, 4, 5, 6, 7, 8];
+      //
+      //$scope.loadMore = function() {
+      //  var last = $scope.images[$scope.images.length - 1];
+      //  for(var i = 1; i <= 8; i++) {
+      //    $scope.images.push(last + i);
+      //  }
+      //};
+
+
+
+
+      // --------------------------------------------------------
       //                  GET NOTICE LIST
       // --------------------------------------------------------
 
-
-      var previousDay = new Date($scope.date);
-      $scope.nextDay =new Date(previousDay.setDate($scope.date.getDate()-1));
       $scope.day =$filter('date')(new Date($scope.date), 'yyyy-MM-dd');
+      $scope.noticeList = Noticeboard.find({filter:{where:{schoolId:$scope.schoolId,date1:{lt:$scope.day},date2:{gt:$scope.day}}}});
 
 
 
-
-      $scope.noticeList = Noticeboard.find({filter:{where:{schoolId:$scope.schoolId,date1:{lt:$scope.day},date2:{lt:$scope.day}}}});
+      //--------------------------------------------------------
+      //                  GET BIRTHDAY LIST
+      // --------------------------------------------------------
+      $scope.studentList = Student.find({
+        filter: {
+          where: {schoolId: $scope.schoolId},
+          include: 'class'
+        }
+      }, function (response) {
+        $scope.birthdayList =[];
+        var j =0;
+        for(var i=0;i<$scope.studentList.length;i++)
+        {
+          var a =  $filter('date')(new Date($scope.studentList[i].dateofBirth), 'MM-dd')    ;
+          var b =  $filter('date')(new Date(), 'MM-dd')    ;
+          var c= (new Date(a)-new Date(b)) / (1000 * 3600 * 24);
+          if ( c ==0){
+               $scope.birthdayList[j] = { studentId:$scope.studentList[i].id,firstName:$scope.studentList[i].firstName,
+               class:($scope.studentList[i].class.className + '-' +$scope.studentList[i].class.sectionName),
+                 dateofBirth:$scope.studentList[i].dateofBirth};
+               j++;
+          }
+        }
+      }, function (response) {
+        if (response.status =401) $state.go('login', {}, {reload: true}) ;
+      });
 
 
    }
@@ -143,8 +289,9 @@ angular
         }
 
 
-        $scope.searchList = $scope.studentList;
-        console.log($scope.searchList);
+        //$scope.searchList = $scope.studentList;
+         $scope.searchList = [];
+
 
 
 
@@ -152,21 +299,16 @@ angular
         //                  PROCESS SEARCH FORM
         // --------------------------------------------------------
         $scope.processSearch = function () {
-                  if ($scope.formData.staffSearch == true) {
-                    $scope.searchList = [];
-                    $scope.searchList = Staff.find({filter: {where: {schoolId: $scope.schoolId}}});
-                  }
-                   else if ($scope.formData.parentSearch == true) {
-                    $scope.searchList = [];
-                    $scope.searchList =  $scope.parentList ;
-
-                  }
-                  else
-                  { $state.go($state.current, {}, {reload: true}); }
-                }
+                  $scope.searchList = [];
+                  if      ($scope.formData.staffSearch   == true) $scope.searchList = Staff.find({filter: {where: {schoolId: $scope.schoolId}}});
+                  else if ($scope.formData.parentSearch  == true) $scope.searchList =  $scope.parentList ;
+                  else if ($scope.formData.studentSearch == true) $scope.searchList =  $scope.studentList ;
+                  else $state.go($state.current, {}, {reload: true});
+        }
 
 
-        if ($scope.userData.type== 'Admin') {
+
+        if ('Admin') {
 
           //--------------------------------------------------------
           //                  CLEAR FORM
@@ -175,138 +317,259 @@ angular
             $scope.formData = {};
           }
 
+          //--------------------------------------------------------
+          //                  EMAIL CHECK
+          // --------------------------------------------------------
+          $scope.checkEmail = function(type){
+            if( type == 'S')
+            {
+              if ($scope.formData.email)
+              {
+                console.log($scope.formData.email);
+                $scope.emailCheck = Student.findOne({filter: {where: {email: $scope.formData.email}}},function(){
+                    alert('Email Already Exists');
+                  },
+                  // Email Is Not Conflicting
+                  function(){             });
+
+              }
+            }
+            else if ( type == 'ST')
+            {
+              $scope.emailCheck = Staff.findOne({filter: {where: {email: $scope.formData.email}}},function(){
+                  alert('Email Already Exists');
+                },
+                // Email Is Not Conflicting
+                function(){             });
+            }
+            else if(type =='P')
+            {
+              $scope.emailCheck = Parent.findOne({filter: {where: {email: $scope.formData.fatherEmail}}},function(){
+                  var dialog = ngDialog.open({template: 'linkParent'});
+                  dialog.closePromise.then(function (data) {
+                    if (data.value && data.value != '$document' && data.value != '$closeButton') {
+                      StudentParent.create({ parentId: $scope.emailCheck.id,schoolId: $scope.schoolId});
+                    }
+
+                    return true;
+                  });
+                },
+
+                // Email Is Not Conflicting
+                function(){             });
+            }
+
+          }
 
           //--------------------------------------------------------
-          //                  ADD STUDENT  STARTS
+          //                  ROLL NUMBER CHECK
           // --------------------------------------------------------
-          $scope.addStudent = function () {
-            $scope.studentExists = Student.findOne({
-                filter: {
-                  where: {
-                    schoolId: $scope.schoolId,
-                    classId: $scope.formData.class,
-                    rollNo: $scope.formData.rollNo
-                  }
-                }
-              },
-              function (response) {
-                console.log(response);
-                $scope.response = 'Student Already Exists For This Class With This Roll Number';
-              },
-              function () {
+          $scope.checkRollnoExists = function() {
+            $scope.RollnoExists = false;
 
-                $scope.newStudent = Student.create({
-                    schoolId: $scope.schoolId,
-                    firstName: $scope.formData.firstName,
-                    lastName: $scope.formData.lastName,
-                    email: $scope.formData.email,
-                    password: $scope.formData.password,
-                    gender: $scope.formData.gender,
-                    image: "../../uploads/students",
-                    dateofBirth: $scope.formData.dateOfBirth,
-                    rollNo: $scope.formData.rollNo,
-                    RFID: $scope.formData.RFID,
-                    prevSchool: $scope.formData.previousSchool,
-                    dateofJoin: $scope.formData.dateOfJoin,
-                    classId: $scope.formData.class,
-                    status: "A",
-                    regId: $scope.formData.regId,
-                    isDisable: $scope.formData.isDisable,
-                    prevSchoolTC: "../../uploads/students/TC",
-                    currentAddress: $scope.formData.currentAddress,
-                    currentCity: $scope.formData.currentCity,
-                    currentState: $scope.formData.currentState,
-                    currentPincode: $scope.formData.currentPincode,
-                    bloodGroup: $scope.formData.bloodGroup,
-                    religion: $scope.formData.religion,
-                    caste: $scope.formData.caste,
-                    alternateContact: $scope.formData.alternateContact,
-                    permanentAddress: $scope.formData.permanentAddress,
-                    permanentCity: $scope.formData.permanentCity,
-                    permanentState: $scope.formData.permanentState,
-                    permanentPincode: $scope.formData.permanentPincode,
-                    nationalId: $scope.formData.nationalId,
-                    motherTounge: $scope.formData.motherTounge,
-                    nationalIdType: $scope.formData.nationalIdType,
-                    subCaste: $scope.formData.subCaste,
-                    contact: $scope.formData.contact,
-                    type: "Student",
-                    created: $scope.date
-                  },
-                  function () {
-                    //$scope.formData.studentImg['title'] = $scope.newStudent.id + ".PNG";
-                    //var file = $scope.formData.studentImg;
-                    //
-                    //
-                    //console.log('file is ' );
-                    //console.dir(file);
-                    //
-                    //var uploadUrl = "/api/Containers/students/upload";
-                    //fileUpload.uploadFileToUrl(file, uploadUrl);
-                    if ($scope.formData.motherFirstName != null && $scope.formData.motherPassword != null && $scope.formData.motherEmail != null) {
-                      console.log('creating mother');
-                      $scope.newParent1 = Parent.create({
-                          firstName: $scope.formData.motherFirstName,
-                          lastName: $scope.formData.motherLastName,
-                          email: $scope.formData.motherEmail,
-                          contact: $scope.formData.motherPhone,
-                          password: $scope.formData.motherPassword,
-                          type: "Parent",
-                          created: $scope.date
-                        }, function () {
-                          console.log('creating mother parent relation');
-                          StudentParent.create({
-                            studentId: $scope.newStudent.id,
-                            parentId: $scope.newParent1.id,
-                            schoolId: $scope.schoolId
-                          });
-                        }, function (response) {
-                          console.log(response.data.error.message);
-                        }
-                      );
-
-                    }
-                    if ($scope.formData.fatherFirstName != null && $scope.formData.fatherPassword != null && $scope.formData.fatherEmail != null) {
-                      console.log('creating father');
-                      $scope.newParent2 = Parent.create({id: $scope.newStudent.id}, {
-                          firstName: $scope.formData.fatherFirstName,
-                          lastName: $scope.formData.fatherLastName,
-                          email: $scope.formData.fatherEmail,
-                          contact: $scope.formData.fatherPhone,
-                          password: $scope.formData.fatherPassword,
-                          type: "Parent",
-                          created: $scope.date
-                        },
-                        function () {
-                          console.log('creating father parent relation');
-                          StudentParent.create({
-                            studentId: $scope.newStudent.id,
-                            parentId: $scope.newParent2.id,
-                            schoolId: $scope.schoolId
-                          });
-                          $state.go($state.current, {}, {reload: true});
-
-                        },
-                        function (response) {
-                          console.log(response.data.error.message);
-                        });
-                    }
-                    else {
-                      $state.go($state.current, {}, {reload: true});
-                    }
-                  },
-                  function (response) {
-                    console.log(response.data.error.message);
-                    $scope.response = response.data.error.message;
-                    if (response.status = 401) $state.go('forbidden', {}, {reload: true});
-                  }
-                );
+            if($scope.formData.rollNo != null && $scope.formData.class != null){
+              $scope.checkRoll = Student.findOne({filter:{where:{classId :$scope.formData.class,rollNo:$scope.formData.rollNo}}},
+              function(){
+                $scope.RollnoExists =true;
 
               });
+            }
           }
+
+
+
+
+          // --------------------------------------------------------
+          //                  ADD STUDENT  STARTS
+          // --------------------------------------------------------
+          $scope.addStudentForm = function () {
+            ngDialog.openConfirm({ template: 'addStudent',scope: $scope }).then(
+              function (formData) {
+                $scope.studentExists = Student.findOne({filter: {where: {classId:formData.class,rollNo:formData.rollNo}}},
+                  function () { $scope.response = 'Student Already Exists For This Class With This Roll Number';},
+                  function () {
+
+
+                    var date1 = new Date(formData.dateofBirth);
+                    var date2 = new Date(formData.dateofJoin);
+                    formData.dateofBirth = new Date(date1.setDate(formData.dateofBirth.getDate()+1));
+                    formData.dateofJoin  = new Date(date2.setDate(formData.dateofBirth.getDate()+1));
+
+                      $scope.newStudent = Student.create({
+                      schoolId        : $scope.schoolId,
+                      firstName       : formData.firstName,
+                      lastName        : formData.lastName,
+                      email           : formData.email,
+                      password        : formData.password,
+                      gender          : formData.gender,
+                      dateofBirth     : formData.dateofBirth,
+                      rollNo          : formData.rollNo,
+                      RFID            : formData.RFID,
+                      previousSchool  : formData.previousSchool,
+                      dateofJoin      : formData.dateofJoin,
+                      classId         : formData.class,
+                      status          : "A",
+                      regId           : formData.regId,
+                      isDisable       : formData.isDisable,
+                      currentAddress  : formData.currentAddress,
+                      currentCity     : formData.currentCity,
+                      currentState    : formData.currentState,
+                      currentPincode  : formData.currentPincode,
+                      bloodGroup      : formData.bloodGroup,
+                      religion        : formData.religion,
+                      caste           : formData.caste,
+                      alternateContact: formData.alternateContact,
+                      permanentAddress: formData.permanentAddress,
+                      permanentCity   : formData.permanentCity,
+                      permanentState  : formData.permanentState,
+                      permanentPincode: formData.permanentPincode,
+                      nationalId      : formData.nationalId,
+                      motherTounge    : formData.motherTounge,
+                      nationalIdType  : formData.nationalIdType,
+                      subCaste        : formData.subCaste,
+                      contact         : formData.contact,
+                      type            : "Student",
+                      created         : new Date(),
+                      fatherEmail     : formData.fatherEmail,
+                      motherEmail     : formData.motherEmail
+
+                    },
+                      function () {
+                        setTimeout( function()
+                        {
+                          formData.response = 'Student Added Successfully';
+
+                          $state.go($state.current, {}, {reload: true});
+                          $scope.$apply();
+                        }, 1000 );
+                      },
+                      function (response) {
+                        console.log(response.data.error.message);
+                      }
+                    );
+
+                  });
+
+              },
+              function (value) {         }
+            );
+
+
+
+          }
+
+
+
+
+
           //--------------------------------------------------------
-          //                 ADD STUDENT ENDS
+          //                 ADD STAFF STARTS
           //--------------------------------------------------------
+
+          $scope.addStaffForm = function () {
+            ngDialog.openConfirm({ template: 'addStaff',scope: $scope }).then(
+              function (formData) {
+                    var date1 = new Date(formData.dateofBirth);
+                    var date2 = new Date(formData.dateofJoin);
+                    formData.dateofBirth = new Date(date1.setDate(formData.dateofBirth.getDate()+1));
+                    formData.dateofJoin  = new Date(date2.setDate(formData.dateofBirth.getDate()+1));
+
+                    $scope.newStaff = Staff.create({
+                        schoolId           : $scope.schoolId,
+                        firstName          : formData.firstName,
+                        lastName           : formData.lastName,
+                        email              : formData.email,
+                        password           : formData.password,
+                        gender             : formData.gender,
+                        dateofBirth        : formData.dateofBirth,
+                        RFID               : formData.RFID,
+                        previousSchool     : formData.previousSchool,
+                        dateofJoin         : formData.dateofJoin,
+                        status             : "A",
+                        regId              : formData.regId,
+                        isDisable          : formData.isDisable,
+                        currentAddress     : formData.currentAddress,
+                        currentCity        : formData.currentCity,
+                        currentState       : formData.currentState,
+                        currentPincode     : formData.currentPincode,
+                        bloodGroup         : formData.bloodGroup,
+                        religion           : formData.religion,
+                        caste              : formData.caste,
+                        alternateContact   : formData.alternateContact,
+                        permanentAddress   : formData.permanentAddress,
+                        permanentCity      : formData.permanentCity,
+                        permanentState     : formData.permanentState,
+                        permanentPincode   : formData.permanentPincode,
+                        nationalId         : formData.nationalId,
+                        motherTounge       : formData.motherTounge,
+                        nationalIdType     : formData.nationalIdType,
+                        subCaste           : formData.subCaste,
+                        contact            : formData.contact,
+                        type               : "Staff",
+                        created            : new Date(),
+                        qualification      : formData.qualification,
+                        qualifiedUniversity: formData.qualifiedUniversity,
+                        percentage         : formData.percentage,
+                        BED                : formData.BED
+
+                      },
+                      function () {
+                        setTimeout( function()
+                        {
+                          formData.response = 'Staff Added Successfully';
+
+                          $state.go($state.current, {}, {reload: true});
+                          $scope.$apply();
+                        }, 1000 );
+                      },
+                      function (response) {
+                        console.log(response.data.error.message);
+                      }
+                    );
+
+
+
+              },
+              function (value) {         }
+            );
+
+
+
+          }
+
+
+          // --------------------------------------------------------
+          //                  ADD PARENT  STARTS
+          // --------------------------------------------------------
+          //$scope.addParentForm = function () {
+          //
+          //      $scope.newParent = Parent.create({
+          //          firstName: formData.firstName,
+          //          lastName : formData.lastName,
+          //          email    : formData.email,
+          //          password : formData.password,
+          //          gender   : formData.gender,
+          //          contact  : formData.contact,
+          //          type     : "Parent",
+          //          created  : new Date()
+          //        },
+          //        function () {
+          //          setTimeout( function()
+          //          {
+          //            $scope.response = 'Parent Added Successfully';
+          //
+          //            $state.go($state.current, {}, {reload: true});
+          //            $scope.$apply();
+          //          }, 1000 );
+          //        },
+          //        function (response) {
+          //          console.log(response.data.error.message);
+          //        }
+          //      );
+          //
+          //}
+
+
 
 
           //--------------------------------------------------------
@@ -390,9 +653,7 @@ angular
 
           }
 
-          //--------------------------------------------------------
-          //                 DELETE STUDENT/PARENT/STAFF ENDS
-          //--------------------------------------------------------
+
 
 
           //--------------------------------------------------------
@@ -401,128 +662,139 @@ angular
 
           $scope.editUser = function (x) {
             if (x.type == "Student") {
-              $scope.formData = x;
+              $scope.editData = {};
+              $scope.editData = x;
+
+              $scope.editData.dateofBirth = $filter('date')(new Date(x.dateofBirth), 'yyyy-MM-dd');
+              var d = new Date($scope.editData.dateofBirth);
+              var date2 = new Date(d);
+              $scope.editData.dateofBirth = new Date(date2.setDate(d.getDate()));
+              console.log($scope.editData.dateofBirth);
+              $scope.editData.dateofBirth = new Date($scope.editData.dateofBirth);
+
+
+              $scope.editData.dateofJoin = $filter('date')(new Date(x.dateofJoin), 'yyyy-MM-dd');
+              var d = new Date($scope.editData.dateofJoin);
+              var date2 = new Date(d);
+              $scope.editData.dateofJoin = new Date(date2.setDate(d.getDate()));
+              console.log($scope.editData.dateofJoin);
+              $scope.editData.dateofJoin = new Date($scope.editData.dateofJoin);
+
+
               ngDialog.openConfirm({
                 template: 'editStudent',
                 scope: $scope //Pass the scope object if you need to access in the template
               }).then(
-                function (formData) {
-                  if (formData.firstName == null || formData.lastName == null || formData.email == null || formData.bloodGroup == null ||
-                    formData.contact == null || formData.status == null || formData.dateofBirth == null || formData.dateofJoin == null) {
+                function (editData) {
 
-                    Student.prototype$updateAttributes({id: x.id}, {
-                        firstName: formData.firstName,
-                        lastName: formData.lastName,
-                        email: formData.email,
-                        password: formData.password,
-                        gender: formData.gender,
-                        dateofBirth: formData.dateOfBirth,
-                        rollNo: formData.rollNo,
-                        RFID: formData.RFID,
-                        prevSchool: formData.previousSchool,
-                        dateofJoin: formData.dateOfJoin,
-                        classId: formData.class,
-                        status: formData.status,
-                        regId: formData.regId,
-                        isDisable: formData.isDisable,
-                        currentAddress: formData.currentAddress,
-                        currentCity: formData.currentCity,
-                        currentState: formData.currentState,
-                        currentPincode: formData.currentPincode,
-                        bloodGroup: formData.bloodGroup,
-                        religion: formData.religion,
-                        caste: formData.caste,
-                        alternateContact: formData.alternateContact,
-                        permanentAddress: formData.permanentAddress,
-                        permanentCity: formData.permanentCity,
-                        permanentState: formData.permanentState,
-                        permanentPincode: formData.permanentPincode,
-                        nationalId: formData.nationalId,
-                        motherTounge: formData.motherTounge,
-                        nationalIdType: formData.nationalIdType,
-                        subCaste: formData.subCaste,
-                        contact: formData.contact
+                  //var date1 = new Date(editData.dateofBirth);
+                  //var date2 = new Date(editData.dateofJoin);
+                  //editData.dateofBirth = new Date(date1.setDate(editData.dateofBirth.getDate()+1));
+                  //editData.dateofJoin  = new Date(date2.setDate(editData.dateofBirth.getDate()+1));
+//console.log(editData.dateofBirth);
+                        Student.prototype$updateAttributes({id: x.id}, {
+                        firstName: editData.firstName,
+                        lastName: editData.lastName,
+                        email: editData.email,
+                        gender: editData.gender,
+                        dateofBirth:editData.dateofBirth  ,
+                        rollNo: editData.rollNo,
+                        RFID: editData.RFID,
+                        previousSchool: editData.previousSchool,
+                        dateofJoin: editData.dateofJoin,
+                        status: editData.status,
+                        regId: editData.regId,
+                        isDisable: editData.isDisable,
+                        currentAddress: editData.currentAddress,
+                        currentCity: editData.currentCity,
+                        currentState: editData.currentState,
+                        currentPincode: editData.currentPincode,
+                        bloodGroup: editData.bloodGroup,
+                        religion: editData.religion,
+                        caste: editData.caste,
+                        alternateContact: editData.alternateContact,
+                        permanentAddress: editData.permanentAddress,
+                        permanentCity: editData.permanentCity,
+                        permanentState: editData.permanentState,
+                        permanentPincode: editData.permanentPincode,
+                        nationalId: editData.nationalId,
+                        motherTounge: editData.motherTounge,
+                        nationalIdType: editData.nationalIdType,
+                        subCaste: editData.subCaste,
+                        contact: editData.contact
 
                       },
                       function () {
+                        $scope.clearForm();
+                        alert('Successfully Updated');
                         $state.go($state.current, {}, {reload: true});
                       },
                       function (response) {
                         console.log(response.data.error.message);
                       });
-                  }
+
                 },
                 function (value) {
                 }
               );
             }
-            else if (x.type == "Parent") {
-              $scope.formData = x;
-              ngDialog.openConfirm({
-                template: 'editParent', scope: $scope //Pass the scope object if you need to access in the template
-              }).then(
-                function (formData) {
-                  Parent.prototype$updateAttributes({id: x.id}, {
-                      firstName: formData.firstName,
-                      lastName: formData.lastName,
-                      email: formData.email,
-                      password: formData.password,
-                      contact: formData.contact
-                    },
-                    function () {
-                      $state.go($state.current, {}, {reload: true});
-                    }, function (response) {
-                      console.log(response.data.error.message);
-                    });
-                },
-                function (value) {
-                }
-              );
-            }
+
             else if (x.type == "Staff") {
-              $scope.formData = x;
-              //$scope.dateofBirth = $filter('date')(new Date(x.dateOfBirth), 'MM/dd/yyyy');
+   alert('M');
+              $scope.editData = x;
+              $scope.editData.dateofBirth = $filter('date')(new Date(x.dateofBirth), 'yyyy-MM-dd');
+              var d = new Date($scope.editData.dateofBirth);
+              var date2 = new Date(d);
+              $scope.editData.dateofBirth = new Date(date2.setDate(d.getDate()));
+              console.log($scope.editData.dateofBirth);
+              $scope.editData.dateofBirth = new Date($scope.editData.dateofBirth);
+
+
+              $scope.editData.dateofJoin = $filter('date')(new Date(x.dateofJoin), 'yyyy-MM-dd');
+              var d = new Date($scope.editData.dateofJoin);
+              var date2 = new Date(d);
+              $scope.editData.dateofJoin = new Date(date2.setDate(d.getDate()));
+              console.log($scope.editData.dateofJoin);
+              $scope.editData.dateofJoin = new Date($scope.editData.dateofJoin);
+
               ngDialog.openConfirm({
                 template: 'editStaff',
                 scope: $scope
               }).then(
-                function (formData) {
+                function (editData) {
                   Staff.prototype$updateAttributes({id: x.id}, {
-                      firstName: formData.firstName,
-                      lastName: formData.lastName,
-                      email: formData.email,
-                      password: formData.password,
-                      gender: formData.gender,
-                      dateofBirth: formData.dateOfBirth,
-                      rollNo: formData.rollNo,
-                      RFID: formData.RFID,
-                      prevSchool: formData.previousSchool,
-                      dateofJoin: formData.dateOfJoin,
-                      classId: formData.class,
-                      status: formData.status,
-                      regId: formData.regId,
-                      isDisable: formData.isDisable,
-                      currentAddress: formData.currentAddress,
-                      currentCity: formData.currentCity,
-                      currentState: formData.currentState,
-                      currentPincode: formData.currentPincode,
-                      bloodGroup: formData.bloodGroup,
-                      religion: formData.religion,
-                      caste: formData.caste,
-                      alternateContact: formData.alternateContact,
-                      permanentAddress: formData.permanentAddress,
-                      permanentCity: formData.permanentCity,
-                      permanentState: formData.permanentState,
-                      permanentPincode: formData.permanentPincode,
-                      nationalId: formData.nationalId,
-                      motherTounge: formData.motherTounge,
-                      nationalIdType: formData.nationalIdType,
-                      subCaste: formData.subCaste,
-                      contact: formData.contact,
-                      qualification: formData.qualification,
-                      qualifiedUniversity: formData.qualifiedUniversity,
-                      percentage: formData.percentage,
-                      BED: formData.BED
+                      firstName          : editData.firstName,
+                      lastName           : editData.lastName,
+                      email              : editData.email,
+                      password           : editData.password,
+                      gender             : editData.gender,
+                      dateofBirth        : editData.dateofBirth,
+                      RFID               : editData.RFID,
+                      previousSchool     : editData.previousSchool,
+                      dateofJoin         : editData.dateofJoin,
+                      regId              : editData.regId,
+                      isDisable          : editData.isDisable,
+                      currentAddress     : editData.currentAddress,
+                      currentCity        : editData.currentCity,
+                      currentState       : editData.currentState,
+                      currentPincode     : editData.currentPincode,
+                      bloodGroup         : editData.bloodGroup,
+                      religion           : editData.religion,
+                      caste              : editData.caste,
+                      alternateContact   : editData.alternateContact,
+                      permanentAddress   : editData.permanentAddress,
+                      permanentCity      : editData.permanentCity,
+                      permanentState     : editData.permanentState,
+                      permanentPincode   : editData.permanentPincode,
+                      nationalId         : editData.nationalId,
+                      motherTounge       : editData.motherTounge,
+                      nationalIdType     : editData.nationalIdType,
+                      subCaste           : editData.subCaste,
+                      contact            : editData.contact,
+                      qualification      : editData.qualification,
+                      qualifiedUniversity: editData.qualifiedUniversity,
+                      percentage         : editData.percentage,
+                      BED                : editData.BED
 
                     },
                     function () {
@@ -538,70 +810,27 @@ angular
             }
           }
 
-          //--------------------------------------------------------
-          //                 EDIT STUDENT/PARENT/STAFF ENDS
-          //--------------------------------------------------------
 
 
-          //--------------------------------------------------------
-          //                 ADD STAFF STARTS
-          //--------------------------------------------------------
 
-          $scope.addStaff = function () {
-
-            $scope.newStaff = Staff.create({
-                schoolId: $scope.schoolId,
-                firstName: $scope.formData.firstName,
-                lastName: $scope.formData.lastName,
-                email: $scope.formData.email,
-                password: $scope.formData.password,
-                contact: $scope.formData.contact,
-                gender: $scope.formData.gender,
-                image: "../../uploads/staff",
-                dateofBirth: $scope.formData.dateOfBirth,
-                RFID: $scope.formData.RFID,
-                isDisable: $scope.formData.isDisable,
-                dateofJoin: $scope.formData.dateOfJoin,
-                status: $scope.formData.status,
-                regId: $scope.formData.regId,
-                currentAddress: $scope.formData.currentAddress,
-                currentCity: $scope.formData.currentCity,
-                currentState: $scope.formData.currentState,
-                currentPincode: $scope.formData.currentPincode,
-                bloodGroup: $scope.formData.bloodGroup,
-                religion: $scope.formData.religion,
-                caste: $scope.formData.caste,
-                permanentAddress: $scope.formData.permanentAddress,
-                permanentCity: $scope.formData.permanentCity,
-                permanentState: $scope.formData.permanentState,
-                permanentPincode: $scope.formData.permanentPincode,
-                nationalId: $scope.formData.nationalId,
-                motherTounge: $scope.formData.motherTounge,
-                nationalIdType: $scope.formData.nationalIdType,
-                subCaste: $scope.formData.subCaste,
-                qualification: $scope.formData.qualification,
-                qualifiedUniversity: $scope.formData.qualifiedUniversity,
-                percentage: $scope.formData.percentage,
-                BED: $scope.formData.BED,
-                type: 'Staff', created: $scope.date
-              },
-              function () {
-
-                console.log("Staff Added Successfully");
-                $state.go($state.current, {}, {reload: true});
-              },
-              function (response) {
-                $scope.response = "Staff Is Not Created " + response.data.error.message;
-                console.log("Error In Adding Staff " + response.data.error.message);
-              }
-            )
-          }
-
-          //--------------------------------------------------------
-          //                 ADD STAFF ENDS
-          //--------------------------------------------------------
 
         }
+
+
+
+        //--------------------------------------------------------
+        //                 SHOW USER
+        //--------------------------------------------------------
+        $scope.showUser = function (x) {
+
+          $scope.formData =x;
+          if (x.type =='Student')        ngDialog.openConfirm({template: 'showStudent', scope: $scope});
+          else if (x.type =='Parent')    ngDialog.openConfirm({template: 'showParent', scope: $scope});
+          else if (x.type =='Staff')     ngDialog.openConfirm({template: 'showStaff', scope: $scope});
+
+        }
+
+
 
 
 
@@ -651,6 +880,7 @@ angular
 		   $scope.clearResponse = function (){
 			   $scope.response = null;
 			   $scope.responseAddClass = null;
+         $scope.formData=null;
 		   }
 
 
@@ -678,8 +908,13 @@ angular
                     sectionName: $scope.formData.sectionName,
                     staffId: $scope.formData.staffSelected
                   }, function () {
-              //      $state.go($state.current, {}, {reload: true});
+
 			  $scope.responseAddClass = "Class "+ $scope.formData.className + "-" + $scope.formData.sectionName + " Created Successfully";
+                    setTimeout( function()
+                    {
+                      $state.go($state.current, {}, {reload: true});
+                      $scope.$apply();
+                    }, 1000 );
                   },
                   function (response) {
                     console.log(response.data.error.message);
@@ -694,6 +929,11 @@ angular
           $scope.updateClass = function (x) {
             Class.upsert({id: x.id, staffId: x.staff.id}, function (response) {
 				$scope.response="Class " + x.className + "-" + x.sectionName +" Updated Successfully With " + x.staff.firstName;
+              setTimeout( function()
+              {
+                $state.go($state.current, {}, {reload: true});
+                $scope.$apply();
+              }, 1000 );
             });
 
           }
@@ -704,8 +944,13 @@ angular
           $scope.deleteClass = function (x) {
             var dialog = ngDialog.open({template: 'deleteClass'});
             dialog.closePromise.then(function (data) {
+              $scope.response="Class Deleted Successfully";
               if (data.value && data.value != '$document' && data.value != '$closeButton') Class.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")});
-              $state.go($state.current, {}, {reload: true});
+              setTimeout( function()
+              {
+                $state.go($state.current, {}, {reload: true});
+                $scope.$apply();
+              }, 1000 );
               return true;
             });
           }
@@ -741,6 +986,7 @@ angular
           //                  CLEAR RESPONSE
           // --------------------------------------------------------
 		   $scope.clearResponse = function (){
+			   $scope.formData = null;
 			   $scope.response = null;
 			   $scope.responseAddSubject = null;
 		   }
@@ -781,12 +1027,17 @@ angular
 								staffId: $scope.formData.staffSelected
 							  },
 							  function () {
-						  //      $state.go($state.current, {}, {reload: true});
-									$scope.responseAddSubject ="Subject "+ $scope.formData.subjectName + " created Successfully in Class";
-							  },
-							  function (response) {
 
-								$scope.responseAddSubject = "Subject Already Exists";
+									$scope.responseAddSubject ="Subject "+ $scope.formData.subjectName + " created Successfully in Class";
+                  setTimeout( function()
+                  {
+                    $state.go($state.current, {}, {reload: true});
+                    $scope.$apply();
+                  }, 1000 );
+							  },
+							  function () {
+
+
 							  }
 							);
               });
@@ -795,9 +1046,14 @@ angular
 
 
           $scope.updateSubject = function (a) {
+            $scope.responseAddSubject ="Subject "+ $scope.formData.subjectName + " Edited Successfully";
 						Subject.upsert({id: a.id, staffId: a.staff.id},
 						  function () {
-							$state.go($state.current, {}, {reload: true});
+                setTimeout( function()
+                {
+                  $state.go($state.current, {}, {reload: true});
+                  $scope.$apply();
+                }, 1000 );
 						  },
 						  function (response) {
 							console.log(response.data.error.message);
@@ -812,7 +1068,11 @@ angular
 
               if (data.value && data.value != '$document' && data.value != '$closeButton') {
                 Subject.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")});
-                $state.go($state.current, {}, {reload: true});
+                setTimeout( function()
+                {
+                  $state.go($state.current, {}, {reload: true});
+                  $scope.$apply();
+                }, 1000 );
               }
               return true;
             });
@@ -821,7 +1081,7 @@ angular
         }
         else if ($scope.Student){
           $scope.subjectList = Subject.find({filter: {where:{classId:$scope.userData.classId},include: ['staff', 'class']}});
-           console.log($scope.subjectList);
+
         }
 		// --------------------------------------------------------
         //                 SORT TABLE TECHNIQUE
@@ -922,7 +1182,8 @@ angular
     }
     }])
 
-  .controller('ScheduleController', ['$scope', 'Admin', '$state', 'School', 'Class', 'Subject', 'Schedule', 'Timetable', '$rootScope', '$window',
+  .controller('ScheduleController',
+    ['$scope', 'Admin', '$state', 'School', 'Class', 'Subject', 'Schedule', 'Timetable', '$rootScope', '$window',
     function ($scope, Admin, $state, School, Class, Subject, Schedule, Timetable, $rootScope, $window) {
       $scope.user = $window.localStorage.getItem('user');
       $scope.userData = JSON.parse($scope.user);
@@ -1193,7 +1454,8 @@ angular
 
     }])
 
-  .controller('LibraryController', ['$scope', '$state', 'School', 'Library', '$rootScope', '$window','ngDialog',
+  .controller('LibraryController',
+    ['$scope', '$state', 'School', 'Library', '$rootScope', '$window','ngDialog',
     function ($scope, $state, School, Library, $rootScope, $window,ngDialog) {
       $scope.user = $window.localStorage.getItem('user');
       $scope.userData = JSON.parse($scope.user);
@@ -1296,7 +1558,8 @@ angular
 
     }])
 
-  .controller('AssignmentController', ['$scope', '$state', 'Class', 'Assignment', '$rootScope', '$window','ngDialog','$filter','fileUpload','Container','$location','$http',
+  .controller('AssignmentController',
+    ['$scope', '$state', 'Class', 'Assignment', '$rootScope', '$window','ngDialog','$filter','fileUpload','Container','$location','$http',
     function ($scope, $state, Class, Assignment, $rootScope, $window,ngDialog,$filter,fileUpload,Container,$location,$http) {
 
       //--------------------------------------------------------
@@ -1426,7 +1689,8 @@ angular
 
     }])
 
-      .controller('AttendanceController', ['$scope', '$state','$window','Class','Attendance','Student',
+  .controller('AttendanceController',
+    ['$scope', '$state','$window','Class','Attendance','Student',
     function ($scope,$state,$window,Class,Attendance,Student) {
       $scope.user = $window.localStorage.getItem('user');
       $scope.userData = JSON.parse($scope.user);
@@ -1437,21 +1701,14 @@ angular
       if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
       $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}}});
       $scope.studentList =[];
-      //console.log(new Date(2014, 1, 0).getDate());
-      $scope.test=[];
-      for(var i=0;i<new Date(2014,1,0).getDate();i++)
-      {
-        $scope.test= [{date :new Date(2014,0,i+1)}];
-      }
 
 
 
-      //
       $scope.loadDates = function() {
         $scope.studentList = [];
         if ($scope.Admin || $scope.Staff){
           $scope.list = Student.find({filter: {where: {classId: $scope.classSelected}}}, function () {
-            for (var i = 0; i < $scope.list.length-1; i++) {
+            for (var i = 0; i < $scope.list.length; i++) {
               $scope.studentList[i]={studentId:$scope.list[i].id,data:$scope.test};
 
               $scope.chk($scope.list[i].id, $scope.list[i].firstName,i);
@@ -1460,36 +1717,35 @@ angular
 
           $scope.chk = function(studentId,firstName,i)
           {
-              var firstDay = new Date($scope.dateSelected.getFullYear(), $scope.dateSelected.getMonth(), 1);
-              var lastDay  = new Date($scope.dateSelected.getFullYear(), $scope.dateSelected.getMonth()+1, 0);
-            $scope.attendanceRecord = Attendance.find({filter:{where:{date:{between:[firstDay,lastDay]}}}});
+            $scope.attendanceRecord = Attendance.findOne({filter:{where:{studentId:studentId,date:$scope.dateSelected}}},function(response){
+              $scope.studentList[i] ={id:studentId ,firstName :firstName,attendanceId :response.id,status:true}
 
-			var j=0;
-
-			for(var i=0;i<$scope.attendanceRecord.length;i++)
-			{
-				if ($scope.attendanceRecord.studentId == studentId)
-				{
-					$scope.student[j] = {studentId:studentId,status:true,date:$scope.attendanceRecord.date };
-				}
-			}
+            },function(){
+              $scope.studentList[i] ={id:studentId,firstName : firstName,status:false}
+            });
 
 
-		  }
+
+		     }
 
           $scope.addAttendance = function(x){
             if (x.status == true) {
               Attendance.findOne({filter:{where:{studentId:x.id,date:$scope.dateSelected}}},function(){
 
               },function(){
-                Attendance.create({studentId:x.id,date:$scope.dateSelected});
+                Attendance.create({studentId:x.id,date:$scope.dateSelected,schoolId:$scope.schoolId});
+                $scope.loadDates();
+                console.log('Attendance Added');
+
               });
 
             }
             else {
-              if (x.id != null) {
-				  console.log(x.id);
-                Attendance.delete({id:JSON.stringify(x.attendanceId).replace(/["']/g, "")},function(){},function(response){ console.log(response.data.error.message);});
+              console.log(x.attendanceId);
+              if (x.attendanceId != null) {
+                Attendance.delete({id:JSON.stringify(x.attendanceId).replace(/["']/g, "")},function(){
+                  console.log('Attendance Deleted');
+                },function(response){ console.log(response.data.error.message);});
               }
             }
           }
@@ -1498,7 +1754,7 @@ angular
 
                 $scope.list = Student.findOne({filter: {where: {id: $scope.userData.id}}}, function () {
                     $scope.chk($scope.list.id, $scope.list.firstName, 0);
-                    console.log($scope.list);
+
                 });
 
               }
@@ -1510,10 +1766,7 @@ angular
 
 
  }])
-      .filter('startFrom', function() {
-    return function(input, start) {
-        start = +start; //parse to int
-        return input.slice(start);
-    }
-	})
-      ;
+
+  .filter('startFrom', function() { return function(input, start) { start = +start; return input.slice(start); }})
+
+;

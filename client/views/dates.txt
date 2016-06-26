@@ -1,0 +1,38 @@
+ar myDate = new Date();
+
+var previousDay = new Date(myDate);
+
+previousDay.setDate(myDate.getDate()-1);
+
+var nextDay = new Date(myDate);
+
+nextDay.setDate(myDate.getDate()+1);
+Month:
+
+var previousMonth = new Date(myDate);
+
+previousMonth.setMonth(myDate.getMonth()-1);
+
+var nextMonth = new Date(myDate);
+
+nextMonth.setMonth(myDate.getMonth()+1);
+Year:
+
+var previousYear = new Date(myDate);
+
+previousYear.setYear(myDate.getFullYear()-1);
+
+var nextYear = new Date(myDate);
+
+nextYear.setYear(myDate.getFullYear()+1);
+
+$scope.month = $filter('date')(myDate, 'MMMM');//December-November like
+$scope.day = $filter('date')(myDate, 'dd'); //01-31 like
+$scope.year = $filter('date')(myDate,'yyyy');//2014 like
+
+$scope.nextDay = $filter('date')(nexyDay, 'dd');
+$scope.prevDay = $filter('date')(previousDay, 'dd');
+$scope.nextMonth = $filter('date')(nextMonth, 'MMMM')
+$scope.prevMonth = $filter('date')(previousMonth, 'MMMM')
+$scope.nextYear = $filter('date')(nextYear,'yyyy');
+$scope.prevYear = $filter('date')(previousYear,'yyyy');

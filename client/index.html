@@ -15,16 +15,24 @@
 
   <!---->
 
+  <!---->
+    <!---->
+
+    <script src="js/msexcel-builder.js" type="text/javascript"></script>
+    <script src="template/rcalendar/calendarDemoCtrl.js"></script>
+
     <!--------------------------------------->
     <script src="/js/ngDialog/ngDialog.js" type="text/javascript"></script>
     <script src="/js/ngDialog/ngDialog.min.js" type="text/javascript"></script>
-    <!--------------------------------------->
-
-    <!--------------------------------------->
     <link href="/styles/ngDialog.css" rel="stylesheet" type="text/css">
     <link href="/styles/ngDialog-theme-default.css" rel="stylesheet" type="text/css">
     <!--------------------------------------->
 
+     <!--------------------------------------->
+    <link rel="stylesheet" href="js/calendar/calendar.css"/>
+    <script src="/js/calendar/calendar.js"></script>
+     <!--------------------------------------->
+     <!--------------------------------------->
      <!--------------------------------------->
     <!--<link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css">-->
     <link href="styles/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -34,6 +42,10 @@
     <script src="styles/ui-bootstrap-tpls.js"></script>
 
     <!--------------------------------------->
+    <script src="js/ng-scrollbar.min.js"></script>
+    <link rel="stylesheet" href="js/ng-scrollbar.min.css" >
+    <!--------------------------------------->
+
     <!--------------------------------------->
     <script src="/styles/angular-wizard.min.js"></script>
     <link href="/styles/angular-wizard.min.css" rel="stylesheet" type="text/css">
@@ -103,23 +115,32 @@
     <div class="top-menu">
           <ul class="nav navbar-nav pull-right ">
             <!-- BEGIN USER LOGIN DROPDOWN -->
+
             <li class="dropdown dropdown-user dropdown-dark">
+              <a ng-hide="currentUser" ui-sref="login" class="caption-subject uppercase" ui-sref-active="active">Login</a>
+              <a ng-show="currentUser" ui-sref="noticeboard" class="glyphicon glyphicon-bell" ng-mouseover="showNotices=true" ng-mouseover="showNotices=false">
+                <span ng-show="showNotices" class="badge">{{noticeList.length}}</span>
+              </a>
 
-              <div ng-hide="currentUser"><a ui-sref="login" class="caption-subject uppercase" ui-sref-active="active">Login</a> </div>
-
+            </li>
+            <li class="dropdown dropdown-user dropdown-dark">
               <a ng-show="currentUser"   href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                <img alt="" class="img-circle" src="../../assets/admin/layout3/img/avatar9.jpg">
-                <span class="username username-hide-mobile" ng-hide="currentUser">{{user.username}}</span>
+                 <img alt="" class="img-circle" src="../../assets/admin/layout3/img/avatar9.jpg">
+                <span class="username username-hide-mobile" ng-show="currentUser">{{currentUser.user.firstName}}</span>
               </a>
               <ul class="dropdown-menu dropdown-menu-default">
                 <li ng-show="currentUser">
-                    <i class="icon-user"></i> My Profile </a>
+                  <a ui-sref="/">My Profile</a>
+
                 </li>
                 <li ng-show="currentUser">
                   <a ui-sref="logout" ui-sref-active="active">Log out</a>
                 </li>
               </ul>
             </li>
+            <!--<button class="btn btn-primary" type="button">-->
+              <!--Notifications <span class="badge">{{noticeList.length}}</span>-->
+            <!--</button>-->
             <!-- END USER LOGIN DROPDOWN -->
           </ul>
         </div>
@@ -181,7 +202,7 @@
                 <li><a ui-sref=".library"><i class="icon-briefcase"></i>Library </a></li>
               </ul>
             </li>
-            <li class="menu-dropdown classic-menu-dropdown ">
+            <li ng-show="Admin" class="menu-dropdown classic-menu-dropdown ">
               <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">
                 Settings <i class="fa fa-angle-down"></i>
               </a>
@@ -307,9 +328,9 @@
     jQuery(document).ready(function() {
       Metronic.init(); // init metronic core componets
       Layout.init(); // init layout
-      QuickSidebar.init(); // init quick sidebar
-      Index.init(); // init index page
-      Tasks.initDashboardWidget(); // init tash dashboard widget
+   //   QuickSidebar.init(); // init quick sidebar
+     // Index.init(); // init index page
+    //  Tasks.initDashboardWidget(); // init tash dashboard widget
     });
   </script>
   <!-- END JAVASCRIPTS -->

@@ -5,7 +5,8 @@
 
 angular
   .module('app')
-  .factory('AuthServiceAdmin', ['Admin', '$q', '$rootScope', '$window','School',function(Admin, $q,$rootScope,$window,School) {
+  .factory('AuthServiceAdmin', ['Admin', '$q', '$rootScope', '$window','School','Noticeboard','$filter',
+    function(Admin, $q,$rootScope,$window,School,Noticeboard,$filter) {
     function login(email, password) {
       return Admin
         .login({email: email, password: password})
@@ -19,6 +20,7 @@ angular
           $window.localStorage.setItem('user',JSON.stringify(response.user));
           var school = School.findById({id:response.user.schoolId},function(){
             $rootScope.schoolName = school.schoolName;});
+
         });
     }
 
