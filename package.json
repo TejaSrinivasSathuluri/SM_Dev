@@ -23,7 +23,10 @@
     "loopback-connector-mongodb": "^1.15.2",
     "loopback-datasource-juggler": "^2.46.1",
     "rootpath": "^0.1.2",
-    "serve-favicon": "^2.0.1"
+    "serve-favicon": "^2.0.1",
+    "forever": "~0.15.2",
+    "nodejs": "0.0.0",
+    "cookie-parser": "~1.4.3"
   },
   "devDependencies": {
     "jshint": "^2.5.6",

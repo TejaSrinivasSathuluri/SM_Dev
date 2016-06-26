@@ -7,7 +7,7 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
   // create an admin application
   var admin = nga.application('Study Monitor Admin')
 
-    .baseApiUrl('http://smtest9.cloudapp.net:3000/api/'); // main API endpoint
+    .baseApiUrl('http://meanprod.cloudapp.net:3000/api/'); // main API endpoint
     //.baseApiUrl('http://localhost:3000/api/'); // main API endpoint
 
   // create a user entity
