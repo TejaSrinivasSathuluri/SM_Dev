@@ -3,69 +3,80 @@
   <head>
     <title> Study Monitor</title>
     <meta charset="utf-8">
-    <script src="vendor/angular.min.js"></script>
-    <script src="vendor/angular-resource.js"></script>
+
+    <!------------------------------------------------>
+    <script src="vendor/angular.min.js">      </script>
+    <script src="vendor/angular-resource.js"> </script>
     <script src="vendor/angular-ui-router.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/lb-services.js"></script>
-    <script src="js/controllers/auth.js"></script>
-    <script src="js/controllers/admin.js"></script>
-    <script src="js/services/auth.js"></script>
+    <script src="js/app.js">                  </script>
+    <script src="js/lb-services.js">          </script>
+    <script src="js/controllers/auth.js">     </script>
+    <script src="js/controllers/admin.js">    </script>
+    <script src="js/services/auth.js">        </script>
+    <!----------------------------------------------->
 
 
-  <!---->
 
-  <!---->
-    <!---->
-
+    <!----------------------------------------------------------------->
     <script src="js/msexcel-builder.js" type="text/javascript"></script>
-    <script src="template/rcalendar/calendarDemoCtrl.js"></script>
+    <script src="template/rcalendar/calendarDemoCtrl.js">      </script>
+    <!----------------------------------------------------------------->
 
-    <!--------------------------------------->
-    <script src="/js/ngDialog/ngDialog.js" type="text/javascript"></script>
+
+    <!----------------------------------------------------------------->
+    <script src="/js/ngDialog/ngDialog.js"     type="text/javascript"></script>
     <script src="/js/ngDialog/ngDialog.min.js" type="text/javascript"></script>
-    <link href="/styles/ngDialog.css" rel="stylesheet" type="text/css">
+    <link href="/styles/ngDialog.css"               rel="stylesheet" type="text/css">
     <link href="/styles/ngDialog-theme-default.css" rel="stylesheet" type="text/css">
-    <!--------------------------------------->
+    <!----------------------------------------------------------------->
 
-     <!--------------------------------------->
+
+    <!----------------------------------------------------->
     <link rel="stylesheet" href="js/calendar/calendar.css"/>
     <script src="/js/calendar/calendar.js"></script>
-     <!--------------------------------------->
-     <!--------------------------------------->
-     <!--------------------------------------->
+    <!------------------------------------------------------>
+
+     <!------------------------------------------------------------------------------------------------>
     <!--<link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css">-->
     <link href="styles/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css">
-	<link href="styles/fonts.css" rel="stylesheet" type="text/css">
+	  <link href="styles/fonts.css" rel="stylesheet" type="text/css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
-    <script src="styles/ui-bootstrap.js"></script>
+    <script src="styles/ui-bootstrap.js">    </script>
     <script src="styles/ui-bootstrap-tpls.js"></script>
+    <!------------------------------------------------------------------------------------------------->
 
-    <!--------------------------------------->
+
+    <!--------------------------------------------------->
     <script src="js/ng-scrollbar.min.js"></script>
     <link rel="stylesheet" href="js/ng-scrollbar.min.css" >
-    <!--------------------------------------->
+    <!---------------------------------------------------->
 
-    <!--------------------------------------->
+    <!--------------------------------------------------------------------------->
     <script src="/styles/angular-wizard.min.js"></script>
     <link href="/styles/angular-wizard.min.css" rel="stylesheet" type="text/css">
-    <!--------------------------------------->
-    <!--------------------------------------->
+    <!--------------------------------------------------------------------------->
+
+
+    <!----------------------------------------------------------------------------->
     <script src="/styles/angular-material.min.js"></script>
     <link href="/styles/angular-material.min.css"  rel="stylesheet" type="text/css">
-    <!--------------------------------------->
+    <!----------------------------------------------------------------------------->
 
-    <!-- BEGIN GLOBAL MANDATORY STYLES -->
 
+    <!----------------------------------------------------------------------------->
     <link href="../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <script src="styles/jquery-2.1.4.min.js"></script>
     <link href="../../assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css">
     <link href="../../assets/admin/layout3/css/layout.css" rel="stylesheet" type="text/css">
+    <!----------------------------------------------------------------------------->
 
-	<script src="../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-  <script src="../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
-  <script src="../../assets/global/scripts/metronic.js" type="text/javascript"></script>
-  <script src="../../assets/admin/layout3/scripts/layout.js" type="text/javascript"></script>
+    <!------------------------------------------------------------------------------------------------------------------------------->
+    <script src="../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript">                           </script>
+    <script src="../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+    <script src="../../assets/global/scripts/metronic.js"      type="text/javascript">                                        </script>
+    <script src="../../assets/admin/layout3/scripts/layout.js" type="text/javascript">                                        </script>
+    <!-------------------------------------------------------------------------------------------------------------------------------->
+
   </head>
 
 
@@ -117,7 +128,7 @@
             <!-- BEGIN USER LOGIN DROPDOWN -->
 
             <li class="dropdown dropdown-user dropdown-dark">
-              <a ng-hide="currentUser" ui-sref="login" class="caption-subject uppercase" ui-sref-active="active">Login</a>
+              <!--<a ng-hide="currentUser" ui-sref="login" class="caption-subject uppercase" ui-sref-active="active">Login</a>-->
               <a ng-show="currentUser" ui-sref="noticeboard" class="glyphicon glyphicon-bell" ng-mouseover="showNotices=true" ng-mouseover="showNotices=false">
                 <span ng-show="showNotices" class="badge">{{noticeList.length}}</span>
               </a>
@@ -166,9 +177,8 @@
         </form>
         <!-- END HEADER SEARCH BOX -->
 
-
         <!-- BEGIN MEGA MENU -->
-        <div class="hor-menu" ng-show="currentUser">
+        <div class="hor-menu" ng-show="currentUser" ng-controller="LandingPageController">
           <ul class="nav navbar-nav">
             <li class="active">
               <a ui-sref=".dashboard">Console</a>
@@ -202,10 +212,11 @@
                 <li><a ui-sref=".library"><i class="icon-briefcase"></i>Library </a></li>
               </ul>
             </li>
-            <li ng-show="Admin" class="menu-dropdown classic-menu-dropdown ">
+            <li class="menu-dropdown classic-menu-dropdown ">
               <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">
                 Settings <i class="fa fa-angle-down"></i>
               </a>
+
               <ul class="dropdown-menu pull-left">
                 <li><a ui-sref=".timetable"><i class="icon-briefcase"></i>School Timetable </a></li>
               </ul>
@@ -232,29 +243,24 @@
 
 
   <div ng-hide="currentUser" class="container">
-  <div class="row margin-top-10">
-
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="portlet light ">
-        <div class="portlet-title">
-<h4>THE 'C' s  of STUDY MONITOR</h4>
-        </div>
-          <div class="portlet-body">
+        <div class="portlet-title">  <h4>THE 'C' s  of STUDY MONITOR</h4>    </div>
+        <div class="portlet-body">
 
 
             <wizard>
-
-              <wz-step wz-title="COLLABORATE"><input type="submit"  wz-next  class="pull-right" value="NEXT"/>
+              <i type="submit"  wz-next  class="pull-right glyphicon glyphicon-forward" value="NEXT"></i>
+              <wz-step wz-title="COLLABORATE">
                 <h5>COLLABORATE</h5>
                 <p>This advanced module believes in generating tangible services for all people involved in an effective and easy way. Bridging the gap into one single stream, parents and teachers can have a one on one personalized conversation about students’ performance and progress. That apart, few other features are attendance log, reports, curriculum or syllabus schedules, assignment submission, school calendar or events can be conveyed day to day providing a stress-free access for both parent and teacher/ school admin.</p>
 
               </wz-step>
-              <wz-step wz-title="COMMUTE" ><input type="submit"  wz-next  class="pull-right" value="NEXT"/>
+              <wz-step wz-title="COMMUTE" >
                 <h5>COMMUTE</h5>
                 <p> STUDY Monitor takes comprehensive measures to ensure student security and safety by monitoring and tracking school vehicles real-time. Parents can have an anxiety free day keeping track of their children by knowing details of bus routes and their current location via GPS mapping. The track detection rooted for school vehicles also gives details about vehicle speed providing alerts in case of emergency or immediate aid. The other features include automatic attendance via SMART ID cards , live CCTV monitoring on buses. </p>
 
               </wz-step>
-              <wz-step wz-title="COMPETE" ><input type="submit"  wz-next  class="pull-right" value="NEXT"/>
+              <wz-step wz-title="COMPETE" >
                 <h5>COMPETE</h5>
                 <p>A systematic coordination of books in a school’s library has always been a tussle in any traditional school management system. Here our product inspires students to learn and collaborate well with educational resources be it in a classroom or a library. It allows to maintain a centralized access of book keeping and enriched study material that help librarians, teachers and students locate and share resources effectively. The automated tool keeps track of books that are due and also sends reminders when required.</p>
 
@@ -263,16 +269,14 @@
 
 
             </wizard>
-
+<br>
+<br>
+<br>
 
           </div>
-        <br>
-        <br>
-        <br>
+
       </div>
-      </div>
-    </div>
-</div>
+ </div>
 
 
 
@@ -280,47 +284,19 @@
   </div>
 
 
-  <div class="page-container">
-    <!-- BEGIN PAGE CONTENT -->
-    <div class="page-content">
-
-      <div ng-hide="currentUser" class="container">
-        <div class="row margin-top-10">
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="portlet light ">
-              <div class="portlet-title">
-                <div class="caption caption-md">ABOUT US</div>
-
-              </div>
-              <!-- -----------------------------------About US Form------------------------------->
-              <p>
-                STUDY Monitor® is a comprehensive Next Generation student monitoring and attendance tracking security system specifically designed to cater to educational establishments. With easy-to-use and efficient modules, Schools, Colleges & other institutions can use this product as a school management system that will increase the security of the students, ease the burden on staff, manage assignments & tests easily, generate reports, monitor student performance and do a host of other things through its fast, reliable, seamless process automation and control.
-              </p>
-
-              <div class="portlet-body">
 
 
 
-
-
-              </div>
-            </div>
-          </div>
-
-
-        </div>
-    <!-- END PAGE CONTENT -->
-  </div>
 
 
   <div class="page-footer">
-    <div class="container">
-      <center>2014 &copy; Study Monitor <a href="" title="" target="_blank"></a></center>
-    </div>
-  </div>
-      </div>
 
-    </div>
+      <center>2016 &copy; Study Monitor. <a href="" title="" target="_blank"></a>Developed By Cylus Creators</center>
+
+  </div>
+
+
+
 
 
 
