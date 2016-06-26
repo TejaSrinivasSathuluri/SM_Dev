@@ -8,14 +8,17 @@ angular
     'ui.router',
     'lbServices',
     'ngDialog',
-    'mgo-angular-wizard'
+    'mgo-angular-wizard',
+    'ngScrollbar',
+    'ui.rCalendar',
+    'calendarDemoApp'
   ])
   .config(['$stateProvider', '$urlRouterProvider', function($stateProvider,$urlRouterProvider) {
     $stateProvider
      .state('dashboard', {
         url: '/dashboard',
         templateUrl: 'views/dashboard.html',
-        controller: 'DashboardController',
+        controller: 'LandingPageController',
         authenticate: true
       })
       .state('directory', {

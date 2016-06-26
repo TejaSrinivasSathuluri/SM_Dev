@@ -104,12 +104,18 @@
                 </tbody>
 
               </table>
-                Total Results{{subjectList.length}}<br>
 
-                <button ng-disabled="currentPage == 0"               ng-click="currentPage=currentPage-1">Previous</button>
-                {{currentPage+1}}/{{numberOfPages()}}
-              <button ng-disabled="currentPage >= subjectList.length/pageSize-1"   ng-click="currentPage=currentPage+1">Next</button>
-            </div>
+<div class="pull-left">
+  Total Results : {{subjectList.length}}
+</div>
+<div class="pull-right">
+  <button ng-disabled="currentPage == 0"               ng-click="currentPage=currentPage-1">Previous</button>
+  {{currentPage+1}}/{{numberOfPages()}}
+  <button ng-disabled="currentPage >= subjectList.length/pageSize-1"   ng-click="currentPage=currentPage+1">Next</button>
+
+
+</div>
+              </div>
             </div>
 
         </div>
