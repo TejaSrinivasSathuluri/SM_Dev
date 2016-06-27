@@ -8,12 +8,17 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
   var admin = nga.application('Study Monitor Admin')
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     .baseApiUrl('http://meanprod.cloudapp.net:3000/api/'); // main API endpoint
     //.baseApiUrl('http://localhost:3000/api/'); // main API endpoint
 =======
     //.baseApiUrl('http://smtest9.cloudapp.net:3000/api/'); // main API endpoint
     .baseApiUrl('http://localhost:3000/api/'); // main API endpoint
 >>>>>>> dc53735cf5338dac64750582e574ff4fc1b0bc4b
+=======
+    .baseApiUrl('http://meanprod.cloudapp.net:3000/api/'); // main API endpoint
+    //.baseApiUrl('http://localhost:3000/api/'); // main API endpoint
+>>>>>>> e29e1f96514a833127a8b2678bbcd3a5966d8047
 
   // create a user entity
   // the API endpoint for this entity will be 'http://jsonplaceholder.typicode.com
