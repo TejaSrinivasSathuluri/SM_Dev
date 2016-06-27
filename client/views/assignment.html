@@ -23,7 +23,7 @@
       <textarea rows="4" cols="50" class="form-control" placeholder="Description"  ng-model="formData.description"></textarea><br>
       <input  type="date" class="form-control" ng-value="fromDate" ng-model="formData.fromDate"><br>
       <input  type="date" class="form-control" ng-value="toDate" ng-model="formData.toDate"><br>
-      <input type = "file" file-model = "myFile" class="form-control" placeholder="Image" ng-model="formData.uploadFile"><br>
+      <!--<input type = "file" file-model = "myFile" class="form-control" placeholder="Image" ng-model="formData.uploadFile"><br>-->
       <button type="submit" class="btn btn-success uppercase" ng-click=confirm(formData)>Save</button>
       <button type="button" class="btn btn-success uppercase" ng-click=closeThisDialog("Cancel")>Cancel</button>
 
@@ -47,7 +47,7 @@
         <textarea rows="4" cols="50" class="form-control" placeholder="Description of Assignment " ng-model="formData.description" required></textarea><br>
         <input  type="date" class="form-control"  ng-model="formData.fromDate" required><br>
         <input  type="date" class="form-control"  ng-model="formData.toDate" required><br>
-        <input type = "file" file-model = "formData.myFile" class="form-control" placeholder="Image" ng-model="formData.uploadFile"><br>
+        <!--<input type = "file" file-model = "formData.myFile" class="form-control" placeholder="Image" ng-model="formData.uploadFile"><br>-->
         <button type="submit"  class="btn btn-success uppercase">Post Assignment</button>
       </div>
 
@@ -69,7 +69,7 @@
       <div class="portlet light ">
         <div class="portlet-title">
           <div class="caption caption-md">ASSIGNMENTS</div>
-          <button class="btn btn-success uppercase pull-right" ng-click="addAssignment()">ADD NOTICE</button>
+          <button class="btn btn-success uppercase pull-right" ng-click="addAssignment()">ADD ASSIGNMENTS</button>
 
         </div>
 
@@ -107,7 +107,7 @@
                     <th><a ng-click="sortType = 'description'; sortReverse = !sortReverse">Description</a></th>
                     <th><a ng-click="sortType = 'fromDate'; sortReverse = !sortReverse">From  Date</a></th>
                     <th><a ng-click="sortType = 'toDate'; sortReverse = !sortReverse">To  Date</a></th>
-                    <th>File</th>
+                    <!--<th>File</th>-->
                     <th ng-show="Admin || Staff">Option</th>
                   </tr>
                   </thead>
@@ -121,7 +121,7 @@
                       <td>{{x.description}}</td>
                       <td>{{x.fromDate | date:'MMM dd yyyy'}}</td>
                       <td>{{x.toDate | date:'MMM dd yyyy'}}</td>
-                      <td><a href="{{x.downloadFile}}" target="_blank"/>Download</td>
+                      <!--<td><a href="{{x.downloadFile}}" target="_blank"/>Download</td>-->
                       <td ng-show="Admin || Staff"><i class="glyphicon glyphicon-edit" ng-model="collapsed1" ng-click="editAssignment(x)"></i>
                         <i class="glyphicon glyphicon-remove"  ng-click="deleteAssignment(x)"></i>
                       </td>

@@ -22,7 +22,30 @@
 
       </form>
     </div>
+    </div>
 </script>
+
+<script type="text/ng-template" id="addBook">
+  <div class="ngdialog-message">
+    <h1>Add Notice</h1>
+    <form ng-submit="confirm(formData)">
+      <div>
+        <input  type="text" class="form-control" placeholder="Name"    ng-model="formData.name"   required><br>
+        <input  type="text" class="form-control" placeholder="Author " ng-model="formData.author" required></input><br>
+        <textarea rows="4" cols="50" class="form-control" placeholder="Description"  required ng-model="formData.description" ng-mouseover="tag3=true" ng-mouseleave="tag3=false"></textarea><div class="tag3" ng-show="tag3">Description</div><br>
+
+        <input  type="number" class="form-control" placeholder="Price"      ng-value="price"      required     ng-model="formData.price" ng-mouseover="tag4=true" ng-mouseleave="tag4=false"><div class="tag4" ng-show="tag4">Price</div><br>
+        <input  type="number" class="form-control" placeholder="No.of Books Available" ng-value="available" required ng-model="formData.available" ng-mouseover="tag5=true" ng-mouseleave="tag5=false"><div class="tag5" ng-show="tag5">No.Of Books Available</div><br>
+        <button type="submit" class="btn btn-success uppercase" ng-click=confirm(formData)>Save</button>
+        <button type="button" class="btn btn-success uppercase" ng-click=closeThisDialog("Cancel")>Cancel</button>
+
+
+    </form>
+    <div class="ngdialog-buttons">
+    </div>
+  </div>
+</script>
+
 
 <div class="container">
   <div class="row margin-top-10">
@@ -32,6 +55,7 @@
       <div class="portlet light ">
         <div class="portlet-title">
           <div class="caption caption-md">LIBRARY</div>
+          <button class="btn btn-success uppercase pull-right" ng-click="addLibrary()">ADD BOOK</button>
         </div>
 
         <!-- -----------------------------------Search Form------------------------------->
@@ -39,20 +63,19 @@
           <div class="row list-separated">
             <!---->
 
- 
+
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-              <form ng-submit="addLibrary()" ng-show="Admin">
+
                 <div class="col-sm-3"style="min-height:50px">
-                  <input  type="text"   class="form-control" placeholder="Name*" 				 ng-model="formData.name"        required><br>
-                  <input  type="text"   class="form-control" placeholder="Author*"    			 ng-model="formData.author"      required><br>
-                  <textarea rows="4" cols="50" class="form-control" placeholder="Description*"  ng-model="formData.description" required></textarea><br>
-                  <input  type="number" class="form-control" placeholder="Price*"                 ng-model="formData.price"   step="0.01"  min="0"  max="100000" required><br>
-                  <input  type="number" class="form-control" placeholder="No.of Books Available*" ng-model="formData.available" min="0"  max="100000" required><br>
-                  <button type="submit" class="btn btn-success uppercase">Add Book</button><br></div>
-              </form>
+                  <input  type="text"   class="form-control" placeholder="Name" 				 ng-model="search.name"        required><br>
+                  <input  type="text"   class="form-control" placeholder="Author"    			 ng-model="search.author"      required><br>
+                  <textarea rows="4" cols="50" class="form-control" placeholder="Description"  ng-model="search.description" required></textarea><br>
+
+                </div>
 
 
-              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" style="min-height:50px" >
+
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12"  style="height:260px;overflow-y:auto;" >
 			               <p  style="color:red">{{responseAddLibrary}} </p>
                 <table class="table table-bordered table-striped table-condensed flip-content">
                   <thead flip-content>
@@ -63,12 +86,12 @@
                     <th><a ng-click="sortType = 'description'; sortReverse = !sortReverse">Description</a></th>
                     <th><a ng-click="sortType = 'price'; sortReverse = !sortReverse">Price</a></th>
                     <th><a ng-click="sortType = 'available'; sortReverse = !sortReverse">No.Of Books Available</a></th>
-                    <th ng-show="Admin">Option</th>	
+                    <th ng-show="Admin">Option</th>
                   </tr>
                   </thead>
 
                   <tbody>
-                  <tr data-ng-repeat="x in libraryList | orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
+                  <tr data-ng-repeat="x in libraryList |filter:search | orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
                     <div data-ng-bind-html="x.id">
                       <td>{{$index+1}}</td>
                       <td>{{x.name}}</td>
@@ -76,7 +99,7 @@
                       <td>{{x.description}}</td>
                       <td>{{x.price}}</td>
                       <td>{{x.available}}</td>
-                      <td ng-show="Admin"><div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
+                      <td ng-show="Admin"><div>
                         <i class="glyphicon glyphicon-edit" ng-model="collapsed1" ng-click="editLibrary(x)"></i>
                         <i class="glyphicon glyphicon-remove"  ng-click="deleteLibrary(x)"></i>
                       </div>

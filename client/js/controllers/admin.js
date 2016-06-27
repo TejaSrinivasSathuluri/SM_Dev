@@ -1462,34 +1462,49 @@ angular
       if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
       $scope.addLibrary = function () {
 
-            Library.findOne({filter:{where:{schoolId: $scope.schoolId, name: $scope.formData.name, author: $scope.formData.author}}},function(){
-
-					$scope.responseAddLibrary = "Book & Author Combination Already Exists";
-					 setTimeout( function()
-						{
-						   	$state.go($state.current, {}, {reload: true});
-							$scope.$apply();
-						}, 1000 );
-
-			},function(response){
-
-				  Library.create({
-							  schoolId: $scope.schoolId, name: $scope.formData.name, author: $scope.formData.author,
-							  description: $scope.formData.description, price: $scope.formData.price, available: $scope.formData.available
-							}, function () {
-							   $scope.responseAddLibrary="Book Added Successfully.";
-							     setTimeout( function()
-    {
-
-        $state.go($state.current, {}, {reload: true});
-        $scope.$apply();
-    }, 500 );
 
 
-							});
+              ngDialog.openConfirm({template: 'addBook',
+                scope: $scope //Pass the scope object if you need to access in the template
+              }).then(
+                function(formData) {
 
-			});
 
+                  Library.findOne({filter:{where:{schoolId: $scope.schoolId, name: formData.name, author: formData.author}}},function(){
+
+                    $scope.responseAddLibrary = "Book & Author Combination Already Exists";
+                    setTimeout( function()
+                    {
+                      $state.go($state.current, {}, {reload: true});
+                      $scope.$apply();
+                    }, 1000 );
+
+                  }, function () {
+                    Library.create({
+                      schoolId: $scope.schoolId, name: formData.name, author: formData.author,
+                      description: formData.description, price: formData.price, available: formData.available
+                    }, function () {
+                      $scope.responseAddLibrary="Book Added Successfully.";
+                      setTimeout( function()
+                      {
+
+                        $state.go($state.current, {}, {reload: true});
+                        $scope.$apply();
+                      }, 500 );
+
+
+                    },function(response){
+                      console.log(response.data.error.message);
+                    });
+
+                  });
+
+                },
+                function (value)
+                {
+
+                }
+              );
 
 
 	}
@@ -1548,7 +1563,7 @@ angular
         $scope.sortReverse  = false;
         $scope.searchFish   = '';
         $scope.currentPage = 0;
-        $scope.pageSize = 3;
+        $scope.pageSize = 10;
         $scope.numberOfPages=function(){    return Math.ceil($scope.libraryList.length/$scope.pageSize);}
 
 
