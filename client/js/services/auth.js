@@ -50,7 +50,7 @@ angular
       register: register
     };
   }])
- .factory('AuthServiceStudent', ['Student', '$q', '$rootScope', '$window','School',function(User, $q,$rootScope,$window,School) {
+ .factory('AuthServiceStudent', ['Student','$q', '$rootScope', '$window','School',function(User, $q,$rootScope,$window,School) {
   function login(email, password) {
     return User
       .login({email: email, password: password})
@@ -93,7 +93,7 @@ angular
     register: register
   };
 }])
- .factory('AuthServiceStaff', ['Staff', '$q', '$rootScope', '$window','School',function(User, $q,$rootScope,$window,School) {
+ .factory('AuthServiceStaff',   ['Staff',  '$q', '$rootScope', '$window','School',function(User, $q,$rootScope,$window,School) {
   function login(email, password) {
     return User
       .login({email: email, password: password})
@@ -136,7 +136,7 @@ angular
     register: register
   };
 }])
- .factory('AuthServiceParent', ['Parent', '$q', '$rootScope', '$window','School',function(User, $q,$rootScope,$window,School) {
+ .factory('AuthServiceParent',  ['Parent', '$q', '$rootScope', '$window','School',function(User, $q,$rootScope,$window,School) {
   function login(email, password) {
     return User
       .login({email: email, password: password})

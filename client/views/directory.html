@@ -312,7 +312,7 @@
 <!-------------------------------------------Edit Form Templates------------------------------------------------------------------------------------->
 
 <script type="text/ng-template" id="addStudent">
-  <div class="scrollme" ng-scrollbar>
+  <div class="scrollme" style="overflow:auto">
 
     <form  ng-submit=confirm(formData) >
       <div class="col-sm-12">
@@ -348,7 +348,7 @@
       <div class="col-sm-12">
         <span ng-show="RollnoExists" style="color:red">Roll Number Already Exists</span>
 
-        <div class="col-sm-6"><select class="form-control" ng-model="formData.class"   required>
+        <div class="col-sm-6"><select class="form-control" ng-model="formData.classId" ng-change="checkRollnoExists()"  required>
           <option value="">Class-Section*</option>
           <option ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
         </select><br></div>
@@ -415,11 +415,21 @@
         </div>
         </div>
         <div class="col-sm-12">
-          <div class="col-sm-6"><input  type="email" class="form-control" placeholder="Father Email*"      ng-model="formData.fatherEmail"      ng-mouseover="tag32=true" ng-mouseleave="tag32=false"  >
+          <div class="col-sm-6"><input  type="text" class="form-control" placeholder="Father Name*"      ng-model="formData.fatherName"      ng-mouseover="tag34=true" ng-mouseleave="tag34=false"  >
+
+            <div class="tag3" ng-show="tag34">Enter Father Name   </div><br><br>
+          </div>
+          <div class="col-sm-6"><input  type="text" class="form-control" placeholder="Mother Name*"      ng-model="formData.motherName"      ng-mouseover="tag35=true" ng-mouseleave="tag35=false"   >
+
+            <div class="tag3" ng-show="tag35">Enter Mother Name   </div><br><br>
+          </div>
+        </div>
+      <div class="col-sm-12">
+          <div class="col-sm-6"><input  type="email" class="form-control" placeholder="Father Email"      ng-model="formData.fatherEmail"      ng-mouseover="tag32=true" ng-mouseleave="tag32=false"  >
 
             <div class="tag3" ng-show="tag32">Enter Father Email   </div><br><br>
           </div>
-          <div class="col-sm-6"><input  type="email" class="form-control" placeholder="Mother Email*"      ng-model="formData.motherEmail"      ng-mouseover="tag33=true" ng-mouseleave="tag33=false"   >
+          <div class="col-sm-6"><input  type="email" class="form-control" placeholder="Mother Email"      ng-model="formData.motherEmail"      ng-mouseover="tag33=true" ng-mouseleave="tag33=false"   >
 
             <div class="tag3" ng-show="tag33">Enter Mother Email   </div><br><br>
           </div>
@@ -470,7 +480,8 @@
 
       <div class="col-sm-12">
         <div class="col-sm-6">
-          <input  type="text" class="form-control" placeholder="RollNo*"      ng-model="editData.rollNo"       required><br>
+          <span ng-show="RollnoExists" style="color:red">Roll Number Already Exists</span>
+          <input  type="text" class="form-control" placeholder="RollNo*"      ng-model="editData.rollNo"    ng-change="checkRollnoExistsEdit()"   required><br>
         </div>
         <div class="col-sm-6">
           <input  type="text" class="form-control" placeholder="Reg Id*"      ng-model="editData.regId"        required><br>
@@ -485,6 +496,10 @@
             <option value="M">Male</option>
           </select ><br>
         </div>
+        <div class="col-sm-6"><select class="form-control" ng-model="editData.classId"   required>
+          <option value="">Class-Section*</option>
+          <option ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
+        </select><br></div>
 
       </div>
 
@@ -547,6 +562,26 @@
           <input  type="text" class="form-control" placeholder="Religion"       	 	ng-model="editData.religion"   			   > <br>
           <input  type="text" class="form-control" placeholder="Caste"   		     	ng-model="editData.caste"   				       > <br>
 
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="col-sm-6"><input  type="text" class="form-control" placeholder="Father Name*"      ng-model="editData.fatherName"      ng-mouseover="tag34=true" ng-mouseleave="tag34=false"  >
+
+          <div class="tag3" ng-show="tag34">Enter Father Name   </div><br><br>
+        </div>
+        <div class="col-sm-6"><input  type="text" class="form-control" placeholder="Mother Name*"      ng-model="editData.motherName"      ng-mouseover="tag35=true" ng-mouseleave="tag35=false"   >
+
+          <div class="tag3" ng-show="tag35">Enter Mother Name   </div><br><br>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="col-sm-6"><input  type="email" class="form-control" placeholder="Father Email"      ng-model="editData.fatherEmail"      ng-mouseover="tag32=true" ng-mouseleave="tag32=false"  >
+
+          <div class="tag3" ng-show="tag32">Enter Father Email   </div><br><br>
+        </div>
+        <div class="col-sm-6"><input  type="email" class="form-control" placeholder="Mother Email"      ng-model="editData.motherEmail"      ng-mouseover="tag33=true" ng-mouseleave="tag33=false"   >
+
+          <div class="tag3" ng-show="tag33">Enter Mother Email   </div><br><br>
         </div>
       </div>
 

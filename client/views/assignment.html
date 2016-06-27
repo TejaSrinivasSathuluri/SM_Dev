@@ -47,7 +47,7 @@
         <textarea rows="4" cols="50" class="form-control" placeholder="Description of Assignment " ng-model="formData.description" required></textarea><br>
         <input  type="date" class="form-control"  ng-model="formData.fromDate" required><br>
         <input  type="date" class="form-control"  ng-model="formData.toDate" required><br>
-        <input type = "file" file-model = "myFile" class="form-control" placeholder="Image" ng-model="formData.uploadFile"><br>
+        <input type = "file" file-model = "formData.myFile" class="form-control" placeholder="Image" ng-model="formData.uploadFile"><br>
         <button type="submit"  class="btn btn-success uppercase">Post Assignment</button>
       </div>
 
@@ -69,6 +69,8 @@
       <div class="portlet light ">
         <div class="portlet-title">
           <div class="caption caption-md">ASSIGNMENTS</div>
+          <button class="btn btn-success uppercase pull-right" ng-click="addAssignment()">ADD NOTICE</button>
+
         </div>
 
         <!-- -----------------------------------Search Form------------------------------->

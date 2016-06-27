@@ -29,7 +29,7 @@ angular
                })
 
                .error(function(response){
-                 console.log("File Not Upload Becasue" + response);
+                 console.log("File Not Upload Because" + JSON.stringify(response));
                });
             }
          }])
@@ -46,109 +46,130 @@ angular
       {
         $scope.user = $window.localStorage.getItem('user');
         $scope.userData = JSON.parse($scope.user);
-        if ($scope.userData.type == 'Admin') { $scope.Admin = true;}
+        if ($scope.userData.type == 'Admin')   { $scope.Admin   = true;}
         if ($scope.userData.type == 'Student') { $scope.Student = true;}
-        if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
-        if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
+        if ($scope.userData.type == 'Parent')  { $scope.Parent  = true;}
+        if ($scope.userData.type == 'Staff')   { $scope.Staff   = true;}
         $scope.schoolName= null;
         $scope.schoolId = $scope.userData.schoolId;
         $scope.date = new Date();
-        $scope.school = School.findById({id:$scope.schoolId},function(){ $rootScope.schoolName = $scope.school.schoolName;});
-        var day =$filter('date')(new Date(), 'yyyy-MM-dd');
-        $scope.noticeList = Noticeboard.find({filter:{where:{schoolId:$scope.schoolId,date1:{lt:day},date2:{gt:day}}}});
-      }
+
+        if (Parent)
+        {
+
+          $scope.listStudent = Student.find({filter:{where:{fatherEmail:$scope.userData.email}}},function(){
+
+            response.forEach = function(listStudent){
+              var student = listStudent.toJSON();
+              StudentParent.create({studentId:student.id,parentId:userData.id,schoolId:$scope.schoolId});
+            }
+          });
+          console.log($scope.listStudent);
+
+        }
+        else{
+
+          $scope.school = School.findById({id:$scope.schoolId},function(){ $rootScope.schoolName = $scope.school.schoolName;});
+
+          // --------------------------------------------------------
+          //                  GET NOTICE LIST
+          // --------------------------------------------------------
+          var day =$filter('date')(new Date(), 'yyyy-MM-dd');
+          $scope.noticeList = Noticeboard.find({filter:{where:{schoolId:$scope.schoolId,date1:{lt:day},date2:{gt:day}}}});
 
 
-
-
-      //--------------------------------------------------------
-      //
-      // --------------------------------------------------------
-      //
-      $scope.changeMode = function (mode) {
-        $scope.mode = mode;
-      };
-
-      $scope.today = function () {   $scope.currentDate = new Date(); }
-
-      $scope.isToday = function () {  var today = new Date(), currentCalendarDate = new Date($scope.currentDate);
-        today.setHours(0, 0, 0, 0);
-        currentCalendarDate.setHours(0, 0, 0, 0);
-        return today.getTime() === currentCalendarDate.getTime();
-      }
-
-      $scope.loadEvents = function () {    $scope.eventSource = createRandomEvents();};
-
-      $scope.onEventSelected = function (event) {   $scope.event = event; };
-
-      function createRandomEvents() {
-        var events = [];
-        //for (var i = 0; i < 20; i += 1) {
-          var date = new Date();
-          //var startDay = Math.floor(Math.random() * 90) - 45;
-          //var endDay = Math.floor(Math.random() * 2) + startDay;
+          //--------------------------------------------------------
+          //                   CALENDAR
+          // --------------------------------------------------------
           //
-          //
-          //  startTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + startDay));
+          $scope.changeMode = function (mode) {
+            $scope.mode = mode;
+          };
+
+          $scope.today = function () {   $scope.currentDate = new Date(); }
+
+          $scope.isToday = function () {  var today = new Date(), currentCalendarDate = new Date($scope.currentDate);
+            today.setHours(0, 0, 0, 0);
+            currentCalendarDate.setHours(0, 0, 0, 0);
+            return today.getTime() === currentCalendarDate.getTime();
+          }
+
+          $scope.loadEvents = function () {    $scope.eventSource = createRandomEvents();};
+
+          $scope.onEventSelected = function (event) {   $scope.event = event; };
+
+          function createRandomEvents() {
+            var events = [];
+            //for (var i = 0; i < 20; i += 1) {
+            var date = new Date();
+            //var startDay = Math.floor(Math.random() * 90) - 45;
+            //var endDay = Math.floor(Math.random() * 2) + startDay;
+            //
+            //
+            //  startTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + startDay));
 
             //startTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
-          //  if (endDay === startDay) {      endDay += 1; }
-          //  endTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + endDay));
-          //  endTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() ));
+            //  if (endDay === startDay) {      endDay += 1; }
+            //  endTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + endDay));
+            //  endTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() ));
 
-          for(var i=0;i<$scope.noticeList.length;i++){
-            console.log($scope.noticeList[i].date1);
-            events.push({ title:  $scope.noticeList[i].title });
+            for(var i=0;i<$scope.noticeList.length;i++){
+              console.log($scope.noticeList[i].date1);
+              events.push({ title:  $scope.noticeList[i].title });
 
+            }
+
+            //}
+            return events;
           }
 
-        //}
-        return events;
+
+
+          //--------------------------------------------------------
+          //                  GET BIRTHDAY LIST
+          // --------------------------------------------------------
+          $scope.studentList = Student.find({
+            filter: {
+              where: {schoolId: $scope.schoolId},
+              include: 'class'
+            }
+          }, function (response) {
+            $scope.birthdayList =[];
+            var j =0;
+            for(var i=0;i<$scope.studentList.length;i++)
+            {
+              var a =  $filter('date')(new Date($scope.studentList[i].dateofBirth), 'MM-dd')    ;
+              var b =  $filter('date')(new Date(), 'MM-dd')    ;
+              var c= (new Date(a)-new Date(b)) / (1000 * 3600 * 24);
+              if ( c ==0){
+                $scope.birthdayList[j] = { studentId:$scope.studentList[i].id,firstName:$scope.studentList[i].firstName,
+                  class:($scope.studentList[i].class.className + '-' +$scope.studentList[i].class.sectionName),
+                  dateofBirth:$scope.studentList[i].dateofBirth};
+                j++;
+              }
+            }
+          }, function (response) {
+            if (response.status =401) $state.go('logout', {}, {reload: true}) ;
+          });
+        }
+
+
+
       }
 
 
 
 
-      // --------------------------------------------------------
-      //                  GET NOTICE LIST
-      // --------------------------------------------------------
-
-      $scope.day =$filter('date')(new Date($scope.date), 'yyyy-MM-dd');
-      $scope.noticeList = Noticeboard.find({filter:{where:{schoolId:$scope.schoolId,date1:{lt:$scope.day},date2:{gt:$scope.day}}}});
 
 
 
-      //--------------------------------------------------------
-      //                  GET BIRTHDAY LIST
-      // --------------------------------------------------------
-      $scope.studentList = Student.find({
-        filter: {
-          where: {schoolId: $scope.schoolId},
-          include: 'class'
-        }
-      }, function (response) {
-        $scope.birthdayList =[];
-        var j =0;
-        for(var i=0;i<$scope.studentList.length;i++)
-        {
-          var a =  $filter('date')(new Date($scope.studentList[i].dateofBirth), 'MM-dd')    ;
-          var b =  $filter('date')(new Date(), 'MM-dd')    ;
-          var c= (new Date(a)-new Date(b)) / (1000 * 3600 * 24);
-          if ( c ==0){
-               $scope.birthdayList[j] = { studentId:$scope.studentList[i].id,firstName:$scope.studentList[i].firstName,
-               class:($scope.studentList[i].class.className + '-' +$scope.studentList[i].class.sectionName),
-                 dateofBirth:$scope.studentList[i].dateofBirth};
-               j++;
-          }
-        }
-      }, function (response) {
-        if (response.status =401) $state.go('logout', {}, {reload: true}) ;
-      });
 
 
-   }
 
-  ])
+
+
+
+   }])
 
 
   .controller('DirectoryController',
@@ -336,14 +357,23 @@ angular
           $scope.checkRollnoExists = function() {
             $scope.RollnoExists = false;
 
-            if($scope.formData.rollNo != null && $scope.formData.class != null){
-              $scope.checkRoll = Student.findOne({filter:{where:{classId :$scope.formData.class,rollNo:$scope.formData.rollNo}}},
+            if($scope.formData.rollNo != null && $scope.formData.classId != null){
+              $scope.checkRoll = Student.findOne({filter:{where:{classId :$scope.formData.classId,rollNo:$scope.formData.rollNo}}},
               function(){
                 $scope.RollnoExists =true;
-
               });
             }
           }
+          $scope.checkRollnoExistsEdit = function() {
+            $scope.RollnoExists = false;
+            if($scope.editData.rollNo != null && $scope.editData.classId != null){
+              $scope.checkRoll = Student.findOne({filter:{where:{classId :$scope.editData.classId,rollNo:$scope.editData.rollNo}}},
+                function(){
+                  $scope.RollnoExists =true;
+                });
+            }
+          }
+
 
 
 
@@ -376,7 +406,7 @@ angular
                       RFID            : formData.RFID,
                       previousSchool  : formData.previousSchool,
                       dateofJoin      : formData.dateofJoin,
-                      classId         : formData.class,
+                      classId         : formData.classId,
                       status          : "A",
                       regId           : formData.regId,
                       isDisable       : formData.isDisable,
@@ -400,7 +430,9 @@ angular
                       type            : "Student",
                       created         : new Date(),
                       fatherEmail     : formData.fatherEmail,
-                      motherEmail     : formData.motherEmail
+                      motherEmail     : formData.motherEmail,
+                      fatherName      : formData.fatherName,
+                      motherName      : formData.motherName
 
                     },
                       function () {
@@ -633,7 +665,6 @@ angular
             if (x.type == "Student") {
               $scope.editData = {};
               $scope.editData = x;
-
               $scope.editData.dateofBirth = $filter('date')(new Date(x.dateofBirth), 'yyyy-MM-dd');
               var d = new Date($scope.editData.dateofBirth);
               var date2 = new Date(d);
@@ -668,6 +699,7 @@ angular
                         gender: editData.gender,
                         dateofBirth:editData.dateofBirth  ,
                         rollNo: editData.rollNo,
+                        classId: editData.classId,
                         RFID: editData.RFID,
                         previousSchool: editData.previousSchool,
                         dateofJoin: editData.dateofJoin,
@@ -690,7 +722,11 @@ angular
                         motherTounge: editData.motherTounge,
                         nationalIdType: editData.nationalIdType,
                         subCaste: editData.subCaste,
-                        contact: editData.contact
+                        contact: editData.contact,
+                            fatherEmail      : editData.fatherEmail,
+                            motherEmail     : editData.motherEmail,
+                            fatherName      : editData.fatherName,
+                            motherName      : editData.motherName
 
                       },
                       function () {
@@ -1555,41 +1591,58 @@ angular
         //--------------------------------------------------------
         //                 ADD ASSIGNMENT
         //--------------------------------------------------------
+
         $scope.addAssignment = function () {
 
-          if ($scope.myFile != null) {
-            $scope.downloadFile = baseApi + $scope.myFile.name;
-            var file = $scope.myFile;
-            var uploadUrl = "/api/Containers/assignments/upload";
-            var uploadUrl2 = "http://localhost:3000/api/Containers/assignments/upload";
-            //fileUpload.uploadFileToUrl(file, uploadUrl);
-            var fd = new FormData();
-            fd.append('file', file);
-            $http.post(uploadUrl, fd, {
-              transformRequest: angular.identity,
-              headers: {'Content-Type': undefined}
-            });
-          }
 
-          Assignment.create({
-              schoolId: $scope.schoolId,
-              title: $scope.formData.title,
-              classId: $scope.formData.classSelected,
-              description: $scope.formData.description,
-              fromDate: $scope.formData.fromDate,
-              toDate: $scope.formData.toDate,
-              downloadFile: $scope.downloadFile
-            }, function () {
-              $state.go($state.current, {}, {reload: true});
+          ngDialog.openConfirm({template: 'addAssignment',
+            scope: $scope //Pass the scope object if you need to access in the template
+          }).then(
+            function(formData) {
+              console.log(formData);
+              formData.fromDate = $filter('date')(new Date(formData.fromDate), 'yyyy-MM-dd');
+              formData.toDate = $filter('date')(new Date(formData.toDate), 'yyyy-MM-dd');
+              if (formData.myFile != null) {
+                alert('M');
+                $scope.downloadFile = baseApi + formData.myFile.name;
+                var file = formData.myFile;
+                var uploadUrl = "/api/Containers/assignments/upload";
+                var uploadUrl2 = "http://localhost:3000/api/Containers/assignments/upload";
+                fileUpload.uploadFileToUrl(file, uploadUrl);
+                //var fd = new FormData();
+                //fd.append('file', file);
+                //$http.post(uploadUrl, fd, {
+                //  transformRequest: angular.identity,
+                //  headers: {'Content-Type': undefined}
+                //},function(response){
+                //  console.log(response);
+                //});
+              }
+
+              Assignment.create({
+                  schoolId    : $scope.schoolId,
+                  title       : formData.title,
+                  classId     : formData.classSelected,
+                  description : formData.description,
+                  fromDate    : formData.fromDate,
+                  toDate      : formData.toDate,
+                  downloadFile: $scope.downloadFile
+                }, function () {
+                  $state.go($state.current, {}, {reload: true});
+                },
+                function (response) {
+                  $scope.response = "Error Occurred In Creating Assignment ";
+                  console.log(response.data.error.message);
+                });
+
             },
-            function (response) {
-              $scope.response = "Error Occurred In Creating Assignment ";
-              console.log(response.data.error.message);
-            });
+            function (value)
+            {
+
+            }
+          );
 
         }
-
-
         //--------------------------------------------------------
         //                 SHOW ASSIGNMENT LIST
         //--------------------------------------------------------
