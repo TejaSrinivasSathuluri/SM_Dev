@@ -188,7 +188,7 @@
   </div>
 </script>
 <script type="text/ng-template" id="addStaff">
-  <div class="scrollme" ng-scrollbar>
+  <div style="width: 400px; height: 300px; overflow-y: scroll;">
 
     <form  ng-submit=confirm(formData) >
       <div class="col-sm-12">
@@ -312,9 +312,10 @@
 <!-------------------------------------------Edit Form Templates------------------------------------------------------------------------------------->
 
 <script type="text/ng-template" id="addStudent">
-  <div class="scrollme" style="overflow:auto">
+  <div style="width: 400px; height: 300px; overflow-y: scroll;">
 
-    <form  ng-submit=confirm(formData) >
+
+  <form  ng-submit=confirm(formData) >
       <div class="col-sm-12">
         <div class="col-sm-4"></div>
         <div class="col-sm-4"><h5><b>Basic Info</b></h5></div>
@@ -565,11 +566,11 @@
         </div>
       </div>
       <div class="col-sm-12">
-        <div class="col-sm-6"><input  type="text" class="form-control" placeholder="Father Name*"      ng-model="editData.fatherName"      ng-mouseover="tag34=true" ng-mouseleave="tag34=false"  >
+        <div class="col-sm-6"><input  type="text" class="form-control" placeholder="Father Name"      ng-model="editData.fatherName"      ng-mouseover="tag34=true" ng-mouseleave="tag34=false"  >
 
           <div class="tag3" ng-show="tag34">Enter Father Name   </div><br><br>
         </div>
-        <div class="col-sm-6"><input  type="text" class="form-control" placeholder="Mother Name*"      ng-model="editData.motherName"      ng-mouseover="tag35=true" ng-mouseleave="tag35=false"   >
+        <div class="col-sm-6"><input  type="text" class="form-control" placeholder="Mother Name"      ng-model="editData.motherName"      ng-mouseover="tag35=true" ng-mouseleave="tag35=false"   >
 
           <div class="tag3" ng-show="tag35">Enter Mother Name   </div><br><br>
         </div>
@@ -597,6 +598,7 @@
 <script type="text/ng-template" id="showStudent">
 
   <div class="ngdialog-message">
+  <!--<div style="width: 400px; height: 300px; overflow-y: scroll;">-->
     <div class="col-sm-6">	Name            :</div><div class="col-sm-6">{{	formData.firstName }}{{	formData.lastName }}  </div><br/>
     <div class="col-sm-6">	email           :</div><div class="col-sm-6">{{	formData.email            }}                 </div>    <br/>
     <div class="col-sm-6">	password        :</div><div class="col-sm-6">{{	formData.password         }}                 </div> <br/>
@@ -707,8 +709,8 @@
           <div class="caption caption-md pull-left">Search</div>
 
           <div class="btn-group pull-right">
-            <input  type = "file"   class="form-control"  file-model = "myFile" >
-            <input type="submit" ng-click="upload()"> </input>
+            <!--<input  type = "file"   class="form-control"  file-model = "myFile" >-->
+            <!--<input type="submit" ng-click="upload()"> </input>-->
 
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Add Users <span class="caret"></span>

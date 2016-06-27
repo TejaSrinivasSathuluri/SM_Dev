@@ -193,54 +193,54 @@ angular
         $scope.school = School.findById({id:$scope.schoolId},function(){ $rootScope.schoolName = $scope.school.schoolName;});
 
 
-       $scope.upload = function (){
-         alert('M');
-         var fileData = $scope.myFile;
-         function insertFile(fileData, callback) {
-           const boundary = '-------314159265358979323846';
-           const delimiter = "\r\n--" + boundary + "\r\n";
-           const close_delim = "\r\n--" + boundary + "--";
-
-           var reader = new FileReader();
-           reader.readAsBinaryString(fileData);
-           reader.onload = function(e) {
-             var contentType = fileData.type || 'application/octet-stream';
-             var metadata = {
-               'title': fileData.fileName,
-               'mimeType': contentType
-             };
-
-             var base64Data = btoa(reader.result);
-             var multipartRequestBody =
-               delimiter +
-               'Content-Type: application/json\r\n\r\n' +
-               JSON.stringify(metadata) +
-               delimiter +
-               'Content-Type: ' + contentType + '\r\n' +
-               'Content-Transfer-Encoding: base64\r\n' +
-               '\r\n' +
-               base64Data +
-               close_delim;
-
-
-             var request = gapi.client.request({
-               'path': '/upload/drive/v2/files',
-               'method': 'POST',
-               'params': {'uploadType': 'multipart'},
-               'headers': {
-                 'Content-Type': 'multipart/mixed; boundary="' + boundary + '"'
-               },
-               'body': multipartRequestBody});
-             if (!callback) {
-               callback = function(file) {
-                 console.log(file)
-               };
-             }
-             request.execute(callback);
-           }
-         }
-
-       }
+       //$scope.upload = function (){
+       //  alert('M');
+       //  var fileData = $scope.myFile;
+       //  function insertFile(fileData, callback) {
+       //    const boundary = '-------314159265358979323846';
+       //    const delimiter = "\r\n--" + boundary + "\r\n";
+       //    const close_delim = "\r\n--" + boundary + "--";
+       //
+       //    var reader = new FileReader();
+       //    reader.readAsBinaryString(fileData);
+       //    reader.onload = function(e) {
+       //      var contentType = fileData.type || 'application/octet-stream';
+       //      var metadata = {
+       //        'title': fileData.fileName,
+       //        'mimeType': contentType
+       //      };
+       //
+       //      var base64Data = btoa(reader.result);
+       //      var multipartRequestBody =
+       //        delimiter +
+       //        'Content-Type: application/json\r\n\r\n' +
+       //        JSON.stringify(metadata) +
+       //        delimiter +
+       //        'Content-Type: ' + contentType + '\r\n' +
+       //        'Content-Transfer-Encoding: base64\r\n' +
+       //        '\r\n' +
+       //        base64Data +
+       //        close_delim;
+       //
+       //
+       //      var request = gapi.client.request({
+       //        'path': '/upload/drive/v2/files',
+       //        'method': 'POST',
+       //        'params': {'uploadType': 'multipart'},
+       //        'headers': {
+       //          'Content-Type': 'multipart/mixed; boundary="' + boundary + '"'
+       //        },
+       //        'body': multipartRequestBody});
+       //      if (!callback) {
+       //        callback = function(file) {
+       //          console.log(file)
+       //        };
+       //      }
+       //      request.execute(callback);
+       //    }
+       //  }
+       //
+       //}
 
 
         //--------------------------------------------------------
@@ -440,7 +440,7 @@ angular
           $scope.addStudentForm = function () {
             ngDialog.openConfirm({ template: 'addStudent',scope: $scope }).then(
               function (formData) {
-                $scope.studentExists = Student.findOne({filter: {where: {classId:formData.class,rollNo:formData.rollNo}}},
+                $scope.studentExists = Student.findOne({filter: {where: {classId:formData.classId,rollNo:formData.rollNo}}},
                   function () { $scope.response = 'Student Already Exists For This Class With This Roll Number';},
                   function () {
 
@@ -495,10 +495,9 @@ angular
                         setTimeout( function()
                         {
                           formData.response = 'Student Added Successfully';
-
                           $state.go($state.current, {}, {reload: true});
                           $scope.$apply();
-                        }, 1000 );
+                        }, 500 );
                       },
                       function (response) {
                         console.log(response.data.error.message);
@@ -748,51 +747,57 @@ angular
                   //editData.dateofBirth = new Date(date1.setDate(editData.dateofBirth.getDate()+1));
                   //editData.dateofJoin  = new Date(date2.setDate(editData.dateofBirth.getDate()+1));
 //console.log(editData.dateofBirth);
-                        Student.prototype$updateAttributes({id: x.id}, {
-                        firstName: editData.firstName,
-                        lastName: editData.lastName,
-                        email: editData.email,
-                        gender: editData.gender,
-                        dateofBirth:editData.dateofBirth  ,
-                        rollNo: editData.rollNo,
-                        classId: editData.classId,
-                        RFID: editData.RFID,
-                        previousSchool: editData.previousSchool,
-                        dateofJoin: editData.dateofJoin,
-                        status: editData.status,
-                        regId: editData.regId,
-                        isDisable: editData.isDisable,
-                        currentAddress: editData.currentAddress,
-                        currentCity: editData.currentCity,
-                        currentState: editData.currentState,
-                        currentPincode: editData.currentPincode,
-                        bloodGroup: editData.bloodGroup,
-                        religion: editData.religion,
-                        caste: editData.caste,
-                        alternateContact: editData.alternateContact,
-                        permanentAddress: editData.permanentAddress,
-                        permanentCity: editData.permanentCity,
-                        permanentState: editData.permanentState,
-                        permanentPincode: editData.permanentPincode,
-                        nationalId: editData.nationalId,
-                        motherTounge: editData.motherTounge,
-                        nationalIdType: editData.nationalIdType,
-                        subCaste: editData.subCaste,
-                        contact: editData.contact,
-                            fatherEmail      : editData.fatherEmail,
-                            motherEmail     : editData.motherEmail,
-                            fatherName      : editData.fatherName,
-                            motherName      : editData.motherName
 
-                      },
-                      function () {
-                        $scope.clearForm();
-                        alert('Successfully Updated');
-                        $state.go($state.current, {}, {reload: true});
-                      },
-                      function (response) {
-                        console.log(response.data.error.message);
-                      });
+                  $scope.studentExists = Student.findOne({filter: {where: {classId:formData.classId,rollNo:formData.rollNo}}},
+                    function () { $scope.response = 'Student Already Exists For This Class With This Roll Number';},
+                    function () {
+
+                      Student.prototype$updateAttributes({id: x.id}, {
+                          firstName: editData.firstName,
+                          lastName: editData.lastName,
+                          email: editData.email,
+                          gender: editData.gender,
+                          dateofBirth: editData.dateofBirth,
+                          rollNo: editData.rollNo,
+                          classId: editData.classId,
+                          RFID: editData.RFID,
+                          previousSchool: editData.previousSchool,
+                          dateofJoin: editData.dateofJoin,
+                          status: editData.status,
+                          regId: editData.regId,
+                          isDisable: editData.isDisable,
+                          currentAddress: editData.currentAddress,
+                          currentCity: editData.currentCity,
+                          currentState: editData.currentState,
+                          currentPincode: editData.currentPincode,
+                          bloodGroup: editData.bloodGroup,
+                          religion: editData.religion,
+                          caste: editData.caste,
+                          alternateContact: editData.alternateContact,
+                          permanentAddress: editData.permanentAddress,
+                          permanentCity: editData.permanentCity,
+                          permanentState: editData.permanentState,
+                          permanentPincode: editData.permanentPincode,
+                          nationalId: editData.nationalId,
+                          motherTounge: editData.motherTounge,
+                          nationalIdType: editData.nationalIdType,
+                          subCaste: editData.subCaste,
+                          contact: editData.contact,
+                          fatherEmail: editData.fatherEmail,
+                          motherEmail: editData.motherEmail,
+                          fatherName: editData.fatherName,
+                          motherName: editData.motherName
+
+                        },
+                        function () {
+                          $scope.clearForm();
+                          alert('Successfully Updated');
+                          $state.go($state.current, {}, {reload: true});
+                        },
+                        function (response) {
+                          console.log(response.data.error.message);
+                        });
+                    });
 
                 },
                 function (value) {
