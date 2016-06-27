@@ -496,7 +496,7 @@ angular
                 scope: $scope
               }).then(
                 function (editData) {
-                  
+
                   $scope.studentExists = Student.findOne({filter: {where: {classId:editData.classId,rollNo:editData.rollNo},include:'class'}},
                     function () {
                       $scope.error = true;

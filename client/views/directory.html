@@ -764,7 +764,7 @@
                                                                 <th ng-show="Admin">Action</th>
                                                             </tr>
                                                    </thead>
-                                                   <tbody data-ng-repeat="x in searchList | orderBy:sortType:sortReverse | filter:search | startFrom : currentPage*pageSize | limitTo:pageSize">
+                                                   <tbody data-ng-repeat="x in  filtered = (searchList | filter:search) | orderBy:sortType:sortReverse | filter:search  | startFrom : currentPage*pageSize | limitTo:pageSize">
                                                           <tr>
                                                                   <td style="width:10%"></td>
                                                                   <td style="width:30%"><a ng-click="showUser(x)">{{x.firstName}} {{x.lastName}}</a>    </td>
@@ -777,14 +777,14 @@
                                                                   <td ng-show="Admin" style="width: 10%">
                                                                                   <i class="glyphicon glyphicon-edit" id="package1" class="accordion-toggle" data-toggle="collapse" data-parent="#Directory" data-target=".packageDetails1" ng-click="editUser(x)"></i>
                                                                                   <i class="glyphicon glyphicon-remove"  ng-click="deleteUser(x)"></i>
-                                                                   </td>
+                                                                  </td>
 
                                                           </tr>
                                                      </tbody>
 
                                               </table>
                  <div class="pull-left">
-                   Total Results :{{ searchList.length}}
+                   Total Results :{{ searchList.length}} |  Filtered Results :{{ filtered.length}}
 
 
 
