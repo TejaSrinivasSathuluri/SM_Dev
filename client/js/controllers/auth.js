@@ -86,5 +86,22 @@ angular
           console.log(response.data.error.message);
         });
   }])
-
+  //.controller('SignUpController', ['$scope', 'AuthServiceParent', '$state',
+  //  function($scope, AuthService, $state) {
+  //    $scope.user = {
+  //      email: 'baz@qux.com',
+  //      password: 'bazqux'
+  //    };
+  //
+  //    $scope.register = function() {
+  //      AuthService.register($scope.user.email, $scope.user.password)
+  //        .then(function(response) {
+  //          AuthService.link($scope.user.email, response.id);
+  //
+  //          $state.transitionTo('login');
+  //        },function(response){
+  //          console.log(response.data.error.message);
+  //        });
+  //    };
+  //  }])
 ;

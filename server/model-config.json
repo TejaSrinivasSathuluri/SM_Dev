@@ -107,5 +107,8 @@
   "Container": {
     "dataSource": "container",
     "public": true
+  },
+  "Email": {
+    "dataSource": "myEmailDataSource"
   }
 }
