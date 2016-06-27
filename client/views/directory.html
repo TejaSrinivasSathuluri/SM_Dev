@@ -627,6 +627,10 @@
     <div class="col-sm-6">	nationalIdType  :</div><div class="col-sm-6">{{	formData.nationalIdType   }}                 </div> <br/>
     <div class="col-sm-6">	subCaste        :</div><div class="col-sm-6">{{	formData.subCaste         }}                 </div> <br/>
     <div class="col-sm-6">	contact         :</div><div class="col-sm-6">{{	formData.contact          }}                 </div> <br/>
+    <div class="col-sm-6">	Father Name     :</div><div class="col-sm-6">{{	formData.fatherName      }}                 </div> <br/>
+    <div class="col-sm-6">	Mother Name     :</div><div class="col-sm-6">{{	formData.motherName      }}                 </div> <br/>
+    <div class="col-sm-6">	Father Email     :</div><div class="col-sm-6">{{	formData.fatherEmail      }}                 </div> <br/>
+    <div class="col-sm-6">	Mother Email     :</div><div class="col-sm-6">{{	formData.motherEmail      }}                 </div> <br/>
 
   </div>
 
@@ -703,6 +707,9 @@
           <div class="caption caption-md pull-left">Search</div>
 
           <div class="btn-group pull-right">
+            <input  type = "file"   class="form-control"  file-model = "myFile" >
+            <input type="submit" ng-click="upload()"> </input>
+
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Add Users <span class="caret"></span>
             </button>
