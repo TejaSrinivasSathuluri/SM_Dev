@@ -188,7 +188,7 @@
   </div>
 </script>
 <script type="text/ng-template" id="addStaff">
-  <div style="width: 400px; height: 300px; overflow-y: scroll;">
+  <div style="height: 500px; overflow-y: scroll;">
 
     <form  ng-submit=confirm(formData) >
       <div class="col-sm-12">
@@ -312,7 +312,7 @@
 <!-------------------------------------------Edit Form Templates------------------------------------------------------------------------------------->
 
 <script type="text/ng-template" id="addStudent">
-  <div style="width: 400px; height: 300px; overflow-y: scroll;">
+  <div style="height:500px ;overflow-y: scroll;">
 
 
   <form  ng-submit=confirm(formData) >
@@ -439,7 +439,6 @@
       <div class="col-sm-12">
       <button type="submit" class="btn btn-success uppercase">Create</button>
       <button type="button" class="btn btn-success uppercase pull-right" ng-click=closeThisDialog("Cancel")>Cancel</button>
-      {{response}}
       </div>
     </form>
 
@@ -587,7 +586,6 @@
       </div>
 
       <button type="submit" class="btn btn-success uppercase" ng-click=confirm(editData)>Save</button>
- {{response}}
       <button type="button" class="btn btn-success uppercase pull-right" ng-click=closeThisDialog("Cancel")>Cancel</button>
 
     </form>
@@ -597,82 +595,85 @@
 <!-------------------------------------------View Form Templates------------------------------------------------------------------------------------->
 <script type="text/ng-template" id="showStudent">
 
-  <div class="ngdialog-message">
-  <!--<div style="width: 400px; height: 300px; overflow-y: scroll;">-->
-    <div class="col-sm-6">	Name            :</div><div class="col-sm-6">{{	formData.firstName }}{{	formData.lastName }}  </div><br/>
-    <div class="col-sm-6">	email           :</div><div class="col-sm-6">{{	formData.email            }}                 </div>    <br/>
-    <div class="col-sm-6">	password        :</div><div class="col-sm-6">{{	formData.password         }}                 </div> <br/>
-    <div class="col-sm-6">	gender          :</div><div class="col-sm-6">{{	formData.gender           }}                 </div> <br/>
-    <div class="col-sm-6">	dateofBirth     :</div><div class="col-sm-6">{{	formData.dateofBirth      }}                 </div> <br/>
-    <div class="col-sm-6">	rollNo          :</div><div class="col-sm-6">{{	formData.rollNo           }}                 </div> <br/>
-    <div class="col-sm-6">	RFID            :</div><div class="col-sm-6">{{	formData.RFID             }}                 </div> <br/>
-    <div class="col-sm-6">	previousSchool  :</div><div class="col-sm-6">{{	formData.previousSchool   }}                 </div> <br/>
-    <div class="col-sm-6">	dateofJoin      :</div><div class="col-sm-6">{{	formData.dateofJoin       }}                 </div> <br/>
-    <div class="col-sm-6">	class           :</div><div class="col-sm-6">{{	formData.class.className  }}                 </div> <br/>
-    <div class="col-sm-6">	status          :</div><div class="col-sm-6">{{	formData.status           }}                 </div> <br/>
-    <div class="col-sm-6">	regId           :</div><div class="col-sm-6">{{	formData.regId            }}                 </div> <br/>
-    <div class="col-sm-6">	isDisable       :</div><div class="col-sm-6">{{	formData.isDisable        }}                 </div> <br/>
-    <div class="col-sm-6">	currentAddress  :</div><div class="col-sm-6">{{	formData.currentAddress   }}                 </div> <br/>
-    <div class="col-sm-6">	currentCity     :</div><div class="col-sm-6">{{	formData.currentCity      }}                 </div> <br/>
-    <div class="col-sm-6">	currentState    :</div><div class="col-sm-6">{{	formData.currentState     }}                 </div> <br/>
-    <div class="col-sm-6">	currentPincode  :</div><div class="col-sm-6">{{	formData.currentPincode   }}                 </div> <br/>
-    <div class="col-sm-6">	bloodGroup      :</div><div class="col-sm-6">{{	formData.bloodGroup       }}                 </div> <br/>
-    <div class="col-sm-6">	religion        :</div><div class="col-sm-6">{{	formData.religion         }}                 </div> <br/>
-    <div class="col-sm-6">	caste           :</div><div class="col-sm-6">{{	formData.caste            }}                 </div> <br/>
-    <div class="col-sm-6">	alternateContact:</div><div class="col-sm-6">{{	formData.alternateContact }}                 </div> <br/>
-    <div class="col-sm-6">	permanentAddress:</div><div class="col-sm-6">{{	formData.permanentAddress }}                 </div> <br/>
-    <div class="col-sm-6">	permanentCity   :</div><div class="col-sm-6">{{	formData.permanentCity    }}                 </div> <br/>
-    <div class="col-sm-6">	permanentState  :</div><div class="col-sm-6">{{	formData.permanentState   }}                 </div> <br/>
-    <div class="col-sm-6">	permanentPincode:</div><div class="col-sm-6">{{	formData.permanentPincode }}                 </div> <br/>
-    <div class="col-sm-6">	nationalId      :</div><div class="col-sm-6">{{	formData.nationalId       }}                 </div> <br/>
-    <div class="col-sm-6">	motherTounge    :</div><div class="col-sm-6">{{	formData.motherTounge     }}                 </div> <br/>
-    <div class="col-sm-6">	nationalIdType  :</div><div class="col-sm-6">{{	formData.nationalIdType   }}                 </div> <br/>
-    <div class="col-sm-6">	subCaste        :</div><div class="col-sm-6">{{	formData.subCaste         }}                 </div> <br/>
-    <div class="col-sm-6">	contact         :</div><div class="col-sm-6">{{	formData.contact          }}                 </div> <br/>
-    <div class="col-sm-6">	Father Name     :</div><div class="col-sm-6">{{	formData.fatherName      }}                 </div> <br/>
-    <div class="col-sm-6">	Mother Name     :</div><div class="col-sm-6">{{	formData.motherName      }}                 </div> <br/>
-    <div class="col-sm-6">	Father Email     :</div><div class="col-sm-6">{{	formData.fatherEmail      }}                 </div> <br/>
-    <div class="col-sm-6">	Mother Email     :</div><div class="col-sm-6">{{	formData.motherEmail      }}                 </div> <br/>
 
+  <center>Student Information</center>
+  <div style="height: 500px; overflow: scroll">
+  <table class="table table-hover table-bordered table-striped table-condensed flip-content">
+
+
+                      <tr>           <th >	Name            :</th>       <td >{{	formData.firstName }}{{	formData.lastName }} </td>   </tr>
+                      <tr>           <th >	Email           :</th>       <td >{{	formData.email            }}                 </td> </tr>
+                      <tr>           <th >	Gender          :</th>       <td >{{	formData.gender           }}                 </td> </tr>
+                      <tr>           <th >	DateofBirth     :</th>       <td >{{	formData.dateofBirth | date:'MMM dd yyyy'      }}</td> </tr>
+                      <tr>           <th >	RollNo          :</th>       <td >{{	formData.rollNo           }}                 </td> </tr>
+                      <tr>           <th >	RFID            :</th>       <td >{{	formData.RFID             }}                 </td> </tr>
+                      <tr>           <th >	Previous School  :</th>       <td >{{	formData.previousSchool   }}                 </td> </tr>
+                      <tr>           <th >	DateofJoin      :</th>       <td >{{	formData.dateofJoin   | date:'MMM dd yyyy'   }}</td> </tr>
+                      <tr>           <th >	Class           :</th>       <td >{{	formData.class.className  }}                 </td>  </tr>
+                      <tr>           <th >	Status          :</th>       <td >{{	formData.status           }}                 </td> </tr>
+                      <tr>           <th >	RegId           :</th>       <td >{{	formData.regId            }}                 </td> </tr>
+                      <tr>           <th >	IsDisable       :</th>        <td >{{	formData.isDisable        }}                 </td> </tr>
+                      <tr>           <th >	Current Address  :</th>        <td >{{	formData.currentAddress   }}                 </td> </tr>
+                      <tr>           <th >	Current City     :</th>        <td >{{	formData.currentCity      }}                 </td> </tr>
+                      <tr>           <th >	Current State    :</th>        <td >{{	formData.currentState     }}                 </td> </tr>
+                      <tr>           <th >	Current Pincode  :</th>        <td >{{	formData.currentPincode   }}                 </td> </tr>
+                      <tr>           <th >	BloodGroup      :</th>        <td >{{	formData.bloodGroup       }}                 </td> </tr>
+                      <tr>           <th >	Religion        :</th>        <td >{{	formData.religion         }}                 </td> </tr>
+                      <tr>           <th >	Caste           :</th>        <td >{{	formData.caste            }}                 </td> </tr>
+                      <tr>           <th >	subCaste        :</th>        <td >{{	formData.subCaste         }}                 </td> </tr>
+                      <tr>           <th >	Permanent Address:</th>       <td >{{	formData.permanentAddress }}                 </td> </tr>
+                      <tr>           <th >	Permanent City   :</th>       <td >{{	formData.permanentCity    }}                 </td> </tr>
+                      <tr>           <th >	Permanent State  :</th>       <td >{{	formData.permanentState   }}                 </td> </tr>
+                      <tr>           <th >	Permanent Pincode:</th>       <td >{{	formData.permanentPincode }}                 </td> </tr>
+                      <tr>           <th >	NationalId      :</th>        <td >{{	formData.nationalIdType   }} -{{	formData.nationalId}}</td> </tr>
+                      <tr>           <th >	MotherTounge    :</th>        <td >{{	formData.motherTounge     }}                 </td> </tr>
+                      <tr>           <th >	Contact         :</th>        <td >{{	formData.contact          }}                 </td> </tr>
+                      <tr>           <th >	AlternateContact:</th>        <td >{{	formData.alternateContact }}                 </td> </tr>
+                      <tr>           <th >	Father Name :</th>            <td >{{	formData.fatherName      }}                 </td> </tr>
+                      <tr>           <th >	Mother Name :</th>            <td >{{	formData.motherName      }}                 </td> </tr>
+                      <tr>           <th >	Father Email:</th>            <td >{{	formData.fatherEmail      }}                 </td> </tr>
+                      <tr>           <th >	Mother Email:</th>            <td >{{	formData.motherEmail      }}              </td>    </tr>
+
+
+    </table>
   </div>
-
 </script>
 <script type="text/ng-template" id="showStaff">
+  <div style="height: 500px; overflow: scroll">
 
-  <div class="ngdialog-message">
-    <div class="col-sm-6">	Name            :</div><div class="col-sm-6">{{	formData.firstName }}{{	formData.lastName }}  </div><br/>
-    <div class="col-sm-6">	email           :</div><div class="col-sm-6">{{	formData.email            }}                 </div>    <br/>
-    <div class="col-sm-6">	password        :</div><div class="col-sm-6">{{	formData.password         }}                 </div> <br/>
-    <div class="col-sm-6">	gender          :</div><div class="col-sm-6">{{	formData.gender           }}                 </div> <br/>
-    <div class="col-sm-6">	dateofBirth     :</div><div class="col-sm-6">{{	formData.dateofBirth      }}                 </div> <br/>
-    <div class="col-sm-6">	rollNo          :</div><div class="col-sm-6">{{	formData.rollNo           }}                 </div> <br/>
-    <div class="col-sm-6">	RFID            :</div><div class="col-sm-6">{{	formData.RFID             }}                 </div> <br/>
-    <div class="col-sm-6">	previousSchool  :</div><div class="col-sm-6">{{	formData.previousSchool   }}                 </div> <br/>
-    <div class="col-sm-6">	dateofJoin      :</div><div class="col-sm-6">{{	formData.dateofJoin       }}                 </div> <br/>
-    <div class="col-sm-6">	class           :</div><div class="col-sm-6">{{	formData.class.className  }}                 </div> <br/>
-    <div class="col-sm-6">	status          :</div><div class="col-sm-6">{{	formData.status           }}                 </div> <br/>
-    <div class="col-sm-6">	regId           :</div><div class="col-sm-6">{{	formData.regId            }}                 </div> <br/>
-    <div class="col-sm-6">	isDisable       :</div><div class="col-sm-6">{{	formData.isDisable        }}                 </div> <br/>
-    <div class="col-sm-6">	currentAddress  :</div><div class="col-sm-6">{{	formData.currentAddress   }}                 </div> <br/>
-    <div class="col-sm-6">	currentCity     :</div><div class="col-sm-6">{{	formData.currentCity      }}                 </div> <br/>
-    <div class="col-sm-6">	currentState    :</div><div class="col-sm-6">{{	formData.currentState     }}                 </div> <br/>
-    <div class="col-sm-6">	currentPincode  :</div><div class="col-sm-6">{{	formData.currentPincode   }}                 </div> <br/>
-    <div class="col-sm-6">	bloodGroup      :</div><div class="col-sm-6">{{	formData.bloodGroup       }}                 </div> <br/>
-    <div class="col-sm-6">	religion        :</div><div class="col-sm-6">{{	formData.religion         }}                 </div> <br/>
-    <div class="col-sm-6">	caste           :</div><div class="col-sm-6">{{	formData.caste            }}                 </div> <br/>
-    <div class="col-sm-6">	alternateContact:</div><div class="col-sm-6">{{	formData.alternateContact }}                 </div> <br/>
-    <div class="col-sm-6">	permanentAddress:</div><div class="col-sm-6">{{	formData.permanentAddress }}                 </div> <br/>
-    <div class="col-sm-6">	permanentCity   :</div><div class="col-sm-6">{{	formData.permanentCity    }}                 </div> <br/>
-    <div class="col-sm-6">	permanentState  :</div><div class="col-sm-6">{{	formData.permanentState   }}                 </div> <br/>
-    <div class="col-sm-6">	permanentPincode:</div><div class="col-sm-6">{{	formData.permanentPincode }}                 </div> <br/>
-    <div class="col-sm-6">	nationalId      :</div><div class="col-sm-6">{{	formData.nationalId       }}                 </div> <br/>
-    <div class="col-sm-6">	motherTounge    :</div><div class="col-sm-6">{{	formData.motherTounge     }}                 </div> <br/>
-    <div class="col-sm-6">	nationalIdType  :</div><div class="col-sm-6">{{	formData.nationalIdType   }}                 </div> <br/>
-    <div class="col-sm-6">	subCaste        :</div><div class="col-sm-6">{{	formData.subCaste         }}                 </div> <br/>
-    <div class="col-sm-6">	contact         :</div><div class="col-sm-6">{{	formData.contact          }}                 </div> <br/>
+  <table class="table table-hover table-bordered table-striped table-condensed flip-content">
 
-  </div>
-
+  <tr>  <th>	Name             </th>                 <td>{{	formData.firstName }}{{	formData.lastName }} </td>                         </tr>
+    <tr>  <th>	Email            </th>                 <td>{{	formData.email            }}                 </td>                         </tr>
+    <tr>  <th>	Password         </th>                 <td>{{	formData.password         }}                 </td>                         </tr>
+    <tr>  <th>	Gender           </th>                 <td>{{	formData.gender           }}                 </td>                         </tr>
+    <tr>  <th>	DateofBirth      </th>                 <td>{{	formData.dateofBirth | date:'MMM dd yyyy'     }}                 </td>                         </tr>
+    <tr>  <th>	RollNo           </th>                 <td>{{	formData.rollNo           }}                 </td>                         </tr>
+    <tr>  <th>	RFID             </th>                 <td>{{	formData.RFID             }}                 </td>                         </tr>
+    <tr>  <th>	Previous School  </th>                 <td>{{	formData.previousSchool   }}                 </td>                         </tr>
+    <tr>  <th>	DateofJoin       </th>                 <td>{{	formData.dateofJoin     | date:'MMM dd yyyy'  }}                  </td>                         </tr>
+    <tr>  <th>	Class            </th>                 <td>{{	formData.class.className  }}                 </td>                         </tr>
+    <tr>  <th>	Status           </th>                 <td>{{	formData.status           }}                 </td>                         </tr>
+    <tr>  <th>	RegId            </th>                 <td>{{	formData.regId            }}                 </td>                         </tr>
+    <tr>  <th>	IsDisable        </th>                 <td>{{	formData.isDisable        }}                 </td>                         </tr>
+    <tr>  <th>	Current Address  </th>                 <td>{{	formData.currentAddress   }}                 </td>                         </tr>
+    <tr>  <th>	Current City     </th>                 <td>{{	formData.currentCity      }}                 </td>                         </tr>
+    <tr>  <th>	Current State    </th>                 <td>{{	formData.currentState     }}                 </td>                         </tr>
+    <tr>  <th>	CurrentPincode   </th>                 <td>{{	formData.currentPincode   }}                 </td>                         </tr>
+    <tr>  <th>	PermanentAddress </th>                 <td>{{	formData.permanentAddress }}                 </td>                         </tr>
+    <tr>  <th>	PermanentCity    </th>                 <td>{{	formData.permanentCity    }}                 </td>                         </tr>
+    <tr>  <th>	PermanentState   </th>                 <td>{{	formData.permanentState   }}                 </td>                         </tr>
+    <tr>  <th>	PermanentPincode</th>                 <td>{{	formData.permanentPincode }}                 </td>                         </tr>
+    <tr>  <th>	NationalId      </th>                 <td>{{	formData.nationalId       }}-{{	formData.nationalIdType   }}   </td> </tr>
+    <tr>  <th>	MotherTounge    </th>                 <td>{{	formData.motherTounge     }}                 </td>      </tr>
+    <tr>  <th>	BloodGroup      </th>                 <td>{{	formData.bloodGroup       }}                 </td></tr>
+    <tr>  <th>	Religion        </th>                 <td>{{	formData.religion         }}                 </td></tr>
+    <tr>  <th>	Caste           </th>                 <td>{{	formData.caste            }}                 </td></tr>
+    <tr>  <th>	SubCaste        </th>                 <td>{{	formData.subCaste         }}                 </td></tr>
+    <tr>  <th>	Contact         </th>                 <td>{{	formData.contact          }}                 </td></tr>
+    <tr>  <th>	Alternate Contact</th>                 <td>{{	formData.alternateContact }}                 </td></tr>
+  </table>
+</div>
 </script>
 <script type="text/ng-template" id="showParent">
 
@@ -709,8 +710,9 @@
           <div class="caption caption-md pull-left">Search</div>
 
           <div class="btn-group pull-right">
-            <!--<input  type = "file"   class="form-control"  file-model = "myFile" >-->
-            <!--<input type="submit" ng-click="upload()"> </input>-->
+
+
+
 
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Add Users <span class="caret"></span>
@@ -800,7 +802,7 @@
 
          </div>
 
-		  <br><br><br><br><br><br><br><br><br><br> <br><br><br><br><br><br><br><br><br><br> <br><br><br><br><br>
+		  <br><br><br><br><br><br><br>
         </div>
 		</div>
         <!-- -----------------------------------------------------------------------------Admission Form-------------------------------------------------->

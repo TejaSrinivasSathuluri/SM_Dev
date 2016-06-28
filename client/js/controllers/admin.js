@@ -453,6 +453,15 @@ angular
                         }, 1000 );
                       },
                       function (response) {
+                        $scope.response = 'Student Not Created.PleaseCheck All the Fields';
+                        $scope.error = true;
+
+                        setTimeout( function()
+                        {
+                          $state.go($state.current, {}, {reload: true});
+                          $scope.$apply();
+                        }, 2000 );
+
                         console.log(response.data.error.message);
                       }
                     );
@@ -460,7 +469,8 @@ angular
                   });
 
               },
-              function (value) {         }
+              function (value) {
+              }
             );
 
 
@@ -730,7 +740,8 @@ angular
           $scope.deleteUser = function (x) {
             var dialog = ngDialog.open({template: 'deleteUser'});
             dialog.closePromise.then(function (data) {
-              if (data.value && data.value != '$document' && data.value != '$closeButton') {
+              console.log(data.value);
+              if (data.value && data.value != '$document' && data.value != '$closeButton'&& data.value != '$escape') {
 							   if (x.type == "Student")    {
 										Student.delete({id: x.id}, function ()
                     {
@@ -1160,7 +1171,12 @@ angular
               $scope.newTimetable = Timetable.upsert({id: $scope.chkTimetable.id, schedule: $scope.receivers},
                 function () {
                   Timetable.schedules.destroyAll({id: $scope.chkTimetable.id}, function () {
-                    $state.go($state.current, {}, {reload: true});
+                    $scope.response = "Timetable Saved Successfully";
+                    setTimeout( function()
+                    {
+                      $state.go($state.current, {}, {reload: true});
+                      $scope.$apply();
+                    }, 1000 );
                   });
                 });
 
@@ -1172,7 +1188,12 @@ angular
           },
           function () {
             $scope.newTimetable = Timetable.create({schoolId: $scope.schoolId, schedule: $scope.receivers});
-            $state.go($state.current, {}, {reload: true});
+            $scope.response = "Timetable Created Successfully";
+            setTimeout( function()
+            {
+              $state.go($state.current, {}, {reload: true});
+              $scope.$apply();
+            }, 1000 );
           });
       }
     }
@@ -1243,7 +1264,12 @@ angular
                     classId: $scope.class,
                     schedule: $scope.scheduleList
                   }, function () {
-                    $state.go($state.current, {}, {reload: true});
+                    $scope.response = "Timetable Saved Successfully";
+                    setTimeout( function()
+                    {
+                      $state.go($state.current, {}, {reload: true});
+                      $scope.$apply();
+                    }, 1000 );
                   },
                   function (response) {
                     console.log(response.data.error.message);
@@ -1256,7 +1282,12 @@ angular
                   classId: $scope.class,
                   schedule: $scope.scheduleList
                 }, function () {
-                  $state.go($state.current, {}, {reload: true});
+                  $scope.response = "Timetable Created Successfully";
+                  setTimeout( function()
+                  {
+                    $state.go($state.current, {}, {reload: true});
+                    $scope.$apply();
+                  }, 1000 );
                 });
 
               });

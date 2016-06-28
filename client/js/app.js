@@ -36,7 +36,7 @@ angular
       .state('login.student', { url: '/student',templateUrl: 'views/student.html', controller: 'AuthLoginController' })
       //.state('signup',        { url: '/signup', templateUrl: 'views/signup.html',  controller: 'SignUpController' })
       .state('logout',        { url: '/login',                                     controller: 'AuthLogoutController'})
-     $urlRouterProvider.otherwise('/login');
+     $urlRouterProvider.otherwise('/login/admin');
   }])
 
 
