@@ -487,11 +487,15 @@ angular
             if (x.type == "Student") {
               $scope.editData = {};
               $scope.editData = x;
+              $scope.classId = x.classId;
+              $scope.rollNo = x.rollNo;
+
               $scope.editData.dateofBirth = $filter('date')(new Date(x.dateofBirth), 'yyyy-MM-dd');
               var d = new Date($scope.editData.dateofBirth);
               var date2 = new Date(d);
               $scope.editData.dateofBirth = new Date(date2.setDate(d.getDate()));
               $scope.editData.dateofBirth = new Date($scope.editData.dateofBirth);
+              //console.log($scope.editData.dateofBirth);
 
 
               $scope.editData.dateofJoin = $filter('date')(new Date(x.dateofJoin), 'yyyy-MM-dd');
@@ -507,72 +511,133 @@ angular
               }).then(
                 function (editData) {
 
-                  $scope.studentExists = Student.findOne({filter: {where: {classId:editData.classId,rollNo:editData.rollNo},include:'class'}},
-                    function () {
-                      $scope.error = true;
-                      $scope.response = 'Student Already Exists In Class';
+                  if ($scope.classId == editData.classId && $scope.rollNo == editData.rollNo){
 
-                      setTimeout( function()
-                      {
-                        $state.go($state.current, {}, {reload: true});
-                        $scope.$apply();
-                      }, 2000 );
-                    },
-                    function () {
-                      Student.prototype$updateAttributes({id: x.id}, {
-                          firstName            : editData.firstName,
-                          lastName             : editData.lastName,
-                          email                : editData.email,
-                          gender               : editData.gender,
-                          dateofBirth          : editData.dateofBirth,
-                          rollNo               : editData.rollNo,
-                          classId              : editData.classId,
-                          RFID                 : editData.RFID,
-                          previousSchool       : editData.previousSchool,
-                          dateofJoin           : editData.dateofJoin,
-                          status               : editData.status,
-                          regId                : editData.regId,
-                          isDisable            : editData.isDisable,
-                          currentAddress       : editData.currentAddress,
-                          currentCity          : editData.currentCity,
-                          currentState         : editData.currentState,
-                          currentPincode       : editData.currentPincode,
-                          bloodGroup           : editData.bloodGroup,
-                          religion             : editData.religion,
-                          caste                : editData.caste,
-                          alternateContact     : editData.alternateContact,
-                          permanentAddress     : editData.permanentAddress,
-                          permanentCity        : editData.permanentCity,
-                          permanentState       : editData.permanentState,
-                          permanentPincode     : editData.permanentPincode,
-                          nationalId           : editData.nationalId,
-                          motherTounge         : editData.motherTounge,
-                          nationalIdType       : editData.nationalIdType,
-                          subCaste             : editData.subCaste,
-                          contact              : editData.contact,
-                          fatherEmail          : editData.fatherEmail,
-                          motherEmail          : editData.motherEmail,
-                          fatherName           : editData.fatherName,
-                          motherName           : editData.motherName
+                    Student.prototype$updateAttributes({id: x.id}, {
+                        firstName            : editData.firstName,
+                        lastName             : editData.lastName,
+                        email                : editData.email,
+                        gender               : editData.gender,
+                        dateofBirth          : editData.dateofBirth,
+                        rollNo               : editData.rollNo,
+                        classId              : editData.classId,
+                        RFID                 : editData.RFID,
+                        previousSchool       : editData.previousSchool,
+                        dateofJoin           : editData.dateofJoin,
+                        status               : editData.status,
+                        regId                : editData.regId,
+                        isDisable            : editData.isDisable,
+                        currentAddress       : editData.currentAddress,
+                        currentCity          : editData.currentCity,
+                        currentState         : editData.currentState,
+                        currentPincode       : editData.currentPincode,
+                        bloodGroup           : editData.bloodGroup,
+                        religion             : editData.religion,
+                        caste                : editData.caste,
+                        alternateContact     : editData.alternateContact,
+                        permanentAddress     : editData.permanentAddress,
+                        permanentCity        : editData.permanentCity,
+                        permanentState       : editData.permanentState,
+                        permanentPincode     : editData.permanentPincode,
+                        nationalId           : editData.nationalId,
+                        motherTounge         : editData.motherTounge,
+                        nationalIdType       : editData.nationalIdType,
+                        subCaste             : editData.subCaste,
+                        contact              : editData.contact,
+                        fatherEmail          : editData.fatherEmail,
+                        motherEmail          : editData.motherEmail,
+                        fatherName           : editData.fatherName,
+                        motherName           : editData.motherName
 
-                        },
-                        function () {
+                      },
+                      function () {
 
-                          $scope.response = 'Student Updated Successfully';
-                          $scope.error = true;
+                        $scope.response = 'Student Updated Successfully';
+                        $scope.error = true;
 
-                          setTimeout( function()
-                          {
-                            $state.go($state.current, {}, {reload: true});
-                            $scope.$apply();
-                          }, 1000 );
-                        },
-                        function (response) {
-                          alert('Student Is Not Saved.Please Check The Fields');
-                          $scope.error =true ;
-                          console.log(response.data.error.message);
-                        });
-                    });
+                        setTimeout( function()
+                        {
+                          $state.go($state.current, {}, {reload: true});
+                          $scope.$apply();
+                        }, 1000 );
+                      },
+                      function (response) {
+                        alert('Student Is Not Saved.Please Check The Fields');
+                        $scope.error =true ;
+                        console.log(response.data.error.message);
+                      });
+
+                  }
+                  else{
+                    $scope.studentExists = Student.findOne({filter: {where: {classId:editData.classId,rollNo:editData.rollNo},include:'class'}},
+                      function () {
+                        $scope.error = true;
+                        $scope.response = 'Student Already Exists In Class';
+
+                        setTimeout( function()
+                        {
+                          $state.go($state.current, {}, {reload: true});
+                          $scope.$apply();
+                        }, 3000 );
+                      },
+                      function () {
+                        Student.prototype$updateAttributes({id: x.id}, {
+                            firstName            : editData.firstName,
+                            lastName             : editData.lastName,
+                            email                : editData.email,
+                            gender               : editData.gender,
+                            dateofBirth          : editData.dateofBirth,
+                            rollNo               : editData.rollNo,
+                            classId              : editData.classId,
+                            RFID                 : editData.RFID,
+                            previousSchool       : editData.previousSchool,
+                            dateofJoin           : editData.dateofJoin,
+                            status               : editData.status,
+                            regId                : editData.regId,
+                            isDisable            : editData.isDisable,
+                            currentAddress       : editData.currentAddress,
+                            currentCity          : editData.currentCity,
+                            currentState         : editData.currentState,
+                            currentPincode       : editData.currentPincode,
+                            bloodGroup           : editData.bloodGroup,
+                            religion             : editData.religion,
+                            caste                : editData.caste,
+                            alternateContact     : editData.alternateContact,
+                            permanentAddress     : editData.permanentAddress,
+                            permanentCity        : editData.permanentCity,
+                            permanentState       : editData.permanentState,
+                            permanentPincode     : editData.permanentPincode,
+                            nationalId           : editData.nationalId,
+                            motherTounge         : editData.motherTounge,
+                            nationalIdType       : editData.nationalIdType,
+                            subCaste             : editData.subCaste,
+                            contact              : editData.contact,
+                            fatherEmail          : editData.fatherEmail,
+                            motherEmail          : editData.motherEmail,
+                            fatherName           : editData.fatherName,
+                            motherName           : editData.motherName
+
+                          },
+                          function () {
+
+                            $scope.response = 'Student Updated Successfully';
+                            $scope.error = true;
+
+                            setTimeout( function()
+                            {
+                              $state.go($state.current, {}, {reload: true});
+                              $scope.$apply();
+                            }, 1000 );
+                          },
+                          function (response) {
+                            alert('Student Is Not Saved.Please Check The Fields');
+                            $scope.error =true ;
+                            console.log(response.data.error.message);
+                          });
+                      });
+
+                  }
+
 
                 },
                 function (value) {
@@ -1749,8 +1814,8 @@ angular
     }])
 
   .controller('AttendanceController',
-    ['$scope', '$state','$window','Class','Attendance','Student',
-    function ($scope,$state,$window,Class,Attendance,Student) {
+    ['$scope', '$state','$window','Class','Attendance','Student','$filter',
+    function ($scope,$state,$window,Class,Attendance,Student,$filter) {
       $scope.user = $window.localStorage.getItem('user');
       $scope.userData = JSON.parse($scope.user);
       $scope.schoolId = $scope.userData.schoolId;
@@ -1760,7 +1825,14 @@ angular
       if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
       $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}}});
       $scope.studentList =[];
-
+      //$scope.test =Attendance.find(function(response){
+      //  response.forEach(function(tests){
+      //    var p = tests.toJSON();
+      //    console.log(p.id);
+      //    Attendance.destroyById({id: p.id});
+      //
+      //  });
+      //});
 
 
       $scope.loadDates = function() {
@@ -1768,17 +1840,18 @@ angular
         if ($scope.Admin || $scope.Staff){
           $scope.list = Student.find({filter: {where: {classId: $scope.classSelected}}}, function () {
             for (var i = 0; i < $scope.list.length; i++) {
-              $scope.studentList[i]={studentId:$scope.list[i].id,data:$scope.test};
 
               $scope.chk($scope.list[i].id, $scope.list[i].firstName,i);
             }
           });
 
+
+
+
           $scope.chk = function(studentId,firstName,i)
           {
-            $scope.attendanceRecord = Attendance.findOne({filter:{where:{studentId:studentId,date:$scope.dateSelected}}},function(response){
+            $scope.attendanceRecord = Attendance.find({filter:{where:{studentId:studentId,date:$scope.dateSelected}}},function(response){
               $scope.studentList[i] ={id:studentId ,firstName :firstName,attendanceId :response.id,status:true}
-
             },function(){
               $scope.studentList[i] ={id:studentId,firstName : firstName,status:false}
             });
