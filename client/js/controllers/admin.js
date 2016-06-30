@@ -1874,17 +1874,19 @@ angular
                           var data = data.toJSON();
                           $scope.status[parseInt(data.day)-1]= true;
                         });
+                       if($scope.status.length ==0){
+                         for(var s=0;s<getDays;s++) {$scope.status[s] =false;}
 
-                        $scope.monthList[i]= {studentId:student.id,RFID:student.RFID,status:$scope.status};
+                       }
+                        $scope.monthList[i]= {studentId:student.id,firstName:student.firstName,RFID:student.RFID,status:$scope.status};
 
-                        console.log($scope.monthList[i]);
 
                         i++;
 
                       },function(){
 
                          for(var s=0;s<getDays;s++) $scope.status[s] =false;
-                        $scope.monthList[i] = { studentId :student.id,RFID:student.RFID,status:$scope.status};
+                        $scope.monthList[i] = { studentId :student.id,firstName:student.firstName,RFID:student.RFID,status:$scope.status};
                         i++;
 
                       }
@@ -1893,7 +1895,7 @@ angular
                   }
                   else{
                     for(var s=0;s<getDays;s++) {$scope.status[s] =false;}
-                    $scope.monthList[i] = { studentId :student.id,status:$scope.status};
+                    $scope.monthList[i] = { studentId :student.id,firstName:student.firstName,status:$scope.status};
                     i++;
 
                   }
