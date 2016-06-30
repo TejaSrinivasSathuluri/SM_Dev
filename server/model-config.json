@@ -108,7 +108,8 @@
     "dataSource": "container",
     "public": true
   },
-  "Email": {
-    "dataSource": "myEmailDataSource"
+  "EmailN": {
+    "dataSource": "myEmailDataSource",
+    "public": true
   }
 }

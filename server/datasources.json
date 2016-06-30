@@ -19,17 +19,17 @@
     "transports": [
       {
         "type": "smtp",
-        "host": "smtp.gmail.com",
-        "secure": true,
-        "port": 465,
+        "host": "mail.studymonitor.net",
+        "secure": false,
+        "port": 25,
         "tls": {
           "rejectUnauthorized": false
         },
         "auth": {
-          "user": "email@address.com",
-          "pass": "password"
+          "user": "nchallag@studymonitor.net",
+          "pass": "Ketan123"
         }
       }
-]
+    ]
   }
 }

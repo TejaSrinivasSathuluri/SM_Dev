@@ -5,49 +5,114 @@
       <div class="portlet light ">
 
         <div class="portlet-title">
-          <div class="caption caption-md">  <span class="caption-subject uppercase">Attendance</span>          </div>
+          <div class="caption caption-md col-sm-2">  <span class="caption-subject uppercase">Attendance</span>          </div>
+          <form ng-submit="monthView()">
+          <div class="caption caption-md col-sm-4">       </div>
+          <div class="caption caption-md col-sm-2">
+            <select ng-model="monthSelected" class="form-control" required>
+              <option value="">Month </option>
+              <option value="0">January </option>
+              <option value="1">February </option>
+              <option value="2">March </option>
+              <option value="3">April </option>
+              <option value="4">May </option>
+              <option value="5">June </option>
+              <option value="6">July </option>
+              <option value="7">August </option>
+              <option value="8">September </option>
+              <option value="9">October </option>
+              <option value="10">November </option>
+              <option value="11">December </option>
+            </select>
+          </div>
+          <div class="caption caption-md col-sm-2">
+            <input type="number" class="form-control" ng-model="yearSelected" required>
+          </div>
+            <div class="caption caption-md col-sm-2">
+            <input type="submit" class="form-control">
+          </div>
+          </form>
+
         </div>
 
         <div class="portlet-body">
           <div class="row list-separated">
             <form ng-submit="loadDates()">
+              <div class="col-sm-12">
 
-            <div class="col-sm-3">
-              <select ng-model="classSelected" class="form-control" required>
+            <div class="col-sm-2">
+              <select ng-model="classSelected" class="form-control" id = selectedClass required>
                 <option value="">Class </option>
                 <option ng-repeat="y in classList" value="{{y.id}}" >{{y.className}}-{{y.sectionName}}</option>
               </select>
             </div>
-              <div class="col-sm-3">
+              <div class="col-sm-2">
                 <input type="date" class="form-control" ng-model="dateSelected" required>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-1">
               <input type="submit" ng-show="Admin || Staff" class="btn btn-success uppercase" value="Generate Attendance"/>
               <input type="submit" ng-hide="Admin" class="btn btn-success uppercase" value="View Attendance"/>
             </div>
+                <div class="col-sm-7"></div>
+              </div>
+
             </form>
             <!---->
             <br><br><br>
             <div class="col-sm-12">
-
+            <div class="col-sm-3">
+              <table class="table table-bordered table-striped table-condensed flip-content" ng-init="getStatistics()">
+              <tr><th>Total No:Of Students </th><td>{{studentList.length}}</td></tr>
+              <tr><th>No:Of Students Present </th><td>{{presentCount}}</td></tr>
+              <tr><th>No:Of Students Absent</th><td>{{absentCount}}</td></tr>
+              <tr><th>No:Of Students With No ID Cards</th><td>{{blockedCount}}</td></tr>
+              </table>
+              </div>
                 <div class="portlet-body-morris-fit morris-chart flip-scroll" style="margin-right:0px;margin-left:0px;margin-bottom:0px;height: 260px;overflow-y: scroll;">
                   <table class="table table-bordered table-striped table-condensed flip-content">
                     <thead flip-content><tr>
+                      <th>Roll No</th>
                       <th>Student</th>
-					  <th>Present/Absent</th>
+                      <th>RFID</th>
+          					  <th>Present/Absent</th>
 
                     </tr></thead>
                     <tbody>
-                    <tr data-ng-repeat="x in studentList">
+                    <tr data-ng-repeat="x in studentList" >
+                    <!--<tr data-ng-repeat="x in studentList" ng-if="x.status!='Blocked'">-->
+                        <td> {{x.rollNo}}</td>
                         <td> {{x.firstName}}</td>
-						<td ng-show="Admin || Staff"> <input type="checkbox"  ng-model="x.status"  ng-click="addAttendance(x)" > </td>
-											<td ng-hide="Admin || Staff"> <p ng-show="x.status">Present</p><p ng-hide="x.status">Absent</p> </td>
+
+
+                        <td ng-hide="x.status =='Blocked'"> {{x.RFID}}                             </td>
+                        <td ng-show="x.status =='Blocked'"> <text style="color: red">NO RFID</text></td>
+
+						            <td ng-hide="x.status=='Blocked'"> <input type="checkbox"  ng-model="x.status"  ng-disabled="!Staff && !Admin" ng-click="addAttendance(x)" > </td>
+						            <td ng-show="x.status=='Blocked'"> <input type="checkbox"                       ng-disabled="true"> </td>
+
                     </tr>
                     </tbody>
                   </table>
 
                 </div>
-                <!---->
+              <table class="table table-bordered table-striped table-condensed flip-content">
+                <tr>
+                  <th>Students </th>
+                  <th colspan="31">Attendance </th>
+                </tr>
+                <tr ng-repeat="x in monthList"  >
+                  <td>      {{x.studentId}}</td>
+                  <td ng-hide="x.RFID ==null" ng-repeat="y in x.status track by $index">
+                    <input type="checkbox" ng-model="y"/>
+
+                  </td>
+                  <td colspan="31" ng-show="x.RFID ==null">
+                    NO RFID
+                  </td>
+                </tr>
+              </table>
+
+              <!---->
               </div>
 
           </div>

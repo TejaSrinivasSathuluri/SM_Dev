@@ -372,6 +372,8 @@ angular
               });
             }
           }
+
+
           $scope.checkRollnoExistsEdit = function() {
             $scope.RollnoExists = false;
             if($scope.editData.rollNo != null && $scope.editData.classId != null){
@@ -1825,47 +1827,156 @@ angular
       if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
       $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}}});
       $scope.studentList =[];
-      //$scope.test =Attendance.find(function(response){
-      //  response.forEach(function(tests){
-      //    var p = tests.toJSON();
-      //    console.log(p.id);
-      //    Attendance.destroyById({id: p.id});
-      //
-      //  });
-      //});
 
+      $scope.delete= function(){
+        $scope.test =Attendance.find(function(response){
+            response.forEach(function(tests){
+              var p = tests.toJSON();
+              console.log(p.id);
+              Attendance.destroyById({id: p.id});
+
+            });
+          });
+      }
+      //$scope.delete();
+
+
+      $scope.monthView = function() {
+        $scope.monthList =[];
+        var getDays = new Date($scope.yearSelected,parseInt($scope.monthSelected)+1,0).getDate();
+        $scope.list = Student.find({filter: {where: {classId: $scope.classSelected}}}, function (response) {
+          var i=0;
+          $scope.status=[];
+
+
+          response.forEach(function(list){
+
+            var student = list.toJSON();
+
+
+            if (student.RFID){
+                    //-----------
+                    Attendance.find(
+                      {
+                        filter:
+                        {
+                          where: {RFID:student.RFID,month:parseInt($scope.monthSelected),year:$scope.yearSelected,
+                                   day:
+                                   {
+                                         between:[1,getDays]
+                                    }
+                          }
+                        }
+                      },
+                      function(response){
+                        $scope.status=[];
+                        response.forEach(function(data){
+                          var data = data.toJSON();
+                          $scope.status[parseInt(data.day)-1]= true;
+                        });
+
+                        $scope.monthList[i]= {studentId:student.id,RFID:student.RFID,status:$scope.status};
+
+                        console.log($scope.monthList[i]);
+
+                        i++;
+
+                      },function(){
+
+                         for(var s=0;s<getDays;s++) $scope.status[s] =false;
+                        $scope.monthList[i] = { studentId :student.id,RFID:student.RFID,status:$scope.status};
+                        i++;
+
+                      }
+                    );
+                    //  -----------
+                  }
+                  else{
+                    for(var s=0;s<getDays;s++) {$scope.status[s] =false;}
+                    $scope.monthList[i] = { studentId :student.id,status:$scope.status};
+                    i++;
+
+                  }
+
+
+          });
+        });
+
+
+
+      }
 
       $scope.loadDates = function() {
         $scope.studentList = [];
+        $scope.presentCount=0;
+        $scope.absentCount=0;
+        $scope.blockedCount=0;
+
         if ($scope.Admin || $scope.Staff){
           $scope.list = Student.find({filter: {where: {classId: $scope.classSelected}}}, function () {
             for (var i = 0; i < $scope.list.length; i++) {
-
-              $scope.chk($scope.list[i].id, $scope.list[i].firstName,i);
+              $scope.chk($scope.list[i].id, $scope.list[i].firstName,i,$scope.list[i].RFID,$scope.list[i].rollNo);
             }
           });
 
 
 
-
-          $scope.chk = function(studentId,firstName,i)
+          $scope.chk = function(studentId,firstName,i,RFID,rollNo)
           {
-            $scope.attendanceRecord = Attendance.find({filter:{where:{studentId:studentId,date:$scope.dateSelected}}},function(response){
-              $scope.studentList[i] ={id:studentId ,firstName :firstName,attendanceId :response.id,status:true}
-            },function(){
-              $scope.studentList[i] ={id:studentId,firstName : firstName,status:false}
-            });
+              $scope.attendanceRecord = Attendance.findOne(
+                {
+                  filter:
+                    {
+                      where:
+                        {
+                          "RFID":RFID,"day":$scope.dateSelected.getDate(),"month":$scope.dateSelected.getMonth(),"year":$scope.dateSelected.getFullYear()
+                        }
+                    }
+                },
+                function(response)
+                {
+                  if (RFID){
+
+                    $scope.presentCount++;
+                    $scope.studentList[i] ={id:studentId ,firstName :firstName,RFID:RFID,rollNo :rollNo,attendanceId :response.id,status:true};
+                  }
+                  else
+                  {
+                    $scope.blockedCount++;
+                    $scope.studentList[i] ={id:studentId ,firstName :firstName,rollNo :rollNo,status:'Blocked'};
+
+                  }
+                },
+                function()
+                {
+                  $scope.absentCount++;
+                  if(RFID){
+
+                    $scope.studentList[i] ={id:studentId,firstName : firstName,RFID:RFID,rollNo:rollNo,status:false};
+
+                  }
+                  else{
+                    $scope.blockedCount++;
+                    $scope.studentList[i] ={id:studentId,firstName : firstName,rollNo:rollNo,status:'Blocked'};
+
+                  }
+
+
+                });
 
 
 
-		     }
+		      }
+
+
 
           $scope.addAttendance = function(x){
             if (x.status == true) {
-              Attendance.findOne({filter:{where:{studentId:x.id,date:$scope.dateSelected}}},function(){
+              Attendance.findOne({filter:{where:{RFID:x.RFID,"day":$scope.dateSelected.getDate(),"month":$scope.dateSelected.getMonth(),"year":$scope.dateSelected.getFullYear()}}},function(){
 
               },function(){
-                Attendance.create({studentId:x.id,date:$scope.dateSelected,schoolId:$scope.schoolId});
+                Attendance.create({RFID:x.RFID,"day":$scope.dateSelected.getDate(),"month":$scope.dateSelected.getMonth(),"year":$scope.dateSelected.getFullYear()});
+                $scope.studentList=[];
                 $scope.loadDates();
                 console.log('Attendance Added');
 
@@ -1877,12 +1988,14 @@ angular
               if (x.attendanceId != null) {
                 Attendance.delete({id:JSON.stringify(x.attendanceId).replace(/["']/g, "")},function(){
                   console.log('Attendance Deleted');
+                  $scope.loadDates();
+
                 },function(response){ console.log(response.data.error.message);});
               }
             }
           }
         }
-              else if ($scope.userData.type =='Student') {
+              else if (Student) {
 
                 $scope.list = Student.findOne({filter: {where: {id: $scope.userData.id}}}, function () {
                     $scope.chk($scope.list.id, $scope.list.firstName, 0);
