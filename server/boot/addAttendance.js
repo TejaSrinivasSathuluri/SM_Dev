@@ -1,7 +1,7 @@
 module.exports = function(server)
 {
     var schedule = require('node-schedule');
-    var j = schedule.scheduleJob('*/1 * * * *', function()
+    var j = schedule.scheduleJob('*/60 * * * *', function()
     {
 
               var Attendance = server.models.Attendance;
