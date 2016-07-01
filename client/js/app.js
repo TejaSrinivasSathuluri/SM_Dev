@@ -27,8 +27,9 @@ angular
     .state('assignment',  { url: '/assignment', templateUrl: 'views/assignment.html', controller: 'AssignmentController',  authenticate: true})
 
       //--------------Auth Services
-      .state('index',        { url: '/index',     templateUrl: 'index.html', controller: 'LandingPageController'})
+      .state('index',        { url: '/index',      controller: 'LandingPageController'})
     //.state('forbidden', { url: '/forbidden', templateUrl: 'views/forbidden.html'})
+    .state('email', { url: '/email', templateUrl: 'views/email.html'})
       .state('login',         { url: '/login',  templateUrl: 'views/login.html',   controller: 'AuthLoginController' })
       .state('login.admin',   { url: '/admin',  templateUrl: 'views/admin.html',   controller: 'AuthLoginController' })
       .state('login.staff',   { url: '/staff',  templateUrl: 'views/staff.html',   controller: 'AuthLoginController' })

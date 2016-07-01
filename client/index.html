@@ -28,10 +28,10 @@
   <script src="/js/calendar/calendar.js"></script>
   <!------------------------------------------------------>
   <!------------------------------------------------------------------------------------------------>
-  <!--<link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css">-->
+  <link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="styles/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="styles/fonts.css" rel="stylesheet" type="text/css">
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
+  <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/> -->
   <script src="styles/ui-bootstrap.js">    </script>
   <script src="styles/ui-bootstrap-tpls.js"></script>
   <!------------------------------------------------------------------------------------------------->
@@ -100,7 +100,7 @@
             <ul class="nav navbar-nav pull-right ">
               <!-- BEGIN USER LOGIN DROPDOWN -->
               <li class="dropdown dropdown-user dropdown-dark">
-                <!--<a ng-hide="currentUser" ui-sref="login" class="caption-subject uppercase" ui-sref-active="active">Login</a>-->
+                <a ng-hide="currentUser" ui-sref="login.admin" class="caption-subject uppercase" ui-sref-active="active">Login</a>
                 <!--<a ng-hide="currentUser" ui-sref="signup" class="caption-subject uppercase" ui-sref-active="active">Signup</a>-->
                 <a ng-show="currentUser" ui-sref="noticeboard" class="glyphicon glyphicon-bell" ng-mouseover="showNotices=true" ng-mouseover="showNotices=false">
                   <span ng-show="showNotices" class="badge">{{noticeList.length}}</span>

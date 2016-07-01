@@ -6,9 +6,49 @@
 
         <div class="portlet-title">
           <div class="caption caption-md col-sm-2">  <span class="caption-subject uppercase">Attendance</span>          </div>
-          <form ng-submit="monthView()">
-          <div class="caption caption-md col-sm-4">       </div>
-          <div class="caption caption-md col-sm-2">
+		                    <input type="button" ng-hide="!Admin" ng-click="sendEmail()" class="btn btn-success uppercase" value="Send Email"/>
+
+        
+        </div>
+
+        <div class="portlet-body">
+          <div class="row list-separated">
+            <form ng-submit="loadDates()">
+              <div class="col-sm-12">
+              <div class="col-sm-2">
+              <select ng-model="classSelected" ng-show="showDayView" class="form-control" id = selectedClass required>
+                <option value="">Class </option>
+                <option ng-repeat="y in classList" value="{{y.id}}" >{{y.className}}-{{y.sectionName}}</option>
+              </select>
+            </div>
+              <div class="col-sm-2">
+                <input type="date" class="form-control" ng-show="showDayView" ng-model="dateSelected" required>
+            </div>
+              <div class="col-sm-1">
+              <input type="submit" ng-show="showDayView" class="btn btn-success uppercase" value="View"/>
+              
+            </div>
+              <div class="col-sm-4">
+              <input type="button" class="btn btn-success uppercase" ng-click="showDayView=!showDayView" value="Daily Attendance"/>
+        
+                </div>
+              <div class="col-sm-3">
+
+                </div>
+<br> <br> <br> 
+ </div>
+            </form>
+            <!---->
+			
+			<form ng-submit="monthView()">        
+			<div class="col-sm-12">
+            <div class="col-sm-2">
+			<select ng-model="classSelectedMonth" class="form-control" id = selectedClass required>
+                <option value="">Class </option>
+                <option ng-repeat="y in classList" value="{{y.id}}" >{{y.className}}-{{y.sectionName}}</option>
+              </select>
+            </div>
+            <div class="col-sm-2">
             <select ng-model="monthSelected" class="form-control" required>
               <option value="">Month </option>
               <option value="0">January </option>
@@ -25,39 +65,16 @@
               <option value="11">December </option>
             </select>
           </div>
-          <div class="caption caption-md col-sm-2">
-            <input type="number" class="form-control" ng-model="yearSelected" required>
+            <div class="caption caption-md col-sm-2">
+            <input type="number" class="form-control" placeholder="Year" ng-model="yearSelected" required>
           </div>
             <div class="caption caption-md col-sm-2">
-            <input type="submit" class="form-control">
+            <input type="submit" class="btn btn-success uppercase" value="View">
           </div>
-          </form>
-
-        </div>
-
-        <div class="portlet-body">
-          <div class="row list-separated">
-            <form ng-submit="loadDates()">
-              <div class="col-sm-12">
-
-            <div class="col-sm-2">
-              <select ng-model="classSelected" class="form-control" id = selectedClass required>
-                <option value="">Class </option>
-                <option ng-repeat="y in classList" value="{{y.id}}" >{{y.className}}-{{y.sectionName}}</option>
-              </select>
-            </div>
-              <div class="col-sm-2">
-                <input type="date" class="form-control" ng-model="dateSelected" required>
-            </div>
-            <div class="col-sm-1">
-              <input type="submit" ng-show="Admin || Staff" class="btn btn-success uppercase" value="Generate Attendance"/>
-              <input type="submit" ng-hide="Admin" class="btn btn-success uppercase" value="View Attendance"/>
-            </div>
-                <div class="col-sm-7"></div>
-              </div>
-
+          </div>
+		  <br> <br> <br> 
             </form>
-            <!---->
+
             <br><br><br>
             <div class="col-sm-12">
             <div class="col-sm-3">
@@ -78,7 +95,7 @@
 
                     </tr></thead>
                     <tbody>
-                    <tr data-ng-repeat="x in studentList" >
+                    <tr data-ng-repeat="x in studentList track by $index" >
                     <!--<tr data-ng-repeat="x in studentList" ng-if="x.status!='Blocked'">-->
                         <td> {{x.rollNo}}</td>
                         <td> {{x.firstName}}</td>
@@ -99,11 +116,13 @@
 
               <table class="table table-bordered table-striped table-condensed flip-content">
                 <tr>
+                  <th>Roll No </th>
                   <th>Students </th>
                   <th colspan="31">Attendance </th>
                 </tr>
-                <tr ng-repeat="x in monthList"  >
-                  <td>      {{x.studentId}}</td>
+                <tr ng-repeat="x in monthList track by $index"  >
+                  <td>      {{x.rollNo}}</td>
+                  <td>      {{x.firstName}}</td>
                   <td ng-hide="x.RFID ==null" ng-repeat="y in x.status track by $index">
                     <input type="checkbox" ng-model="y"/>
 
