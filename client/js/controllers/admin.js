@@ -64,8 +64,6 @@ angular
               StudentParent.create({studentId:student.id,parentId:userData.id,schoolId:$scope.schoolId});
             }
           });
-          console.log($scope.listStudent);
-
         }
         else{
 
@@ -76,7 +74,6 @@ angular
           // --------------------------------------------------------
           var day =$filter('date')(new Date(), 'yyyy-MM-dd');
           $scope.noticeList = Noticeboard.find({filter:{where:{schoolId:$scope.schoolId,date1:{lt:day},date2:{gt:day}}}});
-
 
           //--------------------------------------------------------
           //                   CALENDAR
@@ -124,20 +121,24 @@ angular
           }
 
 
-
           //--------------------------------------------------------
           //                  GET BIRTHDAY LIST
           // --------------------------------------------------------
+
           $scope.studentList = Student.find({
             filter: {
               where: {schoolId: $scope.schoolId},
               include: 'class'
             }
-          }, function (response) {
+          },
+            function (response) {
+
             $scope.birthdayList =[];
             var j =0;
+
             for(var i=0;i<$scope.studentList.length;i++)
             {
+              console.log($scope.studentList.dateofBirth);
               var a =  $filter('date')(new Date($scope.studentList[i].dateofBirth), 'MM-dd')    ;
               var b =  $filter('date')(new Date(), 'MM-dd')    ;
               var c= (new Date(a)-new Date(b)) / (1000 * 3600 * 24);
@@ -148,9 +149,12 @@ angular
                 j++;
               }
             }
-          }, function (response) {
-            if (response.status =401) $state.go('logout', {}, {reload: true}) ;
-          });
+            },
+            function (response)
+            {
+              console.log('Cant Fetch Student List');
+              if (response.status =401) $state.go('logout', {}, {reload: true}) ;
+            });
         }
 
 
@@ -192,34 +196,44 @@ angular
         $scope.date = new Date();
         $scope.school = School.findById({id:$scope.schoolId},function(){ $rootScope.schoolName = $scope.school.schoolName;});
 
+        $scope.accessCheck = function(response){
+          if (response.status =401) $state.go('logout', {}, {reload: true}) ;
+        }
 
 
 
         //--------------------------------------------------------
         //                  GET CLASS LIST
         // --------------------------------------------------------
-
-        $scope.classList = Class.find   ({filter: {where: {schoolId: $scope.schoolId}}}, function (response) {
-        }, function (response) {
-          console.log("Classes "+response.data.error.message);
-        });
-
-        $scope.studentList = Student.find({
-          filter: {
-            where: {schoolId: $scope.schoolId},
-            include: 'class'
-          }
-        }, function (response) {
-        }, function (response) {
-            if (response.status =401) $state.go('logout', {}, {reload: true}) ;
+        $scope.classList = Class.find({filter: {where: {schoolId: $scope.schoolId}}},
+          function () {},
+          function (response) {
+          $scope.accessCheck(response);
+          console.log('Error In Finding Classes');
         });
 
 
+        //--------------------------------------------------------
+        //                  GET CLASS LIST
+        // -------------------------------------------------------
+        $scope.studentList = Student.find({filter: {where: {schoolId: $scope.schoolId}, include: 'class'}},
+          function () {},
+          function (response) {
+          $scope.accessCheck(response);
+          console.log('Error In Finding Students');
+          });
+
+
+        //--------------------------------------------------------
+        //                  SHOW EMPTY  LIST INITIALLY
+        // -------------------------------------------------------
+        $scope.searchList = [];
 
 
 
-
-        if (Admin) {
+        //*********************ADMIN & STAFF ACCESS*********************
+        if (Admin || Staff)
+        {
           $scope.studentParent = StudentParent.find({filter: {where: {schoolId: $scope.schoolId}, include: 'parent'}},
             function (response) {
               var i = 0;
@@ -230,12 +244,14 @@ angular
                 i++;
               }, $scope.parentList);
 
-            }, function (response) {
+            },
+            function (response) {
+              $scope.accessCheck(response);
               console.log("StudentParent Data " + response.data.error.message);
-              if (response.status = 401) $state.go('logout', {}, {reload: true});
             });
         }
-        else if (Student){
+        else if (Student)
+        {
           $scope.studentParent = StudentParent.find({filter: {where: {studentId: $scope.userData.id}, include: 'parent'}},
             function (response) {
               var i = 0;
@@ -247,14 +263,14 @@ angular
               }, $scope.parentList);
 
             }, function (response) {
-              console.log("StudentParent Data " + response.data.error.message);
-              if (response.status = 401) $state.go('logout', {}, {reload: true});
+              $scope.accessCheck(response);
             });
+        }
+        else if (Parent){
+
         }
 
 
-        //$scope.searchList = $scope.studentList;
-         $scope.searchList = [];
 
 
 
@@ -263,9 +279,6 @@ angular
         //                  PROCESS SEARCH FORM
         // --------------------------------------------------------
         $scope.processSearch = function (searchUser) {
-
-
-
           $scope.searchList = [];
 
                   if      (searchUser   == 't') {
@@ -301,7 +314,7 @@ angular
                         $scope.searchList = $scope.studentList;
                       }
                   }
-                  else    $state.go($state.current, {}, {reload: true});
+                  //else    $state.go($state.current, {}, {reload: true});
         }
 
 
@@ -311,9 +324,7 @@ angular
           //--------------------------------------------------------
           //                  CLEAR FORM
           // --------------------------------------------------------
-          $scope.clearForm = function () {
-            $scope.formData = {};
-          }
+          $scope.clearForm = function () { $scope.formData = {}; }
 
           //--------------------------------------------------------
           //                  EMAIL CHECK
@@ -323,7 +334,6 @@ angular
             {
               if ($scope.formData.email)
               {
-                console.log($scope.formData.email);
                 $scope.emailCheck = Student.findOne({filter: {where: {email: $scope.formData.email}}},function(){
                     alert('Email Already Exists');
                   },
@@ -380,8 +390,11 @@ angular
               $scope.checkRoll = Student.findOne({filter:{where:{classId :$scope.editData.classId,rollNo:$scope.editData.rollNo}}},
                 function(){
                   $scope.RollnoExists =true;
+                },function(){
+                  $scope.RollnoExists =false;
                 });
             }
+
           }
 
 
@@ -497,7 +510,6 @@ angular
               var date2 = new Date(d);
               $scope.editData.dateofBirth = new Date(date2.setDate(d.getDate()));
               $scope.editData.dateofBirth = new Date($scope.editData.dateofBirth);
-              //console.log($scope.editData.dateofBirth);
 
 
               $scope.editData.dateofJoin = $filter('date')(new Date(x.dateofJoin), 'yyyy-MM-dd');
@@ -799,7 +811,6 @@ angular
 
 
 
-
           //--------------------------------------------------------
           //                 DELETE STUDENT/PARENT/STAFF STARTS
           //--------------------------------------------------------
@@ -812,7 +823,6 @@ angular
 							   if (x.type == "Student")    {
 										Student.delete({id: x.id}, function ()
                     {
-                              console.log('Student ' + x.firstName + ' ' + x.lastName +' Is Deleted');
                               $scope.resultStudentParent = StudentParent.find({
                                 filter: {
                                   where: {
@@ -871,7 +881,6 @@ angular
                 }
                 else if (x.type == "Staff") {
                   Staff.delete({id: x.id}, function () {
-                    console.log('Staff' + x.firstName + ' ' + x.lastName + 'Deleted Successfully');
                     $state.go($state.current, {}, {reload: true});
                   });
                 }
@@ -899,9 +908,9 @@ angular
         $scope.showUser = function (x) {
 
           $scope.formData =x;
-          if (x.type =='Student')        ngDialog.openConfirm({template: 'showStudent', scope: $scope});
-          else if (x.type =='Parent')    ngDialog.openConfirm({template: 'showParent', scope: $scope});
-          else if (x.type =='Staff')     ngDialog.openConfirm({template: 'showStaff', scope: $scope});
+          if      (x.type =='Student')   ngDialog.openConfirm({template: 'showStudent', scope: $scope});
+          else if (x.type =='Parent')    ngDialog.openConfirm({template: 'showParent',  scope: $scope});
+          else if (x.type =='Staff')     ngDialog.openConfirm({template: 'showStaff',   scope: $scope});
 
         }
 
@@ -940,22 +949,27 @@ angular
         $scope.schoolId = $scope.userData.schoolId;
         $scope.formData = [];
 
-        if($scope.Student){
-          $scope.classList = Class.find  ({filter: {where: {id:$scope.userData.classId}, include: 'staff'}},function(){},function(response){if (response.status =401) $state.go('logout', {}, {reload: true}) ;});
+
+        if($scope.Student)
+        {
+          $scope.classList = Class.find  ({filter: {where: {id:$scope.userData.classId}, include: 'staff'}},function(){},
+            function(response) {                $scope.accessCheck(response); });
         }
 
-        if ($scope.Admin) {
-          $scope.staffList = Staff.find({filter: {where: {schoolId: $scope.schoolId}}},function(){},function(response){if (response.status =401) $state.go('logout', {}, {reload: true}) ;});
-          $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}, include: 'staff'}},function(){},function(response){if (response.status =401) $state.go('logout', {}, {reload: true}) ;});
+        if ($scope.Admin)
+        {
+           $scope.staffList = Staff.find({filter: {where: {schoolId: $scope.schoolId}}},function(){},function(response){if (response.status =401) $state.go('logout', {}, {reload: true}) ;});
+           $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}, include: 'staff'}},function(){},function(response){if (response.status =401) $state.go('logout', {}, {reload: true}) ;});
 
-		  //--------------------------------------------------------
+		      //--------------------------------------------------------
           //                  CLEAR RESPONSE
           // --------------------------------------------------------
-		   $scope.clearResponse = function (){
-			   $scope.response = null;
-			   $scope.responseAddClass = null;
-         $scope.formData=null;
-		   }
+		       $scope.clearResponse = function ()
+           {
+			           $scope.response = null;
+			           $scope.responseAddClass = null;
+                 $scope.formData=null;
+		       }
 
 
           //--------------------------------------------------------
@@ -963,54 +977,38 @@ angular
           // --------------------------------------------------------
 
           $scope.addClass = function () {
-            $scope.classExists = Class.findOne({
-                filter: {
-                  where: {
-                    schoolId: $scope.schooId,
-                    className: $scope.formData.className,
-                    sectionName: $scope.formData.sectionName
-                  }
-                }
-              },
+            $scope.classExists = Class.findOne({filter: {where: { schoolId: $scope.schooId, className: $scope.formData.className, sectionName: $scope.formData.sectionName}}},
+              function () { $scope.responseAddClass = 'Class Already Exists';},
               function () {
-                $scope.responseAddClass = 'Class Already Exists';
-              },
-              function () {
-                Class.create({
-                    schoolId: $scope.schoolId,
-                    className: $scope.formData.className,
-                    sectionName: $scope.formData.sectionName,
-                    staffId: $scope.formData.staffSelected
-                  }, function () {
-
-			  $scope.responseAddClass = "Class "+ $scope.formData.className + "-" + $scope.formData.sectionName + " Created Successfully";
+                Class.create({schoolId: $scope.schoolId,className: $scope.formData.className,sectionName: $scope.formData.sectionName,staffId: $scope.formData.staffSelected},
+                  function () {
+                    $scope.responseAddClass = "Class "+ $scope.formData.className + "-" + $scope.formData.sectionName + " Created Successfully";
                     setTimeout( function()
                     {
                       $state.go($state.current, {}, {reload: true});
                       $scope.$apply();
                     }, 1000 );
                   },
-                  function (response) {
-                    console.log(response.data.error.message);
-                  });
+                  function (response) { console.log(response.data.error.message);});
 
               });
           }
+
 
           //--------------------------------------------------------
           //                  UPDATE CLASS
           // --------------------------------------------------------
           $scope.updateClass = function (x) {
-            Class.upsert({id: x.id, staffId: x.staff.id}, function (response) {
-				$scope.response="Class " + x.className + "-" + x.sectionName +" Updated Successfully With " + x.staff.firstName;
+            Class.upsert({id: x.id, staffId: x.staff.id}, function () {
+      				$scope.response="Class " + x.className + "-" + x.sectionName +" Updated Successfully With " + x.staff.firstName;
               setTimeout( function()
               {
                 $state.go($state.current, {}, {reload: true});
                 $scope.$apply();
               }, 1000 );
             });
-
           }
+
 
           //--------------------------------------------------------
           //                  DELETE CLASS
@@ -1018,14 +1016,17 @@ angular
           $scope.deleteClass = function (x) {
             var dialog = ngDialog.open({template: 'deleteClass'});
             dialog.closePromise.then(function (data) {
-              $scope.response="Class Deleted Successfully";
-              if (data.value && data.value != '$document' && data.value != '$closeButton') Class.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")});
-              setTimeout( function()
+              if (data.value && data.value != '$document' && data.value != '$closeButton')
               {
-                $state.go($state.current, {}, {reload: true});
-                $scope.$apply();
-              }, 1000 );
-              return true;
+                Class.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")});
+                $scope.response="Class Deleted Successfully";
+                setTimeout( function()
+                {
+                  $state.go($state.current, {}, {reload: true});
+                  $scope.$apply();
+                }, 1000 );
+                return true;
+              }
             });
           }
         }
@@ -1120,9 +1121,10 @@ angular
 
 
           $scope.updateSubject = function (a) {
-            $scope.responseAddSubject ="Subject "+ $scope.formData.subjectName + " Edited Successfully";
 						Subject.upsert({id: a.id, staffId: a.staff.id},
 						  function () {
+                $scope.responseAddSubject ="Subject  Edited Successfully";
+
                 setTimeout( function()
                 {
                   $state.go($state.current, {}, {reload: true});
@@ -1418,7 +1420,7 @@ angular
       if ($scope.userData.type == 'Student') { $scope.Student = true;}
       if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
       if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
-      var baseApi = $location.$$protocol + "://"+ $location.$$host + ":" +$location.$$port + "/api/Containers/noticeboard/download/";
+      //var baseApi = $location.$$protocol + "://"+ $location.$$host + ":" +$location.$$port + "/api/Containers/noticeboard/download/";
 
 
       //------------------------------------------------
@@ -1432,7 +1434,6 @@ angular
           scope: $scope //Pass the scope object if you need to access in the template
         }).then(
           function(formData) {
-            console.log(formData);
             formData.date1 = $filter('date')(new Date(formData.date1), 'yyyy-MM-dd');
             formData.date2 = $filter('date')(new Date(formData.date2), 'yyyy-MM-dd');
             Noticeboard.create({title : formData.title,description: formData.description,date1: formData.date1,
@@ -1484,13 +1485,12 @@ angular
                 $state.go($state.current, {}, {reload: true});
                 $scope.$apply();
               }, 1000 );
-              Container.removeFile({container:"noticeboard",file:x.name},function(){
-                console.log("File Deleted");
-              },function(response){
-                console.log(response.data.error.message);
-              });
+              //Container.removeFile({container:"noticeboard",file:x.name},function(){
+              //  console.log("File Deleted");
+              //},function(response){
+              //  console.log(response.data.error.message);
+              //});
             });
-          $state.go($state.current, {}, {reload: true});
           return true;
         });
 
@@ -1827,6 +1827,16 @@ angular
       if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
       $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}}});
       $scope.studentList =[];
+      //-----------------------------------
+      // TABS CODE
+      //------------------------------------
+
+      $scope.tab = 1;
+      $scope.setTab = function(newTab){  $scope.tab = newTab; };
+      $scope.isSet = function(tabNum){   return $scope.tab === tabNum; };
+
+
+
 
       $scope.delete= function(){
         $scope.test =Attendance.find(function(response){
@@ -1844,6 +1854,9 @@ angular
       $scope.monthView = function() {
         $scope.monthList =[];
         var getDays = new Date($scope.yearSelected,parseInt($scope.monthSelected)+1,0).getDate();
+        $scope.monthDays = function(){
+          return new Array(getDays);
+        }
         $scope.list = Student.find({filter: {where: {classId: $scope.classSelectedMonth}}}, function (response) {
           var i=0;
           $scope.status=[];
@@ -1903,9 +1916,6 @@ angular
 
           });
         });
-
-
-
       }
 
       $scope.loadDates = function() {
@@ -1914,19 +1924,16 @@ angular
         $scope.absentCount=0;
         $scope.blockedCount=0;
 
-        if ($scope.Admin || $scope.Staff){
-          $scope.list = Student.find({filter: {where: {classId: $scope.classSelected}}}, function () {
-            for (var i = 0; i < $scope.list.length; i++) {
-				
-	          console.log( $scope.list[i].RFID.length +  "-" + $scope.list[i].firstName + "-" +$scope.list[i].RFID );
-	          if ( $scope.list[i].RFID.length >0){
+              if ($scope.Admin || $scope.Staff){
+          $scope.list = Student.find({filter: {where: {classId: $scope.classSelected}}}, function () { for (var i = 0; i < $scope.list.length; i++) {
+	          if ( $scope.list[i].RFID.length != 0){
 				  		  $scope.chk($scope.list[i].id, $scope.list[i].firstName,i,$scope.list[i].RFID,$scope.list[i].rollNo);
-			  }
-			  else{
+		       	  }
+			      else{
 				  $scope.blockedCount++;
 				  $scope.studentList[i] ={id:$scope.list[i].id,firstName : $scope.list[i].firstName,rollNo:$scope.list[i].rollNo,status:"Blocked"};
-			  }
-              		
+    			  }
+
             }
           });
 
@@ -1947,14 +1954,14 @@ angular
                 function(response)
                 {
                     $scope.presentCount++;
-	
+
                     $scope.studentList[i] ={id:studentId ,firstName :firstName,RFID:RFID,rollNo :rollNo,attendanceId :response.id,status:true};
-                 
+
                 },
                 function()
                 {
                   $scope.absentCount++;
-				  console.log(RFID);
+				  console.log("Absent");
                   $scope.studentList[i] ={id:studentId,firstName : firstName,RFID:RFID,rollNo:rollNo,status:false};
                 });
 
@@ -2008,6 +2015,109 @@ angular
 
 
  }])
+
+
+  .controller('HolidayController',
+    ['$scope', '$state','$window','Calendar','School',function ($scope,$state,$window,Calendar,School) {
+        $scope.user = $window.localStorage.getItem('user');
+        $scope.userData = JSON.parse($scope.user);
+        $scope.schoolId = $scope.userData.schoolId;
+        if ($scope.userData.type == 'Admin'  ) { $scope.Admin   = true;}
+        if ($scope.userData.type == 'Student') { $scope.Student = true;}
+        if ($scope.userData.type == 'Parent' ) { $scope.Parent  = true;}
+        if ($scope.userData.type == 'Staff'  ) { $scope.Staff   = true;}
+
+
+        //-----------------------------------
+        // TABS CODE
+        //------------------------------------
+
+        $scope.tab = 1;
+
+        $scope.setTab = function(newTab){
+          $scope.tab = newTab;
+        };
+
+        $scope.isSet = function(tabNum){
+          return $scope.tab === tabNum;
+        };
+      //-------------------------------------
+      //  MONTH VIEW SET UP
+      //------------------------------------
+
+      var months = new Array(12);
+      months[0] = "January";
+      months[1] = "February";
+      months[2] = "March";
+      months[3] = "April";
+      months[4] = "May";
+      months[5] = "June";
+      months[6] = "July";
+      months[7] = "August";
+      months[8] = "September";
+      months[9] = "October";
+      months[10] = "November";
+      months[11] = "December";
+
+
+      $scope.monthDays = function(){  return new Array(31);  }
+
+
+      Calendar.findOne({filter:{where:{schoolId:$scope.schoolId}}},function(response){
+        $scope.monthList = response.monthList;
+      },function(){
+        console.log('creating new calendar for this year');
+        $scope.createCalendar();
+      });
+
+      $scope.createCalendar= function(){
+        var d = new Date();
+        $scope.yearSelected = d.getFullYear();
+      $scope.monthList =[];
+      for(var i=0;i<12;i++){
+        var getDays = new Date($scope.yearSelected,i+1,0).getDate();
+        $scope.monthDays = function(){  return new Array(getDays);  }
+        $scope.status = [];
+        for(var s=0;s<getDays;s++) {       $scope.status[s] =false;  }
+        $scope.monthList[i] = {month:months[i],status:$scope.status};
+      }
+
+
+
+
+      }
+
+      $scope.saveCalendar = function(){
+        Calendar.findOne({filter:{where:{schoolId:$scope.schoolId}}},function(response){
+          Calendar.upsert({id:response.id,monthList:$scope.monthList});
+          console.log('Updating');
+        },function(){
+          console.log('Creating');
+
+          Calendar.create({schoolId:$scope.schoolId,monthList:$scope.monthList });
+        });
+      }
+
+      $scope.addHoliday = function(x,y,index) {
+        for(var k=0;k<12;k++)
+        {
+           if(months[k] == x.month) var num = k;
+        }
+        $scope.monthList[num].status[index]=y;
+      }
+
+
+      //$scope.addWorkingDays = function(){
+      School.findById({id:$scope.schoolId},function(response){
+        var startDate = new Date(response.startDate);
+        var endDate = new Date(response.endDate);
+        console.log(startDate.getMonth());
+      });
+      //}
+
+      }])
+
+
 
   .filter('startFrom', function() { return function(input, start) { start = +start; return input.slice(start); }})
 

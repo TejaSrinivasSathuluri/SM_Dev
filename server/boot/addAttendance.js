@@ -1,7 +1,7 @@
 module.exports = function(server)
 {
     var schedule = require('node-schedule');
-    var j = schedule.scheduleJob('*/60 * * * *', function()
+    var j = schedule.scheduleJob('*/1000 * * * *', function()
     {
 
               var Attendance = server.models.Attendance;
@@ -15,6 +15,7 @@ module.exports = function(server)
               {
                       console.log('Reading Record');
                       jsonObj.EPC = jsonObj.EPC.replace('#', '');
+					  //console.log(jsonObj.SID);
                                        console.log('Found Student');
                                             var date = new Date();
                                     var year = date.getFullYear();
@@ -35,8 +36,9 @@ module.exports = function(server)
                                           });
 
               });
-                       require("request").get("http://studymonitor.net/dev/atten/LOG.CSV").pipe(converter);
-                     //require("request").get("http://localhost:3000/LOG.CSV").pipe(converter);
+               //   require("request").get("http://studymonitor.net/dev/atten/LOG.CSV").pipe(converter);
+               var url ="http://localhost:3000/LOG.CSV"
+               require("request").get(url).pipe(converter);
 
     });
 

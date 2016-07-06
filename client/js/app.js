@@ -25,6 +25,7 @@ angular
     .state('noticeboard', { url: '/noticeboard',templateUrl: 'views/noticeboard.html',controller: 'NoticeboardController', authenticate: true})
     .state('library',     { url: '/library',    templateUrl: 'views/library.html',    controller: 'LibraryController',     authenticate: true})
     .state('assignment',  { url: '/assignment', templateUrl: 'views/assignment.html', controller: 'AssignmentController',  authenticate: true})
+    .state('holiday',  { url: '/schoolcalendar', templateUrl: 'views/holiday.html', controller: 'HolidayController',  authenticate: true})
 
       //--------------Auth Services
       .state('index',        { url: '/index',      controller: 'LandingPageController'})
