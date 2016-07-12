@@ -30,7 +30,7 @@ angular
       //--------------Auth Services
       .state('index',        { url: '/index',      controller: 'LandingPageController'})
     //.state('forbidden', { url: '/forbidden', templateUrl: 'views/forbidden.html'})
-    .state('email', { url: '/email', templateUrl: 'views/email.html'})
+    .state('email', { url: '/email', templateUrl: 'views/email.html', controller:'EmailController'})
       .state('login',         { url: '/login',  templateUrl: 'views/login.html',   controller: 'AuthLoginController' })
       .state('login.admin',   { url: '/admin',  templateUrl: 'views/admin.html',   controller: 'AuthLoginController' })
       .state('login.staff',   { url: '/staff',  templateUrl: 'views/staff.html',   controller: 'AuthLoginController' })

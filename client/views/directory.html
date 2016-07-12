@@ -363,11 +363,11 @@
       </div>
       <div class="col-sm-12">
         <div class="col-sm-6"><input type="text"  class="form-control" placeholder="RFID"  ng-model="formData.RFID"  ng-mouseover="tag9=true" ng-mouseleave="tag9=false"	 ><div class="tag9" ng-show="tag9">RFID</div><br></div>
-        <div class="col-sm-6"><input type = "file" file-model = "formData.studentImg" class="form-control" placeholder="Image" ng-mouseover="tag10=true" ng-mouseleave="tag10=false"	 ><div class="tag10" ng-show="tag10">Profile Image</div><br></div>
+        <div class="col-sm-6"><input type = "file" file-model = "formData.image" class="form-control" placeholder="Image" ng-mouseover="tag10=true" ng-mouseleave="tag10=false"	 ><div class="tag10" ng-show="tag10">Profile Image</div><br></div>
       </div>
       <div class="col-sm-12">
         <div class="col-sm-6"><input  type="text" class="form-control" placeholder="Previous School"  ng-model="formData.previousSchool"  ng-mouseover="tag11=true" ng-mouseleave="tag11=false"   >	<br><div class="tag11" ng-show="tag11">Previous School</div><br></div>
-        <div class="col-sm-6"><input type = "file" file-model = "formData.studentPreviousTC" class="form-control" ng-mouseover="tag12=true" ng-mouseleave="tag12=false"	 ><br></div><div class="tag12" ng-show="tag12">Previous School TC</div><br>
+        <div class="col-sm-6"><input type = "file" file-model = "formData.TC" class="form-control" ng-mouseover="tag12=true" ng-mouseleave="tag12=false"	 ><br></div><div class="tag12" ng-show="tag12">Previous School TC</div><br>
       </div>
       <div class="col-sm-12">
         <div class="col-sm-12">
@@ -793,7 +793,7 @@
                  </div>
                  <div class="pull-right">
                    <button ng-disabled="currentPage == 0"               ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
-                   <button ng-disabled="currentPage >= searchList.length/pageSize-1" ng-click="currentPage=currentPage+1">Next</button>
+                   <button ng-disabled="currentPage >= filtered.length/pageSize-1" ng-click="currentPage=currentPage+1">Next</button>
 
                  </div>
 
@@ -801,7 +801,6 @@
 
 
          </div>
-
 		  <br><br><br><br><br><br><br>
         </div>
 		</div>

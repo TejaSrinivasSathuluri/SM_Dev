@@ -65,7 +65,7 @@ angular
             }
           });
         }
-        else{
+
 
           $scope.school = School.findById({id:$scope.schoolId},function(){ $rootScope.schoolName = $scope.school.schoolName;});
 
@@ -74,7 +74,6 @@ angular
           // --------------------------------------------------------
           var day =$filter('date')(new Date(), 'yyyy-MM-dd');
           $scope.noticeList = Noticeboard.find({filter:{where:{schoolId:$scope.schoolId,date1:{lt:day},date2:{gt:day}}}});
-
           //--------------------------------------------------------
           //                   CALENDAR
           // --------------------------------------------------------
@@ -111,7 +110,7 @@ angular
             //  endTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() ));
 
             for(var i=0;i<$scope.noticeList.length;i++){
-              console.log($scope.noticeList[i].date1);
+              //console.log($scope.noticeList[i].date1);
               events.push({ title:  $scope.noticeList[i].title });
 
             }
@@ -132,13 +131,12 @@ angular
             }
           },
             function (response) {
-
             $scope.birthdayList =[];
             var j =0;
 
             for(var i=0;i<$scope.studentList.length;i++)
             {
-              console.log($scope.studentList.dateofBirth);
+
               var a =  $filter('date')(new Date($scope.studentList[i].dateofBirth), 'MM-dd')    ;
               var b =  $filter('date')(new Date(), 'MM-dd')    ;
               var c= (new Date(a)-new Date(b)) / (1000 * 3600 * 24);
@@ -155,24 +153,8 @@ angular
               console.log('Cant Fetch Student List');
               if (response.status =401) $state.go('logout', {}, {reload: true}) ;
             });
-        }
-
-
 
       }
-
-
-
-
-
-
-
-
-
-
-
-
-
    }])
 
 
@@ -195,8 +177,35 @@ angular
         $scope.schoolId = $scope.userData.schoolId;
         $scope.date = new Date();
         $scope.school = School.findById({id:$scope.schoolId},function(){ $rootScope.schoolName = $scope.school.schoolName;});
+        var xhr = new XMLHttpRequest();
+        var dropboxToken = '-p5lctzPHiwAAAAAAAAA43U_T_YF5XRqEwkFSoqw2STJdZx5bm4OpzmfUJ6crNy_';
+        //xhr.open('POST', 'https://content.dropboxapi.com/2/files/get_thumbnail');
+        //xhr.setRequestHeader('Authorization', 'Bearer ' + dropboxToken);
+        //xhr.setRequestHeader('Dropbox-API-Arg', JSON.stringify({
+        //  path: '/' + response.id + '.png',
+        //  mode: 'view',
+        //  autorename: true,
+        //  mute: false
+        //}));
+        //
 
-        $scope.accessCheck = function(response){
+
+
+        //xhr.open('POST', 'https://content.dropboxapi.com/2/files/get_preview');
+        xhr.open('POST', 'https://content.dropboxapi.com/2/files/get_thumbnail');
+        //xhr.open('POST', 'https://content.dropboxapi.com/2/files/create_shared_link');
+        xhr.setRequestHeader('Authorization', 'Bearer ' + dropboxToken);
+        xhr.setRequestHeader('Dropbox-API-Arg', JSON.stringify({
+          path: '/immi.png',
+           }));
+        xhr.send();
+        console.dir(xhr.response);
+        console.dir(xhr);
+   $scope.img = xhr.response;
+
+
+
+          $scope.accessCheck = function(response){
           if (response.status =401) $state.go('logout', {}, {reload: true}) ;
         }
 
@@ -228,6 +237,7 @@ angular
         //                  SHOW EMPTY  LIST INITIALLY
         // -------------------------------------------------------
         $scope.searchList = [];
+
 
 
 
@@ -457,7 +467,27 @@ angular
                       motherName      : formData.motherName
 
                     },
-                      function () {
+                      function (response) {
+
+                                                          if (formData.image != null){
+                                                            console.log('Uploading Image');
+                                                            xhr.open('POST', 'https://content.dropboxapi.com/2/files/upload');
+                                                            xhr.setRequestHeader('Authorization', 'Bearer ' + dropboxToken);
+                                                            xhr.setRequestHeader('Content-Type', 'application/octet-stream');
+                                                            xhr.setRequestHeader('Dropbox-API-Arg', JSON.stringify({
+                                                              path: '/' + response.id + '.png',
+                                                              mode: 'add',
+                                                              autorename: true,
+                                                              mute: false
+                                                            }),function(){
+                                                              console.log(xhr.response);
+
+                                                            });
+
+                                                            xhr.send(formData.image);
+
+                                                          }
+
                         $scope.response = 'Student Added Successfully';
                         $scope.error = true;
 
@@ -470,13 +500,11 @@ angular
                       function (response) {
                         $scope.response = 'Student Not Created.PleaseCheck All the Fields';
                         $scope.error = true;
-
                         setTimeout( function()
                         {
                           $state.go($state.current, {}, {reload: true});
                           $scope.$apply();
                         }, 2000 );
-
                         console.log(response.data.error.message);
                       }
                     );
@@ -977,21 +1005,43 @@ angular
           // --------------------------------------------------------
 
           $scope.addClass = function () {
-            $scope.classExists = Class.findOne({filter: {where: { schoolId: $scope.schooId, className: $scope.formData.className, sectionName: $scope.formData.sectionName}}},
-              function () { $scope.responseAddClass = 'Class Already Exists';},
-              function () {
-                Class.create({schoolId: $scope.schoolId,className: $scope.formData.className,sectionName: $scope.formData.sectionName,staffId: $scope.formData.staffSelected},
-                  function () {
-                    $scope.responseAddClass = "Class "+ $scope.formData.className + "-" + $scope.formData.sectionName + " Created Successfully";
-                    setTimeout( function()
-                    {
-                      $state.go($state.current, {}, {reload: true});
-                      $scope.$apply();
-                    }, 1000 );
-                  },
-                  function (response) { console.log(response.data.error.message);});
 
-              });
+            ngDialog.openConfirm({template: 'addClass',
+              scope: $scope //Pass the scope object if you need to access in the template
+            }).then(
+              function(formData) {
+
+                $scope.classExists = Class.findOne({filter: {where: { schoolId: formData.schoolId, className: formData.className, sectionName: formData.sectionName}}},
+                  function ()
+                  {
+                    $scope.error = true;
+                    $scope.success = false;
+
+                    $scope.responseAddClass = 'Class Already Exists';
+                  },
+                  function () {
+                    Class.create({schoolId: $scope.schoolId,className: formData.className,sectionName:formData.sectionName,staffId:formData.staffSelected},
+                      function () {
+                        $scope.error = false;
+                        $scope.success = true;
+
+                        $scope.responseAddClass = "Class "+ formData.className + "-" + formData.sectionName + " Created Successfully";
+                        console.log($scope.responseAddClass);
+
+                        setTimeout( function()
+                        {
+                          $state.go($state.current, {}, {reload: true});
+                          $scope.$apply();
+                        }, 1000 );
+                      },
+                      function (response) { console.log(response.data.error.message);});
+
+                  });
+
+
+              },
+              function (value) { }
+            );
           }
 
 
@@ -1029,6 +1079,10 @@ angular
               }
             });
           }
+
+
+
+
         }
       // --------------------------------------------------------
         //                 SORT TABLE TECHNIQUE
@@ -1070,53 +1124,62 @@ angular
           }, function (response) {
             if (response.status = 401) $state.go('logout', {}, {reload: true});
           });
-
-
           $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}}}, function () {
           }, function (response) {
             if (response.status = 401) $state.go('logout', {}, {reload: true});
           });
-
-
           $scope.subjectList = Subject.find({filter: {include: ['staff', 'class']}});
 
 
 
           $scope.addSubject = function () {
+            ngDialog.openConfirm({template: 'addSubject',
+              scope: $scope //Pass the scope object if you need to access in the template
+            }).then(
+              function(formData) {
+                $scope.checkSub = Subject.findOne({
+                    filter: {
+                      where: {
+                        classId: formData.classSelected,
+                        subjectName: formData.subjectName
+                      }
+                    }
+                  },
+                  function () {
+                    $scope.responseAddSubject = 'Subject ' + formData.subjectName + ' Already Exists For The Class.' ;
+                    $scope.error = true;
+                    $scope.success = false;
+                  },
+                  function () {
+                    Subject.create({
+                        subjectName: formData.subjectName,
+                        classId: formData.classSelected,
+                        staffId: formData.staffSelected
+                      },
+                      function () {
 
-            $scope.checkSub = Subject.findOne({
-                filter: {
-                  where: {
-                    classId: $scope.formData.classSelected,
-                    subjectName: $scope.formData.subjectName
-                  }
-                }
+                        $scope.responseAddSubject ="Subject "+ formData.subjectName + " created Successfully in Class";
+                        $scope.error = false;
+                        $scope.success = true;
+                        setTimeout( function()
+                        {
+                          $state.go($state.current, {}, {reload: true});
+                          $scope.$apply();
+                        }, 1000 );
+                      },
+                      function () {
+
+
+                      }
+                    );
+                  });
+
+
+
+
               },
-              function () {
-							$scope.responseAddSubject = 'Subject' +$scope.formData.subjectName + ' Already Exists.';
-              },
-              function () {
-							Subject.create({
-								subjectName: $scope.formData.subjectName,
-								classId: $scope.formData.classSelected,
-								staffId: $scope.formData.staffSelected
-							  },
-							  function () {
-
-									$scope.responseAddSubject ="Subject "+ $scope.formData.subjectName + " created Successfully in Class";
-                  setTimeout( function()
-                  {
-                    $state.go($state.current, {}, {reload: true});
-                    $scope.$apply();
-                  }, 1000 );
-							  },
-							  function () {
-
-
-							  }
-							);
-              });
-
+              function (value) { }
+            );
           }
 
 
@@ -2117,6 +2180,54 @@ angular
 
       }])
 
+  .controller('EmailController',
+    ['$scope', '$state','$window','School',function ($scope,$state,$window,School) {
+        $scope.user = $window.localStorage.getItem('user');
+        $scope.userData = JSON.parse($scope.user);
+        $scope.schoolId = $scope.userData.schoolId;
+        if ($scope.userData.type == 'Admin'  ) { $scope.Admin   = true;}
+        if ($scope.userData.type == 'Student') { $scope.Student = true;}
+        if ($scope.userData.type == 'Parent' ) { $scope.Parent  = true;}
+        if ($scope.userData.type == 'Staff'  ) { $scope.Staff   = true;}
+
+      var xhr = new XMLHttpRequest();
+
+      //xhr.upload.onprogress = function(evt) {
+      //  var percentComplete = parseInt(100.0 * evt.loaded / evt.total);
+      //  // Upload in progress. Do something here with the percent complete.
+      //};
+
+      //xhr.onload = function() {
+      //  if (xhr.status === 200) {
+      //    var fileInfo = JSON.parse(xhr.response);
+      //    console.log(xhr.response);
+      //    // Upload succeeded. Do something here with the file info.
+      //  }
+      //  else {
+      //    var errorMessage = xhr.response || 'Unable to upload file';
+      //
+      //    // Upload failed. Do something here with the error.
+      //  }
+      //};
+
+      $scope.uploadFile = function(){
+
+        var dropboxToken = '-p5lctzPHiwAAAAAAAAA43U_T_YF5XRqEwkFSoqw2STJdZx5bm4OpzmfUJ6crNy_';
+        xhr.open('POST', 'https://content.dropboxapi.com/2/files/upload');
+        xhr.setRequestHeader('Authorization', 'Bearer ' + dropboxToken);
+        xhr.setRequestHeader('Content-Type', 'application/octet-stream');
+        xhr.setRequestHeader('Dropbox-API-Arg', JSON.stringify({
+          path: '/immi.png' ,
+          mode: 'add',
+          autorename: true,
+          mute: false
+        }));
+
+        xhr.send($scope.file);
+      }
+
+
+      }])
 
 
   .filter('startFrom', function() { return function(input, start) { start = +start; return input.slice(start); }})

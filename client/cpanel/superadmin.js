@@ -77,8 +77,8 @@ var admins = nga.entity('Admins');
       nga.field('email'),
       nga.field('password'),
       nga.field('type'),
-      nsga.field('schoolId','reference').label('School')
-        .targetEntity(school)
+      nga.field('schoolId','reference').label('School')
+        . targetEntity(school)
         .targetField(nga.field('schoolName'))
 
     ]);

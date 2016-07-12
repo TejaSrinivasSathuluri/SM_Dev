@@ -8,6 +8,37 @@
   </div>
 </script>
 
+<script type="text/ng-template" id="addSubject">
+  <div class="ngdialog-message">
+    <h3>Add Class</h3>
+    <form ng-submit="confirm(formData)">
+      <div class="col-sm-12">
+
+           <input  type="text" class="form-control" placeholder="Subject Name" ng-model="formData.subjectName" required>
+              <br>
+                <select ng-model="formData.classSelected" id="repeatSelect1" class="form-control" required>
+                  <option value="">Class-Section</option>
+                  <option ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
+                </select>
+                <br>
+
+              <br>
+              <select ng-model="formData.staffSelected" id="repeatSelect2" class="form-control" required>
+                  <option value="">Select Teacher</option>
+                  <option ng-repeat="option1 in staffList" value=" {{option1.id}}">{{option1.firstName}}</option>
+                </select>
+
+
+               <br>
+                 <button type="submit"  class="btn btn-success uppercase">Add Subject</button>
+        </div>
+    <div class="ngdialog-buttons">
+    </div>
+  </div>
+</script>
+
+
+
 
 <div class="container">
   <div class="row margin-top-10">
@@ -17,51 +48,20 @@
         <div class="portlet-title">
           <div class="caption caption-md col-sm-12">
             <span class="caption-subject uppercase col-sm-4">Subjects</span><span class="caption-subject uppercase col-sm-6"></span>
-            <span class="caption-subject btn btn-success uppercase col-sm-2" ng-show="Admin" ng-click="collapsed=!collapsed ;clearResponse()"> Add Subject</span>
+            <span class="caption-subject btn btn-success uppercase col-sm-2" ng-show="Admin" ng-click="addSubject() ;clearResponse()"> Add Subject</span>
           </div>
         </div>
         <div class="portlet-body">
               <div class="row list-separated">
-		                         	{{responseAddSubject}}
-              <div class="col-sm-12" ng-show="collapsed">
-              <form ng-submit="addSubject()" >
 
-
-                <div class="col-sm-2">
-                  <input  type="text" class="form-control" placeholder="Subject Name" ng-model="formData.subjectName" required>
-                </div>
-
-                <div class="col-sm-2">
-                  <select ng-model="formData.classSelected" id="repeatSelect1" class="form-control" required>
-                    <option value="">Class-Section</option>
-                    <option ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
-                  </select>
-                </div>
-
-                <div class="col-sm-2">
-                  <select ng-model="formData.staffSelected" id="repeatSelect2" class="form-control" required>
-                    <option value="">Select Teacher</option>
-                    <option ng-repeat="option1 in staffList" value=" {{option1.id}}">{{option1.firstName}}</option>
-                  </select>
-                </div>
-
-                <div class="col-sm-1">
-                  <button type="submit"  class="btn btn-success uppercase">Add Subject</button>
-                </div>
-
-                <div class="col-sm-4">
-
+                <div class="col-sm-12">
+                  <div style="color: red;" ng-show="error" class="col-sm-6">{{responseAddSubject}}</div>
+                  <div style="color: green;" ng-show="success" class="col-sm-6">{{responseAddSubject}}</div>
                 </div>
 
 
 
-              </form>
-              <br/><br/><br/>
-              <div><span style="color: red; margin-left: 17px">{{formData.response}}</span></div>
-            </div>
-
-              <br><br><br><br>
-            <!---->
+              <!---->
                <div class="col-sm-12">
               <div ng-hide="Student" class="col-sm-3">
                 <select ng-model="search.class.id" class="form-control">
@@ -115,7 +115,7 @@
                 <div class="pull-right">
                   <button ng-disabled="currentPage == 0"               ng-click="currentPage=currentPage-1">Previous</button>
                   {{currentPage+1}}/{{numberOfPages()}}
-                  <button ng-disabled="currentPage >= subjectList.length/pageSize-1"   ng-click="currentPage=currentPage+1">Next</button>
+                  <button ng-disabled="currentPage >= filtered.length/pageSize-1"   ng-click="currentPage=currentPage+1">Next</button>
 
               </div>
             </div>
