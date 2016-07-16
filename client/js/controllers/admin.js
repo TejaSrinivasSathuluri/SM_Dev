@@ -184,7 +184,7 @@ angular
 
 
         $scope.schoolCode= $scope.school.code;
-        $scope.imageHost = 'http://studymonitor.net/appimages';
+        $scope.imageHost = 'studymonitor.net/appimages';
 
 
 
