@@ -765,7 +765,7 @@
                                                    </thead>
                                                    <tbody data-ng-repeat="x in  filtered = (searchList | filter:search) | orderBy:sortType:sortReverse | filter:search  | startFrom : currentPage*pageSize | limitTo:pageSize">
                                                           <tr>
-                                                                  <td style="width:10%"><img src="{{url}}/{{schoolCode}}/{{x.classId}}/{{x.rollNo}}.png"></td>
+                                                                  <td style="width:10%"><img src="{{urlBase}}/{{schoolCode}}/{{x.classId}}/{{x.rollNo}}.png" style="width:10px"></td>
                                                                   <td style="width:30%"><a ng-click="showUser(x)">{{x.firstName}} {{x.lastName}}</a>    </td>
                                                                   <td>{{x.type}}                                   </td>
                                                                   <td style="width:25%">{{x.email}}                                  </td>

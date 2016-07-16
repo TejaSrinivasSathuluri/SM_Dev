@@ -184,7 +184,7 @@ angular
 
 
         $scope.schoolCode= $scope.school.code;
-        $scope.url = 'http://studymonitor.net/appimages';
+        $scope.urlBase = 'http://studymonitor.net/appimages';
 
 
 
