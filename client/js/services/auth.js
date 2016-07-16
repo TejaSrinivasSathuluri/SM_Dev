@@ -18,8 +18,14 @@ angular
             user : response.user
           };
           $window.localStorage.setItem('user',JSON.stringify(response.user));
-          var school = School.findById({id:response.user.schoolId},function(){
-            $rootScope.schoolName = school.schoolName;});
+          var school = School.findById({id:response.user.schoolId},function(response){
+            $window.localStorage.setItem('school',JSON.stringify(response));
+
+            $rootScope.schoolName = school.schoolName;
+          });
+
+
+
 
         });
     }

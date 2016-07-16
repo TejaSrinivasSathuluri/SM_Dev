@@ -1,6 +1,6 @@
 {
-  "name": "Bus",
-  "base": "PersistedModel",
+  "name": "ChatUser",
+  "base": "User",
   "idInjection": true,
   "options": {
     "validateUpsert": true
@@ -8,14 +8,9 @@
   "properties": {},
   "validations": [],
   "relations": {
-    "vehicleType": {
-      "type": "belongsTo",
-      "model": "VehicleType",
-      "foreignKey": ""
-    },
-    "school": {
-      "type": "belongsTo",
-      "model": "School",
+    "joinedrooms": {
+      "type": "hasAndBelongsToMany",
+      "model": "Room",
       "foreignKey": ""
     }
   },

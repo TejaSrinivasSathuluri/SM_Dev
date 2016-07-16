@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row margin-top-10">
+    <div class="col-md-12 col-sm-12">
+      <div class="portlet light ">
+        <div class="portlet-title">
+          <div class="caption caption-md pull-left">Profile</div>
+        </div>
+        <!-- -------------------------------------------------------------------Search Form--------------------------------------------------------------->
+        <div class="row list-separated">
+          <form ng-submit="saveProfile()">
+            <div class="col-sm-12" style="color:green">
+            {{response}}
+            </div>
+            <div class="col-sm-12">
+              <div class="col-sm-6">
+                <input  type="text"   class="form-control"   name="First Name"     placeholder="First Name*"    ng-model="editData.firstName"     ng-mouseup="tag42=true" ng-mouseleave="tag42=false"    ><div class="tag42" ng-show="tag42">Enter First Name</div><br>
+                <input  type="text"     class="form-control"     name="Last Name"  placeholder="Last Name*"      ng-model="editData.lastName"     ng-mouseup="tag43=true"  ng-mouseleave="tag43=false"     ><div class="tag43" ng-show="tag43">Enter Last Name</div><br>
+                <input  type="email"  class="form-control"       placeholder="Email*"         ng-model="editData.email"         ng-mouseup="tag44=true" ng-mouseleave="tag44=false"    ><div class="tag44" ng-show="tag44">Enter Staff Email</div><br>
+                <input  type="password" class="form-control"       placeholder="Password*"       ng-model="editData.password "    ng-mouseup="tag45=true"  ng-mouseleave="tag45=false"    ><div class="tag45" ng-show="tag45">Enter Password</div><br>
+                <button type="submit" class="btn btn-success uppercase">Save</button>
+
+              </div>
+            </div>
+
+          </form>
+
+		</div>
+        <!-- -----------------------------------------------------------------------------Admission Form-------------------------------------------------->
+
+
+
+
+      </div>
+    </div>
+  </div>
+</div>

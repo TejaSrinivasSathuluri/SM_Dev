@@ -36,7 +36,7 @@ angular
   .value('THROTTLE_MILLISECONDS', 250)
 
   .controller('LandingPageController',
-    ['$scope', 'Admin','Student' ,'Parent','Staff','Noticeboard','School','$window','$rootScope','$filter','$state',
+             ['$scope', 'Admin','Student' ,'Parent','Staff','Noticeboard','School','$window','$rootScope','$filter','$state',
     function ($scope,Admin,Student,Parent,Staff,Noticeboard,School,$window,$rootScope,$filter,$state) {
       //--------------------------------------------------------
       //                  BASIC USER DATA
@@ -130,7 +130,7 @@ angular
               include: 'class'
             }
           },
-            function (response) {
+            function () {
             $scope.birthdayList =[];
             var j =0;
 
@@ -159,8 +159,8 @@ angular
 
 
   .controller('DirectoryController',
-    ['$scope', 'ngDialog','Admin', '$state', 'School', 'Class', 'Student', 'Parent', 'StudentParent', 'Staff', '$rootScope', '$window','Container','fileUpload','$filter',
-      function ($scope,ngDialog, Admin, $state, School, Class, Student, Parent, StudentParent, Staff, $rootScope, $window,Container,fileUpload,$filter) {
+    ['$scope', 'ngDialog','Admin', '$state', 'School', 'Class', 'Student', 'Parent', 'StudentParent', 'Staff', '$rootScope', '$window','fileUpload','$filter',
+      function ($scope,ngDialog, Admin, $state, School, Class, Student, Parent, StudentParent, Staff, $rootScope, $window,fileUpload,$filter) {
 
 
         //--------------------------------------------------------
@@ -168,17 +168,34 @@ angular
         // --------------------------------------------------------
 
         $scope.user = $window.localStorage.getItem('user');
+        $scope.schoolData = $window.localStorage.getItem('school');
         $scope.userData = JSON.parse($scope.user);
+        $scope.school = JSON.parse($scope.schoolData);
+
         if ($scope.userData.type == 'Admin') { $scope.Admin = true;}
         if ($scope.userData.type == 'Student') { $scope.Student = true;}
         if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
         if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
+
         $scope.schoolName= null;
         $scope.schoolId = $scope.userData.schoolId;
         $scope.date = new Date();
-        $scope.school = School.findById({id:$scope.schoolId},function(){ $rootScope.schoolName = $scope.school.schoolName;});
-        var xhr = new XMLHttpRequest();
-        var dropboxToken = '-p5lctzPHiwAAAAAAAAA43U_T_YF5XRqEwkFSoqw2STJdZx5bm4OpzmfUJ6crNy_';
+        //$rootScope.schoolName = $scope.school.schoolName;
+
+
+        $scope.schoolCode= $scope.school.code;
+        $scope.url = 'http://studymonitor.net/appimages';
+
+
+
+        //$scope.school = School.findById({id:$scope.schoolId},function(){
+        //  schoolCode = $scope.school.code;
+        //
+        //});
+
+
+        //var xhr = new XMLHttpRequest();
+        //var dropboxToken = '-p5lctzPHiwAAAAAAAAA43U_T_YF5XRqEwkFSoqw2STJdZx5bm4OpzmfUJ6crNy_';
         //xhr.open('POST', 'https://content.dropboxapi.com/2/files/get_thumbnail');
         //xhr.setRequestHeader('Authorization', 'Bearer ' + dropboxToken);
         //xhr.setRequestHeader('Dropbox-API-Arg', JSON.stringify({
@@ -192,16 +209,16 @@ angular
 
 
         //xhr.open('POST', 'https://content.dropboxapi.com/2/files/get_preview');
-        xhr.open('POST', 'https://content.dropboxapi.com/2/files/get_thumbnail');
+        //xhr.open('POST', 'https://content.dropboxapi.com/2/files/get_thumbnail');
         //xhr.open('POST', 'https://content.dropboxapi.com/2/files/create_shared_link');
-        xhr.setRequestHeader('Authorization', 'Bearer ' + dropboxToken);
-        xhr.setRequestHeader('Dropbox-API-Arg', JSON.stringify({
-          path: '/immi.png',
-           }));
-        xhr.send();
-        console.dir(xhr.response);
-        console.dir(xhr);
-   $scope.img = xhr.response;
+   //     xhr.setRequestHeader('Authorization', 'Bearer ' + dropboxToken);
+   //     xhr.setRequestHeader('Dropbox-API-Arg', JSON.stringify({
+   //       path: '/immi.png',
+   //        }));
+   //     xhr.send();
+   //     console.dir(xhr.response);
+   //     console.dir(xhr);
+   //$scope.img = xhr.response;
 
 
 
@@ -408,9 +425,6 @@ angular
           }
 
 
-
-
-
           // --------------------------------------------------------
           //                  ADD STUDENT  STARTS
           // --------------------------------------------------------
@@ -423,8 +437,11 @@ angular
 
                     var date1 = new Date(formData.dateofBirth);
                     var date2 = new Date(formData.dateofJoin);
+                    console.log(formData);
                     formData.dateofBirth = new Date(date1.setDate(formData.dateofBirth.getDate()+1));
                     formData.dateofJoin  = new Date(date2.setDate(formData.dateofBirth.getDate()+1));
+                    //var getclass = Class.findOne({filter:{where:{id:formData.classId}}});
+                    //console.log(getclass);
 
                       $scope.newStudent = Student.create({
                       schoolId        : $scope.schoolId,
@@ -464,29 +481,30 @@ angular
                       fatherEmail     : formData.fatherEmail,
                       motherEmail     : formData.motherEmail,
                       fatherName      : formData.fatherName,
-                      motherName      : formData.motherName
+                      motherName      : formData.motherName,
+                      //image           : $scope.image
 
                     },
                       function (response) {
 
-                                                          if (formData.image != null){
-                                                            console.log('Uploading Image');
-                                                            xhr.open('POST', 'https://content.dropboxapi.com/2/files/upload');
-                                                            xhr.setRequestHeader('Authorization', 'Bearer ' + dropboxToken);
-                                                            xhr.setRequestHeader('Content-Type', 'application/octet-stream');
-                                                            xhr.setRequestHeader('Dropbox-API-Arg', JSON.stringify({
-                                                              path: '/' + response.id + '.png',
-                                                              mode: 'add',
-                                                              autorename: true,
-                                                              mute: false
-                                                            }),function(){
-                                                              console.log(xhr.response);
-
-                                                            });
-
-                                                            xhr.send(formData.image);
-
-                                                          }
+                                                          //if (formData.image != null){
+                                                          //  console.log('Uploading Image');
+                                                          //  xhr.open('POST', 'https://content.dropboxapi.com/2/files/upload');
+                                                          //  xhr.setRequestHeader('Authorization', 'Bearer ' + dropboxToken);
+                                                          //  xhr.setRequestHeader('Content-Type', 'application/octet-stream');
+                                                          //  xhr.setRequestHeader('Dropbox-API-Arg', JSON.stringify({
+                                                          //    path: '/' + response.id + '.png',
+                                                          //    mode: 'add',
+                                                          //    autorename: true,
+                                                          //    mute: false
+                                                          //  }),function(){
+                                                          //    console.log(xhr.response);
+                                                          //
+                                                          //  });
+                                                          //
+                                                          //  xhr.send(formData.image);
+                                                          //
+                                                          //}
 
                         $scope.response = 'Student Added Successfully';
                         $scope.error = true;
@@ -936,6 +954,7 @@ angular
         $scope.showUser = function (x) {
 
           $scope.formData =x;
+          console.log(x);
           if      (x.type =='Student')   ngDialog.openConfirm({template: 'showStudent', scope: $scope});
           else if (x.type =='Parent')    ngDialog.openConfirm({template: 'showParent',  scope: $scope});
           else if (x.type =='Staff')     ngDialog.openConfirm({template: 'showStaff',   scope: $scope});
@@ -1469,8 +1488,8 @@ angular
 }])
 
   .controller('NoticeboardController',
-    ['$scope', '$state', 'School', 'Noticeboard', '$rootScope', '$window','ngDialog','$filter','Container','fileUpload','$location',
-    function ($scope, $state, School, Noticeboard, $rootScope, $window,ngDialog,$filter,Container,fileUpload,$location) {
+    ['$scope', '$state', 'School', 'Noticeboard', '$rootScope', '$window','ngDialog','$filter',
+    function ($scope, $state, School, Noticeboard, $rootScope, $window,ngDialog,$filter) {
 
       //------------------------------------------------
       //            BASIC USER DATA
@@ -1548,11 +1567,7 @@ angular
                 $state.go($state.current, {}, {reload: true});
                 $scope.$apply();
               }, 1000 );
-              //Container.removeFile({container:"noticeboard",file:x.name},function(){
-              //  console.log("File Deleted");
-              //},function(response){
-              //  console.log(response.data.error.message);
-              //});
+
             });
           return true;
         });
@@ -1731,8 +1746,8 @@ angular
     }])
 
   .controller('AssignmentController',
-    ['$scope', '$state', 'Class', 'Assignment', '$rootScope', '$window','ngDialog','$filter','fileUpload','Container','$location','$http',
-    function ($scope, $state, Class, Assignment, $rootScope, $window,ngDialog,$filter,fileUpload,Container,$location,$http) {
+    ['$scope', '$state', 'Class', 'Assignment', '$rootScope', '$window','ngDialog','$filter','fileUpload','$location','$http',
+    function ($scope, $state, Class, Assignment, $rootScope, $window,ngDialog,$filter,fileUpload,$location,$http) {
 
       //--------------------------------------------------------
       //                 GET USER DATA && INITIALIZATION
@@ -1744,7 +1759,7 @@ angular
       if ($scope.userData.type == 'Student') { $scope.Student = true;}
       if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
       if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
-      var baseApi = $location.$$protocol + "://"+ $location.$$host + ":" +$location.$$port + "/api/Containers/assignments/download/";
+      //var baseApi = $location.$$protocol + "://"+ $location.$$host + ":" +$location.$$port + "/api/Containers/assignments/download/";
 
 
       if ($scope.Admin) {
@@ -1770,23 +1785,6 @@ angular
               console.log(formData);
               formData.fromDate = $filter('date')(new Date(formData.fromDate), 'yyyy-MM-dd');
               formData.toDate = $filter('date')(new Date(formData.toDate), 'yyyy-MM-dd');
-              if (formData.myFile != null) {
-                alert('M');
-                $scope.downloadFile = baseApi + formData.myFile.name;
-                var file = formData.myFile;
-                var uploadUrl = "/api/Containers/assignments/upload";
-                var uploadUrl2 = "http://localhost:3000/api/Containers/assignments/upload";
-                fileUpload.uploadFileToUrl(file, uploadUrl);
-                //var fd = new FormData();
-                //fd.append('file', file);
-                //$http.post(uploadUrl, fd, {
-                //  transformRequest: angular.identity,
-                //  headers: {'Content-Type': undefined}
-                //},function(response){
-                //  console.log(response);
-                //});
-              }
-
               Assignment.create({
                   schoolId    : $scope.schoolId,
                   title       : formData.title,
@@ -1827,10 +1825,6 @@ angular
             if (data.value && data.value != '$document' && data.value != '$closeButton') {
 
               Assignment.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")}, function () {
-                Container.removeFile({container: "assignments", file: x.name}, function () {
-                }, function (response) {
-                  console.log(response.data.error.message);
-                });
               });
               $state.go($state.current, {}, {reload: true});
             }
@@ -1878,8 +1872,7 @@ angular
 
     }])
 
-  .controller('AttendanceController',
-    ['$scope', '$state','$window','Class','Attendance','Student','$filter',
+  .controller('AttendanceController', ['$scope', '$state','$window','Class','Attendance','Student','$filter',
     function ($scope,$state,$window,Class,Attendance,Student,$filter) {
       $scope.user = $window.localStorage.getItem('user');
       $scope.userData = JSON.parse($scope.user);
@@ -2078,6 +2071,298 @@ angular
 
 
  }])
+  .controller('TransportController',
+    ['$scope', '$state','$window','$filter','ngDialog','Bus','VehicleType','BusService',
+    function ($scope,$state,$window,$filter,ngDialog,Bus,VehicleType,BusService) {
+      $scope.user = $window.localStorage.getItem('user');
+      $scope.userData = JSON.parse($scope.user);
+      $scope.schoolId = $scope.userData.schoolId;
+      if ($scope.userData.type == 'Admin') { $scope.Admin = true;}
+      if ($scope.userData.type == 'Student') { $scope.Student = true;}
+      if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
+      if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
+
+
+
+      //-----------------------------------
+      // TABS CODE
+      //------------------------------------
+
+      $scope.tab = 1;
+      $scope.setTab = function(newTab){  $scope.tab = newTab; };
+      $scope.isSet = function(tabNum){   return $scope.tab === tabNum; };
+
+
+
+
+      //**************************************VEHICLE CORNER************************************
+      //-----------------------------------------------------
+      //   CLEAR RESPONSE
+      //-----------------------------------------------------
+      $scope.clearResponseVehicle  = function() {
+        $scope.responseAddVehicleType = null;
+      }
+
+      // -----------------------------------------------------
+      //   ADD VEHICLE TYPE
+      //-----------------------------------------------------
+      $scope.addVehicleType = function()
+      {
+             $scope.chkVehicle = VehicleType.findOne({filter:{where:{name:$scope.formData.name,schoolId:$scope.schoolId}}},function(){
+               $scope.responseAddVehicleType = 'Vehicle Already Exists';
+             }, function () {
+                 VehicleType.create({name:$scope.formData.name,schoolId:$scope.schoolId},function(){
+                   $scope.responseAddVehicleType = 'Vehicle Added Successfully';
+                   $scope.successCallVehicle();
+
+                 });
+             });
+
+      }
+
+      // -----------------------------------------------------
+      //   DELETE VEHICLE TYPE
+      //-----------------------------------------------------
+      $scope.deleteVehicleType = function(x)
+      {
+
+        var dialog = ngDialog.open({template: 'deleteVehicleType'});
+        dialog.closePromise.then(function (data) {
+          if (data.value && data.value != '$document' && data.value != '$closeButton')
+
+            VehicleType.deleteById({id: x.id},function(){
+              $scope.responseAddVehicleType = 'Vehicle Type Removed Successfully';
+              $scope.successCallVehicle();
+
+            });
+
+          return true;
+        });
+
+      }
+
+
+      // ----------------------------------------------------
+      //   SUCCESS CALL
+      //-----------------------------------------------------
+      $scope.successCallVehicle = function(){
+        setTimeout( function()
+        {
+          $scope.showVehicle();
+          $scope.clearResponseVehicle();
+          $scope.formData = {};
+        }, 1000 );
+
+      }
+
+      // ----------------------------------------------------
+      //   SHOW VEHICLE TYPE
+      //-----------------------------------------------------
+      $scope.showVehicle= function(){
+        $scope.vehicleTypeList = VehicleType.find({filter:{where:{schoolId:$scope.schoolId}}});
+      }
+      $scope.showVehicle();
+
+
+      //**************************************VEHICLE CORNER************************************
+
+
+
+
+
+
+
+
+
+
+      //**************************************BUS CORNER************************************
+      //  INIT FUNCTIONS
+
+
+      //-----------------------------------------------------
+      //   CLEAR RESPONSE
+      //-----------------------------------------------------
+      $scope.clearResponse  = function() {  $scope.responseAddBus = null; }
+
+      // ----------------------------------------------------
+      //   SHOW VEHICLE TYPE
+      //-----------------------------------------------------
+
+      $scope.vehicleTypeList = VehicleType.find({filter:{where:{schoolId:$scope.schoolId}}});
+
+
+      // ----------------------------------------------------
+      //   SUCCESS CALL
+      //-----------------------------------------------------
+      $scope.successCallBus = function(){
+        setTimeout( function()
+        {
+          $scope.showBus();
+          $scope.clearResponse();
+          $scope.formData = {};
+        }, 1000 );
+
+      }
+
+
+
+
+      // ----------------------------------------------------
+      //   SHOW VEHICLE TYPE
+      //-----------------------------------------------------
+      $scope.showBus= function(){
+        $scope.busList = Bus.find({filter:{where:{schoolId:$scope.schoolId},include:'vehicleType'}});
+      }
+      $scope.showBus();
+
+
+      // -----------------------------------------------------
+      //   ADD BUS
+      //-----------------------------------------------------
+      $scope.addBus = function()
+      {
+             Bus.findOne({filter:{where:{busNo:$scope.formData.busNo,schoolId:$scope.schoolId}}},function(){
+               $scope.responseAddBus = 'Bus Already Exists With This Number';
+             }, function () {
+                 Bus.create({busNo:$scope.formData.busNo,
+                   vehicleTypeId:$scope.formData.vehicleTypeId,
+                   capacity:$scope.formData.capacity,
+                   schoolId:$scope.schoolId},
+                   function(){
+                   $scope.responseAddBus = 'Bus Added Successfully';
+                     $scope.successCallBus();
+                 });
+             });
+
+      }
+
+      // ----------------------------------------------------
+      //                         EDIT BUS
+      //-----------------------------------------------------
+      $scope.editBus = function(x)
+      {
+          $scope.editData = x;
+          ngDialog.openConfirm({template: 'editBus',
+            scope: $scope
+          }).then(
+            function(editData) {
+
+              Bus.upsert({id: x.id,vehicleTypeId:editData.vehicleTypeId,capacity:editData.capacity},
+                function(){
+                  $scope.responseAddBus = 'Bus Updated Successfully';
+                  $scope.successCallBus();
+                });
+            },
+            function() {
+              $scope.responseAddBus = "Bus Details Were Not Edited.Please Check Required Fields";
+              $scope.successCallBus();
+            }
+          );
+
+      }
+
+
+      // -----------------------------------------------------
+      //   DELETE BUS
+      //-----------------------------------------------------
+      $scope.deleteBus = function(x)
+      {
+
+        var dialog = ngDialog.open({template: 'deleteBus'});
+        dialog.closePromise.then(function (data) {
+          if (data.value && data.value != '$document' && data.value != '$closeButton')
+
+            Bus.deleteById({id: x.id},function(){
+              $scope.responseAddBus = 'Bus Removed Successfully';
+              $scope.successCallBus();
+            });
+
+          return true;
+        });
+
+
+
+
+      }
+
+
+      //**************************************BUS CORNER************************************
+
+
+
+      //**************************************SERVICE CORNER************************************
+      //-----------------------------------------------------
+      //   CLEAR RESPONSE
+      //-----------------------------------------------------
+      $scope.clearResponseBusService  = function() {
+        $scope.responseAddBusService = null;
+      }
+
+      // -----------------------------------------------------
+      //   ADD SERVICE
+      //-----------------------------------------------------
+      $scope.addBusService = function()
+      {
+        $scope.chkVehicle = BusService.findOne({filter:{where:{name:$scope.formData.name,schoolId:$scope.schoolId}}},function(){
+          $scope.responseAddBusService = 'Service Already Exists';
+        }, function () {
+          BusService.create({name:$scope.formData.name,schoolId:$scope.schoolId},function(){
+            $scope.responseAddBusService = 'Service Added Successfully';
+            $scope.successCallBusService();
+
+          });
+        });
+
+      }
+
+      // -----------------------------------------------------
+      //   DELETE SERVICE
+      //-----------------------------------------------------
+      $scope.deleteBusService = function(x)
+      {
+
+        var dialog = ngDialog.open({template: 'deleteBusService'});
+        dialog.closePromise.then(function (data) {
+          if (data.value && data.value != '$document' && data.value != '$closeButton')
+
+            BusService.deleteById({id: x.id},function(){
+              $scope.responseAddBusService = 'Bus Service Removed Successfully';
+              $scope.successCallBusService();
+
+            });
+
+          return true;
+        });
+
+      }
+
+
+      // ----------------------------------------------------
+      //   SUCCESS CALL
+      //-----------------------------------------------------
+      $scope.successCallBusService = function(){
+        setTimeout( function()
+        {
+          $scope.showBusService();
+          $scope.clearResponseBusService();
+          $scope.formData = {};
+        }, 1000 );
+
+      }
+
+      // ----------------------------------------------------
+      //   SHOW SERVICE
+      //-----------------------------------------------------
+      $scope.showBusService= function(){
+        $scope.busserviceList = BusService.find({filter:{where:{schoolId:$scope.schoolId}}});
+      }
+      $scope.showBusService();
+
+
+      //**************************************BUSSERVICE CORNER***********************************
+
+
+ }])
 
 
   .controller('HolidayController',
@@ -2225,6 +2510,87 @@ angular
 
         xhr.send($scope.file);
       }
+
+
+      }])
+  .controller('ProfileController',
+    ['$scope', '$state','$window','School','Student','Admin','Parent','Staff',
+      function ($scope,$state,$window,School,Student,Admin,Parent,Staff) {
+        $scope.user = $window.localStorage.getItem('user');
+        $scope.userData = JSON.parse($scope.user);
+        $scope.schoolId = $scope.userData.schoolId;
+
+        if ($scope.userData.type == 'Admin'  ) { $scope.Admin   = true;}
+        if ($scope.userData.type == 'Student') { $scope.Student = true;}
+        if ($scope.userData.type == 'Parent' ) { $scope.Parent  = true;}
+        if ($scope.userData.type == 'Staff'  ) { $scope.Staff   = true;}
+      $scope.editData = $scope.userData;
+       $scope.saveProfile = function()
+       {
+         if ($scope.Student)
+         {
+           console.log('Student Profile Update');
+           Student.prototype$updateAttributes({
+             id:$scope.editData.id,password:$scope.editData.password,firstName:$scope.editData.firstName,lastName:$scope.editData.lastName,
+             email:$scope.editData.email
+           },function(response){
+             console.log(response);
+             $scope.responseSaveProfile();
+           });
+         }
+         else if ($scope.Admin)
+         {
+           console.log('Admin Profile Update');
+           Admin.prototype$updateAttributes({
+            id:$scope.editData.id,password:$scope.editData.password,firstName:$scope.editData.firstName,lastName:$scope.editData.lastName,
+            email:$scope.editData.email
+          },function(response){
+             $scope.responseSaveProfile();
+             console.log(response);
+          }, function (response) {
+            console.log(response.data.error.message);
+          });
+
+
+         }
+         else if ($scope.Parent)
+         {
+           Parent.prototype$updateAttributes({
+             id:$scope.editData.id,password:$scope.editData.password,firstName:$scope.editData.firstName,lastName:$scope.editData.lastName,
+             email:$scope.editData.email
+           },function(response){
+             $scope.responseSaveProfile();
+             console.log(response);
+           });
+         }
+         else if ($scope.Staff)
+         {
+           Staff.upsert({
+             id:$scope.editData.id,password:$scope.editData.password,firstName:$scope.editData.firstName,lastName:$scope.editData.lastName,
+             email:$scope.editData.email
+           },function(response){
+             $scope.responseSaveProfile();
+             console.log(response);
+           });
+         }
+
+       }
+
+      // -----------------------------------------------------
+      //     FUNCTION AFTER USER UPDATE
+      //------------------------------------------------------
+        $scope.responseSaveProfile = function ()
+        {
+          $scope.response = "Profile Saved Successfully";
+          setTimeout( function()
+          {
+            $state.go($state.current, {}, {reload: true});
+            $scope.$apply();
+          }, 1000 );
+
+        }
+
+
 
 
       }])

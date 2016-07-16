@@ -18,7 +18,7 @@
     {
       "accessType": "*",
       "principalType": "ROLE",
-      "principalId": "$unauthenticated",
+      "principalId": "$authenticated",
       "permission": "ALLOW"
     }
   ],

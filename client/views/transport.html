@@ -1,0 +1,228 @@
+<script type="text/ng-template" id="editBus">
+  <div class="ngdialog-message">
+    <h3>Edit Bus Details</h3>
+    <form ng-submit=confirm(editData) >
+      <div class="col-sm-12">
+        <input type="text" class="form-control" ng-disabled="true" placeholder="Vehicle Number"  ng-model="editData.busNo" required><br>
+        <select ng-model="editData.vehicleTypeId" class="form-control" required>
+          <option value="">Vehicle Type</option>
+          <option ng-repeat="x in vehicleTypeList" value="{{x.id}}">{{x.name}}</option>
+        </select>
+        <br>
+        <input type="number" class="form-control" placeholder="No Of Persons" min="1" max="100" maxlength="3" ng-model="editData.capacity" required><br>
+
+        <br>
+        <div class="col-sm-2">  <button type="submit" class="btn btn-success uppercase">Add Bus</button></div>
+      </div>
+
+
+
+    </form>
+    <div class="ngdialog-buttons">
+    </div>
+  </div>
+</script>
+
+
+<script type="text/ng-template" id="deleteVehicleType">
+  <div class="ngdialog-message">
+    <h1>Confirm Delete</h1>
+    <div class="ngdialog-buttons">
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog('Yes')">Yes</button>
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog()">No</button>
+    </div>
+  </div>
+</script>
+
+<script type="text/ng-template" id="deleteBus">
+  <div class="ngdialog-message">
+    <h1>Confirm Delete</h1>
+    <div class="ngdialog-buttons">
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog('Yes')">Yes</button>
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog()">No</button>
+    </div>
+  </div>
+</script>
+
+<div class="container">
+  <div class="row margin-top-10">
+    <div class="col-md-12 col-sm-12">
+      <div class="portlet light ">
+        <div class="portlet-title">
+          <div class="caption caption-md pull-left">Transport</div>
+          <div class="caption caption-md pull-right">
+          <!--Tab Buttons-->
+          <button class="btn btn-default" ng-class="{ active: isSet(1) }" href ng-click="setTab(1)">Live Status</button>
+          <button class="btn btn-default" ng-class="{ active: isSet(2) }" href ng-click="setTab(2)">Add Vehicle Types</button>
+          <button class="btn btn-default" ng-class="{ active: isSet(3) }" href ng-click="setTab(3)">Add Bus</button>
+          <button class="btn btn-default" ng-class="{ active: isSet(4) }" href ng-click="setTab(4)">Add Service</button>
+          <!--Tab Buttons-->
+          </div>
+
+        </div>
+        <!-- -------------------------------------------------------------------->
+        <div class="row list-separated">
+
+          <div class="row">
+
+          <!--Tab 1 -->
+          <div ng-show="isSet(1)">  <div class="col-sm-12"></div> </div>
+
+          <!--Tab 2-->
+          <div ng-show="isSet(2)">
+            <div class="col-sm-12">
+              {{responseAddVehicleType}}
+                <form ng-submit="addVehicleType()" >
+                  <div class="col-sm-4"> <input  type="text"   class="form-control" placeholder="Vehicle Types"  ng-model="formData.name" required></div>
+                  <div class="col-sm-2"> <button type="submit" class="btn btn-success uppercase">Add Vehicle Type</button></div>
+                </form>
+            </div>
+
+            <div class="col-sm-12">
+                      <p></p>
+                      <p></p>
+            </div>
+            <div class="col-sm-12">
+
+            <table class="table table-bordered table-striped table-condensed flip-content">
+                <thead flip-content>
+                <tr>
+                  <th><a ng-click="sortType = 'name'; sortReverse = !sortReverse">Vehicles</a></th>
+                  <th ng-show="Admin">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-ng-repeat="x in  filtered = (vehicleTypeList | filter:search) |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
+                  <div data-ng-bind-html="x.id">
+                    <td>{{x.name}}</td>
+                    <td ng-show="Admin">
+                      <i class="glyphicon glyphicon-remove"  ng-click="deleteVehicleType(x)"></i>
+                    </td>
+
+                  </div>
+                </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+
+          <!------------------------------------------------------------------------>
+          <!--                               TAB 3                                 ->
+          <!------------------------------------------------------------------------>
+          <div ng-show="isSet(3)">
+            <div class="col-sm-12">
+              {{responseAddBus}}
+              <form ng-submit="addBus()" >
+                <div class="col-sm-12">
+                  <input type="text" class="form-control" placeholder="Vehicle Number"  ng-model="formData.busNo" required><br>
+                  <select ng-model="formData.vehicleTypeId" class="form-control" required>
+                    <option value="">Vehicle Type</option>
+                    <option ng-repeat="x in vehicleTypeList" value="{{x.id}}">{{x.name}}</option>
+                  </select>
+                  <br>
+                  <input type="number" class="form-control" placeholder="No Of Persons" min="1" max="100" maxlength="3" ng-model="formData.capacity" required><br>
+
+                  <br>
+                  <div class="col-sm-2">  <button type="submit" class="btn btn-success uppercase">Add Bus</button></div>
+                </div>
+
+
+
+              </form>
+            </div>
+            <div class="col-sm-12">
+              <p></p>
+              <p></p>
+            </div>
+            <div class="col-sm-12">
+
+              <table class="table table-bordered table-striped table-condensed flip-content">
+                <thead flip-content>
+                <tr>
+                  <th><a ng-click="sortType = 'busNo'; sortReverse = !sortReverse">Vehicle No</a></th>
+                  <th><a ng-click="sortType = 'type'; sortReverse = !sortReverse">Vehicle Type</a></th>
+                  <th><a ng-click="sortType = 'capacity'; sortReverse = !sortReverse">Capacity</a></th>
+                  <th ng-show="Admin">Action</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-ng-repeat="x in  filtered = (busList | filter:search) |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
+                  <div data-ng-bind-html="x.id">
+                    <td>{{x.busNo}}</td>
+                    <td>{{x.vehicleType.name}}</td>
+                    <td>{{x.capacity}}</td>
+                    <td ng-show="Admin">
+                      <i class="glyphicon glyphicon-edit"    ng-click="editBus(x)"></i>
+                      <i class="glyphicon glyphicon-remove"  ng-click="deleteBus(x)"></i>
+                    </td>
+                  </div>
+                </tr>
+                </tbody>
+              </table>
+
+            </div>
+
+          </div>
+          <div ng-show="isSet(4)">
+            <div class="col-sm-12">
+              <div class="col-sm-3">
+                <form ng-submit="confirm(formData)">
+                <div>
+                  <input  type="text" class="form-control" placeholder="Service Id" ng-model="formData.title"  required><br>
+                  <input  type="text" class="form-control" placeholder="Description of Service " ng-model="formData.description" required><br>
+                  <input  type="text" class="form-control" placeholder="PickUp Point " ng-model="formData.pickuppoint" required><br>
+                  <input  type="text" class="form-control" placeholder="Drop Point " ng-model="formData.droppoint" required><br>
+                  <input  type="time" class="form-control"  ng-model="formData.pickuptime" required><br>
+                  <input  type="time" class="form-control"  ng-model="formData.endtime" required><br>
+                  <!--<input type = "file" file-model = "myFile" class="form-control"><br>-->
+                  <button type="submit"  class="btn btn-success uppercase">Post Service</button></div>
+
+
+              </form></div>
+              <div class="col-sm-9">
+              <table class="table table-bordered table-striped table-condensed flip-content">
+                <thead flip-content>
+                <tr>
+                  <td  ng-show="Admin"># </td>
+                  <td>Service Id</td>
+                  <td>PickUp</td>
+                  <td>PickUp time</td>
+                  <td>Duration(minutes)</td>
+                </tr>
+                </thead>
+
+                <tr ng-repeat = "receiver in receivers">
+                  <td ng-show="Admin"><a ng-click="addRecipient(receiver)"><i class="glyphicon glyphicon-edit"></i></a>
+                    <a ng-click="deleteRecipient(receiver)"><i class="glyphicon glyphicon-minus"></i></a>
+                    {{$index+1}}
+                  </td>
+                  <td><input type="text"   ng-disabled="Staff || Student || Parent" class="form-control" ng-model="receiver.title"></td>
+                  <td><input type="time"   ng-disabled="Staff || Student || Parent" class="form-control" ng-model="receiver.startTime"></td>
+                  <td><input type="time"   ng-disabled="Staff || Student || Parent" class="form-control" ng-model="receiver.endTime"></td>
+                  <td><input type="number" ng-disabled="Staff || Student || Parent" class="form-control" ng-model="receiver.duration" ng-disabled="true"></td>
+                  <td><input type="checkbox" ng-disabled="Staff || Student || Parent"      ng-model="receiver.attendance"></td>
+
+                </tr>
+
+              </table>
+              <button ng-show="Admin" class="text-center" ng-click="saveTimetable()">Save</button>
+
+            </div>
+            </div>
+
+
+          </div>
+          </div>
+
+    		</div>
+        <!-- -----------------------------------------------------------------------------Admission Form-------------------------------------------------->
+
+
+
+
+      </div>
+    </div>
+  </div>
+</div>

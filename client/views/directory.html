@@ -600,7 +600,6 @@
   <div style="height: 500px; overflow: scroll">
   <table class="table table-hover table-bordered table-striped table-condensed flip-content">
 
-
                       <tr>           <th >	Name            :</th>       <td >{{	formData.firstName }}{{	formData.lastName }} </td>   </tr>
                       <tr>           <th >	Email           :</th>       <td >{{	formData.email            }}                 </td> </tr>
                       <tr>           <th >	Gender          :</th>       <td >{{	formData.gender           }}                 </td> </tr>
@@ -724,9 +723,6 @@
             </ul>
           </div>
 
-
-
-
         </div>
         <!-- -------------------------------------------------------------------Search Form--------------------------------------------------------------->
         <div class="row list-separated">
@@ -751,10 +747,14 @@
                      <option ng-repeat="y in classList" value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>
                    </select>
                  </div>
-               <div class="portlet-body-morris-fit morris-chart flip-scroll" style="margin-right:0px;margin-left:0px;margin-bottom:0px;height: 260px">
 
-                                                <table id="tableSearchResults" class="table table-hover table-bordered table-striped table-condensed flip-content">
-                                                   <thead flip-content>
+               <!--<div class="portlet-body-morris-fit morris-chart flip-scroll" style="margin-right:0px;margin-left:0px;margin-bottom:0px;height: 260px">-->                <div class="portlet-body-morris-fit morris-chart flip-scroll" style="height:max">
+                 <div class="portlet-body-morris-fit morris-chart flip-scroll" style="height:max">
+               <!--<table id="tableSearchResults" class="table table-hover table-bordered table-striped table-condensed flip-content">-->
+                   <!--<table class="table table-bordered table-striped table-condensed flip-content">-->
+                   <table class="table table-bordered table-striped table-condensed flip-content">
+
+                                                  <thead flip-content>
                                                             <tr>
                                                                 <th>Photo                                                                             </th>
                                                                 <th><a ng-click="sortType = 'firstName'; sortReverse = !sortReverse">Name         </a></th>
@@ -768,7 +768,7 @@
                                                    </thead>
                                                    <tbody data-ng-repeat="x in  filtered = (searchList | filter:search) | orderBy:sortType:sortReverse | filter:search  | startFrom : currentPage*pageSize | limitTo:pageSize">
                                                           <tr>
-                                                                  <td style="width:10%"></td>
+                                                                  <td style="width:10%"><img src="{{url}}/{{schoolCode}}/{{x.classId}}/{{x.rollNo}}.png"></td>
                                                                   <td style="width:30%"><a ng-click="showUser(x)">{{x.firstName}} {{x.lastName}}</a>    </td>
                                                                   <td>{{x.type}}                                   </td>
                                                                   <td style="width:25%">{{x.email}}                                  </td>
@@ -785,6 +785,8 @@
                                                      </tbody>
 
                                               </table>
+                 </div>
+
                  <div class="pull-left">
                    Total Results :{{ searchList.length}} |  Filtered Results :{{ filtered.length}}
 
@@ -800,11 +802,9 @@
 
 
 
-         </div>
 		  <br><br><br><br><br><br><br>
         </div>
 		</div>
-        <!-- -----------------------------------------------------------------------------Admission Form-------------------------------------------------->
 
 
 

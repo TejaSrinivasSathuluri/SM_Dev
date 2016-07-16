@@ -50,8 +50,8 @@
 
               <!---->
             <div class="col-sm-12">
-              <div style="color: red;" ng-show="error" class="col-sm-6">{{responseAddClass}}</div>
-              <div style="color: green;" ng-show="success" class="col-sm-6">{{responseAddClass}}</div>
+              <div style="color: red;" ng-show="" class="col-sm-6">{{responseAddClass}}</div>
+              <div style="color: green;" class="col-sm-6">{{responseAddClass}}</div>
             </div>
               <div class="col-sm-12">
                 <div class="col-sm-3">
@@ -72,8 +72,8 @@
                     <thead flip-content>
                     <tr>
                       <th><a ng-click="sortType = 'className'; sortReverse = !sortReverse">Class</a></th>
-                      <th><a ng-click="sortType = 'sectionName'; sortReverse = !sortReverse">Section</th>
-                      <th><a ng-click="sortType = 'staff.firstName'; sortReverse = !sortReverse">Teacher</th>
+                      <th><a ng-click="sortType = 'sectionName'; sortReverse = !sortReverse">Section</a></th>
+                      <th><a ng-click="sortType = 'staff.firstName'; sortReverse = !sortReverse">Teacher</a></th>
                       <th ng-show="Admin">Action</th>
                     </tr>
                     </thead>
@@ -107,7 +107,7 @@
                   </div>
                   <!---->
                   <button ng-disabled="currentPage == 0"                        ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
-                  <button ng-disabled="currentPage >= filtered.length/pageSize-1" ng-click="currentPage=currentPage+1">Next</button>
+                  <button ng-disabled="currentPage >= classList.length/pageSize-1" ng-click="currentPage=currentPage+1">Next</button>
 
                 </div>
               </div>

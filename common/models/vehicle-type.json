@@ -1,5 +1,5 @@
 {
-  "name": "Bus",
+  "name": "VehicleType",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
@@ -8,24 +8,12 @@
   "properties": {},
   "validations": [],
   "relations": {
-    "vehicleType": {
-      "type": "belongsTo",
-      "model": "VehicleType",
-      "foreignKey": ""
-    },
     "school": {
       "type": "belongsTo",
       "model": "School",
       "foreignKey": ""
     }
   },
-  "acls": [
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "$authenticated",
-      "permission": "ALLOW"
-    }
-  ],
+  "acls": [],
   "methods": {}
 }

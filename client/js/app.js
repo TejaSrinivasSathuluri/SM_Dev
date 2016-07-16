@@ -21,11 +21,13 @@ angular
     .state('subject',     { url: '/subject',    templateUrl: 'views/subject.html',    controller: 'SubjectController',     authenticate: true})
     .state('attendance',  { url: '/attendance', templateUrl: 'views/attendance.html', controller: 'AttendanceController',  authenticate: true})
     .state('timetable',   { url: '/timetable',  templateUrl: 'views/timetable.html',  controller: 'TimetableController',   authenticate: true})
+    .state('transport',   { url: '/transport',  templateUrl: 'views/transport.html',  controller: 'TransportController',   authenticate: true})
     .state('schedule',    { url: '/schedule',   templateUrl: 'views/schedule.html',   controller: 'ScheduleController',    authenticate: true})
     .state('noticeboard', { url: '/noticeboard',templateUrl: 'views/noticeboard.html',controller: 'NoticeboardController', authenticate: true})
     .state('library',     { url: '/library',    templateUrl: 'views/library.html',    controller: 'LibraryController',     authenticate: true})
     .state('assignment',  { url: '/assignment', templateUrl: 'views/assignment.html', controller: 'AssignmentController',  authenticate: true})
     .state('holiday',  { url: '/schoolcalendar', templateUrl: 'views/holiday.html', controller: 'HolidayController',  authenticate: true})
+    .state('profile',  { url: '/profile', templateUrl: 'views/profile.html', controller: 'ProfileController',  authenticate: true})
 
       //--------------Auth Services
       .state('index',        { url: '/index',      controller: 'LandingPageController'})
@@ -36,7 +38,7 @@ angular
       .state('login.staff',   { url: '/staff',  templateUrl: 'views/staff.html',   controller: 'AuthLoginController' })
       .state('login.parent',  { url: '/parent', templateUrl: 'views/parent.html',  controller: 'AuthLoginController' })
       .state('login.student', { url: '/student',templateUrl: 'views/student.html', controller: 'AuthLoginController' })
-      //.state('signup',        { url: '/signup', templateUrl: 'views/signup.html',  controller: 'SignUpController' })
+      //.state('signup',        { url: '/signup', templateUrl: 'views/signup.html',  controller: 'SignUpController  ' })
       .state('logout',        { url: '/login',                                     controller: 'AuthLogoutController'})
      $urlRouterProvider.otherwise('/login/admin');
   }])
