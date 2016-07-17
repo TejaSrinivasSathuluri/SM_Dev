@@ -67,7 +67,9 @@ angular
         }
 
 
-          $scope.school = School.findById({id:$scope.schoolId},function(){ $rootScope.schoolName = $scope.school.schoolName;});
+          $scope.school = School.findById({id:$scope.schoolId},function(){
+            $rootScope.image = $scope.school.image;
+            $rootScope.schoolName = $scope.school.schoolName;});
 
           // --------------------------------------------------------
           //                  GET NOTICE LIST
