@@ -440,7 +440,7 @@ angular
               });
             });
           }
-          $scope.updateImage();
+        //  $scope.updateImage();
 
 
 
