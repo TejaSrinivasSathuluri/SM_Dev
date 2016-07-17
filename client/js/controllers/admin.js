@@ -183,9 +183,6 @@ angular
         //$rootScope.schoolName = $scope.school.schoolName;
 
 
-        $scope.schoolCode= $scope.school.code;
-        $scope.imageHost = 'http://studymonitor.net/appimages/101/576b482f25b53ebc1690e1f1/123.png';
-        //$scope.imageHost = 'studymonitor.net/appimages';
 
 
 
@@ -429,6 +426,24 @@ angular
           // --------------------------------------------------------
           //                  ADD STUDENT  STARTS
           // --------------------------------------------------------
+
+          var schoolCode= $scope.school.code;
+          var url = 'http://studymonitor.net/appimages';
+          $scope.updateImage = function(){
+            Student.find({filter: {where: {schoolId: $scope.schoolId}}},function(response){
+              response.forEach(function(students){
+                var student = students.toJSON();
+                var image = url + '/' + schoolCode + '/' + student.classId + '/' + student.rollNo + '.png';
+                Student.prototype$updateAttributes({id: student.id}, {image:image},function(){
+                  console.log('image path set successfully');
+                });
+              });
+            });
+          }
+          //$scope.updateImage();
+
+
+
           $scope.addStudentForm = function () {
             ngDialog.openConfirm({ template: 'addStudent',scope: $scope }).then(
               function (formData) {
@@ -438,13 +453,14 @@ angular
 
                     var date1 = new Date(formData.dateofBirth);
                     var date2 = new Date(formData.dateofJoin);
-                    console.log(formData);
                     formData.dateofBirth = new Date(date1.setDate(formData.dateofBirth.getDate()+1));
                     formData.dateofJoin  = new Date(date2.setDate(formData.dateofBirth.getDate()+1));
                     //var getclass = Class.findOne({filter:{where:{id:formData.classId}}});
                     //console.log(getclass);
+                    $scope.image =  url + '/' +schoolCode+ '/' +formData.classId+ '/' + formData.rollNo + '.png';
 
-                      $scope.newStudent = Student.create({
+
+                    $scope.newStudent = Student.create({
                       schoolId        : $scope.schoolId,
                       firstName       : formData.firstName,
                       lastName        : formData.lastName,
@@ -483,10 +499,10 @@ angular
                       motherEmail     : formData.motherEmail,
                       fatherName      : formData.fatherName,
                       motherName      : formData.motherName,
-                      //image           : $scope.image
+                      image           : $scope.image
 
                     },
-                      function (response) {
+                      function () {
 
                                                           //if (formData.image != null){
                                                           //  console.log('Uploading Image');
@@ -953,9 +969,10 @@ angular
         //                 SHOW USER
         //--------------------------------------------------------
         $scope.showUser = function (x) {
-
+          $scope.tab = 1;
+          $scope.setTab = function(newTab){  $scope.tab = newTab; };
+          $scope.isSet = function(tabNum){   return $scope.tab === tabNum; };
           $scope.formData =x;
-          console.log(x);
           if      (x.type =='Student')   ngDialog.openConfirm({template: 'showStudent', scope: $scope});
           else if (x.type =='Parent')    ngDialog.openConfirm({template: 'showParent',  scope: $scope});
           else if (x.type =='Staff')     ngDialog.openConfirm({template: 'showStaff',   scope: $scope});
