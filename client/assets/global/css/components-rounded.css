@@ -1,5 +1,5 @@
 /*********************************
- METRONIC ROUNDED STYLE COMPONENTS 
+ METRONIC ROUNDED STYLE COMPONENTS
 *********************************/
 /*--------------------------------------------------
     [TRANSITION]
@@ -19,8 +19,8 @@ body {
 }
 
 /*
- Internet Explorer 10 doesn't differentiate device width from viewport width, and thus doesn't 
- properly apply the media queries in Bootstrap's CSS. To address this, 
+ Internet Explorer 10 doesn't differentiate device width from viewport width, and thus doesn't
+ properly apply the media queries in Bootstrap's CSS. To address this,
  you can optionally include the following CSS and JavaScript to work around this problem until Microsoft issues a fix.
 */
 @-webkit-viewport {
@@ -39,8 +39,8 @@ body {
   width: device-width;
 }
 /*
- Internet Explorer 10 doesn't differentiate device width from viewport width, 
- and thus doesn't properly apply the media queries in Bootstrap's CSS. To address this, following CSS code applied 
+ Internet Explorer 10 doesn't differentiate device width from viewport width,
+ and thus doesn't properly apply the media queries in Bootstrap's CSS. To address this, following CSS code applied
 */
 @-ms-viewport {
   width: auto !important;
@@ -1284,7 +1284,7 @@ Users
 }
 
 /***
-Top News Blocks(new in v1.2.2) 
+Top News Blocks(new in v1.2.2)
 ***/
 .top-news {
   color: #fff;
@@ -1734,7 +1734,7 @@ Simple Line Icons Demo
     width: 33.333%;
   }
 }
-/*** 
+/***
 Glyphicons Demo
 ***/
 .glyphicons-demo ul {
@@ -2564,7 +2564,7 @@ Chats
 }
 
 /***
-Customized Bootstrap Close Icon 
+Customized Bootstrap Close Icon
 ***/
 .close {
   display: inline-block;
@@ -4159,7 +4159,7 @@ Metro icons
 }
 
 /***
-Customized Bootstrap Modal 
+Customized Bootstrap Modal
 ***/
 .modal {
   z-index: 10050;
@@ -5978,7 +5978,7 @@ Light Table
 }
 
 /***
-Customized Bootstrap Tabs 
+Customized Bootstrap Tabs
 ***/
 /* Tabs and pills */
 .nav-tabs,
@@ -13787,3 +13787,84 @@ Transparent Button
   background: transparent;
   color: #888;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (min-width: 992px)  and  (max-width: 1200px) {
+  .check{
+    margin: 0px 0px 0px 21px !important;
+  }
+}
+@media (max-width: 991px) {
+  .check{
+    margin: 0px 0px 0px 21px !important;
+  }
+}
+@media (min-width: 480px)  and  (max-width: 767px) {
+  .check{
+    margin: 0px 0px 0px 21px !important;
+  }
+}
+@media (min-width: 280px)  and  (max-width: 479px) {
+  .logo{
+    width:100% !important;
+  }
+  .page-header .page-header-top .top-menu .navbar-nav {
+    margin: 0 45px 0 0 !important;
+  }
+  .page-header .page-header-top .menu-toggler {
+    background: rgba(0, 0, 0, 0) url("../img/menu-toggler.png") no-repeat scroll center center;
+    display: none;
+    float: right;
+    height: 30px;
+    margin: 23px -5px -28px 13px !important;
+    opacity: 0.7;
+    width: 40px;
+  }
+  .table thead tr th {
+    font-size: 10px !important;
+    font-weight: 600;
+  }
+  .rbtn{
+    margin: 0 0 0 -20px !important;
+  }
+
+  .check{
+    margin: 0px 0px 0px 21px !important;
+  }
+  .bfont {
+    color: #333333;
+    direction: ltr;
+    font-family: "Open Sans",sans-serif;
+    font-size: 15px;
+  }
+  .steps-indicator.steps-3 li {
+    font-size: 12px !important;
+    width: calc(100% / 3);
+  }
+  .caption-subject {
+    font-size: 14px !important;
+  }
+}
+
+
+@media only screen and (max-width: 1026px) {
+  #fadeshow1 {
+    display: none;
+  }
+}
+

@@ -8,131 +8,39 @@ angular
     'ui.router',
     'lbServices',
     'ngDialog',
-    'mgo-angular-wizard'
+    'mgo-angular-wizard',
+    'ngScrollbar',
+    'ui.rCalendar',
+    'calendarDemoApp'
   ])
   .config(['$stateProvider', '$urlRouterProvider', function($stateProvider,$urlRouterProvider) {
     $stateProvider
-     .state('dashboard', {
-        url: '/dashboard',
-        templateUrl: 'views/dashboard.html',
-        controller: 'DashboardController',
-        authenticate: true
-      })
-      .state('directory', {
-        url: '/directory',
-        templateUrl: 'views/directory.html',
-        controller: 'DirectoryController',
-        authenticate: true
-      })
-     .state('class', {
-        url: '/class',
-        templateUrl: 'views/class.html',
-        controller: 'ClassController',
-        authenticate: true
-      })
-     .state('subject', {
-        url: '/subject',
-        templateUrl: 'views/subject.html',
-        controller: 'SubjectController',
-        authenticate: true
-      })
-      .state('attendance', {
-        url: '/attendance',
-        templateUrl: 'views/attendance.html',
-        controller: 'AttendanceController',
-        authenticate: true
-      })
-     .state('timetable', {
-        url: '/timetable',
-        templateUrl: 'views/timetable.html',
-        controller: 'TimetableController',
-        authenticate: true
-      })
-      .state('schedule', {
-        url: '/schedule',
-        templateUrl: 'views/schedule.html',
-        controller: 'ScheduleController',
-        authenticate: true
-      })
-      .state('noticeboard', {
-        url: '/noticeboard',
-        templateUrl: 'views/noticeboard.html',
-        controller: 'NoticeboardController',
-        authenticate: true
-      })
-      .state('library', {
-        url: '/library',
-        templateUrl: 'views/library.html',
-        controller: 'LibraryController',
-        authenticate: true
-      })
-      .state('assignment', {
-        url: '/assignment',
-        templateUrl: 'views/assignment.html',
-        controller: 'AssignmentController',
-        authenticate: true
-      })
+    .state('dashboard',   { url: '/dashboard',  templateUrl: 'views/dashboard.html',  controller: 'LandingPageController', authenticate: true})
+    .state('directory',   { url: '/directory',  templateUrl: 'views/directory.html',  controller: 'DirectoryController',   authenticate: true})
+    .state('class',       { url: '/class',      templateUrl: 'views/class.html',      controller: 'ClassController',       authenticate: true})
+    .state('subject',     { url: '/subject',    templateUrl: 'views/subject.html',    controller: 'SubjectController',     authenticate: true})
+    .state('attendance',  { url: '/attendance', templateUrl: 'views/attendance.html', controller: 'AttendanceController',  authenticate: true})
+    .state('timetable',   { url: '/timetable',  templateUrl: 'views/timetable.html',  controller: 'TimetableController',   authenticate: true})
+    .state('transport',   { url: '/transport',  templateUrl: 'views/transport.html',  controller: 'TransportController',   authenticate: true})
+    .state('schedule',    { url: '/schedule',   templateUrl: 'views/schedule.html',   controller: 'ScheduleController',    authenticate: true})
+    .state('noticeboard', { url: '/noticeboard',templateUrl: 'views/noticeboard.html',controller: 'NoticeboardController', authenticate: true})
+    .state('library',     { url: '/library',    templateUrl: 'views/library.html',    controller: 'LibraryController',     authenticate: true})
+    .state('assignment',  { url: '/assignment', templateUrl: 'views/assignment.html', controller: 'AssignmentController',  authenticate: true})
+    .state('holiday',  { url: '/schoolcalendar', templateUrl: 'views/holiday.html', controller: 'HolidayController',  authenticate: true})
+    .state('profile',  { url: '/profile', templateUrl: 'views/profile.html', controller: 'ProfileController',  authenticate: true})
 
       //--------------Auth Services
-      .state('index', {
-        url: '/index',
-        templateUrl: 'index.html',
-        controller: 'LandingPageController'
-      })
-      .state('forbidden', {
-        url: '/forbidden',
-        templateUrl: 'views/forbidden.html',
-      })
-
-      .state('login', {
-        url: '/login',
-        templateUrl: 'views/login.html',
-        controller: 'AuthLoginController',
-      })
-      .state('login.admin', {
-        url: '/admin',
-        templateUrl: 'views/admin.html',
-        controller: 'AuthLoginController',
-      })
-      .state('login.staff', {
-        url: '/staff',
-        templateUrl: 'views/staff.html',
-        controller: 'AuthLoginController',
-      })
-      .state('login.parent', {
-        url: '/parent',
-        templateUrl: 'views/parent.html',
-        controller: 'AuthLoginController',
-      })
-      .state('collaborate', {
-        url: '/collaborate',
-        templateUrl: 'views/collaborate.html'
-
-      })
-      .state('commute', {
-        url: '/commute',
-        templateUrl: 'views/commute.html'
-
-      })
-      .state('compete', {
-        url: '/compete',
-        templateUrl: 'views/compete.html'
-
-      })
-      .state('communicate', {
-        url: '/communicate',
-        templateUrl: 'views/communicate.html'
-      })
-      .state('login.student', {
-        url: '/student',
-        templateUrl: 'views/student.html',
-        controller: 'AuthLoginController',
-      })
-      .state('logout', {
-        url: '/login',
-        controller: 'AuthLogoutController'
-      })
-     $urlRouterProvider.otherwise('/login');
+      .state('index',        { url: '/index',      controller: 'LandingPageController'})
+    //.state('forbidden', { url: '/forbidden', templateUrl: 'views/forbidden.html'})
+    .state('email', { url: '/email', templateUrl: 'views/email.html', controller:'EmailController'})
+      .state('login',         { url: '/login',  templateUrl: 'views/login.html',   controller: 'AuthLoginController' })
+      .state('login.admin',   { url: '/admin',  templateUrl: 'views/admin.html',   controller: 'AuthLoginController' })
+      .state('login.staff',   { url: '/staff',  templateUrl: 'views/staff.html',   controller: 'AuthLoginController' })
+      .state('login.parent',  { url: '/parent', templateUrl: 'views/parent.html',  controller: 'AuthLoginController' })
+      .state('login.student', { url: '/student',templateUrl: 'views/student.html', controller: 'AuthLoginController' })
+      //.state('signup',        { url: '/signup', templateUrl: 'views/signup.html',  controller: 'SignUpController  ' })
+      .state('logout',        { url: '/login',                                     controller: 'AuthLogoutController'})
+     $urlRouterProvider.otherwise('/login/admin');
   }])
 
 

@@ -23,13 +23,43 @@
       <textarea rows="4" cols="50" class="form-control" placeholder="Description"  ng-model="formData.description"></textarea><br>
       <input  type="date" class="form-control" ng-value="fromDate" ng-model="formData.fromDate"><br>
       <input  type="date" class="form-control" ng-value="toDate" ng-model="formData.toDate"><br>
-      <input type = "file" file-model = "myFile" class="form-control" placeholder="Image" ng-model="formData.uploadFile"><br>
+      <!--<input type = "file" file-model = "myFile" class="form-control" placeholder="Image" ng-model="formData.uploadFile"><br>-->
       <button type="submit" class="btn btn-success uppercase" ng-click=confirm(formData)>Save</button>
       <button type="button" class="btn btn-success uppercase" ng-click=closeThisDialog("Cancel")>Cancel</button>
 
     </form>
   </div>
 </script>
+
+
+<!--------------------Add ASSIGNMNET SECTION----->
+<script type="text/ng-template" id="addAssignment">
+  <div class="ngdialog-message">
+    <h1>Add Assignment</h1>
+    <form ng-submit="confirm(formData)">
+      <div>
+        <input  type="text" class="form-control" placeholder="Title" ng-model="formData.title"  required><br>
+        <select ng-model="formData.classSelected" id="repeatSelect1" class="form-control" required>
+          <option value="">Class-Section</option>
+          <option ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
+        </select>
+        <br>
+        <textarea rows="4" cols="50" class="form-control" placeholder="Description of Assignment " ng-model="formData.description" required></textarea><br>
+        <input  type="date" class="form-control"  ng-model="formData.fromDate" required><br>
+        <input  type="date" class="form-control"  ng-model="formData.toDate" required><br>
+        <!--<input type = "file" file-model = "formData.myFile" class="form-control" placeholder="Image" ng-model="formData.uploadFile"><br>-->
+        <button type="submit"  class="btn btn-success uppercase">Post Assignment</button>
+      </div>
+
+
+    </form>
+    <div class="ngdialog-buttons">
+    </div>
+  </div>
+</script>
+
+
+
 
 <div class="container">
   <div class="row margin-top-10">
@@ -39,6 +69,8 @@
       <div class="portlet light ">
         <div class="portlet-title">
           <div class="caption caption-md">ASSIGNMENTS</div>
+          <button class="btn btn-success uppercase pull-right" ng-click="addAssignment()">ADD ASSIGNMENTS</button>
+
         </div>
 
         <!-- -----------------------------------Search Form------------------------------->
@@ -48,20 +80,16 @@
 
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-              <form ng-show="Admin || Staff" ng-submit="addAssignment()">
+              <form>
 
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12" style="min-height:50px">
-                  <input  type="text" class="form-control" placeholder="Title" ng-model="formData.title"  required><br>
-                  <select ng-model="formData.classSelected" id="repeatSelect1" class="form-control" required>
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="min-height:50px">
+                  <input  type="text" class="form-control" placeholder="Title" ng-model="search.title"  required><br>
+                  <select ng-model="search.class.id" id="repeatSelect1" class="form-control" required>
                     <option value="">Class-Section</option>
                     <option ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
                   </select>
                   <br>
-                  <textarea rows="4" cols="50" class="form-control" placeholder="Description of Assignment " ng-model="formData.description" required></textarea><br>
-                  <input  type="date" class="form-control"  ng-model="formData.fromDate" required><br>
-                  <input  type="date" class="form-control"  ng-model="formData.toDate" required><br>
-                  <input type = "file" file-model = "myFile" class="form-control" placeholder="Image" ng-model="formData.uploadFile"><br>
-                  <button type="submit"  class="btn btn-success uppercase">Post Assignment</button>
+
                 </div>
 
 
@@ -69,31 +97,31 @@
               </form>
 
 
-              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" style="min-height:50px" >
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12"   style="height:260px;overflow-y:auto;" >
                 <table class="table table-bordered table-striped table-condensed flip-content">
                   <thead flip-content>
                   <tr>
                     <th>#</th>
                     <th><a ng-click="sortType = 'title'; sortReverse = !sortReverse">Title</a></th>
-					<th><a ng-click="sortType = 'className'; sortReverse = !sortReverse">Class</a></th>
+					          <th><a ng-click="sortType = 'className'; sortReverse = !sortReverse">Class</a></th>
                     <th><a ng-click="sortType = 'description'; sortReverse = !sortReverse">Description</a></th>
                     <th><a ng-click="sortType = 'fromDate'; sortReverse = !sortReverse">From  Date</a></th>
                     <th><a ng-click="sortType = 'toDate'; sortReverse = !sortReverse">To  Date</a></th>
-                    <th>File</th>
+                    <!--<th>File</th>-->
                     <th ng-show="Admin || Staff">Option</th>
                   </tr>
                   </thead>
 
                   <tbody>
-                  <tr data-ng-repeat="x in assignmentlist | orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
+                  <tr data-ng-repeat="x in assignmentlist | filter: search| orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
                     <div data-ng-bind-html="x.id">s
                       <td>{{$index+1}}</td>
                       <td>{{x.title}}</td>
 					            <td>{{x.class.className}}-{{x.class.sectionName}}</td>
                       <td>{{x.description}}</td>
-                      <td>{{x.fromDate | date:'MM/dd/yyyy'}}</td>
-                      <td>{{x.toDate | date:'MM/dd/yyyy'}}</td>
-                      <td><a href="{{x.downloadFile}}" target="_blank"/>Download</td>
+                      <td>{{x.fromDate | date:'MMM dd yyyy'}}</td>
+                      <td>{{x.toDate | date:'MMM dd yyyy'}}</td>
+                      <!--<td><a href="{{x.downloadFile}}" target="_blank"/>Download</td>-->
                       <td ng-show="Admin || Staff"><i class="glyphicon glyphicon-edit" ng-model="collapsed1" ng-click="editAssignment(x)"></i>
                         <i class="glyphicon glyphicon-remove"  ng-click="deleteAssignment(x)"></i>
                       </td>

@@ -1,57 +1,71 @@
 
+
+
+
 <div class="container">
   <div class="row margin-top-10">
-    <div class="col-md-8 col-sm-8">
+    <div class="col-md-8 col-sm-12 col-xs-12 row-md-4">
       <div class="portlet light ">
-          <div class="portlet-title">
-          <div class="caption caption-md">Dashboard</div>
-        </div>
-          <div class="row list-separated">
-          <div class="col-sm-12">
+                <section ng-init="loadEvents()">
+                  <div class="alert alert-success" ng-show="event">Event selected:{{event.startTime|date:
+                    'MMM/dd,yyyy,HH:mm'}} - {{event.endTime|date:'MMM/dd,yyyy,HH:mm'}}, {{event.title}}
+                  </div>
 
+                  <div class="btn-toolbar">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-default" ng-class="{active:mode==='month'}"
+                              ng-click="changeMode('month')">
+                        Month
+                      </button>
+                      <button type="button" class="btn btn-default" ng-class="{active:mode==='week'}"
+                              ng-click="changeMode('week')">
+                        Week
+                      </button>
+                      <button type="button" class="btn btn-default" ng-class="{active:mode==='day'}"
+                              ng-click="changeMode('day')">
+                        Day
+                      </button>
 
-            </div>
-
-            <div class="portlet-body-morris-fit morris-chart flip-scroll" style="margin-right:0px;margin-left:0px;margin-bottom:0px;height: 260px">
-
-
-            </div>
-
-
-          </div>
+                    </div>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-default" ng-disabled="isToday()"
+                              ng-click="today()">
+                        Today
+                      </button>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="well well-sm">
+                    <calendar ng-model="currentDate" calendar-mode="mode" event-source="eventSource"
+                              range-changed="reloadSource(startTime, endTime)"
+                              event-selected="onEventSelected(event)"></calendar>
+                  </div>
+                </section>
       </div>
     </div>
-    <div class="col-md-4 col-sm-4">
-      <div class="portlet light ">
+    <div class="col-md-4 col-sm-12 col-xs-12 row-md-4">
+      <div class="portlet light row-md-1">
+
+        <center>Birthdays</center>
+        <table class="table table-bordered table-striped table-condensed flip-content">
+          <thead></thead>
+          <tr ng-repeat="x in birthdayList">  <td>{{x.firstName}} </td><td>{{x.class}} </td></tr>
+        </table>
+
+
+      </div>
+      <div class="portlet light row-md-1">
         <div class="portlet-title">
-          <div class="caption caption-md">Notices</div>
+          <div class="caption caption-md">Images</div>
         </div>
         <div class="row list-separated">
 
 
-          <div class="portlet-body-morris-fit morris-chart flip-scroll" style="margin-right:0px;margin-left:0px;margin-bottom:0px;height: 260px">
-            <table class="table bordered">
-              <thead>
-              <th>#</th>
-              <th>Notices</th>
-              <th>Description</th>
-              </thead>
-              <tr ng-repeat="x in noticeList">
-                <td>{{$index}} </td>
-                <td>{{x.title}} </td>
-                <td>{{x.description}} </td>
-                <td>{{x.date1 | date:'medium'}} </td>
-                <td>{{x.date2 | date: 'medium'}} </td>
-
-              </tr>
-            </table>
-          </div>
 
 
+        </div>
       </div>
-       </div>
-
-      <div class="portlet light ">
+      <div class="portlet light row-md-">
         <div class="portlet-title">
           <div class="caption caption-md">Videos</div>
         </div>
@@ -61,10 +75,11 @@
 
 
 
-
         </div>
 
       </div>
+
+
     </div>
   </div>
 </div>

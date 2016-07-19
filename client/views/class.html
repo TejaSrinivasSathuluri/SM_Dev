@@ -8,49 +8,53 @@
   </div>
 </script>
 
+<script type="text/ng-template" id="addClass">
+  <div class="ngdialog-message">
+    <h3>Add Class</h3>
+    <form ng-submit="confirm(formData)">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <input type="text" class="form-control Class" placeholder="Class Name"  ng-model="formData.className" required><br>
+         <input type="text" class="form-control Section" placeholder="Section Name" ng-model="formData.sectionName" required> <br>
+
+          <select ng-model="formData.staffSelected" class="form-control Staff" required>
+          <option value="">Class Teacher</option>
+          <option ng-repeat="x in staffList" value="{{x.id}}">{{x.firstName}}</option>
+        </select>
+        <br>
+        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">  <button type="submit" class="btn btn-success uppercase">Create Class</button></div>
+      </div>
+    </form>
+    <div class="ngdialog-buttons">
+    </div>
+  </div>
+</script>
+
 
 <div class="container">
   <div class="row margin-top-10">
-    <div class="col-md-12 col-sm-12">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <!-- BEGIN PORTLET-->
       <div class="portlet light ">
         <div class="portlet-title">
-          <div class="caption caption-md col-sm-12">
-            <span class="caption-subject uppercase col-sm-4">Classes</span><span class="caption-subject uppercase col-sm-6"></span>
-            <span class="btn btn-success uppercase col-sm-2" ng-show="Admin" ng-click="collapsed=!collapsed ;clearResponse()"> Add Class</span>
+          <div class="caption caption-md col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <span class="caption-subject uppercase col-lg-4 col-md-4 col-sm-12 col-xs-12">Classes</span><span class="caption-subject uppercase col-sm-6"></span>
+            <span class="btn btn-success uppercase col-lg-2 col-md-2 col-sm-12 col-xs-12" ng-show="Admin" ng-click="addClass() ;clearResponse()"> Add Class</span>
+            <!--<span class="btn btn-success uppercase col-sm-2" ng-show="Admin" ng-click="collapsed=!collapsed ;clearResponse()"> Add Class</span>-->
           </div>
 
 
         </div>
         <div class="portlet-body">
           <div class="row list-separated">
-            <div class="col-sm-12" ng-show="collapsed">
 
-							<form ng-submit="addClass()">
-							  <div class="col-sm-12">
-								<div class="col-sm-2"> <input type="text" class="form-control Class" placeholder="Class Name"  ng-model="formData.className" required> </div>
-								<div class="col-sm-2"> <input type="text" class="form-control Section" placeholder="Section Name" ng-model="formData.sectionName" required> </div>
-								<div class="col-sm-2">  <select ng-model="formData.staffSelected" class="form-control Staff" required>
-								  <option value="">Class Teacher</option>
-								  <option ng-repeat="x in staffList" value="{{x.id}}">{{x.firstName}}</option>
-								</select>
-								</div>
-								<div class="col-sm-2">  <button type="submit" class="btn btn-success uppercase">Create Class</button></div>
-							  </div>
-							  <div class="col-sm-12">
-								<div style="color: red;" class="col-sm-6">{{responseAddClass}}</div>
-							  </div>
-							</form>
-							<br><br><br>
-
-              </div>
-
-
-            <br><br><br><br>
 
               <!---->
-              <div class="col-sm-12">
-                <div class="col-sm-3">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div style="color: red;" ng-show="" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">{{responseAddClass}}</div>
+              <div style="color: green;" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">{{responseAddClass}}</div>
+            </div>
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                   <select ng-model="search.id" class="form-control">
                     <option value="">Class </option>
                     <option ng-repeat="y in classList" value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>
@@ -59,16 +63,17 @@
 
                   <input type="text" ng-model="search.staff.firstName" placeholder="Search By Teacher" class="form-control"> </input>
                 </div>
-                <div class="col-sm-9">
+                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 				<div class="portlet-body-morris-fit morris-chart flip-scroll" style="color:red"> {{ response}} 	</div>
-                <div class="portlet-body-morris-fit morris-chart flip-scroll" style="margin-right:0px;margin-left:0px;margin-bottom:0px;height: 260px">
+				<div> Total Results :{{classList.length}} | Filtered Results {{filtered.length}}</div>
+                <!--<div class="portlet-body-morris-fit morris-chart flip-scroll" style="height:max">-->
 
 		            <table class="table table-bordered table-striped table-condensed flip-content">
                     <thead flip-content>
                     <tr>
                       <th><a ng-click="sortType = 'className'; sortReverse = !sortReverse">Class</a></th>
-                      <th><a ng-click="sortType = 'sectionName'; sortReverse = !sortReverse">Section</th>
-                      <th><a ng-click="sortType = 'staff.firstName'; sortReverse = !sortReverse">Teacher</th>
+                      <th><a ng-click="sortType = 'sectionName'; sortReverse = !sortReverse">Section</a></th>
+                      <th><a ng-click="sortType = 'staff.firstName'; sortReverse = !sortReverse">Teacher</a></th>
                       <th ng-show="Admin">Action</th>
                     </tr>
                     </thead>
@@ -77,7 +82,7 @@
 
 
                     <tbody>
-                    <tr style="height:20px" data-ng-repeat="x in classList | filter:search |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
+                    <tr style="height:20px" data-ng-repeat="x in  filtered = (classList | filter:search) |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
                         <div data-ng-bind-html="x.id">
                         <td>{{x.className}}</td>
                         <td>{{x.sectionName}}</td>
@@ -99,16 +104,17 @@
                     </tbody>
                   </table>
 
-				  <button ng-disabled="currentPage == 0"                        ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
-                  <button ng-disabled="currentPage >= classList.length/pageSize-1" ng-click="currentPage=currentPage+1">Next</button>
                   </div>
                   <!---->
-                 </div>
+                  <button ng-disabled="currentPage == 0"                        ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
+                  <button ng-disabled="currentPage >= classList.length/pageSize-1" ng-click="currentPage=currentPage+1">Next</button>
+
+                </div>
               </div>
             </div>
           </div>
-        <div class="portlet-body-morris-fit morris-chart" style="height:120px">
-        </div>
+        <!--<div class="portlet-body-morris-fit morris-chart" style="height:120px">-->
+        <!--</div>-->
           <!-- END PORTLET-->
         </div>
 

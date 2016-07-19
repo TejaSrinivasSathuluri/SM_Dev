@@ -7,10 +7,23 @@
     "name": "Study_Monitor_Data",
     "connector": "mongodb"
   },
-  "container": {
-        "name": "container",
-        "connector": "loopback-component-storage",
-        "provider": "filesystem",
-        "root": "./client/uploads"
-    }
+  "myEmailDataSource": {
+    "name": "myEmailDataSource",
+    "connector": "mail",
+    "transports": [
+      {
+        "type": "smtp",
+        "host": "mail.studymonitor.net",
+        "secure": false,
+        "port": 25,
+        "tls": {
+          "rejectUnauthorized": false
+        },
+        "auth": {
+          "user": "nchallag@studymonitor.net",
+          "pass": "Ketan123"
+        }
+      }
+    ]
+  }
 }

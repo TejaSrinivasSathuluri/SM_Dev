@@ -5,7 +5,8 @@
 
 angular
   .module('app')
-  .factory('AuthServiceAdmin', ['Admin', '$q', '$rootScope', '$window','School',function(Admin, $q,$rootScope,$window,School) {
+  .factory('AuthServiceAdmin', ['Admin', '$q', '$rootScope', '$window','School','Noticeboard','$filter',
+    function(Admin, $q,$rootScope,$window,School,Noticeboard,$filter) {
     function login(email, password) {
       return Admin
         .login({email: email, password: password})
@@ -17,8 +18,15 @@ angular
             user : response.user
           };
           $window.localStorage.setItem('user',JSON.stringify(response.user));
-          var school = School.findById({id:response.user.schoolId},function(){
-            $rootScope.schoolName = school.schoolName;});
+          var school = School.findById({id:response.user.schoolId},function(response){
+            $window.localStorage.setItem('school',JSON.stringify(response));
+
+            $rootScope.schoolName = school.schoolName;
+          });
+
+
+
+
         });
     }
 
@@ -48,7 +56,7 @@ angular
       register: register
     };
   }])
- .factory('AuthServiceStudent', ['Student', '$q', '$rootScope', '$window','School',function(User, $q,$rootScope,$window,School) {
+ .factory('AuthServiceStudent', ['Student','$q', '$rootScope', '$window','School',function(User, $q,$rootScope,$window,School) {
   function login(email, password) {
     return User
       .login({email: email, password: password})
@@ -91,7 +99,7 @@ angular
     register: register
   };
 }])
- .factory('AuthServiceStaff', ['Staff', '$q', '$rootScope', '$window','School',function(User, $q,$rootScope,$window,School) {
+ .factory('AuthServiceStaff',   ['Staff',  '$q', '$rootScope', '$window','School',function(User, $q,$rootScope,$window,School) {
   function login(email, password) {
     return User
       .login({email: email, password: password})
@@ -134,7 +142,7 @@ angular
     register: register
   };
 }])
- .factory('AuthServiceParent', ['Parent', '$q', '$rootScope', '$window','School',function(User, $q,$rootScope,$window,School) {
+ .factory('AuthServiceParent',  ['Parent', '$q', '$rootScope', '$window','School',function(User, $q,$rootScope,$window,School) {
   function login(email, password) {
     return User
       .login({email: email, password: password})
