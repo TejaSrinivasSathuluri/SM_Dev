@@ -599,55 +599,40 @@
       <div class="panel-heading ng-binding">
         <center>Student Information</center>
         <div>
-
-
           <table>
             <tbody>
-              <td style="width:30%">
+            <td style="width:120px">
               <img style="height: 150px;width: 120px" src="{{formData.image}}">
             </td>
-              <td style="width: 30%">
-                <ul>
-                <li>{{formData.firstName}} {{formData.lastName}}</li>
-                <!--<br>-->
-                <li> {{formData.rollNo}}</li>
-                <!--<br>-->
+            <td style="width: 50px">
 
-<li>                 {{formData.class.className}}-{{formData.class.sectionName}}</li>
-                <!--<br>-->
-<li>                {{formData.email}}</li>
+                <ul>{{formData.firstName}} {{formData.lastName}}</ul>
+                <ul> {{formData.rollNo}}</ul>
+                <ul>                 {{formData.class.className}}-{{formData.class.sectionName}}</ul>
+                <ul>               {{formData.email}}</ul>
+              <ul>                {{formData.contact}} </ul>
 
-                <!--<br>-->
-<li>                {{formData.contact}} </li>
-                </ul>
-              </td>
-              <td style="width: 10%">
+            </td>
+            <td style="width: 10px">
+              <ul>                <i class="fa fa-facebook-square" style="font-size: 1.5em;"  ></i></ul>
+              <ul>              <i class="fa fa-envelope-o" style="font-size: 1.5em;"  aria-hidden="true"></i></ul>
+              <ul>               <i class="fa fa-comments-o text-" style="font-size: 1.5em;" ></i></ul>
+            </td>
+            <td style="width: 30px">
+              <ul>	Current Address  : {{	formData.currentAddress   }}                   </ul>
+              <ul>	Current City :{{	formData.currentCity      }}               </ul>
+              <ul>  Current State :{{	formData.currentState     }}                                      </ul>
+              <ul>  CurrentPincode :{{	formData.currentPincode   }}             </ul>
+            </td>
+            </tr>
+            </tbody>
+          </table>
 
-<li>                <i class="fa fa-facebook-square"></i></li>
-<li>                <i class="fi-mail"></i></li>
-
-                <!--<br>-->
-<li>               <i class="fa fa-comments-o text-"></i></li>
-
-              </td>
-              <td style="width: 30%">
-
-            <li>	Current Address  : {{	formData.currentAddress   }}                   </li>
-            <li>	Current City :{{	formData.currentCity      }}               </li>
-            <li>  Current State :{{	formData.currentState     }}                                      </li>
-            <li>  CurrentPincode :{{	formData.currentPincode   }}             </li>
-
-
-
-
-
-
-              </td>
-          </tr>
-            </tbody></table></div></div>
+         </div>
+      </div>
     </div>
     <button class="btn btn-default" ng-class="{ active: isSet(1) }" href ng-click="setTab(1)">Personal Info</button>
-    <button class="btn btn-default" ng-class="{ active: isSet(2) }" href ng-click="setTab(2)">Timetable</button>
+    <button class="btn btn-default" ng-class="{ active: isSet(2) }" href ng-click="setTab(2)">Attendance</button>
 
 
 
@@ -668,100 +653,22 @@
       </table>
     </div>
     <div ng-show="isSet(2)">
-      <table class="table table-bordered table-striped table-condensed flip-content">
-        <thead flip-content>
-        <tr>
 
-          <td>Periods</td>
-          <td>Monday</td>
-          <td>Tuesday</td>
-          <td>Wednesday</td>
-          <td>Thursday</td>
-          <td>Friday</td>
-          <td>Saturday</td>
-        </tr>
-        </thead>
-
-        <tr ng-show="Admin" ng-repeat = "subject in scheduleList">
-          <td colspan="10" ng-show="subject.attendance == false">
-            <center>{{ subject.title}}</center></td>
-
-
-          <td ng-show="subject.attendance == true">{{ subject.startTime | date:'hh:mm'}}-{{subject.endTime | date:'hh:mm'}}</td>
-          <td ng-show="subject.attendance == true"><select ng-model="subject.Monday" class="form-control id" required>
-            <option value="">Subject</option>
-            <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
-          </select>
-          </td>
-          <td ng-show="subject.attendance == true"><select ng-model="subject.Tuesday" class="form-control" required>
-            <option value="">Subject</option>
-            <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
-          </select>
-          </td>
-          <td ng-show="subject.attendance == true"><select ng-model="subject.Wednesday" class="form-control" required>
-            <option value="">Subject</option>
-            <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
-          </select>
-          </td>
-          <td ng-show="subject.attendance == true"><select ng-model="subject.Thursday" class="form-control" required>
-            <option value="">Subject</option>
-            <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
-          </select>
-          </td>
-          <td ng-show="subject.attendance == true"><select ng-model="subject.Friday" class="form-control" required>
-            <option value="">Subject</option>
-            <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
-          </select>
-          <td ng-show="subject.attendance == true"><select ng-model="subject.Saturday" class="form-control" required>
-            <option value="">Subject</option>
-            <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
-          </select>
-          </td>
-        </tr>
-        <tr ng-show="Student || Parent || Staff" ng-repeat = "subject in scheduleList">
-          <td colspan="10" ng-show="subject.attendance == false">
-            <center>{{ subject.title}}</center></td>
-
-
-          <td ng-show="subject.attendance == true">{{ subject.startTime | date:'hh:mm'}}-{{subject.endTime | date:'hh:mm'}}</td>
-
-          <td ng-show="subject.attendance == true"><select ng-model="subject.Monday" ng-disabled="Student || Staff || Parent" class="form-control id" required>
-            <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
-          </select>
-          </td>
-          <td ng-show="subject.attendance == true"><select ng-model="subject.Tuesday" ng-disabled="Student || Staff || Parent" class="form-control" required>
-            <option value="">Not Selected</option>
-            <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
-          </select>
-          </td>
-          <td ng-show="subject.attendance == true"><select ng-model="subject.Wednesday" ng-disabled="Student || Staff || Parent" class="form-control" required>
-            <option value="">Not Selected</option>
-            <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
-          </select>
-          </td>
-          <td ng-show="subject.attendance == true"><select ng-model="subject.Thursday" ng-disabled="Student || Staff || Parent" class="form-control" required>
-            <option value="">Not Selected</option>
-            <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
-          </select>
-          </td>
-          <td ng-show="subject.attendance == true"><select ng-model="subject.Friday" ng-disabled="Student || Staff || Parent" class="form-control" required>
-            <option value="">Not Selected</option>
-            <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
-          </select>
-          <td ng-show="subject.attendance == true"><select ng-model="subject.Saturday" ng-disabled="Student || Staff || Parent" class="form-control" required>
-            <option value="">Not Selected</option>
-            <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
-          </select>
-          </td>
-        </tr>
-
-      </table>
-
-
+       Coming Soon
     </div>
 
   </div>
 </script>
+<script type="text/css">
+  table {
+  border:2px solid;
+  padding:10px 40px;
+  width:300px;
+  resize:both;
+  overflow:auto;
+}
+  ​</script>
+
 <script type="text/ng-template" id="showStaff">
 
  <div class = "panel panel-primary">
