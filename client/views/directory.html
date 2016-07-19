@@ -596,33 +596,39 @@
 <script type="text/ng-template" id="showStudent">
 
   <div class = "panel panel-primary">
-      <div class="panel-heading ng-binding">
+      <div class="panel-heading ng-binding" style="background-color: rgba(31, 73, 125, 0.74);">
         <center>Student Information</center>
         <div>
           <table>
-            <tbody>
-            <td style="width:120px">
+            <tbody class="col-sm-12">
+            <td class="col-sm-1">
               <img style="height: 150px;width: 120px" src="{{formData.image}}">
             </td>
-            <td style="width: 50px">
+            <td  class="col-sm-2">
 
-                <ul>{{formData.firstName}} {{formData.lastName}}</ul>
-                <ul> {{formData.rollNo}}</ul>
-                <ul>                 {{formData.class.className}}-{{formData.class.sectionName}}</ul>
-                <ul>               {{formData.email}}</ul>
+                <ul style="padding: 0px;">{{formData.firstName}} {{formData.lastName}}</ul>
+                <ul style="padding: 0px;"> {{formData.rollNo}}</ul>
+                <ul style="padding: 0px;">                 {{formData.class.className}}-{{formData.class.sectionName}}</ul>
+                <ul style="padding: 0px;">               {{formData.email}}</ul>
               <ul>                {{formData.contact}} </ul>
 
             </td>
-            <td style="width: 10px">
-              <ul>                <i class="fa fa-facebook-square" style="font-size: 1.5em;"  ></i></ul>
-              <ul>              <i class="fa fa-envelope-o" style="font-size: 1.5em;"  aria-hidden="true"></i></ul>
-              <ul>               <i class="fa fa-comments-o text-" style="font-size: 1.5em;" ></i></ul>
+            <td class="col-sm-1">
+              <ul style="padding: 0px;">                <i class="fa fa-facebook-square" style="font-size: 1.5em;"  ></i></ul>
+              <ul style="padding: 0px;">              <i class="fa fa-envelope-o" style="font-size: 1.5em;"  aria-hidden="true"></i></ul>
+              <ul style="padding: 0px;">               <i class="fa fa-comments-o text-" style="font-size: 1.5em;" ></i></ul>
             </td>
-            <td style="width: 30px">
-              <ul>	Current Address  : {{	formData.currentAddress   }}                   </ul>
-              <ul>	Current City :{{	formData.currentCity      }}               </ul>
-              <ul>  Current State :{{	formData.currentState     }}                                      </ul>
-              <ul>  CurrentPincode :{{	formData.currentPincode   }}             </ul>
+            <td style="padding: 0px;" class="col-sm-4">
+              <!--<ul style="padding: 0px;">	Current Address  : {{	formData.currentAddress   }}                   </ul>-->
+              <!--<ul style="padding: 0px;">	Current City :{{	formData.currentCity      }}               </ul>-->
+              <!--<ul style="padding: 0px;">  Current State :{{	formData.currentState     }}                                      </ul>-->
+              <!--<ul style="padding: 0px;">  CurrentPincode :{{	formData.currentPincode   }}             </ul>-->
+              <!---->
+              <ul>	 <strong>Address</strong>                     </ul>
+              <ul>	  {{	formData.currentAddress   }}                   </ul>
+              <ul>	 {{	formData.currentCity      }}               </ul>
+              <ul>   {{	formData.currentState     }}                                      </ul>
+              <ul>   {{	formData.currentPincode   }}             </ul>
             </td>
             </tr>
             </tbody>
@@ -633,6 +639,8 @@
     </div>
     <button class="btn btn-default" ng-class="{ active: isSet(1) }" href ng-click="setTab(1)">Personal Info</button>
     <button class="btn btn-default" ng-class="{ active: isSet(2) }" href ng-click="setTab(2)">Attendance</button>
+    <button class="btn btn-default" ng-class="{ active: isSet(3) }" href ng-click="setTab(4)">Marks</button>
+    <button class="btn btn-default" ng-class="{ active: isSet(3) }" href ng-click="setTab(4)">Activity Log</button>
 
 
 
@@ -653,6 +661,13 @@
       </table>
     </div>
     <div ng-show="isSet(2)">
+
+       Coming Soon
+    </div>
+  <div ng-show="isSet(3)">
+
+       Coming Soon
+    </div> <div ng-show="isSet(4)">
 
        Coming Soon
     </div>
