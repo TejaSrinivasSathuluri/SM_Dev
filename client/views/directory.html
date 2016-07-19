@@ -596,70 +596,168 @@
 <script type="text/ng-template" id="showStudent">
 
   <div class = "panel panel-primary">
-    <div class = "panel-heading">
-  <center>Student Information</center>
-  <center>    <img style="height: 150px;width: 120px" src="{{formData.image}}"/>
-  <br></center></div>
-    <button class="btn btn-default" ng-class="{ active: isSet(1) }" href ng-click="setTab(1)">General Info</button>
-    <button class="btn btn-default" ng-class="{ active: isSet(2) }" href ng-click="setTab(2)">Personal Info</button>
-    <button class="btn btn-default" ng-class="{ active: isSet(3) }" href ng-click="setTab(3)">Personal Info(2)</button>
-    <button class="btn btn-default" ng-class="{ active: isSet(4) }" href ng-click="setTab(4)">Parent Info</button>
+      <div class="panel-heading ng-binding">
+        <center>Student Information</center>
+        <div>
+
+
+          <table>
+            <tbody>
+              <td style="width:30%">
+              <img style="height: 150px;width: 120px" src="http://studymonitor.net/appimages/101/576b482f25b53ebc1690e1f1/66.png">
+            </td>
+              <td style="width: 30%">
+                <ul>
+                <li>{{formData.firstName}} {{formData.lastName}}</li>
+                <!--<br>-->
+                <li> {{formData.rollNo}}</li>
+                <!--<br>-->
+
+<li>                 {{formData.class.className}}-{{formData.class.sectionName}}</li>
+                <!--<br>-->
+<li>                {{formData.email}}</li>
+
+                <!--<br>-->
+<li>                {{formData.contact}} </li>
+                </ul>
+              </td>
+              <td style="width: 10%">
+
+<li>                <i class="fa fa-facebook-square"></i></li>
+<li>                <i class="fi-mail"></i></li>
+
+                <!--<br>-->
+<li>               <i class="fa fa-comments-o text-"></i></li>
+
+              </td>
+              <td style="width: 30%">
+
+            <li>	Current Address  : {{	formData.currentAddress   }}                   </li>
+            <li>	Current City :{{	formData.currentCity      }}               </li>
+            <li>  Current State :{{	formData.currentState     }}                                      </li>
+            <li>  CurrentPincode :{{	formData.currentPincode   }}             </li>
+
+
+
+
+
+
+              </td>
+          </tr>
+            </tbody></table></div></div>
+    </div>
+    <button class="btn btn-default" ng-class="{ active: isSet(1) }" href ng-click="setTab(1)">Personal Info</button>
+    <button class="btn btn-default" ng-class="{ active: isSet(2) }" href ng-click="setTab(2)">Timetable</button>
+
 
 
 
     <div ng-show="isSet(1)">
       <table class="table table-hover table-bordered table-striped table-condensed flip-content">
-
-        <tr>           <th >	Name              :</th>       <td >{{	formData.firstName }}{{	formData.lastName }} </td>   </tr>
-        <tr>           <th >	Email           :</th>       <td >{{	formData.email            }}                 </td> </tr>
-        <tr>           <th >	Class           :</th>       <td >{{	formData.class.className  }}                 </td>  </tr>
-        <tr>           <th >	RollNo          :</th>       <td >{{	formData.rollNo           }}                 </td> </tr>
-        <tr>           <th >	RFID            :</th>       <td >{{	formData.RFID             }}                 </td> </tr>
-        <tr>           <th >	Status          :</th>       <td >{{	formData.status           }}                 </td> </tr>
-        <tr>           <th >	RegId           :</th>       <td >{{	formData.regId            }}                 </td> </tr>
-        <tr>           <th >	Contact         :</th>        <td >{{	formData.contact          }}                 </td> </tr>
-        <tr>           <th >	AlternateContact:</th>        <td >{{	formData.alternateContact }}                 </td> </tr>
-      </table>
-    </div>
- <div ng-show="isSet(2)">
-      <table class="table table-hover table-bordered table-striped table-condensed flip-content">
-
-        <tr>           <th >	Gender          :</th>       <td >{{	formData.gender           }}                 </td> </tr>
-        <tr>           <th >	DateofBirth     :</th>       <td >{{	formData.dateofBirth | date:'MMM dd yyyy'      }}</td> </tr>
-        <tr>           <th >	RollNo          :</th>       <td >{{	formData.rollNo           }}                 </td> </tr>
-        <tr>           <th >	Previous School  :</th>       <td >{{	formData.previousSchool   }}                 </td> </tr>
+        <tr>           <th >	DateofBirth     :</th>       <td >{{	formData.dateofBirth | date:'MMM dd'      }}</td> </tr>
         <tr>           <th >	DateofJoin      :</th>       <td >{{	formData.dateofJoin   | date:'MMM dd yyyy'   }}</td> </tr>
-        <tr>           <th >	IsDisable       :</th>        <td >{{	formData.isDisable        }}                 </td> </tr>
         <tr>           <th >	BloodGroup      :</th>        <td >{{	formData.bloodGroup       }}                 </td> </tr>
-        <tr>           <th >	Religion        :</th>        <td >{{	formData.religion         }}                 </td> </tr>
-        <tr>           <th >	Caste           :</th>        <td >{{	formData.caste            }}                 </td> </tr>
-        <tr>           <th >	subCaste        :</th>        <td >{{	formData.subCaste         }}                 </td> </tr>
-        <tr>           <th >	NationalId      :</th>        <td >{{	formData.nationalIdType   }} -{{	formData.nationalId}}</td> </tr>
         <tr>           <th >	MotherTounge    :</th>        <td >{{	formData.motherTounge     }}                 </td> </tr>
-      </table>
-    </div>
-    <div ng-show="isSet(3)">
-      <table class="table table-hover table-bordered table-striped table-condensed flip-content">
-
-        <tr>           <th >	Current Address  :</th>        <td >{{	formData.currentAddress   }}                 </td> </tr>
-        <tr>           <th >	Current City     :</th>        <td >{{	formData.currentCity      }}                 </td> </tr>
-        <tr>           <th >	Current State    :</th>        <td >{{	formData.currentState     }}                 </td> </tr>
-        <tr>           <th >	Current Pincode  :</th>        <td >{{	formData.currentPincode   }}                 </td> </tr>
-        <tr>           <th >	Permanent Address:</th>       <td >{{	formData.permanentAddress }}                 </td> </tr>
-        <tr>           <th >	Permanent City   :</th>       <td >{{	formData.permanentCity    }}                 </td> </tr>
-        <tr>           <th >	Permanent State  :</th>       <td >{{	formData.permanentState   }}                 </td> </tr>
-        <tr>           <th >	Permanent Pincode:</th>       <td >{{	formData.permanentPincode }}                 </td> </tr>
-
-      </table>
-    </div>
- <div ng-show="isSet(4)">
-      <table class="table table-hover table-bordered table-striped table-condensed flip-content">
         <tr>           <th >	Father Name :</th>            <td >{{	formData.fatherName      }}                 </td> </tr>
         <tr>           <th >	Mother Name :</th>            <td >{{	formData.motherName      }}                 </td> </tr>
         <tr>           <th >	Father Email:</th>            <td >{{	formData.fatherEmail      }}                 </td> </tr>
-        <tr>           <th >	Mother Email:</th>            <td >{{	formData.motherEmail      }}              </td>    </tr>
+        <tr>           <th >	Mother Email:</th>            <td >{{	formData.fatherEmail      }}                 </td> </tr>
+        <tr>           <th >	Father Mobile:</th>            <td >{{	formData.fatherContact      }}                 </td> </tr>
+        <tr>           <th >	Mother Mobile:</th>            <td >{{	formData.motherContact      }}              </td>    </tr>
 
       </table>
+    </div>
+    <div ng-show="isSet(2)">
+      <table class="table table-bordered table-striped table-condensed flip-content">
+        <thead flip-content>
+        <tr>
+
+          <td>Periods</td>
+          <td>Monday</td>
+          <td>Tuesday</td>
+          <td>Wednesday</td>
+          <td>Thursday</td>
+          <td>Friday</td>
+          <td>Saturday</td>
+        </tr>
+        </thead>
+
+        <tr ng-show="Admin" ng-repeat = "subject in scheduleList">
+          <td colspan="10" ng-show="subject.attendance == false">
+            <center>{{ subject.title}}</center></td>
+
+
+          <td ng-show="subject.attendance == true">{{ subject.startTime | date:'hh:mm'}}-{{subject.endTime | date:'hh:mm'}}</td>
+          <td ng-show="subject.attendance == true"><select ng-model="subject.Monday" class="form-control id" required>
+            <option value="">Subject</option>
+            <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
+          </select>
+          </td>
+          <td ng-show="subject.attendance == true"><select ng-model="subject.Tuesday" class="form-control" required>
+            <option value="">Subject</option>
+            <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
+          </select>
+          </td>
+          <td ng-show="subject.attendance == true"><select ng-model="subject.Wednesday" class="form-control" required>
+            <option value="">Subject</option>
+            <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
+          </select>
+          </td>
+          <td ng-show="subject.attendance == true"><select ng-model="subject.Thursday" class="form-control" required>
+            <option value="">Subject</option>
+            <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
+          </select>
+          </td>
+          <td ng-show="subject.attendance == true"><select ng-model="subject.Friday" class="form-control" required>
+            <option value="">Subject</option>
+            <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
+          </select>
+          <td ng-show="subject.attendance == true"><select ng-model="subject.Saturday" class="form-control" required>
+            <option value="">Subject</option>
+            <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
+          </select>
+          </td>
+        </tr>
+        <tr ng-show="Student || Parent || Staff" ng-repeat = "subject in scheduleList">
+          <td colspan="10" ng-show="subject.attendance == false">
+            <center>{{ subject.title}}</center></td>
+
+
+          <td ng-show="subject.attendance == true">{{ subject.startTime | date:'hh:mm'}}-{{subject.endTime | date:'hh:mm'}}</td>
+
+          <td ng-show="subject.attendance == true"><select ng-model="subject.Monday" ng-disabled="Student || Staff || Parent" class="form-control id" required>
+            <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
+          </select>
+          </td>
+          <td ng-show="subject.attendance == true"><select ng-model="subject.Tuesday" ng-disabled="Student || Staff || Parent" class="form-control" required>
+            <option value="">Not Selected</option>
+            <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
+          </select>
+          </td>
+          <td ng-show="subject.attendance == true"><select ng-model="subject.Wednesday" ng-disabled="Student || Staff || Parent" class="form-control" required>
+            <option value="">Not Selected</option>
+            <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
+          </select>
+          </td>
+          <td ng-show="subject.attendance == true"><select ng-model="subject.Thursday" ng-disabled="Student || Staff || Parent" class="form-control" required>
+            <option value="">Not Selected</option>
+            <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
+          </select>
+          </td>
+          <td ng-show="subject.attendance == true"><select ng-model="subject.Friday" ng-disabled="Student || Staff || Parent" class="form-control" required>
+            <option value="">Not Selected</option>
+            <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
+          </select>
+          <td ng-show="subject.attendance == true"><select ng-model="subject.Saturday" ng-disabled="Student || Staff || Parent" class="form-control" required>
+            <option value="">Not Selected</option>
+            <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
+          </select>
+          </td>
+        </tr>
+
+      </table>
+
+
     </div>
 
   </div>
@@ -759,7 +857,7 @@
 <!-------------------------------------------------------------------------------------------------------------------------------------------------------->
 <div class="container">
   <div class="row margin-top-10">
-    <div class="col-md-12 col-sm-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="portlet light ">
         <div class="portlet-title">
           <div class="caption caption-md pull-left">Search</div>
@@ -783,21 +881,21 @@
         <!-- -------------------------------------------------------------------Search Form--------------------------------------------------------------->
         <div class="row list-separated">
                  <div class="alert alert-success" ng-show="error">   {{response}}     </div>
-               <div class="col-sm-12">
+               <div class="col-sm-12 col-xs-12">
 
 
-              <div class="col-sm-2" style="min-height:50px"> <input type="checkbox" ng-model="formData.studentSearch" ng-disabled="studentBox" ng-click="processSearch('s')">Students</input></div>
-              <div class="col-sm-2" style="min-height:50px"> <input type="checkbox" ng-model="formData.staffSearch"   ng-disabled="staffBox"   ng-click="processSearch('t')">Staff   </input></div>
-              <div class="col-sm-2" style="min-height:50px"> <input type="checkbox" ng-model="formData.parentSearch"  ng-disabled="parentBox"  ng-click="processSearch('p')">Parents </input></div>
+              <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="min-height:50px"> <input type="checkbox" ng-model="formData.studentSearch" ng-disabled="studentBox" ng-click="processSearch('s')"><span class="check">Students</span></input></div>
+              <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="min-height:50px"> <input type="checkbox" ng-model="formData.staffSearch"   ng-disabled="staffBox"   ng-click="processSearch('t')"><span class="check">Staff  </span> </input></div>
+              <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="min-height:50px"> <input type="checkbox" ng-model="formData.parentSearch"  ng-disabled="parentBox"  ng-click="processSearch('p')"><span class="check">Parents</span> </input></div>
 
-                 <div class="col-sm-2" style="min-height:50px">
+                 <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="min-height:50px">
                    <input type="text" ng-model="search.firstName" ng-hide="nameSearch" placeholder="Search By Name" class="form-control"> </input>
                  </div>
-                 <div class="col-sm-2" style="min-height:50px">
+                 <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="min-height:50px">
                    <input type="text" ng-model="search.rollNo" ng-hide="rollSearch" placeholder="Search By Roll Number" class="form-control"> </input>
                  </div>
 
-                 <div class="col-sm-2" style="min-height:50px">
+                 <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="min-height:50px">
                    <select ng-model="search.class.id" class="form-control" ng-hide="classSearch">
                      <option value="">Class </option>
                      <option ng-repeat="y in classList" value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>
@@ -819,8 +917,8 @@
                                                                 <th ng-show="Admin">Action</th>
                                                             </tr>
                                                    </thead>
-                                                   <tbody data-ng-repeat="x in  filtered = (searchList | filter:search) | orderBy:sortType:sortReverse | filter:search  | startFrom : currentPage*pageSize | limitTo:pageSize">
-                                                          <tr>
+                                                   <tbody>
+                                                          <tr data-ng-repeat="x in  filtered = (searchList | filter:search) | orderBy:sortType:sortReverse | filter:search  | startFrom : currentPage*pageSize | limitTo:pageSize">
 
                                                                   <td style="width:10%"><img ng-src={{x.image}} style="width:10px"></td>
                                                                   <td style="width:30%"><a ng-click="showUser(x)">{{x.firstName}} {{x.lastName}}</a>    </td>

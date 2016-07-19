@@ -48,22 +48,22 @@
         <div class="portlet-title">
           <div class="caption caption-md col-sm-12">
             <span class="caption-subject uppercase col-sm-4">Subjects</span><span class="caption-subject uppercase col-sm-6"></span>
-            <span class="caption-subject btn btn-success uppercase col-sm-2" ng-show="Admin" ng-click="addSubject() ;clearResponse()"> Add Subject</span>
+            <span class="caption-subject btn btn-success uppercase col-lg-2 col-md-2 col-sm-12 col-xs-12" ng-show="Admin" ng-click="addSubject() ;clearResponse()"> Add Subject</span>
           </div>
         </div>
         <div class="portlet-body">
               <div class="row list-separated">
 
                 <div class="col-sm-12">
-                  <div style="color: red;" ng-show="error" class="col-sm-6">{{responseAddSubject}}</div>
-                  <div style="color: green;" ng-show="success" class="col-sm-6">{{responseAddSubject}}</div>
+                  <div style="color: red;" ng-show="error" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">{{responseAddSubject}}</div>
+                  <div style="color: green;" ng-show="success" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">{{responseAddSubject}}</div>
                 </div>
 
 
 
               <!---->
                <div class="col-sm-12">
-              <div ng-hide="Student" class="col-sm-3">
+              <div ng-hide="Student" class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                 <select ng-model="search.class.id" class="form-control">
                   <option value="">Class </option>
                   <option ng-repeat="y in classList" value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>
@@ -74,11 +74,11 @@
               <br>
                 <input type="text" ng-model="search.subjectName" placeholder="Search By Subject" class="form-control"> </input>
               </div>
-              <div class="col-sm-9">
+              <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                 <div>
                   Total Results : {{subjectList.length}} | Filtered Results : {{filtered.length}}
                 </div>
-              <div class="portlet-body-morris-fit morris-chart flip-scroll" style="height: max">
+              <!--<div class="portlet-body-morris-fit morris-chart flip-scroll" style="height: max">-->
               <table class="table table-bordered table-striped table-condensed flip-content" >
                 <thead flip-content><tr>
 				  <th><a ng-click="sortType = 'subjectName'; sortReverse = !sortReverse">Subject</th>

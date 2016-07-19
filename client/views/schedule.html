@@ -14,13 +14,13 @@
             <div class="portlet-body">
                <div class="row list-separated">
 			        <div class="col-sm-12">
-		              <div ng-hide="Student || Parent" class="col-sm-3">
+		              <div ng-hide="Student || Parent" class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
             <select ng-model="class" ng-change="loadSchedule()" class="form-control">
               <option value="">Class </option>
               <option ng-repeat="y in classList"  value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>
             </select>
              </div>
-			          <div class="col-sm-9"><span>{{response}}</span>
+			          <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12"><span>{{response}}</span>
 								<div class="portlet-body-morris-fit morris-chart flip-scroll" style="margin-right:0px;margin-left:0px;margin-bottom:0px;height:max">
                   <div style="height: 500px; overflow: auto;">
 								  		  <table class="table table-bordered table-striped table-condensed flip-content">

@@ -1,12 +1,13 @@
 <div class="row list-separated">
   <form name="form" ng-submit="login('S')">
     <center>
-      <div class="caption caption-md">STUDENT</div>
+      <span class="caption caption-md">STUDENT</span>
+
+      <div class="alert alert-warning" ng-show="invalidLogin">
+        <strong>Invalid Username or Password</strong> 
+    </div>
       <div class="form-group" style="width:50%">
-<br>
-<br>
-<br>
-<br>
+
         <input class="form-control form-control-solid placeholder-no-fix" type="text" ng-model="user.email" placeholder="Email">
 
       </div>

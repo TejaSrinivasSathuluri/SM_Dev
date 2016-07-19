@@ -13,28 +13,37 @@ angular
         AuthServiceAdmin.login($scope.user.email, $scope.user.password)
           .then(function () {
             $state.go('dashboard');
-          });
+          },function(response){
+			  			  $scope.invalidLogin = true;
+		  }
+		  );
       }
       else if (T == 'S')
       {
         AuthServiceStudent.login($scope.user.email, $scope.user.password)
           .then(function () {
             $state.go('dashboard');
-          });
+          },function(){
+			  $scope.invalidLogin = true;
+		  });
       }
       else if (T == 'ST')
       {
         AuthServiceStaff.login($scope.user.email, $scope.user.password)
           .then(function () {
             $state.go('dashboard');
-          });
+          },function(){
+			  $scope.invalidLogin = true;
+		  });
       }
       else if (T == 'P')
       {
         AuthServiceParent.login($scope.user.email, $scope.user.password)
           .then(function () {
             $state.go('dashboard');
-          });
+          },function(){
+			  $scope.invalidLogin = true;
+		  });
       }
 
     };

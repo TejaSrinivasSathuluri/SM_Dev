@@ -68,28 +68,36 @@
     <div class="page-header-top" style="margin: 0px;height:0px">
       <!-- BEGIN LOGO -->
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-          <div class="page-logo ">
-            <a href="http://studymonitor.net/appimages/logo.png"><img src="http://studymonitor.net/appimages/logo.png" alt="logo" class="logo-default" style="    width: 31%;
-                           margin: 2px;
-                           height: 70px;
-                           margin-top: 1px;
-                           margin-left: -24px"></a>
+        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+          <div class="page-logo " id="fadeshow1">
+            <!--<a href="http://studymonitor.net/appimages/logo.png"><img src="http://studymonitor.net/appimages/logo.png" alt="logo" class="logo-default" style="margin: 2px;-->
+                           <!--/*height: 70px;*/-->
+                           <!--margin-top: 1px;-->
+                           <!--margin-left: -24px"  ></a>-->
           </div>
         </div>
         <!-- END LOGO -->
-        <div ng-show ="currentUser" class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+
+
+
+        <div ng-show ="currentUser" class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
           <img src={{image}} class="logo-default" style="width:100%;
                         margin: 2px;
                         height: 70px;
                         margin-top: 1px;">
         </div>
-        <div ng-hide ="currentUser" class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+        <div ng-hide ="currentUser" class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
           <img src="" alt="logo" class="logo-default" style="    width:100%;
                         margin: 2px;
                         height: 30px;
                         margin-top: 15px;">
         </div>
+
+
+
+
+
+
         <!-- BEGIN RESPONSIVE MENU TOGGLER -->
         <a href="javascript:;" class="menu-toggler"></a>
         <!-- END RESPONSIVE MENU TOGGLER -->

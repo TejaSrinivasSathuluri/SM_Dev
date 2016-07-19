@@ -162,7 +162,8 @@ angular
 
   .controller('DirectoryController',
     ['$scope', 'ngDialog','Admin', '$state', 'School', 'Class', 'Student', 'Parent', 'StudentParent', 'Staff', '$rootScope', '$window','fileUpload','$filter',
-      function ($scope,ngDialog, Admin, $state, School, Class, Student, Parent, StudentParent, Staff, $rootScope, $window,fileUpload,$filter) {
+      'Timetable','Schedule',
+      function ($scope,ngDialog, Admin, $state, School, Class, Student, Parent, StudentParent, Staff, $rootScope, $window,fileUpload,$filter,Timetable,Schedule) {
 
 
         //--------------------------------------------------------
@@ -975,6 +976,13 @@ angular
           $scope.setTab = function(newTab){  $scope.tab = newTab; };
           $scope.isSet = function(tabNum){   return $scope.tab === tabNum; };
           $scope.formData =x;
+
+          $scope.scheduleList = Schedule.findOne({filter:{where:{classId: x.classId}}},function(){
+            $scope.list = $scope.scheduleList.schedule;
+            console.log($scope.list[0].Monday);
+
+          });
+
           if      (x.type =='Student')   ngDialog.openConfirm({template: 'showStudent', scope: $scope});
           else if (x.type =='Parent')    ngDialog.openConfirm({template: 'showParent',  scope: $scope});
           else if (x.type =='Staff')     ngDialog.openConfirm({template: 'showStaff',   scope: $scope});
