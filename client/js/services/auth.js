@@ -52,7 +52,7 @@ angular
       register: register
     };
   }])
-  .factory('AuthServiceStudent', ['Student','$q', '$rootScope', '$window','School',function(Student, $q,$rootScope,$window,School) {
+  .factory('AuthServiceStudent', ['Student','$q', '$rootScope', '$window','School',function(User, $q,$rootScope,$window,School) {
   function login(email, password) {
     return User
       .login({email: email, password: password})
