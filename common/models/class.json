@@ -27,6 +27,11 @@
       "type": "hasMany",
       "model": "Assignment",
       "foreignKey": ""
+    },
+    "feeSetups": {
+      "type": "hasOne",
+      "model": "FeeSetup",
+      "foreignKey": ""
     }
   },
   "acls": [

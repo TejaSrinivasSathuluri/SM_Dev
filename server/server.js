@@ -1,8 +1,8 @@
 var loopback = require('loopback');
 var boot = require('loopback-boot');
 var path = require('path');
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
+//var bodyParser = require('body-parser');
+//var cookieParser = require('cookie-parser');
 
 var app = module.exports = loopback();
 
@@ -10,44 +10,35 @@ var app = module.exports = loopback();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// configure body parser
 
 app.use(loopback.token());
 
 app.start = function() {
-  // start the web server
   return app.listen(function() {
-    app.emit('started');
     var baseUrl = app.get('url').replace(/\/$/, '');
-    console.log('Web server listening at: %s', baseUrl);
-    if (app.get('loopback-component-explorer')) {
-      var explorerPath = app.get('loopback-component-explorer').mountPath;
-      console.log('Browse your REST API at %s%s', baseUrl, explorerPath);
-    }
+    console.log('Study Monitor Application Is Now Running On ', baseUrl);
   });
 };
 
-// Bootstrap the application, configure models, datasources and middleware.
-// Sub-apps like REST API are mounted via boot scripts.
 boot(app, __dirname, function(err) {
   if (err) throw err;
 
   // start the server if `$ node server.js`
-  if (require.main === module)
+  //if (require.main === module)
+  //  app.start();
+  if (require.main === module){
     app.start();
-  //if (require.main === module){
-  //  //app.start();
-  //  app.io = require('socket.io')(app.start());
-  //  app.io.on('connection', function(socket){
-  //    console.log('a user connected');
-  //
-  //    socket.on('subscribe', function(room) {
-  //      console.log('joining room', room);
-  //      socket.join(room);
-  //    });
-  //    socket.on('disconnect', function(){
-  //      console.log('user disconnected');
-  //    });
-  //  });
-  //}
+    //app.io = require('socket.io')(app.start());
+    //app.io.on('connection', function(socket){
+    //  console.log('a user connected');
+    //
+    //  socket.on('subscribe', function(room) {
+    //    console.log('joining room', room);
+    //    socket.join(room);
+    //  });
+    //  socket.on('disconnect', function(){
+    //    console.log('user disconnected');
+    //  });
+    //});
+  }
 });

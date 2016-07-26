@@ -1,14 +1,11 @@
-// Copyright IBM Corp. 2015. All Rights Reserved.
-// Node module: loopback-getting-started-intermediate
-// This file is licensed under the MIT License.
-// License text available at https://opensource.org/licenses/MIT
+// Copyright Study Monitor. 2016. All Rights Reserved.
+// Node module: Study Monitor
 
 angular
   .module('app')
-  .factory('AuthServiceAdmin', ['Admin', '$q', '$rootScope', '$window','School','Noticeboard','$filter',
-    function(Admin, $q,$rootScope,$window,School,Noticeboard,$filter) {
+  .factory('AuthServiceAdmin',   ['Admin',  '$q', '$rootScope', '$window','School',function(User,   $q,$rootScope,$window,School) {
     function login(email, password) {
-      return Admin
+      return User
         .login({email: email, password: password})
         .$promise
         .then(function(response) {
@@ -17,16 +14,11 @@ angular
             tokenId: response.id,
             user : response.user
           };
+          console.log('Admin Logged In');
           $window.localStorage.setItem('user',JSON.stringify(response.user));
           var school = School.findById({id:response.user.schoolId},function(response){
             $window.localStorage.setItem('school',JSON.stringify(response));
-
-            $rootScope.schoolName = school.schoolName;
           });
-
-
-
-
         });
     }
 
@@ -35,9 +27,13 @@ angular
         .logout()
         .$promise
         .then(function() {
+          console.log('Admin Logged Out');
           $rootScope.currentUser = null;
-          $rootScope.schoolName = null;
           $window.localStorage.clear();
+        }, function (response) {
+          $rootScope.currentUser = null;
+          $window.localStorage.clear();
+          console.log('Admin ' + response.data.error.message);
         });
     }
 
@@ -56,7 +52,47 @@ angular
       register: register
     };
   }])
- .factory('AuthServiceStudent', ['Student','$q', '$rootScope', '$window','School',function(User, $q,$rootScope,$window,School) {
+  .factory('AuthServiceStudent', ['Student','$q', '$rootScope', '$window','School',function(Student, $q,$rootScope,$window,School) {
+  function login(email, password) {
+    return User
+      .login({email: email, password: password})
+      .$promise
+      .then(function(response) {
+        $window.localStorage.setItem('user',JSON.stringify(response.user));
+        var school = School.findById({id:response.user.schoolId},function(){
+          $window.localStorage.setItem('school',JSON.stringify(response));
+
+        });
+      });
+  }
+
+  function logout() {
+    return User
+      .logout()
+      .$promise
+      .then(function() {
+        $rootScope.currentUser = null;
+        $rootScope.schoolName = null;
+        $window.localStorage.clear();
+      });
+  }
+
+  function register(email, password) {
+    return User
+      .create({
+        email: email,
+        password: password
+      })
+      .$promise;
+  }
+
+  return {
+    login: login,
+    logout: logout,
+    register: register
+  };
+}])
+  .factory('AuthServiceStaff',   ['Staff',  '$q', '$rootScope', '$window','School',function(Staff,   $q,$rootScope,$window,School) {
   function login(email, password) {
     return User
       .login({email: email, password: password})
@@ -99,7 +135,7 @@ angular
     register: register
   };
 }])
- .factory('AuthServiceStaff',   ['Staff',  '$q', '$rootScope', '$window','School',function(User, $q,$rootScope,$window,School) {
+  .factory('AuthServiceParent',  ['Parent', '$q', '$rootScope', '$window','School',function(Parent,  $q,$rootScope,$window,School) {
   function login(email, password) {
     return User
       .login({email: email, password: password})
@@ -111,51 +147,6 @@ angular
           user : response.user
         };
         $window.localStorage.setItem('user',JSON.stringify(response.user));
-        var school = School.findById({id:response.user.schoolId},function(){
-          $rootScope.schoolName = school.schoolName;});
-      });
-  }
-
-  function logout() {
-    return User
-      .logout()
-      .$promise
-      .then(function() {
-        $rootScope.currentUser = null;
-        $rootScope.schoolName = null;
-        $window.localStorage.clear();
-      });
-  }
-
-  function register(email, password) {
-    return User
-      .create({
-        email: email,
-        password: password
-      })
-      .$promise;
-  }
-
-  return {
-    login: login,
-    logout: logout,
-    register: register
-  };
-}])
- .factory('AuthServiceParent',  ['Parent', '$q', '$rootScope', '$window','School',function(User, $q,$rootScope,$window,School) {
-  function login(email, password) {
-    return User
-      .login({email: email, password: password})
-      .$promise
-      .then(function(response) {
-        $rootScope.currentUser = {
-          id: response.user.id,
-          tokenId: response.id,
-          user : response.user
-        };
-        $window.localStorage.setItem('user',JSON.stringify(response.user));
-        var school = School.findById({id:response.user.schoolId},function(){
-          $rootScope.schoolName = school.schoolName;});
       });
   }
 

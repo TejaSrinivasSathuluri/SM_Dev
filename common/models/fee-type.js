@@ -1,3 +1,3 @@
-module.exports = function(FeeType) {
+module.exports = function(Feetype) {
 
 };

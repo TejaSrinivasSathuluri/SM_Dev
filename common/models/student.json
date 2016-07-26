@@ -5,7 +5,11 @@
   "options": {
     "validateUpsert": true
   },
-  "properties": {},
+  "properties": {
+    "firstName": {
+      "type": "String"
+    }
+  },
   "validations": [],
   "relations": {
     "school": {
@@ -21,6 +25,16 @@
     "studentParents": {
       "type": "hasMany",
       "model": "StudentParent",
+      "foreignKey": ""
+    },
+    "studentDiscounts": {
+      "type": "hasMany",
+      "model": "StudentDiscount",
+      "foreignKey": ""
+    },
+    "busSubscriptions": {
+      "type": "hasOne",
+      "model": "BusSubscription",
       "foreignKey": ""
     }
   },

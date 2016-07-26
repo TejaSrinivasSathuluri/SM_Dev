@@ -5,7 +5,11 @@
   "options": {
     "validateUpsert": true
   },
-  "properties": {},
+  "properties": {
+    "currentAddress": {
+      "type": "String"
+    }
+  },
   "validations": [],
   "relations": {
     "subject": {

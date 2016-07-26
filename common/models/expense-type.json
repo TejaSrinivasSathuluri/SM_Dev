@@ -1,5 +1,5 @@
 {
-  "name": "VehicleType",
+  "name": "ExpenseType",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
@@ -8,9 +8,9 @@
   "properties": {},
   "validations": [],
   "relations": {
-    "school": {
-      "type": "belongsTo",
-      "model": "School",
+    "expensePayments": {
+      "type": "hasMany",
+      "model": "ExpensePayment",
       "foreignKey": ""
     }
   },
