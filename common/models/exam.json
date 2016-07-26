@@ -1,26 +1,30 @@
 {
-  "name": "BusSubscription",
+  "name": "Exam",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "pickupLocation": {
+    "examDate": {
+      "type": "date",
+      "required": "true"
+    },
+    "examName": {
       "type": "String",
       "required": "true"
     }
   },
   "validations": [],
   "relations": {
-    "busService": {
+    "class": {
       "type": "belongsTo",
-      "model": "BusService",
+      "model": "Class",
       "foreignKey": ""
     },
-    "student": {
+    "school": {
       "type": "belongsTo",
-      "model": "Student",
+      "model": "School",
       "foreignKey": ""
     }
   },
