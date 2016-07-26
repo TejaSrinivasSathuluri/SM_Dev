@@ -221,11 +221,14 @@
               </td>
               </div>
               </tr>
-              <div style="position: absolute;z-index: 100;background-color: red" ng-show="popoverIsVisible">
-                <ul ng-repeat="route in routes">
-                <li>{{route.location}}</li>
+              <div style="position: absolute;z-index: 100;background-color: grey" ng-show="popoverIsVisible">
+                <!--<ul ng-repeat="route in startTime.concat(endTime.concat(startLocation.concat(endLocation)))">-->
+                <ul ng-repeat="route in routeDetails">
+                  <li>{{route.startLocation}}({{route.startTime | date:'HH:mm:ss a'}})--
+                    {{route.endLocation}}({{route.endTime | date:'HH:mm:ss a'}})</li>
                 </ul>
               </div>
+
               </tbody>
               </table>
             </div>
@@ -239,26 +242,38 @@
           <div ng-show="isSet(3)">
             <div class="col-sm-12">
           {{responseSubscription}}
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                   <form ng-submit="addSubscription()">
-                  <select ng-model="formData.busServiceId" class="form-control" ng-change="setRoutes()" required>
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                    <select ng-model="formData.busServiceId" class="form-control" ng-change="setRoutes()" required>
                     <option value="">Services </option>
                     <option ng-repeat="x in serviceList" value="{{x.id}}" >{{x.serviceName}}</option>
-                  </select><br>
-                  <select ng-model="formData.classId" class="form-control" ng-change="setStudentList()" required>
+                  </select>
+            </div>
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+
+                    <select ng-model="formData.classId" class="form-control" ng-change="setStudentList()" required>
                     <option value="">Classes </option>
                     <option ng-repeat="y in classList" value="{{y.id}}" >{{y.className}}-{{y.sectionName}}</option>
-                  </select><br>
-                  <select ng-model="formData.studentId" class="form-control" required>
+                  </select>
+                      </div>
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+
+                    <select ng-model="formData.studentId" class="form-control" required>
                     <option value="">Student</option>
                     <option ng-repeat="w in studentList" value="{{w.id}}" >{{w.firstName}}-{{w.lastName}}</option>
-                  </select><br>
-                  <select ng-model="formData.pickupLocation" class="form-control" required>
+                  </select>
+                      </div>
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+
+                    <select ng-model="formData.pickupLocation" class="form-control" required>
                     <option value="">Routes</option>
                     <option ng-repeat="z in routesList">{{z.location}}</option>
-                  </select><br>
+                  </select>
+</div>
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 
-                  <button type="submit" class="btn btn-success uppercase">Subscribe</button>
+                    <button type="submit" class="btn btn-success uppercase">Subscribe</button>
+                      </div>
                   </form>
 
 
