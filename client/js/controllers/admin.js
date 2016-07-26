@@ -2433,27 +2433,19 @@ angular
           $scope.endLocation = [];
           $scope.startTime = [];
           $scope.endTime =[];
+          $scope.routeDetails =[];
           for(var i=0;i< x.serviceRoutes.length-1;i++)
           {
 
 
-                  $scope.startLocation[i] = x.serviceRoutes[i].location;
-                  //$scope.startTime [i] = new Date(x.serviceStartTime1.getTime() + x.serviceRoutes[i].duration*60000);
-                  //$scope.endTime [i] = new Date($scope.formData.serviceStartTime1.getTime() + totalDuration*60000);
-              if(i==0)
-              {
-                  $scope.startTime[i] = x.serviceStartTime1;
-              }
-              else
-              {
-                  $scope.startTime[i] = $scope.endTime[i-1];
-              }
-              console.log($scope.startTime[i]);
-              console.log(x.serviceStartTime1);
-              $scope.endTime[i] = new Date(x.serviceStartTime1.getTime());
+            $scope.startLocation[i] = x.serviceRoutes[i].location;
+            $scope.endLocation[i] = x.serviceRoutes[i+1].location;
+            if(i==0)    $scope.startTime[i] = new Date(new Date(x.serviceStartTime1).getTime() - 330*60000);
+            else        $scope.startTime[i] = $scope.endTime[i-1];
+                        $scope.endTime[i] = new Date($scope.startTime[i].getTime() + x.serviceRoutes[i].duration*60000);
+            $scope.routeDetails[i] = {startLocation :$scope.startLocation[i],endLocation :$scope.endLocation[i],
+              startTime : $scope.startTime[i],endTime : $scope.endTime[i]};
 
-              $scope.endLocation[i] = x.serviceRoutes[i+1].location;
-              console.log($scope.startLocation[i] + '-' + $scope.startTime[i] + '-' + $scope.endLocation[i] + '-' + $scope.endTime[i]);
           }
 
       }
@@ -2484,7 +2476,8 @@ angular
               },
               function()
               {
-                 console.log('Success');
+                 $scope.responseSubscription = 'Subscription Successfull';
+                $scope.successCallSubscription();
               },
               function(response)
               {
@@ -2495,6 +2488,17 @@ angular
           );
 
       }
+
+
+    //   SUCCESS CALL
+    //-----------------------------------------------------
+    $scope.successCallSubscription = function(){
+      setTimeout( function()
+      {
+        $scope.responseSubscription = null;
+      }, 1000 );
+
+    }
 
       //**************************************SUBSCRIPTION CORNER***********************************
 
