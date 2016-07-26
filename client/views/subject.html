@@ -25,7 +25,7 @@
               <br>
               <select ng-model="formData.staffSelected" id="repeatSelect2" class="form-control" required>
                   <option value="">Select Teacher</option>
-                  <option ng-repeat="option1 in staffList" value=" {{option1.id}}">{{option1.firstName}}</option>
+                  <option ng-repeat="option1 in staffList" value=" {{option1.id}}">{{option1.firstName}}{{option1.lastName}}</option>
                 </select>
 
 

@@ -1198,8 +1198,21 @@ angular
           }, function (response) {
             if (response.status = 401) $state.go('logout', {}, {reload: true});
           });
-          $scope.subjectList = Subject.find({filter: {include: ['staff', 'class']}});
+          $scope.showSubject = function(){
+            $scope.subjectList=[];
+            $scope.subjectList = Subject.find({filter: {include: ['staff', 'class']}});
 
+          }
+   $scope.successCallSubject = function(){
+     $scope.error = false;
+     $scope.success = true;
+
+   }
+          $scope.failureCallSubject = function(){
+     $scope.error = true;
+     $scope.success = false;
+
+   }
 
 
           $scope.addSubject = function () {
@@ -1217,8 +1230,7 @@ angular
                   },
                   function () {
                     $scope.responseAddSubject = 'Subject ' + formData.subjectName + ' Already Exists For The Class.' ;
-                    $scope.error = true;
-                    $scope.success = false;
+                    $scope.failureCallSubject();
                   },
                   function () {
                     Subject.create({
@@ -1229,12 +1241,12 @@ angular
                       function () {
 
                         $scope.responseAddSubject ="Subject "+ formData.subjectName + " created Successfully in Class";
-                        $scope.error = false;
-                        $scope.success = true;
                         setTimeout( function()
                         {
-                          $state.go($state.current, {}, {reload: true});
-                          $scope.$apply();
+                          $scope.successCallSubject();
+                          $scope.showSubject();
+                          $scope.clearResponse();
+
                         }, 1000 );
                       },
                       function () {
@@ -1243,9 +1255,6 @@ angular
                       }
                     );
                   });
-
-
-
 
               },
               function (value) { }
@@ -1256,12 +1265,13 @@ angular
           $scope.updateSubject = function (a) {
 						Subject.upsert({id: a.id, staffId: a.staff.id},
 						  function () {
-                $scope.responseAddSubject ="Subject  Edited Successfully";
+                $scope.responseAddSubject ="Subject Edited Successfully";
 
                 setTimeout( function()
                 {
-                  $state.go($state.current, {}, {reload: true});
-                  $scope.$apply();
+                  $scope.successCallSubject();
+                  $scope.showSubject();
+                  $scope.clearResponse();
                 }, 1000 );
 						  },
 						  function (response) {
@@ -1276,12 +1286,16 @@ angular
             dialog.closePromise.then(function (data) {
 
               if (data.value && data.value != '$document' && data.value != '$closeButton') {
-                Subject.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")});
-                setTimeout( function()
-                {
-                  $state.go($state.current, {}, {reload: true});
-                  $scope.$apply();
-                }, 1000 );
+                Subject.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")},function(){
+                  $scope.responseAddSubject ="Subject deleted Successfully";
+
+                  setTimeout( function()
+                  {
+                    $scope.successCallSubject();
+                    $scope.showSubject();
+                    $scope.clearResponse();
+                  }, 1000 );
+                });
               }
               return true;
             });
@@ -2395,7 +2409,16 @@ angular
 
 
       }
+    //----------------------------------------------
+    //               SORT TABLE TECHNIQUE
+    //----------------------------------------------
 
+    $scope.sortType     = 'title';
+    $scope.sortReverse  = false;
+    $scope.searchFish   = '';
+    $scope.currentPage = 0;
+    $scope.pageSize = 10;
+    $scope.numberOfPages=function(){    return Math.ceil($scope.busList.length/$scope.pageSize);}
 
       //**************************************BUS CORNER************************************
 
