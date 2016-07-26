@@ -35,8 +35,7 @@ angular
          }])
   .value('THROTTLE_MILLISECONDS', 250)
 
-  .controller('LandingPageController',
-             ['$scope', 'Admin','Student' ,'Parent','Staff','Noticeboard','School','$window','$rootScope','$filter','$state',
+  .controller('LandingPageController',     ['$scope', 'Admin','Student' ,'Parent','Staff','Noticeboard','School','$window','$rootScope','$filter','$state',
     function ($scope,Admin,Student,Parent,Staff,Noticeboard,School,$window,$rootScope,$filter,$state) {
       //--------------------------------------------------------
       //                  BASIC USER DATA
@@ -67,9 +66,7 @@ angular
         }
 
 
-          $scope.school = School.findById({id:$scope.schoolId},function(){
-            $rootScope.image = $scope.school.image;
-            $rootScope.schoolName = $scope.school.schoolName;});
+          $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
 
           // --------------------------------------------------------
           //                  GET NOTICE LIST
@@ -80,22 +77,15 @@ angular
           //                   CALENDAR
           // --------------------------------------------------------
           //
-          $scope.changeMode = function (mode) {
-            $scope.mode = mode;
-          };
-
+          $scope.changeMode = function (mode) { $scope.mode = mode; };
           $scope.today = function () {   $scope.currentDate = new Date(); }
-
           $scope.isToday = function () {  var today = new Date(), currentCalendarDate = new Date($scope.currentDate);
             today.setHours(0, 0, 0, 0);
             currentCalendarDate.setHours(0, 0, 0, 0);
             return today.getTime() === currentCalendarDate.getTime();
           }
-
           $scope.loadEvents = function () {    $scope.eventSource = createRandomEvents();};
-
           $scope.onEventSelected = function (event) {   $scope.event = event; };
-
           function createRandomEvents() {
             var events = [];
             //for (var i = 0; i < 20; i += 1) {
@@ -142,13 +132,15 @@ angular
               var a =  $filter('date')(new Date($scope.studentList[i].dateofBirth), 'MM-dd')    ;
               var b =  $filter('date')(new Date(), 'MM-dd')    ;
               var c= (new Date(a)-new Date(b)) / (1000 * 3600 * 24);
-              if ( c ==0){
+              if ( c <7 && c >=0){
                 $scope.birthdayList[j] = { studentId:$scope.studentList[i].id,firstName:$scope.studentList[i].firstName,
                   class:($scope.studentList[i].class.className + '-' +$scope.studentList[i].class.sectionName),
                   dateofBirth:$scope.studentList[i].dateofBirth};
                 j++;
               }
+
             }
+
             },
             function (response)
             {
@@ -156,14 +148,21 @@ angular
               if (response.status =401) $state.go('logout', {}, {reload: true}) ;
             });
 
+        $scope.birthDayChk = function(x){
+          var a =  $filter('date')(new Date(x.dateofBirth), 'MM-dd')    ;
+          var b =  $filter('date')(new Date(), 'MM-dd')    ;
+          var c= (new Date(a)-new Date(b)) / (1000 * 3600 * 24);
+         if (c ==0) return true;
+          else false;
+        }
+
       }
    }])
 
 
-  .controller('DirectoryController',
-    ['$scope', 'ngDialog','Admin', '$state', 'School', 'Class', 'Student', 'Parent', 'StudentParent', 'Staff', '$rootScope', '$window','fileUpload','$filter',
-      'Timetable','Schedule',
-      function ($scope,ngDialog, Admin, $state, School, Class, Student, Parent, StudentParent, Staff, $rootScope, $window,fileUpload,$filter,Timetable,Schedule) {
+  .controller('DirectoryController',    ['$scope', 'ngDialog','Admin', '$state', 'School', 'Class', 'Student', 'Parent', 'StudentParent', 'Staff', '$rootScope', '$window','fileUpload','$filter',
+      'Timetable','Schedule','$http',
+      function ($scope,ngDialog, Admin, $state, School, Class, Student, Parent, StudentParent, Staff, $rootScope, $window,fileUpload,$filter,Timetable,Schedule,$http) {
 
 
         //--------------------------------------------------------
@@ -183,47 +182,10 @@ angular
         $scope.schoolName= null;
         $scope.schoolId = $scope.userData.schoolId;
         $scope.date = new Date();
-        //$rootScope.schoolName = $scope.school.schoolName;
+        $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
 
-
-
-
-
-        //$scope.school = School.findById({id:$scope.schoolId},function(){
-        //  schoolCode = $scope.school.code;
-        //
-        //});
-
-
-        //var xhr = new XMLHttpRequest();
-        //var dropboxToken = '-p5lctzPHiwAAAAAAAAA43U_T_YF5XRqEwkFSoqw2STJdZx5bm4OpzmfUJ6crNy_';
-        //xhr.open('POST', 'https://content.dropboxapi.com/2/files/get_thumbnail');
-        //xhr.setRequestHeader('Authorization', 'Bearer ' + dropboxToken);
-        //xhr.setRequestHeader('Dropbox-API-Arg', JSON.stringify({
-        //  path: '/' + response.id + '.png',
-        //  mode: 'view',
-        //  autorename: true,
-        //  mute: false
-        //}));
-        //
-
-
-
-        //xhr.open('POST', 'https://content.dropboxapi.com/2/files/get_preview');
-        //xhr.open('POST', 'https://content.dropboxapi.com/2/files/get_thumbnail');
-        //xhr.open('POST', 'https://content.dropboxapi.com/2/files/create_shared_link');
-   //     xhr.setRequestHeader('Authorization', 'Bearer ' + dropboxToken);
-   //     xhr.setRequestHeader('Dropbox-API-Arg', JSON.stringify({
-   //       path: '/immi.png',
-   //        }));
-   //     xhr.send();
-   //     console.dir(xhr.response);
-   //     console.dir(xhr);
-   //$scope.img = xhr.response;
-
-
-
-          $scope.accessCheck = function(response){
+          console.clear();
+        $scope.accessCheck = function(response){
           if (response.status =401) $state.go('logout', {}, {reload: true}) ;
         }
 
@@ -261,6 +223,8 @@ angular
 
         //*********************ADMIN & STAFF ACCESS*********************
         if (Admin || Staff)
+
+
         {
           $scope.studentParent = StudentParent.find({filter: {where: {schoolId: $scope.schoolId}, include: 'parent'}},
             function (response) {
@@ -344,6 +308,23 @@ angular
                   }
                   //else    $state.go($state.current, {}, {reload: true});
         }
+
+        //$scope.checkImg = function(x){
+        //  $http({
+        //    method: 'GET',
+        //    url: 'http://studymonitor.net/appimages/101/576b482f25b53ebc1690e1f1/3.png'
+        //  }).then(function successCallback(response) {
+        //    console.log(response);
+        //    // this callback will be called asynchronously
+        //    // when the response is available
+        //  }, function errorCallback(response) {
+        //
+        //
+        //    // called asynchronously if an error occurs
+        //    // or server returns response with an error status.
+        //  });
+        //  return true;
+        //}
 
 
 
@@ -1008,8 +989,7 @@ angular
       }
     ])
 
-  .controller('ClassController',
-    ['$scope', 'Admin', '$state', 'School', 'Class', 'Student', 'Staff', '$rootScope', '$window','ngDialog',
+  .controller('ClassController',    ['$scope', 'Admin', '$state', 'School', 'Class', 'Student', 'Staff', '$rootScope', '$window','ngDialog',
       function ($scope, Admin, $state, School, Class, Student, Staff, $rootScope, $window,ngDialog) {
 
         //--------------------------------------------------------
@@ -1023,9 +1003,11 @@ angular
         if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
         $scope.schoolId = $scope.userData.schoolId;
         $scope.formData = [];
+        $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
 
 
-        if($scope.Student)
+
+          if($scope.Student)
         {
           $scope.classList = Class.find  ({filter: {where: {id:$scope.userData.classId}, include: 'staff'}},function(){},
             function(response) {                $scope.accessCheck(response); });
@@ -1036,7 +1018,7 @@ angular
            $scope.staffList = Staff.find({filter: {where: {schoolId: $scope.schoolId}}},function(){},function(response){if (response.status =401) $state.go('logout', {}, {reload: true}) ;});
            $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}, include: 'staff'}},function(){},function(response){if (response.status =401) $state.go('logout', {}, {reload: true}) ;});
 
-		      //--------------------------------------------------------
+		  //--------------------------------------------------------
           //                  CLEAR RESPONSE
           // --------------------------------------------------------
 		       $scope.clearResponse = function ()
@@ -1045,6 +1027,12 @@ angular
 			           $scope.responseAddClass = null;
                  $scope.formData=null;
 		       }
+
+
+
+
+
+
 
 
           //--------------------------------------------------------
@@ -1155,7 +1143,42 @@ angular
         if ($scope.userData.type == 'Student') { $scope.Student = true;}
         if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
         if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
-        $scope.formData = [];
+          $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
+          var data;
+          $scope.array={subjectName:"",classId:"",staffId:""};
+          $scope.uploadFile= function(){
+              Papa.parse($scope.myFile, {
+                  header: true,
+                  dynamicTyping: true,
+                  complete: function(results) {
+                      data = results.data;
+
+                      for(var k=0;k<data.length;k++){
+                          $scope.array.subjectName = data[k].Subject;
+                          var className = data[k].Class;
+                          var sectionName = data[k].Section;
+                          var firstName = data[k].Teacher;
+
+                          $scope.classList = Class.findOne({filter:{where:{className:className,sectionName:sectionName}}},function(response){
+                          });
+                          console.log($scope.classList[0]);
+
+                              //Staff.findOne({filter:{where:{schoolId:$scope.schoolId,firstName:firstName}}},function(response){
+                              //    $scope.array.staffId = response.id;
+                              //
+                              //});
+
+
+                      }
+                  }
+              });
+          }
+
+
+
+
+
+          $scope.formData = [];
         if($scope.Admin) {
 
 		  //--------------------------------------------------------
@@ -1302,8 +1325,14 @@ angular
         $scope.Staff = true;
       }
       $scope.schoolId = $scope.userData.schoolId;
-      $scope.viewTimetable = [];
-      $scope.viewTimetable = School.timetables({"id": $scope.schoolId}, function (response) {
+        $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
+
+
+
+
+
+        $scope.viewTimetable = [];
+      $scope.viewTimetable = School.timetables({"id": $scope.schoolId}, function () {
           $scope.receivers = [];
           for (var i = 0; i < $scope.viewTimetable.schedule.length; i++) {
             $scope.viewTimetable.schedule[i].startTime = new Date($scope.viewTimetable.schedule[i].startTime);
@@ -1388,7 +1417,9 @@ angular
       if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
       if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
       $scope.schoolId = $scope.userData.schoolId;
-      $scope.scheduleList = [];
+        $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
+
+        $scope.scheduleList = [];
 
       if ($scope.Admin) {
         $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}}});
@@ -1530,7 +1561,9 @@ angular
       if ($scope.userData.type == 'Student') { $scope.Student = true;}
       if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
       if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
-      //var baseApi = $location.$$protocol + "://"+ $location.$$host + ":" +$location.$$port + "/api/Containers/noticeboard/download/";
+        $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
+
+        //var baseApi = $location.$$protocol + "://"+ $location.$$host + ":" +$location.$$port + "/api/Containers/noticeboard/download/";
 
 
       //------------------------------------------------
@@ -1664,7 +1697,9 @@ angular
       if ($scope.userData.type == 'Student') { $scope.Student = true;}
       if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
       if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
-      $scope.addLibrary = function () {
+        $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
+
+        $scope.addLibrary = function () {
 
 
 
@@ -1773,9 +1808,8 @@ angular
 
     }])
 
-  .controller('AssignmentController',
-    ['$scope', '$state', 'Class', 'Assignment', '$rootScope', '$window','ngDialog','$filter','fileUpload','$location','$http',
-    function ($scope, $state, Class, Assignment, $rootScope, $window,ngDialog,$filter,fileUpload,$location,$http) {
+  .controller('AssignmentController', function (
+      $scope,$rootScope, $state, Class, Assignment,$window,ngDialog,$filter,School) {
 
       //--------------------------------------------------------
       //                 GET USER DATA && INITIALIZATION
@@ -1787,7 +1821,9 @@ angular
       if ($scope.userData.type == 'Student') { $scope.Student = true;}
       if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
       if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
-      //var baseApi = $location.$$protocol + "://"+ $location.$$host + ":" +$location.$$port + "/api/Containers/assignments/download/";
+        $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
+
+        //var baseApi = $location.$$protocol + "://"+ $location.$$host + ":" +$location.$$port + "/api/Containers/assignments/download/";
 
 
       if ($scope.Admin) {
@@ -1898,10 +1934,9 @@ angular
         $scope.assignmentlist = Assignment.find({filter: {where: {schoolId: $scope.schoolId,classId:$scope.userData.classId}, include: 'class'}});
       }
 
-    }])
+    })
 
-  .controller('AttendanceController', ['$scope', '$state','$window','Class','Attendance','Student','$filter',
-    function ($scope,$state,$window,Class,Attendance,Student,$filter) {
+  .controller('AttendanceController', function ($scope,$rootScope,$state,$window,Class,Attendance,Student,School) {
       $scope.user = $window.localStorage.getItem('user');
       $scope.userData = JSON.parse($scope.user);
       $scope.schoolId = $scope.userData.schoolId;
@@ -1911,7 +1946,9 @@ angular
       if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
       $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}}});
       $scope.studentList =[];
-      //-----------------------------------
+        $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
+
+        //-----------------------------------
       // TABS CODE
       //------------------------------------
 
@@ -2098,10 +2135,9 @@ angular
       }
 
 
- }])
-  .controller('TransportController',
-    ['$scope', '$state','$window','$filter','ngDialog','Bus','VehicleType','BusService',
-    function ($scope,$state,$window,$filter,ngDialog,Bus,VehicleType,BusService) {
+ })
+  .controller('TransportController', function (
+      $scope,$rootScope,$state,$window,$filter,ngDialog,Bus,BusService,BusSubscription,Class,Student,Parent,School) {
       $scope.user = $window.localStorage.getItem('user');
       $scope.userData = JSON.parse($scope.user);
       $scope.schoolId = $scope.userData.schoolId;
@@ -2109,6 +2145,8 @@ angular
       if ($scope.userData.type == 'Student') { $scope.Student = true;}
       if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
       if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
+      $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
+
 
 
 
@@ -2121,88 +2159,6 @@ angular
       $scope.isSet = function(tabNum){   return $scope.tab === tabNum; };
 
 
-
-
-      //**************************************VEHICLE CORNER************************************
-      //-----------------------------------------------------
-      //   CLEAR RESPONSE
-      //-----------------------------------------------------
-      $scope.clearResponseVehicle  = function() {
-        $scope.responseAddVehicleType = null;
-      }
-
-      // -----------------------------------------------------
-      //   ADD VEHICLE TYPE
-      //-----------------------------------------------------
-      $scope.addVehicleType = function()
-      {
-             $scope.chkVehicle = VehicleType.findOne({filter:{where:{name:$scope.formData.name,schoolId:$scope.schoolId}}},function(){
-               $scope.responseAddVehicleType = 'Vehicle Already Exists';
-             }, function () {
-                 VehicleType.create({name:$scope.formData.name,schoolId:$scope.schoolId},function(){
-                   $scope.responseAddVehicleType = 'Vehicle Added Successfully';
-                   $scope.successCallVehicle();
-
-                 });
-             });
-
-      }
-
-      // -----------------------------------------------------
-      //   DELETE VEHICLE TYPE
-      //-----------------------------------------------------
-      $scope.deleteVehicleType = function(x)
-      {
-
-        var dialog = ngDialog.open({template: 'deleteVehicleType'});
-        dialog.closePromise.then(function (data) {
-          if (data.value && data.value != '$document' && data.value != '$closeButton')
-
-            VehicleType.deleteById({id: x.id},function(){
-              $scope.responseAddVehicleType = 'Vehicle Type Removed Successfully';
-              $scope.successCallVehicle();
-
-            });
-
-          return true;
-        });
-
-      }
-
-
-      // ----------------------------------------------------
-      //   SUCCESS CALL
-      //-----------------------------------------------------
-      $scope.successCallVehicle = function(){
-        setTimeout( function()
-        {
-          $scope.showVehicle();
-          $scope.clearResponseVehicle();
-          $scope.formData = {};
-        }, 1000 );
-
-      }
-
-      // ----------------------------------------------------
-      //   SHOW VEHICLE TYPE
-      //-----------------------------------------------------
-      $scope.showVehicle= function(){
-        $scope.vehicleTypeList = VehicleType.find({filter:{where:{schoolId:$scope.schoolId}}});
-      }
-      $scope.showVehicle();
-
-
-      //**************************************VEHICLE CORNER************************************
-
-
-
-
-
-
-
-
-
-
       //**************************************BUS CORNER************************************
       //  INIT FUNCTIONS
 
@@ -2211,12 +2167,6 @@ angular
       //   CLEAR RESPONSE
       //-----------------------------------------------------
       $scope.clearResponse  = function() {  $scope.responseAddBus = null; }
-
-      // ----------------------------------------------------
-      //   SHOW VEHICLE TYPE
-      //-----------------------------------------------------
-
-      $scope.vehicleTypeList = VehicleType.find({filter:{where:{schoolId:$scope.schoolId}}});
 
 
       // ----------------------------------------------------
@@ -2239,7 +2189,7 @@ angular
       //   SHOW VEHICLE TYPE
       //-----------------------------------------------------
       $scope.showBus= function(){
-        $scope.busList = Bus.find({filter:{where:{schoolId:$scope.schoolId},include:'vehicleType'}});
+        $scope.busList = Bus.find({filter:{where:{schoolId:$scope.schoolId}}});
       }
       $scope.showBus();
 
@@ -2249,18 +2199,26 @@ angular
       //-----------------------------------------------------
       $scope.addBus = function()
       {
-             Bus.findOne({filter:{where:{busNo:$scope.formData.busNo,schoolId:$scope.schoolId}}},function(){
-               $scope.responseAddBus = 'Bus Already Exists With This Number';
-             }, function () {
-                 Bus.create({busNo:$scope.formData.busNo,
-                   vehicleTypeId:$scope.formData.vehicleTypeId,
-                   capacity:$scope.formData.capacity,
-                   schoolId:$scope.schoolId},
-                   function(){
-                   $scope.responseAddBus = 'Bus Added Successfully';
-                     $scope.successCallBus();
-                 });
-             });
+          Bus.create(
+                     {
+                         busNo      :$scope.formData.busNo,
+                         busType    :$scope.formData.busType,
+                         busCapacity:$scope.formData.busCapacity,
+                         schoolId   :$scope.schoolId
+                     },
+                     function()
+                     {
+                        $scope.responseAddBus = 'Bus Added Successfully';
+                        $scope.successCallBus();
+                     },
+                     function(response)
+                     {
+                         if (response.status == 422)
+                         {
+                             $scope.responseAddBus = response.data.error.details.messages.busNo[0];
+                         }
+                     }
+          );
 
       }
 
@@ -2274,16 +2232,28 @@ angular
             scope: $scope
           }).then(
             function(editData) {
+                Bus.prototype$updateAttributes(
+                    {
+                       id         : x.id,
+                       busNo      :editData.busNo,
+                       busType    :editData.busType,
+                       busCapacity:editData.busCapacity
+                    },
+                    function()
+                    {
+                        $scope.responseAddBus = 'Bus Details Updated Successfully';
+                        $scope.successCallBus();
+                    },
+                    function(response)
+                    {
+                        if (response.status == 422) $scope.responseAddBus = response.data.error.details.messages.busNo[0];
 
-              Bus.upsert({id: x.id,vehicleTypeId:editData.vehicleTypeId,capacity:editData.capacity},
-                function(){
-                  $scope.responseAddBus = 'Bus Updated Successfully';
-                  $scope.successCallBus();
-                });
+                    }
+                );
             },
-            function() {
-              $scope.responseAddBus = "Bus Details Were Not Edited.Please Check Required Fields";
-              $scope.successCallBus();
+            function(response) {
+
+
             }
           );
 
@@ -2322,30 +2292,90 @@ angular
       //-----------------------------------------------------
       //   CLEAR RESPONSE
       //-----------------------------------------------------
-      $scope.clearResponseBusService  = function() {
-        $scope.responseAddBusService = null;
-      }
+      $scope.clearResponseBusService  = function() { $scope.responseAddBusService = null; }
 
       // -----------------------------------------------------
       //   ADD SERVICE
       //-----------------------------------------------------
-      $scope.addBusService = function()
+      $scope.addService = function()
       {
-        $scope.chkVehicle = BusService.findOne({filter:{where:{name:$scope.formData.name,schoolId:$scope.schoolId}}},function(){
+        $scope.chkVehicle = BusService.findOne({filter:{where:
+        {
+            schoolId          :$scope.schoolId,
+            busId             :$scope.formData.busId,
+            serviceNo         :$scope.formData.serviceNo           ,
+            serviceName       :$scope.formData.serviceName
+
+        }}},function(){
           $scope.responseAddBusService = 'Service Already Exists';
         }, function () {
-          BusService.create({name:$scope.formData.name,schoolId:$scope.schoolId},function(){
-            $scope.responseAddBusService = 'Service Added Successfully';
-            $scope.successCallBusService();
 
-          });
+            $scope.receivers = [{location: "", duration: "",fee:""}];
+            $scope.addRecipient = function (receiver) {
+                if (receiver.location.length == 0)  alert('Please Fill All The Fields');
+                else {
+                    $scope.receivers.push({no:"",location: "", duration: "",fee:""});
+                }
+            }
+            $scope.deleteRecipient = function (receiver) {
+                for (var i = 1; i < $scope.receivers.length; i++) {
+                    if ($scope.receivers[i] === receiver) {
+
+                        $scope.receivers.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+
+
         });
 
       }
 
-      // -----------------------------------------------------
-      //   DELETE SERVICE
-      //-----------------------------------------------------
+      $scope.saveRoutes = function ()
+        {
+            if ($scope.receivers[$scope.receivers.length - 1].location == 0){
+                alert('Please Fill All The Fields');
+            }
+            else{
+                var totalDuration = $scope.receivers[$scope.receivers.length - 1].duration;
+                $scope.formData.serviceStartTime1 = new Date($scope.formData.serviceStartTime1.getTime() + 330*60000);
+                $scope.formData.serviceStartTime2 = new Date($scope.formData.serviceStartTime2.getTime() + 330*60000);
+                $scope.formData.serviceDropTime1 = new Date($scope.formData.serviceStartTime1.getTime() + totalDuration*60000);
+                $scope.formData.serviceDropTime2 = new Date($scope.formData.serviceStartTime2.getTime() + totalDuration*60000);
+
+                BusService.create({
+                        schoolId          :$scope.schoolId                     ,
+                        busId             :$scope.formData.busId               ,
+                        serviceNo         :$scope.formData.serviceNo           ,
+                        serviceName       :$scope.formData.serviceName         ,
+                        serviceStartPoint :$scope.formData.serviceStartPoint   ,
+                        serviceDropPoint  :$scope.formData.serviceDropPoint    ,
+                        serviceStartTime1 :$scope.formData.serviceStartTime1   ,
+                        serviceStartTime2 :$scope.formData.serviceStartTime2   ,
+                        serviceDropTime1  :$scope.formData.serviceDropTime1    ,
+                        serviceDropTime2  :$scope.formData.serviceDropTime2    ,
+                        serviceRoutes     : $scope.receivers
+                    },function(response){
+                        console.log(new Date(response.serviceStartTime1).toISOString());
+                        console.log($scope.formData.serviceStartTime1);
+                        $scope.response = "Bus Service Created Successfully";
+                        $scope.successCallBusService();
+                    },function(response){
+                        console.log(response);
+                    }
+                );
+
+            }
+
+        }
+
+
+
+
+        // -----------------------------------------------------
+        //   DELETE SERVICE
+        //-----------------------------------------------------
       $scope.deleteBusService = function(x)
       {
 
@@ -2379,22 +2409,716 @@ angular
       }
 
       // ----------------------------------------------------
+      //   SHOW STUDENTS AND CLASSES
+      //-----------------------------------------------------
+        $scope.classList = Class.find({filter:{where:{schoolId:$scope.schoolId}}});
+        $scope.setStudentList = function()
+        {
+            $scope.studentList = Student.find({filter:{where:{classId:$scope.formData.classId}}});
+        }
+
+
+
+      // ----------------------------------------------------
       //   SHOW SERVICE
       //-----------------------------------------------------
       $scope.showBusService= function(){
-        $scope.busserviceList = BusService.find({filter:{where:{schoolId:$scope.schoolId}}});
+        $scope.serviceList = BusService.find({filter:{where:{schoolId:$scope.schoolId},include:'bus'}});
       }
       $scope.showBusService();
+
+      $scope.showRoutes = function(x){
+          $scope.popoverIsVisible = true;
+          $scope.startLocation =  [];
+          $scope.endLocation = [];
+          $scope.startTime = [];
+          $scope.endTime =[];
+          for(var i=0;i< x.serviceRoutes.length-1;i++)
+          {
+
+
+                  $scope.startLocation[i] = x.serviceRoutes[i].location;
+                  //$scope.startTime [i] = new Date(x.serviceStartTime1.getTime() + x.serviceRoutes[i].duration*60000);
+                  //$scope.endTime [i] = new Date($scope.formData.serviceStartTime1.getTime() + totalDuration*60000);
+              if(i==0)
+              {
+                  $scope.startTime[i] = x.serviceStartTime1;
+              }
+              else
+              {
+                  $scope.startTime[i] = $scope.endTime[i-1];
+              }
+              console.log($scope.startTime[i]);
+              console.log(x.serviceStartTime1);
+              $scope.endTime[i] = new Date(x.serviceStartTime1.getTime());
+
+              $scope.endLocation[i] = x.serviceRoutes[i+1].location;
+              console.log($scope.startLocation[i] + '-' + $scope.startTime[i] + '-' + $scope.endLocation[i] + '-' + $scope.endTime[i]);
+          }
+
+      }
+      $scope.hideRoutes = function(){
+          $scope.popoverIsVisible = false;
+      }
+
+
 
 
       //**************************************BUSSERVICE CORNER***********************************
 
 
- }])
+      //**************************************SUBSCRIPTION CORNER***********************************
+
+      $scope.routesList =[];
+      $scope.setRoutes = function(){
+          BusService.findById({id:$scope.formData.busServiceId},function(response){
+              $scope.routesList = response.serviceRoutes;
+          })
+      }
+      $scope.addSubscription = function(){
+          BusSubscription.create(
+              {
+              busServiceId    : $scope.formData.busServiceId,
+              studentId       : $scope.formData.studentId,
+              pickupLocation  : $scope.formData.pickupLocation
+              },
+              function()
+              {
+                 console.log('Success');
+              },
+              function(response)
+              {
+                  if (response.data.error.details.messages.studentId[0]){
+                  $scope.responseSubscription =response.data.error.details.messages.studentId[0];
+              }
+              }
+          );
+
+      }
+
+      //**************************************SUBSCRIPTION CORNER***********************************
 
 
-  .controller('HolidayController',
-    ['$scope', '$state','$window','Calendar','School',function ($scope,$state,$window,Calendar,School) {
+ })
+
+  .controller('ExpenseController',function($scope,$rootScope,$state,$window,$filter,ngDialog,ExpenseType,ExpensePayment,FeeType,FeeSetup,Class,Student,School) {
+        $scope.user = $window.localStorage.getItem('user');
+        $scope.userData = JSON.parse($scope.user);
+        $scope.schoolId = $scope.userData.schoolId;
+        if ($scope.userData.type == 'Admin') { $scope.Admin = true;}
+        if ($scope.userData.type == 'Student') { $scope.Student = true;}
+        if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
+        if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
+          $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
+
+
+          //-----------------------------------
+        // TABS CODE
+        //------------------------------------
+
+        $scope.tab = 0;
+        $scope.setTab = function(newTab){  $scope.tab = newTab; };
+        $scope.isSet = function(tabNum){   return $scope.tab === tabNum; };
+
+
+
+        //**************************************EXPENSETYPE CORNER************************************
+        //-----------------------------------------------------
+        //   CLEAR RESPONSE
+        //-----------------------------------------------------
+        $scope.clearResponseExpenseType  = function() {
+          $scope.responseAddExpenseType = null;
+        }
+
+        // -----------------------------------------------------
+        //   ADD EXPENSE TYPE
+        //-----------------------------------------------------
+        $scope.addExpenseType = function()
+        {
+          $scope.chkExpense = ExpenseType.findOne({filter:{where:{name:$scope.formData.name,schoolId:$scope.schoolId}}},function(){
+            $scope.responseAddExpenseType = 'Expense Type Already Exists';
+            $scope.successCallExpenseType();
+          }, function () {
+            ExpenseType.create({name:$scope.formData.name,description:$scope.formData.description,schoolId:$scope.schoolId},function(){
+              $scope.responseAddExpenseType = 'Expense Type Added Successfully';
+              $scope.successCallExpenseType();
+            });
+
+          });
+
+        }
+
+        // -----------------------------------------------------
+        //   DELETE EXPENSE TYPE
+        //-----------------------------------------------------
+        $scope.deleteExpenseType = function(x)
+        {
+
+          var dialog = ngDialog.open({template: 'deleteExpenseType'});
+          dialog.closePromise.then(function (data) {
+            if (data.value && data.value != '$document' && data.value != '$closeButton')
+
+              ExpenseType.deleteById({id: x.id},function(){
+                $scope.responseAddExpenseType = 'Expense Type Removed Successfully';
+                $scope.successCallExpenseType();
+
+              });
+
+            return true;
+          });
+
+        }
+        // ----------------------------------------------------
+        //                         EDIT EXPENSE TYPE
+        //-----------------------------------------------------
+        $scope.editExpenseType = function(x)
+        {
+          $scope.editData = x;
+          ngDialog.openConfirm({template: 'editExpenseType',
+            scope: $scope
+          }).then(
+            function(editData) {
+
+              ExpenseType.upsert({id: x.id,name:editData.name},
+                function(){
+                  $scope.responseAddExpenseType = 'ExpenseType Updated Successfully';
+                  $scope.successCallExpenseType();
+                });
+            },
+            function() {
+              $scope.responseAddExpenseType = "Expense Details Were Not Edited.Please Check Required Fields";
+              $scope.successCallExpenseType();
+            }
+          );
+
+        }
+
+
+        // ----------------------------------------------------
+        //   SUCCESS CALL
+        //-----------------------------------------------------
+        $scope.successCallExpenseType = function(){
+          setTimeout( function()
+          {
+            $scope.showExpense();
+            $scope.clearResponseExpenseType();
+            $scope.formData = {};
+          }, 1000 );
+
+        }
+
+        // ----------------------------------------------------
+        //   SHOW Expense TYPE
+        //-----------------------------------------------------
+        $scope.showExpense= function(){
+          $scope.ExpenseTypeList = ExpenseType.find({filter:{where:{schoolId:$scope.schoolId}}});
+        }
+        $scope.showExpense();
+
+        // --------------------------------------------------------
+        //                 SORT TABLE TECHNIQUE
+        //--------------------------------------------------------
+
+        $scope.sortType     = 'name';
+        $scope.sortReverse  = false;
+        $scope.searchFish   = '';
+        $scope.currentPage = 0;
+        $scope.pageSize = 10;
+
+        $scope.numberOfPages=function(){return Math.ceil($scope.ExpenseTypeList.length/$scope.pageSize);}
+
+
+        //**************************************EXPENSETYPE CORNER************************************
+
+
+
+        //**************************************EXPENSE PAYMENT CORNER************************************
+        //-----------------------------------------------------
+        //   CLEAR RESPONSE
+        //-----------------------------------------------------
+
+
+        $scope.clearResponseExpensePayment  = function() {
+          $scope.responseAddExpensePayment = null;
+
+
+        }
+
+        // -----------------------------------------------------
+        //   ADD EXPENSE PAYMENT TYPE
+        //-----------------------------------------------------
+        $scope.addExpensePayment = function()
+        {
+          $scope.chkExpense = ExpensePayment.findOne({filter:{where:{expenseTypeId:$scope.formData.expenseTypeId,date:$scope.formData.date,amount:$scope.formData.amount,schoolId:$scope.schoolId}}},function(){
+            $scope.responseAddExpensePayment = 'Expense Payment Already Exists';
+            $scope.successCallExpensePayment();
+
+          }, function () {
+            $scope.formData.date = $filter('date')(new Date($scope.formData.date), 'yyyy-MM-dd');
+            ExpensePayment.create({expenseTypeId:$scope.formData.expenseSelected,date:$scope.formData.date,amount:$scope.formData.amount,description:$scope.formData.description,schoolId:$scope.schoolId},function(){
+              $scope.responseAddExpensePayment = 'Expense Payment  Successfully';
+              $scope.successCallExpensePayment();
+
+            });
+
+          });
+
+        }
+
+        // -----------------------------------------------------
+        //   DELETE EXPENSE PAYMENT TYPE
+        //-----------------------------------------------------
+        $scope.deleteExpensePayment = function(x)
+        {
+
+          var dialog = ngDialog.open({template: 'deleteExpensePayment'});
+          dialog.closePromise.then(function (data) {
+            if (data.value && data.value != '$document' && data.value != '$closeButton')
+
+              ExpensePayment.deleteById({id: x.id},function(){
+                $scope.responseAddExpensePayment = 'Expense Payment Removed Successfully';
+                $scope.successCallExpensePayment();
+
+              });
+
+            return true;
+          });
+
+        }
+        // ----------------------------------------------------
+        //                         EDIT EXPENSE PAYMENT
+        //-----------------------------------------------------
+        $scope.editExpensePayment = function(x)
+        {
+          $scope.editData = x;
+          $scope.editData.date = $filter('date')(new Date(x.date), 'yyyy-MM-dd');
+          var d = new Date($scope.editData.date);
+          var date2 = new Date(d);
+          $scope.editData.date = new Date(date2.setDate(d.getDate()));
+          $scope.editData.date = new Date($scope.editData.date);
+
+
+          ngDialog.openConfirm({template: 'editExpensePayment',
+            scope: $scope
+          }).then(
+            function(editData) {
+
+              ExpensePayment.upsert({id: x.id,expenseTypeId:editData.expenseTypeId,date:editData.date,amount:editData.amount},
+                function(){
+                  $scope.responseAddExpensePayment = 'ExpensePayment Updated Successfully';
+                  $scope.successCallExpensePayment();
+                });
+            },
+            function() {
+              $scope.responseAddExpensePayment = "Expense Payment Details Were Not Edited.Please Check Required Fields";
+              $scope.successCallExpensePayment();
+            }
+          );
+
+        }
+
+
+
+        // ----------------------------------------------------
+        //   SUCCESS CALL
+        //-----------------------------------------------------
+        $scope.successCallExpensePayment = function(){
+          setTimeout( function()
+          {
+            $scope.showExpensePayment();
+            $scope.clearResponseExpensePayment();
+            $scope.formData = {};
+          }, 1000 );
+
+        }
+
+        // ----------------------------------------------------
+        //   SHOW Expense PAYMENT TYPE
+        //-----------------------------------------------------
+        $scope.showExpensePayment= function(){
+          $scope.ExpensePaymentList = ExpensePayment.find({filter:{
+            where:{expenseTypeId:$scope.expenseSelected,schoolId:$scope.schoolId},include:'expenseType'
+          }});
+
+        }
+        $scope.showExpensePayment();
+
+        // --------------------------------------------------------
+        //                 SORT TABLE TECHNIQUE
+        //--------------------------------------------------------
+
+        $scope.sortType     = 'date';
+        $scope.sortReverse  = false;
+        $scope.searchFish   = '';
+        $scope.currentPage = 0;
+        $scope.pageSize = 10;
+
+        $scope.numberOfPages=function(){return Math.ceil($scope.ExpensePaymentList.length/$scope.pageSize);}
+
+
+        //**************************************EXPENSE Payment CORNER************************************
+
+        //**************************************FEE TYPE CORNER************************************
+        //-----------------------------------------------------
+        //   CLEAR RESPONSE
+        //-----------------------------------------------------
+
+
+        $scope.clearResponseFeeType  = function() {
+          $scope.responseAddFeeType = null;
+
+
+        }
+
+        // -----------------------------------------------------
+        //   ADD FEE TYPE
+        //-----------------------------------------------------
+        $scope.addFeeType = function()
+        {
+
+          $scope.chkFee = FeeType.findOne({filter:{where:{category:$scope.formData.category,fee:$scope.formData.fee,schoolId:$scope.schoolId}}},function(){
+            $scope.responseAddFeeType = 'Fee Type Already Exists';
+            $scope.successCallFeeType();
+
+          }, function () {
+            FeeType.create({category:$scope.formData.category,fee:$scope.formData.fee,schoolId:$scope.schoolId},function(){
+              $scope.responseAddFeeType = 'Fee Type  Successfully';
+              $scope.successCallFeeType();
+            },function(response){
+              console.log(response.data.error.message);
+            });
+
+          });
+
+        }
+
+        // -----------------------------------------------------
+        //   DELETE FEE TYPE
+        //-----------------------------------------------------
+        $scope.deleteFeeType = function(x)
+        {
+
+          var dialog = ngDialog.open({template: 'deleteFeeType'});
+          dialog.closePromise.then(function (data) {
+            if (data.value && data.value != '$document' && data.value != '$closeButton')
+
+              FeeType.deleteById({id: x.id},function(){
+                $scope.responseAddFeeType = 'Fee Type Removed Successfully';
+                $scope.successCallFeeType();
+
+              });
+
+            return true;
+          });
+
+        }
+        // ----------------------------------------------------
+        //                         EDIT FEE TYPE
+        //-----------------------------------------------------
+        $scope.editFeeType = function(x)
+        {
+          $scope.editData = x;
+          ngDialog.openConfirm({template: 'editFeeType',
+            scope: $scope
+          }).then(
+            function(editData) {
+
+              FeeType.upsert({id: x.id,category:editData.category,fee:editData.fee},
+                function(){
+                  $scope.responseAddFeeType = 'Fee Type Updated Successfully';
+                  $scope.successCallFeeType();
+                });
+            },
+            function() {
+              $scope.responseAddFeeType = "Fee Type Details Were Not Edited.Please Check Required Fields";
+              $scope.successCallFeeType();
+            }
+          );
+
+        }
+
+
+
+        // ----------------------------------------------------
+        //   SUCCESS CALL
+        //-----------------------------------------------------
+        $scope.successCallFeeType = function(){
+          setTimeout( function()
+          {
+            $scope.showFeeType();
+            $scope.clearResponseFeeType();
+            $scope.formData = {};
+          }, 1000 );
+
+        }
+
+        // ----------------------------------------------------
+        //   SHOW FEE TYPE
+        //-----------------------------------------------------
+        $scope.showFeeType= function(){
+          $scope.FeeTypeList = FeeType.find({filter:{
+            where:{schoolId:$scope.schoolId}
+          }});
+
+        }
+        $scope.showFeeType();
+
+        // --------------------------------------------------------
+        //                 SORT TABLE TECHNIQUE
+        //--------------------------------------------------------
+
+        $scope.sortType     = 'category';
+        $scope.sortReverse  = false;
+        $scope.searchFish   = '';
+        $scope.currentPage = 0;
+        $scope.pageSize = 10;
+
+        $scope.numberOfPages=function(){return Math.ceil($scope.FeeTypeList.length/$scope.pageSize);}
+
+
+        //**************************************FEE TYPE CORNER************************************
+
+
+
+        //**************************************FEE SETUP CORNER************************************
+        //-----------------------------------------------------
+        //   CLEAR RESPONSE
+        //-----------------------------------------------------
+
+
+
+
+        $scope.clearResponseFeeSetup  = function() {
+          $scope.responseAddFeeSetup = null;
+        }
+
+        $scope.setFee = function (){
+
+          $scope.FeeTypeListFiltered = FeeType.find({filter:{
+            where:{schoolId:$scope.schoolId,category:$scope.formData.category}
+          }});
+          //Get Class List
+          $scope.classList = Class.find({filter:{where:{schoolId:$scope.schoolId}}});
+
+
+        }
+
+        $scope.setFeeedit = function (){
+
+          $scope.FeeTypeListFilteredEdit = FeeType.find({filter:{
+            where:{schoolId:$scope.schoolId,category:$scope.editData.category}
+          }});
+          //Get Class List
+          $scope.classList = Class.find({filter:{where:{schoolId:$scope.schoolId}}});
+
+
+        }
+
+
+
+        // -----------------------------------------------------
+        //   ADD FEE SETUP
+        //-----------------------------------------------------
+
+        $scope.addFeeSetup = function()
+        {
+          FeeType.findOne({filter:{where:{category:$scope.formData.category,fee:$scope.feeSelected}}}, function (response)
+          {
+
+            $scope.chkFeeSetup = FeeSetup.findOne({filter:{where:{feeTypeId:response.id,amount:$scope.formData.amount,classId:$scope.formData.classId,schoolId:$scope.schoolId}}},
+              function()
+              {
+                $scope.responseAddFeeSetup = 'Fee Setup Already Exists';
+                $scope.successCallFeeSetup();
+              },
+              function ()
+              {
+                FeeType.findOne({filter:{where:{category:$scope.formData.category,fee:$scope.feeSelected}}}, function (response)
+                {
+
+                  FeeSetup.create({feeTypeId: response.id,amount: $scope.formData.amount,classId: $scope.formData.classSelected,
+                    schoolId: $scope.schoolId
+                  }, function () {
+                    $scope.responseAddFeeSetup = 'Fee SetUp Created  Successfully';
+                    $scope.successCallFeeSetup();
+                  });
+
+                });
+
+              });
+          });
+
+
+        }
+
+        // -----------------------------------------------------
+        //   DELETE FEE SETUP
+        //-----------------------------------------------------
+
+        $scope.deleteFeeSetup = function(x)
+        {
+          var dialog = ngDialog.open({template: 'deleteFeeSetup'});
+          dialog.closePromise.then(function (data) {
+            if (data.value && data.value != '$document' && data.value != '$closeButton')
+
+              FeeSetup.deleteById({id: x.id},function(){
+                $scope.responseAddFeeSetup = 'Fee Setup Removed Successfully';
+                $scope.successCallFeeSetup();
+
+              });
+
+            return true;
+          });
+
+        }
+        //// ----------------------------------------------------
+        ////                         EDIT FEE Setup
+        ////-----------------------------------------------------
+        $scope.editFeeSetup = function(x)
+        {
+
+          FeeType.findOne({filter:{where:{id: x.feeTypeId}}},function(response){
+            $scope.editData =x;
+            $scope.editData.category = response.category;
+            $scope.editData.fee = response.fee;
+            ngDialog.openConfirm({template: 'editFeeSetup',
+              scope: $scope
+            }).then(
+              function(editData) {
+
+                FeeSetup.upsert({id: x.id,amount:editData.amount},
+                  function(){
+                    $scope.responseAddFeeSetup = 'Fee Setup Updated Successfully';
+                    $scope.successCallFeeSetup();
+                  });
+              },
+              function() {
+                $scope.responseAddFeeSetup = "Fee Setup Details Were Not Edited.Please Check Required Fields";
+                $scope.successCallFeeSetup();
+              }
+            );
+          },function(){
+            $scope.responseAddFeeSetup = 'Fee Type Not Exists';
+          });
+
+
+        }
+
+
+
+        // ----------------------------------------------------
+        //   SUCCESS CALL
+        //-----------------------------------------------------
+        $scope.successCallFeeSetup = function(){
+          setTimeout( function()
+          {
+            $scope.showFeeSetup();
+            $scope.clearResponseFeeSetup();
+            $scope.formData = {};
+          }, 1000 );
+
+        }
+
+        // ----------------------------------------------------
+        //   SHOW FEE SETUP
+        //-----------------------------------------------------
+        $scope.showFeeSetup= function(){
+          $scope.FeeSetupList = FeeSetup.find({filter:{
+            where:{schoolId:$scope.schoolId},include:['feeType','class']
+          }});
+
+        }
+        $scope.showFeeSetup();
+
+        // --------------------------------------------------------
+        //                 SORT TABLE TECHNIQUE
+        //--------------------------------------------------------
+
+        $scope.sortType     = 'category';
+        $scope.sortReverse  = false;
+        $scope.searchFish   = '';
+        $scope.currentPage = 0;
+        $scope.pageSize = 10;
+
+        $scope.numberOfPages=function(){return Math.ceil($scope.FeeSetupList.length/$scope.pageSize);}
+
+
+        //**************************************FEE SETUP CORNER************************************
+
+
+        ////**************************************STUDENT DISCOUNT CORNER************************************
+        //-----------------------------------------------------
+        //   CLEAR RESPONSE
+        //-----------------------------------------------------
+        $scope.clearResponseStudentDiscount = function() {
+          $scope.responseAddStudentDiscount = null;
+        }
+
+        //Get Class List
+        $scope.classList = Class.find({filter:{where:{schoolId:$scope.schoolId}}});
+        $scope.FeeListFiltered =[];
+
+        $scope.showFeeList = function (){
+          $scope.FeeListFiltered =[];
+
+          $scope.FeeListFiltered = FeeSetup.find({filter:{
+            where:{schoolId:$scope.schoolId,classId:$scope.formData.classId},include:['feeType','class']
+          }});
+          console.log($scope.FeeListFiltered);
+
+        }
+
+
+        $scope.setStudent = function (){
+          $scope.studentListFiltered = Student.find({filter:{
+            where:{schoolId:$scope.schoolId,classId:$scope.formData.classSelected}
+          }});
+        }
+
+        $scope.setAmount = function (){
+          FeeType.findOne({filter:{where:{category:$scope.formData.category,fee:$scope.feeSelected}}}, function (response){
+
+            FeeSetup.findOne({filter:{where:{feeTypeId:response.id}}}, function (response) {
+              $scope.formData.amount = response.amount;
+            });
+
+
+
+          });
+
+
+        }
+        $scope.setTotal = function (){$scope.formData.total = $scope.formData.amount-$scope.formData.discount;}
+
+
+
+
+
+
+
+
+
+        // ----------------------------------------------------
+        //   SUCCESS CALL
+        //-----------------------------------------------------
+        $scope.successCallStudentDiscount = function(){
+          setTimeout( function()
+          {
+            $scope.showStudentDiscount();
+            $scope.clearResponseStudentDiscount();
+            $scope.formData = {};
+          }, 1000 );
+
+        }
+
+
+        //////**************************************STUDENT FEE CORNER************************************
+
+
+
+      })
+
+  .controller('HolidayController', function ($scope,$rootScope,$state,$window,Calendar,School) {
         $scope.user = $window.localStorage.getItem('user');
         $scope.userData = JSON.parse($scope.user);
         $scope.schoolId = $scope.userData.schoolId;
@@ -2402,6 +3126,8 @@ angular
         if ($scope.userData.type == 'Student') { $scope.Student = true;}
         if ($scope.userData.type == 'Parent' ) { $scope.Parent  = true;}
         if ($scope.userData.type == 'Staff'  ) { $scope.Staff   = true;}
+        $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
+
 
 
         //-----------------------------------
@@ -2491,7 +3217,7 @@ angular
       });
       //}
 
-      }])
+      })
 
   .controller('EmailController',
     ['$scope', '$state','$window','School',function ($scope,$state,$window,School) {
@@ -2503,44 +3229,13 @@ angular
         if ($scope.userData.type == 'Parent' ) { $scope.Parent  = true;}
         if ($scope.userData.type == 'Staff'  ) { $scope.Staff   = true;}
 
-      var xhr = new XMLHttpRequest();
-
-      //xhr.upload.onprogress = function(evt) {
-      //  var percentComplete = parseInt(100.0 * evt.loaded / evt.total);
-      //  // Upload in progress. Do something here with the percent complete.
-      //};
-
-      //xhr.onload = function() {
-      //  if (xhr.status === 200) {
-      //    var fileInfo = JSON.parse(xhr.response);
-      //    console.log(xhr.response);
-      //    // Upload succeeded. Do something here with the file info.
-      //  }
-      //  else {
-      //    var errorMessage = xhr.response || 'Unable to upload file';
-      //
-      //    // Upload failed. Do something here with the error.
-      //  }
-      //};
-
-      $scope.uploadFile = function(){
-
-        var dropboxToken = '-p5lctzPHiwAAAAAAAAA43U_T_YF5XRqEwkFSoqw2STJdZx5bm4OpzmfUJ6crNy_';
-        xhr.open('POST', 'https://content.dropboxapi.com/2/files/upload');
-        xhr.setRequestHeader('Authorization', 'Bearer ' + dropboxToken);
-        xhr.setRequestHeader('Content-Type', 'application/octet-stream');
-        xhr.setRequestHeader('Dropbox-API-Arg', JSON.stringify({
-          path: '/immi.png' ,
-          mode: 'add',
-          autorename: true,
-          mute: false
-        }));
-
-        xhr.send($scope.file);
-      }
+        $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
 
 
-      }])
+
+
+
+    }])
   .controller('ProfileController',
     ['$scope', '$state','$window','School','Student','Admin','Parent','Staff',
       function ($scope,$state,$window,School,Student,Admin,Parent,Staff) {
@@ -2552,7 +3247,9 @@ angular
         if ($scope.userData.type == 'Student') { $scope.Student = true;}
         if ($scope.userData.type == 'Parent' ) { $scope.Parent  = true;}
         if ($scope.userData.type == 'Staff'  ) { $scope.Staff   = true;}
-      $scope.editData = $scope.userData;
+          $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
+
+          $scope.editData = $scope.userData;
        $scope.saveProfile = function()
        {
          if ($scope.Student)

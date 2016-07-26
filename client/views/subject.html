@@ -54,6 +54,10 @@
         <div class="portlet-body">
               <div class="row list-separated">
 
+                <!--<div class="col-sm-12">-->
+                     <!--<div class="col-sm-2"> <input type = "file" file-model = "myFile" class="form-control"/></div>-->
+                    <!--<div class="col-sm-2"> <button class="btn btn-success" ng-click = "uploadFile()">upload me</button></div>-->
+                <!--</div>-->
                 <div class="col-sm-12">
                   <div style="color: red;" ng-show="error" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">{{responseAddSubject}}</div>
                   <div style="color: green;" ng-show="success" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">{{responseAddSubject}}</div>
@@ -81,9 +85,9 @@
               <!--<div class="portlet-body-morris-fit morris-chart flip-scroll" style="height: max">-->
               <table class="table table-bordered table-striped table-condensed flip-content" >
                 <thead flip-content><tr>
-				  <th><a ng-click="sortType = 'subjectName'; sortReverse = !sortReverse">Subject</th>
-                  <th><a ng-click="sortType = 'className'; sortReverse = !sortReverse">Class</th>
-                  <th><a ng-click="sortType = 'class.staffName'; sortReverse = !sortReverse">Teacher</th>
+				  <th><a ng-click="sortType = 'subjectName'; sortReverse = !sortReverse">Subject</a></th>
+                  <th><a ng-click="sortType = 'className'; sortReverse = !sortReverse">Class</a></th>
+                  <th><a ng-click="sortType = 'class.staffName'; sortReverse = !sortReverse">Teacher</a></th>
                   <th ng-show="Admin">Action</th>
                 </tr>
                 </thead>
@@ -121,7 +125,7 @@
             </div>
 
         </div>
-                </div>
+         </div>
          </div>
          <!--<div class="portlet-body-morris-fit morris-chart" style="height:120px">-->
        <!--</div>-->

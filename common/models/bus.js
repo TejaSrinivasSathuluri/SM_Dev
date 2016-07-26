@@ -1,3 +1,4 @@
-module.exports = function(Bus) {
-
+module.exports = function(Bus)
+{
+    Bus.validatesUniquenessOf('busNo', {message: 'Bus Number Already Exists'});
 };

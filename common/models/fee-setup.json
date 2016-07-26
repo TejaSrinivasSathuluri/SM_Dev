@@ -1,0 +1,29 @@
+{
+  "name": "FeeSetup",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "feeType": {
+      "type": "belongsTo",
+      "model": "FeeType",
+      "foreignKey": ""
+    },
+    "class": {
+      "type": "belongsTo",
+      "model": "Class",
+      "foreignKey": ""
+    },
+    "studentDiscounts": {
+      "type": "hasMany",
+      "model": "StudentDiscount",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

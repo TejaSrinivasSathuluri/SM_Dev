@@ -5,9 +5,42 @@
   "options": {
     "validateUpsert": true
   },
-  "properties": {},
+  "properties": {
+    "serviceNo": {
+      "type": "Number",
+      "required": "true"
+    },
+    "serviceName": {
+      "type": "String",
+      "required": "true"
+    },
+    "serviceStartPoint": {
+      "type": "String"
+    },
+    "serviceDropPoint": {
+      "type": "String"
+    },
+    "serviceStartTime1": {
+      "type": "date"
+    },
+    "serviceStartTime2": {
+      "type": "date"
+    },
+    "serviceDropTime1": {
+      "type": "date"
+    },
+    "serviceDropTime2": {
+      "type": "date"
+    }
+  },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "bus": {
+      "type": "belongsTo",
+      "model": "Bus",
+      "foreignKey": ""
+    }
+  },
   "acls": [],
   "methods": {}
 }

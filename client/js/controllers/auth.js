@@ -5,9 +5,9 @@
 
 angular
   .module('app')
+
   .controller('AuthLoginController', ['$scope', 'AuthServiceAdmin','AuthServiceStudent','AuthServiceStaff','AuthServiceParent', '$state',
       function($scope, AuthServiceAdmin,AuthServiceStudent,AuthServiceStaff,AuthServiceParent, $state) {
-
     $scope.login = function(T) {
       if (T == 'A') {
         AuthServiceAdmin.login($scope.user.email, $scope.user.password)
@@ -48,53 +48,15 @@ angular
 
     };
   }])
-  .controller('AuthLogoutController', ['$scope', 'AuthServiceAdmin', '$state','$window',
-      function($scope, AuthServiceAdmin, $state,$window) {
+
+  .controller('AuthLogoutController', ['$scope', 'AuthServiceAdmin', '$state',
+      function($scope, AuthServiceAdmin, $state) {
         AuthServiceAdmin.logout()
-      .then(function() {
-        $window.localStorage.clear();
-        $state.go('login');
-      },function(response){
-        $window.localStorage.clear();
-          $state.go('login');
-          console.log(response.data.error.message);
-        });
+      .then(function() { $state.go('login');},
+            function() { $state.go('login');}
+      );
   }])
-  .controller('AuthLogoutController', ['$scope', 'AuthServiceStudent', '$state','$window',
-      function($scope, AuthServiceStudent, $state,$window) {
-        AuthServiceStudent.logout()
-      .then(function() {
-        $window.localStorage.clear();
-        $state.go('login');
-      },function(response){
-        $window.localStorage.clear();
-          $state.go('login');
-          console.log(response.data.error.message);
-        });
-  }])
-  .controller('AuthLogoutController', ['$scope', 'AuthServiceParent', '$state','$window',
-      function($scope, AuthServiceParent, $state,$window) {
-        AuthServiceParent.logout()
-      .then(function() {
-        $window.localStorage.clear();
-        $state.go('login');
-      },function(response){
-        $window.localStorage.clear();
-          $state.go('login');
-          console.log(response.data.error.message);
-        });
-  }]).controller('AuthLogoutController', ['$scope', 'AuthServiceStaff', '$state','$window',
-      function($scope, AuthServiceStaff, $state,$window) {
-        AuthServiceStaff.logout()
-      .then(function() {
-        $window.localStorage.clear();
-        $state.go('login');
-      },function(response){
-        $window.localStorage.clear();
-          $state.go('login');
-          console.log(response.data.error.message);
-        });
-  }])
+
   //.controller('SignUpController', ['$scope', 'AuthServiceParent', '$state',
   //  function($scope, AuthService, $state) {
   //    $scope.user = {

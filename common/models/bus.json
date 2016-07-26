@@ -5,17 +5,30 @@
   "options": {
     "validateUpsert": true
   },
-  "properties": {},
+  "properties": {
+    "busNo": {
+      "type": "String",
+      "required": "true"
+    },
+    "busType": {
+      "type": "String",
+      "required": "true"
+    },
+    "busCapacity": {
+      "type": "Number",
+      "required": "true"
+    }
+  },
   "validations": [],
   "relations": {
-    "vehicleType": {
-      "type": "belongsTo",
-      "model": "VehicleType",
-      "foreignKey": ""
-    },
     "school": {
       "type": "belongsTo",
       "model": "School",
+      "foreignKey": ""
+    },
+    "busServices": {
+      "type": "hasMany",
+      "model": "BusService",
       "foreignKey": ""
     }
   },

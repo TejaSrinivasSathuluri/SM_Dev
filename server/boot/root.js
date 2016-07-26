@@ -1,35 +1,61 @@
 module.exports = function(server) {
-  // Install a `/` route that returns server status
   var router = server.loopback.Router();
-//  var nodemailer = require('nodemailer');
-//
-//// create reusable transporter object using the default SMTP transport
-//  var transporter = nodemailer.createTransport('smtps://user%40gmail.com:pass@smtp.gmail.com');
-//
-//// setup e-mail data with unicode symbols
-//  var mailOptions = {
-//    from: '"Fred Foo 👥" <mannuhitler@gmail.com>', // sender address
-//    to: 'bar@blurdybloop.com, baz@blurdybloop.com', // list of receivers
-//    subject: 'Hello ✔', // Subject line
-//    text: 'Hello world 🐴', // plaintext body
-//    html: '<b>Hello world 🐴</b>' // html body
-//  };
-//
-//// send mail with defined transport object
-//  transporter.sendMail(mailOptions, function(error, info){
-//    if(error){
-//      return console.log(error);
-//    }
-//    console.log('Message sent: ' + info.response);
-//  });
+
+  //----------------Modify Response
+  //Add status=true element with every success response
+  var remotes = server.remotes();
+  remotes.after('find', function (ctx, next)  {  if (ctx.result) ctx.result.success = true; next();  });
+  //----------------Modify Response
 
 
+
+
+  //----------------Load Attendance
+
+  //var schedule = require('node-schedule');
+  //var j = schedule.scheduleJob('*/60 * * * *', function()
+  //{
+  //
+  //          var Attendance = server.models.Attendance;
+  //          var Student    = server.models.Student;
+  //          var Converter = require("csvtojson").Converter;
+  //          var converter = new Converter({constructResult: false});
+  //
+  //
+  //           console.log('Started File Parsing');
+  //           converter.on("record_parsed", function (jsonObj)
+  //          {
+  //                  console.log('Reading Record');
+  //                  jsonObj.EPC = jsonObj.EPC.replace('#', '');
+  //			  //console.log(jsonObj.SID);
+  //                                   console.log('Found Student');
+  //                                        var date = new Date();
+  //                                var year = date.getFullYear();
+  //                                var month = date.getMonth() ;
+  //                                var day = date.getDate();
+  //                                  Attendance.findOne({"where": {"RFID": jsonObj.EPC, "day": day,"month":month,"year":year}}, function (err, record)
+  //                                        {
+  //                                              if (err) {   console.log('Error Occured In Finding Attendance'); }
+  //                                              else if (!record)
+  //                                              {
+  //
+  //                                                Attendance.create({RFID:jsonObj.EPC , day: day,month:month,year:year});
+  //                                                console.log("added");
+  //
+  //                                              }
+  //                                              else if (record) { console.log('Already Exists'); }
+  //
+  //                                      });
+  //
+  //          });
+  //           //   require("request").get("http://studymonitor.net/dev/atten/LOG.CSV").pipe(converter);
+  //           var url ="http://localhost:3000/LOG.CSV"
+  //           require("request").get(url).pipe(converter);
+  //
+  //});
+  //----------------Load Attendance
 
 
 
   server.use(router);
-
-
-
-
 };

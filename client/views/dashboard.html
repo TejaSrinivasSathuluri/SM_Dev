@@ -45,14 +45,30 @@
     </div>
     <div class="col-md-4 col-sm-12 col-xs-12 row-md-4">
       <div class="portlet light row-md-1">
+            <div class="panel panel-default">
+              <div class="panel-heading text-center">
+                Birthday List
+              </div>
+              <table class="table table-fixed">
+                <thead>
+                <tr>
+                  <th class="col-xs-4">Name</th><th class="col-xs-2">Class</th><th class="col-xs-2">Date</th>
+                </tr>
+                </thead>
+                <tbody style="height: 230px;overflow-y: auto;width: 100%;">
+                <tr ng-repeat="x in birthdayList | orderBy:'x.dataofBirth':true">
+                  <td ng-show="birthDayChk(x)" style="background-color: #009900">{{x.firstName}} {{x.lastName}}</td>
+                  <td ng-hide="birthDayChk(x)">{{x.firstName}}{{x.lastName}} </td>
+                  <td ng-show="birthDayChk(x)" style="background-color: #009900">{{x.class}} </td>
+                  <td ng-hide="birthDayChk(x)">{{x.class}} </td>
+                  <td ng-show="birthDayChk(x)" style="background-color: #009900">{{x.dateofBirth | date:'MMM dd'}} </td>
+                  <td ng-hide="birthDayChk(x)">{{x.dateofBirth | date:'MMM dd'}} </td>
 
-        <center>Birthdays</center>
-        <table class="table table-bordered table-striped table-condensed flip-content">
-          <thead></thead>
-          <tr ng-repeat="x in birthdayList">  <td>{{x.firstName}} </td><td>{{x.class}} </td></tr>
-        </table>
+                </tr>
 
-
+                </tbody>
+              </table>
+            </div>
       </div>
       <div class="portlet light row-md-1">
         <div class="portlet-title">

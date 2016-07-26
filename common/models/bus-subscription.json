@@ -1,0 +1,26 @@
+{
+  "name": "BusSubscription",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "pickupLocation": {"type": "String", "required": "true"}
+  },
+  "validations": [],
+  "relations": {
+    "busService": {
+      "type": "belongsTo",
+      "model": "BusService",
+      "foreignKey": ""
+    },
+    "student": {
+      "type": "belongsTo",
+      "model": "Student",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
