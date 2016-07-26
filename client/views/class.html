@@ -18,7 +18,7 @@
 
           <select ng-model="formData.staffSelected" class="form-control Staff" required>
           <option value="">Class Teacher</option>
-          <option ng-repeat="x in staffList" value="{{x.id}}">{{x.firstName}}</option>
+          <option ng-repeat="x in staffList" value="{{x.id}}">{{x.firstName}}{{x.lastName}}</option>
         </select>
         <br>
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">  <button type="submit" class="btn btn-success uppercase">Create Class</button></div>
@@ -88,7 +88,7 @@
                         <td>{{x.sectionName}}</td>
                         <td ng-hide="Admin">{{x.staff.firstName}}</td>
                         <td ng-show="Admin">
-                        <address style="height:0.5px" ng-hide="editclass">{{x.staff.firstName}}</address>
+                        <address style="height:0.5px" ng-hide="editclass">{{x.staff.firstName}}{{x.staff.lastName}}</address>
 						<select ng-model="x.staff.id" class="form-control Staff" ng-show="editclass" required>
                           <option value="">Class Teacher</option>
                           <option ng-repeat="y in staffList" value="{{y.id}}">{{y.firstName}}{{y.lastName}}</option>
