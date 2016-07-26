@@ -105,7 +105,7 @@
           <option ng-repeat="x in ExpenseTypeList" value="{{x.id}}">{{x.name}}</option>
         </select><br>
 
-        <input type="date" class="form-control" ng-disabled="false"  ng-model="editData.date" ng-value="feeDate" required><br>
+        <input type="date"  max="9999-12-31" max="0001-01-01"  class="form-control" ng-disabled="false"  ng-model="editData.date" ng-value="feeDate" required><br>
         <input type="number" class="form-control" ng-disabled="false" ng-model="editData.amount" required><br>
 
         <div class="col-sm-2">  <button type="submit" class="btn btn-success uppercase">Save Expense Payment</button></div>
@@ -286,7 +286,7 @@
                       <option value="">EXPENSE TYPE</option>
                       <option ng-repeat="x in ExpenseTypeList" value="{{x.id}}">{{x.name}}</option>
                     </select><br>
-                    <input  type="date"   class="form-control" placeholder="Expense Date*"  ng-model="formData.date" ng-value="date" required><br>
+                    <input   max="9999-12-31" max="0001-01-01"    class="form-control" placeholder="Expense Date*"  ng-model="formData.date" ng-value="date" required><br>
                     <input  type="number"   class="form-control" placeholder="Expense Amount*"  ng-model="formData.amount" required><br>
                     <textarea rows="4" cols="50" class="form-control" placeholder="Description" ng-model="formData.description"></textarea><br>
                     <button type="submit" class="btn btn-success uppercase">Add</button>

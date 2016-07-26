@@ -21,8 +21,8 @@
       </select>
       <br>
       <textarea rows="4" cols="50" class="form-control" placeholder="Description"  ng-model="formData.description"></textarea><br>
-      <input  type="date" class="form-control" ng-value="fromDate" ng-model="formData.fromDate"><br>
-      <input  type="date" class="form-control" ng-value="toDate" ng-model="formData.toDate"><br>
+      <input  type="date" class="form-control" max="9999-12-31" max="0001-01-01" ng-value="fromDate" ng-model="formData.fromDate"><br>
+      <input  type="date" class="form-control" max="9999-12-31" max="0001-01-01" ng-value="toDate" ng-model="formData.toDate"><br>
       <!--<input type = "file" file-model = "myFile" class="form-control" placeholder="Image" ng-model="formData.uploadFile"><br>-->
       <button type="submit" class="btn btn-success uppercase" ng-click=confirm(formData)>Save</button>
       <button type="button" class="btn btn-success uppercase" ng-click=closeThisDialog("Cancel")>Cancel</button>
@@ -45,8 +45,8 @@
         </select>
         <br>
         <textarea rows="4" cols="50" class="form-control" placeholder="Description of Assignment " ng-model="formData.description" required></textarea><br>
-        <input  type="date" class="form-control"  ng-model="formData.fromDate" required><br>
-        <input  type="date" class="form-control"  ng-model="formData.toDate" required><br>
+        <input  type="date" class="form-control"  max="9999-12-31" max="0001-01-01"  ng-model="formData.fromDate" required><br>
+        <input  type="date" class="form-control"  max="9999-12-31" max="0001-01-01"  ng-model="formData.toDate" required><br>
         <!--<input type = "file" file-model = "formData.myFile" class="form-control" placeholder="Image" ng-model="formData.uploadFile"><br>-->
         <button type="submit"  class="btn btn-success uppercase">Post Assignment</button>
       </div>

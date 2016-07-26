@@ -9,7 +9,7 @@
       </select><br>
       <input  type="text" class="form-control" placeholder="ExamName" ng-model="formData.examname" ng-value="examname" required><br>
       <!--<textarea rows="4" cols="50" class="form-control" placeholder="Comment" ng-value="comment" ng-model="formData.comment" required></textarea><br>-->
-      <input  type="date" class="form-control"  ng-model="formData.date1" ng-value="date1" required><br>
+      <input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control"  ng-model="formData.date1" ng-value="date1" required><br>
       <!--<input  type="text" class="form-control" placeholder="Comment" ng-model="formData.comment" ng-value="comment" required><br>-->
 
       <!--<input  type="date" class="form-control"  ng-model="formData.date2" ng-value="date2" required><br>-->
@@ -43,7 +43,7 @@
         </select>
         <br>
         <input  type="text" class="form-control" placeholder="ExamName" ng-model="formData.examName"  required><br>
-        <input  type="date" class="form-control"  ng-model="formData.examDate" required><br>
+        <input  type="date"  max="9999-12-31" max="0001-01-01"  class="form-control"  ng-model="formData.examDate" required><br>
         <button type="submit"  class="btn btn-success uppercase">Post Exam</button></div>
 
 

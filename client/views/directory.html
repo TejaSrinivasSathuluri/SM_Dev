@@ -71,7 +71,7 @@
 
       <div class="col-sm-12">
         <div class="col-sm-6">
-          <input  type="date"   class="form-control"   name="Date of Birth"  placeholder="Date of Birth*"  ng-model="editData.dateofBirth"  ng-mouseup="tag46=true" ng-mouseleave="tag46=false"    required><div class="tag46" ng-show="tag46">Enter Date of Birth</div><br>
+          <input  type="date"    max="9999-12-31" max="0001-01-01"  class="form-control"   name="Date of Birth"  placeholder="Date of Birth*"  ng-model="editData.dateofBirth"  ng-mouseup="tag46=true" ng-mouseleave="tag46=false"    required><div class="tag46" ng-show="tag46">Enter Date of Birth</div><br>
         </div>
 
         <div class="col-sm-6">
@@ -81,7 +81,7 @@
 
       <div class="col-sm-12">
         <div class="col-sm-6">
-          <input  type="date"   class="form-control"   name="Joining Date"   placeholder="Joining Date"  ng-model="editData.dateofJoin"    ng-mouseup="tag48=true" ng-mouseleave="tag48=false"     required><div class="tag48" ng-show="tag48">Enter Date of Join</div><br>
+          <input  type="date"    max="9999-12-31" max="0001-01-01"  class="form-control"   name="Joining Date"   placeholder="Joining Date"  ng-model="editData.dateofJoin"    ng-mouseup="tag48=true" ng-mouseleave="tag48=false"     required><div class="tag48" ng-show="tag48">Enter Date of Join</div><br>
         </div>
 
         <div class="col-sm-6">
@@ -217,7 +217,7 @@
 
         <!--<div class="col-sm-6"><input  type="date" class="form-control" ng-model="formData.dateofBirth"  ng-mouseover="tag7=true" ng-mouseleave="tag7=false"   required>	<div class="tag7" ng-show="tag7">Date Of Birth</div><br></div>-->
         <div class="col-sm-6">
-          <input  type="date" class="form-control" ng-model="formData.dateofBirth"  ng-mouseover="tag7=true" ng-mouseleave="tag7=false"   required>
+          <input  type="date" class="form-control" max="9999-12-31" max="0001-01-01"  ng-model="formData.dateofBirth"  ng-mouseover="tag7=true" ng-mouseleave="tag7=false"   required>
           <div class="tag7" ng-show="tag7">Date Of Birth</div><br></div>
 
       </div>
@@ -225,7 +225,7 @@
       <div class="col-sm-12">
         <div class="col-sm-6"><input  type="text" class="form-control" placeholder="Reg Id*"      ng-model="formData.regId"      ng-mouseover="tag6=true" ng-mouseleave="tag6=false"   required><div class="tag6" ng-show="tag6">Enter Registered Id</div><br></div>
 
-        <div class="col-sm-6"><input  type="date" class="form-control" ng-model="formData.dateofJoin"   ng-mouseover="tag8=true" ng-mouseleave="tag8=false"   required> <div class="tag8" ng-show="tag8">Joining Date</div><br></div>
+        <div class="col-sm-6"><input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control" ng-model="formData.dateofJoin"   ng-mouseover="tag8=true" ng-mouseleave="tag8=false"   required> <div class="tag8" ng-show="tag8">Joining Date</div><br></div>
       </div>
       <div class="col-sm-12">
         <div class="col-sm-6"><input type="text"  class="form-control" placeholder="RFID"  ng-model="formData.RFID"  ng-mouseover="tag9=true" ng-mouseleave="tag9=false"	 ><div class="tag9" ng-show="tag9">RFID</div><br></div>
@@ -359,7 +359,7 @@
       <div class="col-sm-12">
         <div class="col-sm-6"><input  type="text" class="form-control" placeholder="Reg Id*"      ng-model="formData.regId"      ng-mouseover="tag6=true" ng-mouseleave="tag6=false"   required><div class="tag6" ng-show="tag6">Enter Registered Id</div><br></div>
 
-        <div class="col-sm-6"><input  type="date" class="form-control" ng-model="formData.dateofJoin"   ng-mouseover="tag8=true" ng-mouseleave="tag8=false"   required> <div class="tag8" ng-show="tag8">Joining Date</div><br></div>
+        <div class="col-sm-6"><input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control" ng-model="formData.dateofJoin"   ng-mouseover="tag8=true" ng-mouseleave="tag8=false"   required> <div class="tag8" ng-show="tag8">Joining Date</div><br></div>
       </div>
       <div class="col-sm-12">
         <div class="col-sm-6"><input type="text"  class="form-control" placeholder="RFID"  ng-model="formData.RFID"  ng-mouseover="tag9=true" ng-mouseleave="tag9=false"	 ><div class="tag9" ng-show="tag9">RFID</div><br></div>
@@ -506,10 +506,10 @@
       <br>
       <div class="col-sm-12">
         <div class="col-sm-6">
-          <input  type="date" class="form-control" ng-model="editData.dateofBirth"  required>	<br>
+          <input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control" ng-model="editData.dateofBirth"  required>	<br>
         </div>
         <div class="col-sm-6">
-          <input  type="date" class="form-control" ng-model="editData.dateofJoin"     required> <br>
+          <input  type="date" max="9999-12-31" max="0001-01-01"  class="form-control" ng-model="editData.dateofJoin"     required> <br>
         </div>
       </div>
 
