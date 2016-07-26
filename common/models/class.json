@@ -32,6 +32,11 @@
       "type": "hasOne",
       "model": "FeeSetup",
       "foreignKey": ""
+    },
+    "exams": {
+      "type": "hasMany",
+      "model": "Exam",
+      "foreignKey": ""
     }
   },
   "acls": [

@@ -91,7 +91,7 @@
                         <address style="height:0.5px" ng-hide="editclass">{{x.staff.firstName}}</address>
 						<select ng-model="x.staff.id" class="form-control Staff" ng-show="editclass" required>
                           <option value="">Class Teacher</option>
-                          <option ng-repeat="y in staffList" value="{{y.id}}">{{y.firstName}}</option>
+                          <option ng-repeat="y in staffList" value="{{y.id}}">{{y.firstName}}{{y.lastName}}</option>
                         </select>
 						</td>
 					   <td ng-show="Admin">

@@ -984,7 +984,7 @@ angular
         $scope.currentPage = 0;
         $scope.pageSize = 15;
 
-        $scope.numberOfPages=function(){return Math.ceil($scope.searchList.length/$scope.pageSize);}
+        $scope.numberOfPages=function(){return Math.ceil($scope.filtered.length/$scope.pageSize);}
 
       }
     ])
@@ -1687,6 +1687,119 @@ angular
 
     }])
 
+  .controller('ExamController', function ($scope, $state, School, Exam,Class,$rootScope, $window,ngDialog,$filter) {
+
+        //------------------------------------------------
+        //            BASIC USER DATA
+        //------------------------------------------------
+
+        $scope.user = $window.localStorage.getItem('user');
+        $scope.userData = JSON.parse($scope.user);
+        $scope.schoolId = $scope.userData.schoolId;
+        if ($scope.userData.type == 'Admin') { $scope.Admin = true;}
+        if ($scope.userData.type == 'Student') { $scope.Student = true;}
+        if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
+        if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
+        $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
+         //--------------------------------------------
+         //          GET CLASS LIST
+         //--------------------------------------------
+         $scope.classList = Class.find({filter: {where: {schoolId: $scope.schoolId}}});
+
+         //--------------------------------------------
+         //          Show Notice
+         //--------------------------------------------
+          $scope.examList =[];
+          $scope.showExamList = function(){
+          $scope.examList = Exam.find({filter: {where: {schoolId: $scope.schoolId},include:'class'}});
+
+         }
+         $scope.showExamList();
+
+
+
+         //----------------------------------------------
+         //                 CLEAR RESPONSE
+         //----------------------------------------------
+
+         $scope.clearResponseExam = function(){ $scope.responseExam = null;}
+
+
+
+
+       //----------------------------------------------
+       //                 ADD EXAM
+       //----------------------------------------------
+       $scope.addExam = function () {
+
+
+      ngDialog.openConfirm({template: 'addExam',
+        scope: $scope
+      }).then(
+        function(formData) {
+          formData.examDate = $filter('date')(new Date(formData.examDate), 'yyyy-MM-dd');
+
+          Exam.find({filter:{where:{schoolId:$scope.schoolId,examName:formData.examName,classId:formData.classId}}},
+          function(){
+            $scope.responseExam = 'Exam Already Exists For This Class';
+
+          },function(){
+
+              // ****Adding Exam
+              Exam.create({
+                  examDate: formData.examDate,
+                  examName: formData.examName,
+                  classId:  formData.classId,
+                  schoolId: $scope.schoolId
+                },
+                function ()
+                {
+                  $scope.responseExam = "Exam Added Successfully";
+                  setTimeout( function()
+                  {
+                    $scope.showExamList();
+                    $scope.clearResponseExam();
+                  }, 1000 );
+
+                },function(response){
+                  console.log(response.data.error.message);
+                });
+
+          });
+
+
+
+
+
+
+
+        },
+        function (value)
+        {
+
+        }
+      );
+
+    }
+
+
+
+        //----------------------------------------------
+        //               SORT TABLE TECHNIQUE
+        //----------------------------------------------
+
+        $scope.sortType     = 'title';
+        $scope.sortReverse  = false;
+        $scope.searchFish   = '';
+        $scope.currentPage = 0;
+        $scope.pageSize = 10;
+        $scope.numberOfPages=function(){    return Math.ceil($scope.examList.length/$scope.pageSize);}
+
+
+
+
+
+      })
   .controller('LibraryController',
     ['$scope', '$state', 'School', 'Library', '$rootScope', '$window','ngDialog',
     function ($scope, $state, School, Library, $rootScope, $window,ngDialog) {
@@ -2311,26 +2424,26 @@ angular
         }, function () {
 
             $scope.receivers = [{location: "", duration: "",fee:""}];
-            $scope.addRecipient = function (receiver) {
-                if (receiver.location.length == 0)  alert('Please Fill All The Fields');
-                else {
-                    $scope.receivers.push({no:"",location: "", duration: "",fee:""});
-                }
-            }
-            $scope.deleteRecipient = function (receiver) {
-                for (var i = 1; i < $scope.receivers.length; i++) {
-                    if ($scope.receivers[i] === receiver) {
-
-                        $scope.receivers.splice(i, 1);
-                        break;
-                    }
-                }
-            }
 
 
         });
 
       }
+      $scope.addRecipient = function (receiver) {
+      if (receiver.location.length == 0)  alert('Please Fill All The Fields');
+      else {
+        $scope.receivers.push({no:"",location: "", duration: "",fee:""});
+      }
+    }
+      $scope.deleteRecipient = function (receiver) {
+      for (var i = 1; i < $scope.receivers.length; i++) {
+        if ($scope.receivers[i] === receiver) {
+
+          $scope.receivers.splice(i, 1);
+          break;
+        }
+      }
+    }
 
       $scope.saveRoutes = function ()
         {
@@ -2357,8 +2470,6 @@ angular
                         serviceDropTime2  :$scope.formData.serviceDropTime2    ,
                         serviceRoutes     : $scope.receivers
                     },function(response){
-                        console.log(new Date(response.serviceStartTime1).toISOString());
-                        console.log($scope.formData.serviceStartTime1);
                         $scope.response = "Bus Service Created Successfully";
                         $scope.successCallBusService();
                     },function(response){
