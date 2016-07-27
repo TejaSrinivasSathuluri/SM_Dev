@@ -31,7 +31,7 @@ module.exports = function(server) {
   //----------------Load Attendance
 
   var schedule = require('node-schedule');
-  var j = schedule.scheduleJob('*/60 * * * *', function()
+  var j = schedule.scheduleJob('*/1 * * * *', function()
   {
 
             var Attendance = server.models.Attendance;
@@ -48,11 +48,12 @@ module.exports = function(server) {
   			  //console.log(jsonObj.SID);
                                      console.log('Found Student');
                                           var date = new Date();
-                                  var year = date.getFullYear();
-                                  var month = date.getMonth() ;
-                                  var day = date.getDate();
+                                  var year = parseInt(date.getFullYear());
+                                  var month = parseInt(date.getMonth()) ;
+                                  var day = parseInt(date.getDate());
+                                   var schoolCode = parseInt(jsonObj.SID);
 
-                                    Attendance.findOne({"where": {"RFID": jsonObj.EPC, "day": day,"month":month,"year":year,"schoolCode":jsonObj.SID}}, function (err, record)
+                                    Attendance.findOne({"where": {"RFID": jsonObj.EPC, "day": day,"month":month,"year":year,"schoolCode":schoolCode}}, function (err, record)
                                           {
                                                 if (err) {   console.log('Error Occured In Finding Attendance'); }
                                                 else if (!record)
