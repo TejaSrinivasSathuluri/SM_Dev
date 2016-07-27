@@ -1753,9 +1753,18 @@ angular
       }).then(
         function(formData) {
           formData.examDate = $filter('date')(new Date(formData.examDate), 'yyyy-MM-dd');
-
-          Exam.find({filter:{where:{schoolId:$scope.schoolId,examName:formData.examName,classId:formData.classId}}},
-          function(){
+          Exam.findOne
+          (
+            {
+              filter:{
+                  where:{
+                        schoolId:$scope.schoolId,
+                        examName:formData.examName,
+                        classId:formData.classId
+                  }
+              }
+            },
+          function(response){
             $scope.responseExam = 'Exam Already Exists For This Class';
 
           },function(){
@@ -1782,18 +1791,40 @@ angular
 
           });
 
-
-
-
-
-
-
         },
         function (value)
         {
 
         }
       );
+
+    }
+       //----------------------------------------------
+       //                 ADD EXAM
+       //----------------------------------------------
+       $scope.deleteExam = function (x) {
+
+
+         var dialog = ngDialog.open({template: 'deleteExam'});
+         dialog.closePromise.then(function (data) {
+           if (data.value && data.value != '$document' && data.value != '$closeButton')
+           {
+             Exam.deleteById({id: x.id},
+               function ()
+               {
+                 $scope.responseExam = "Exam Deleted Successfully";
+                 setTimeout( function()
+                 {
+                   $scope.showExamList();
+                   $scope.clearResponseExam();
+                 }, 1000 );
+
+               },function(response){
+                 console.log(response.data.error.message);
+               });
+             return true;
+           }
+         });
 
     }
 
@@ -1815,6 +1846,70 @@ angular
 
 
       })
+  .controller('MarksController', function ($scope, $state, School, Marks,Class,$rootScope, $window,ngDialog,$filter) {
+
+        //------------------------------------------------
+        //            BASIC USER DATA
+        //------------------------------------------------
+
+        $scope.user = $window.localStorage.getItem('user');
+        $scope.userData = JSON.parse($scope.user);
+        $scope.schoolId = $scope.userData.schoolId;
+        if ($scope.userData.type == 'Admin') { $scope.Admin = true;}
+        if ($scope.userData.type == 'Student') { $scope.Student = true;}
+        if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
+        if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
+        $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
+         //--------------------------------------------
+         //          GET CLASS LIST
+         //--------------------------------------------
+         $scope.classList = Class.find({filter: {where: {schoolId: $scope.schoolId}}});
+
+         //--------------------------------------------
+         //          Show Notice
+         //--------------------------------------------
+          $scope.marksList =[];
+         // $scope.showExamList = function(){
+         // $scope.examList = Exam.find({filter: {where: {schoolId: $scope.schoolId},include:'class'}});
+         //
+         //}
+         //$scope.showExamList();
+
+
+
+         //----------------------------------------------
+         //                 CLEAR RESPONSE
+         //----------------------------------------------
+
+         //$scope.clearResponseExam = function(){ $scope.responseExam = null;}
+
+
+
+
+       //----------------------------------------------
+       //                 ADD EXAM
+       //----------------------------------------------
+
+
+
+        //----------------------------------------------
+        //               SORT TABLE TECHNIQUE
+        //----------------------------------------------
+
+        $scope.sortType     = 'title';
+        $scope.sortReverse  = false;
+        $scope.searchFish   = '';
+        $scope.currentPage = 0;
+        $scope.pageSize = 10;
+        //$scope.numberOfPages=function(){    return Math.ceil($scope.examList.length/$scope.pageSize);}
+
+
+
+
+
+      })
+
+
   .controller('LibraryController',
     ['$scope', '$state', 'School', 'Library', '$rootScope', '$window','ngDialog',
     function ($scope, $state, School, Library, $rootScope, $window,ngDialog) {
@@ -2174,9 +2269,12 @@ angular
         $scope.blockedCount=0;
 
               if ($scope.Admin || $scope.Staff){
-          $scope.list = Student.find({filter: {where: {classId: $scope.classSelected}}}, function () { for (var i = 0; i < $scope.list.length; i++) {
-	          if ( $scope.list[i].RFID.length != 0){
-				  		  $scope.chk($scope.list[i].id, $scope.list[i].firstName,i,$scope.list[i].RFID,$scope.list[i].rollNo);
+          $scope.list = Student.find({filter: {where: {classId: $scope.classSelected},include:'school'}}, function () {
+            for (var i = 0; i < $scope.list.length; i++) {
+	           if ( $scope.list[i].RFID.length != 0){
+               console.log($scope.list[i].school.code);
+
+				  		  $scope.chk($scope.list[i].id, $scope.list[i].firstName,i,$scope.list[i].RFID,$scope.list[i].rollNo,$scope.list[i].school.code);
 		       	  }
 			      else{
 				  $scope.blockedCount++;
@@ -2188,7 +2286,7 @@ angular
 
 
 
-          $scope.chk = function(studentId,firstName,i,RFID,rollNo)
+          $scope.chk = function(studentId,firstName,i,RFID,rollNo,schoolCode)
           {
 		  $scope.attendanceRecord = Attendance.findOne(
                 {
@@ -2196,7 +2294,11 @@ angular
                     {
                       where:
                         {
-                          "RFID":RFID,"day":$scope.dateSelected.getDate(),"month":$scope.dateSelected.getMonth(),"year":$scope.dateSelected.getFullYear()
+                          "RFID":RFID,
+                          "day":$scope.dateSelected.getDate(),
+                          "month":$scope.dateSelected.getMonth(),
+                          "year":$scope.dateSelected.getFullYear(),
+                          "schoolCode":schoolCode,
                         }
                     }
                 },
@@ -2204,14 +2306,14 @@ angular
                 {
                     $scope.presentCount++;
 
-                    $scope.studentList[i] ={id:studentId ,firstName :firstName,RFID:RFID,rollNo :rollNo,attendanceId :response.id,status:true};
+                    $scope.studentList[i] ={id:studentId ,firstName :firstName,RFID:RFID,rollNo :rollNo,attendanceId :response.id,status:true,schoolCode:schoolCode};
 
                 },
                 function()
                 {
                   $scope.absentCount++;
 				  console.log("Absent");
-                  $scope.studentList[i] ={id:studentId,firstName : firstName,RFID:RFID,rollNo:rollNo,status:false};
+                  $scope.studentList[i] ={id:studentId,firstName : firstName,RFID:RFID,rollNo:rollNo,status:false,schoolCode:schoolCode};
                 });
 
 
