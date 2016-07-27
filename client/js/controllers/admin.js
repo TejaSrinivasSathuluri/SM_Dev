@@ -1208,20 +1208,20 @@ angular
           });
           $scope.showSubject = function(){
 
-            //$scope.subjectList = Subject.find({filter: {where:{schoolId: $scope.schoolId},include: ['staff', 'class']}});
+            $scope.subjectList = Subject.find({filter: {where:{schoolId: $scope.schoolId},include: ['staff', 'class']}});
 
           }
-          $scope.subjectList = Subject.find({filter: {include: ['staff', 'class']}},function(response){
-            response.forEach(function(subject){
-              var sub  = subject.toJSON();
-              console.log(sub.class.schoolId);
-              Subject.prototype$updateAttributes({id:sub.id,schoolId:sub.class.schoolId},function(){
-
-              },function(response){
-                console.log(response.data.error.message);
-              });
-            })
-          });
+          //$scope.subjectList = Subject.find({filter: {include: ['staff', 'class']}},function(response){
+          //  response.forEach(function(subject){
+          //    var sub  = subject.toJSON();
+          //    console.log(sub.class.schoolId);
+          //    Subject.prototype$updateAttributes({id:sub.id,schoolId:sub.class.schoolId},function(){
+          //
+          //    },function(response){
+          //      console.log(response.data.error.message);
+          //    });
+          //  })
+          //});
 
           $scope.showSubject();
    $scope.successCallSubject = function(){
