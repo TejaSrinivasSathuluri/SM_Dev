@@ -3374,9 +3374,7 @@ angular
 
 
     }])
-  .controller('ProfileController',
-    ['$scope', '$state','$window','School','Student','Admin','Parent','Staff',
-      function ($scope,$state,$window,School,Student,Admin,Parent,Staff) {
+  .controller('ProfileController', function ($scope,$rootScope,$state,$window,School,Student,Admin,Parent,Staff) {
         $scope.user = $window.localStorage.getItem('user');
         $scope.userData = JSON.parse($scope.user);
         $scope.schoolId = $scope.userData.schoolId;
@@ -3456,7 +3454,7 @@ angular
 
 
 
-      }])
+      })
 
 
   .filter('startFrom', function() { return function(input, start) { start = +start; return input.slice(start); }})
