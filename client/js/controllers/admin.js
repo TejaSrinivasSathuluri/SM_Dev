@@ -1049,7 +1049,7 @@ angular
             }).then(
               function(formData) {
 
-                $scope.classExists = Class.findOne({filter: {where: { schoolId: formData.schoolId, className: formData.className, sectionName: formData.sectionName}}},
+                $scope.classExists = Class.findOne({filter: {where: { schoolId: $scope.schoolId, className: formData.className, sectionName: formData.sectionName}}},
                   function ()
                   {
                     $scope.error = true;
@@ -1203,7 +1203,7 @@ angular
           });
           $scope.showSubject = function(){
             $scope.subjectList=[];
-            $scope.subjectList = Subject.find({filter: {include: ['staff', 'class']}});
+            $scope.subjectList = Subject.find({filter: {where:{schoolId: $scope.schoolId},include: ['staff', 'class']}});
 
           }
           $scope.showSubject();
