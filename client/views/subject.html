@@ -85,7 +85,7 @@
               <!--<div class="portlet-body-morris-fit morris-chart flip-scroll" style="height: max">-->
               <table class="table table-bordered table-striped table-condensed flip-content" >
                 <thead flip-content><tr>
-				  <th><a ng-click="sortType = 'subjectName'; sortReverse = !sortReverse">Subject</a></th>
+        				  <th><a ng-click="sortType = 'subjectName'; sortReverse = !sortReverse">Subject</a></th>
                   <th><a ng-click="sortType = 'className'; sortReverse = !sortReverse">Class</a></th>
                   <th><a ng-click="sortType = 'class.staffName'; sortReverse = !sortReverse">Teacher</a></th>
                   <th ng-show="Admin">Action</th>
@@ -98,10 +98,10 @@
                   <td>{{a.class.className}}-{{a.class.sectionName}}</td>
                   <td ng-hide="Admin">{{a.staff.firstName}}</td>
                   <td ng-show="Admin">
-						  <address style="height:0.5px" ng-hide="editsubject">{{a.staff.firstName}}</address>
+						  <address style="height:0.5px" ng-hide="editsubject">{{a.staff.firstName}} {{a.staff.lastName}}</address>
 						  <select ng-show="editsubject" ng-model="a.staff.id" class="form-control Staff" required>
 							  <option value="">Teacher</option>
-							  <option ng-repeat="y in staffList" value="{{y.id}}">{{y.firstName}}</option>
+							  <option ng-repeat="y in staffList" value="{{y.id}}">{{y.firstName}}{{y.lastName}}</option>
 							</select>
 				  </td>
                   <td ng-show="Admin">
@@ -128,7 +128,6 @@
          </div>
          </div>
          <!--<div class="portlet-body-morris-fit morris-chart" style="height:120px">-->
-       <!--</div>-->
       <!--------------------------------------------- END PORTLET------------------------------------------------>
       </div>
 

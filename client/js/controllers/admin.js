@@ -1205,6 +1205,7 @@ angular
           }
           $scope.showSubject();
    $scope.successCallSubject = function(){
+     console.log('Called');
      $scope.error = false;
      $scope.success = true;
 
@@ -1242,9 +1243,10 @@ angular
                       function () {
 
                         $scope.responseAddSubject ="Subject "+ formData.subjectName + " created Successfully in Class";
+                        $scope.successCallSubject();
+
                         setTimeout( function()
                         {
-                          $scope.successCallSubject();
                           $scope.showSubject();
                           $scope.clearResponse();
 
@@ -1266,11 +1268,10 @@ angular
           $scope.updateSubject = function (a) {
 						Subject.upsert({id: a.id, staffId: a.staff.id},
 						  function () {
+                $scope.successCallSubject();
                 $scope.responseAddSubject ="Subject Edited Successfully";
-
                 setTimeout( function()
                 {
-                  $scope.successCallSubject();
                   $scope.showSubject();
                   $scope.clearResponse();
                 }, 1000 );
@@ -1316,7 +1317,7 @@ angular
         $scope.searchFish   = '';
         $scope.currentPage = 0;
         $scope.pageSize = 10;
-        $scope.numberOfPages=function(){    return Math.ceil($scope.subjectList.length/$scope.pageSize);}
+        $scope.numberOfPages=function(){    return Math.ceil($scope.filtered.length/$scope.pageSize);}
 
 
 
@@ -2192,7 +2193,7 @@ angular
             });
           });
       }
-      //$scope.delete();
+      $scope.delete();
 
 
       $scope.monthView = function() {
@@ -2288,17 +2289,21 @@ angular
 
           $scope.chk = function(studentId,firstName,i,RFID,rollNo,schoolCode)
           {
-		  $scope.attendanceRecord = Attendance.findOne(
+            var day = parseInt($scope.dateSelected.getDate());
+            var month = parseInt($scope.dateSelected.getMonth());
+            var year = parseInt($scope.dateSelected.getFullYear());
+            var schoolCode = parseInt(schoolCode);
+		        $scope.attendanceRecord = Attendance.findOne(
                 {
                   filter:
                     {
                       where:
                         {
-                          "RFID":RFID,
-                          "day":$scope.dateSelected.getDate(),
-                          "month":$scope.dateSelected.getMonth(),
-                          "year":$scope.dateSelected.getFullYear(),
-                          "schoolCode":schoolCode,
+                          RFID:RFID,
+                          day        : day,
+                          month      : month,
+                          year       : year,
+                          schoolCode : schoolCode
                         }
                     }
                 },
@@ -2312,7 +2317,7 @@ angular
                 function()
                 {
                   $scope.absentCount++;
-				  console.log("Absent");
+				                console.log('RFID:'+ RFID + ' Is Absent');
                   $scope.studentList[i] ={id:studentId,firstName : firstName,RFID:RFID,rollNo:rollNo,status:false,schoolCode:schoolCode};
                 });
 
