@@ -2288,17 +2288,21 @@ angular
 
           $scope.chk = function(studentId,firstName,i,RFID,rollNo,schoolCode)
           {
-		  $scope.attendanceRecord = Attendance.findOne(
+            var day = parseInt($scope.dateSelected.getDate());
+            var month = parseInt($scope.dateSelected.getMonth());
+            var year = parseInt($scope.dateSelected.getFullYear());
+            var schoolCode = parseInt(schoolCode);
+		        $scope.attendanceRecord = Attendance.findOne(
                 {
                   filter:
                     {
                       where:
                         {
-                          "RFID":RFID,
-                          "day":$scope.dateSelected.getDate(),
-                          "month":$scope.dateSelected.getMonth(),
-                          "year":$scope.dateSelected.getFullYear(),
-                          "schoolCode":schoolCode,
+                          RFID:RFID,
+                          day        : day,
+                          month      : month,
+                          year       : year,
+                          schoolCode : schoolCode
                         }
                     }
                 },
@@ -2312,7 +2316,7 @@ angular
                 function()
                 {
                   $scope.absentCount++;
-				  console.log("Absent");
+				                console.log('RFID:'+ RFID + ' Is Absent');
                   $scope.studentList[i] ={id:studentId,firstName : firstName,RFID:RFID,rollNo:rollNo,status:false,schoolCode:schoolCode};
                 });
 
