@@ -1203,6 +1203,7 @@ angular
             $scope.subjectList = Subject.find({filter: {include: ['staff', 'class']}});
 
           }
+          $scope.showSubject();
    $scope.successCallSubject = function(){
      $scope.error = false;
      $scope.success = true;
