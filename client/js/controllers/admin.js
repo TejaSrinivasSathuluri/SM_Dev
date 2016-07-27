@@ -182,7 +182,9 @@ angular
         $scope.schoolName= null;
         $scope.schoolId = $scope.userData.schoolId;
         $scope.date = new Date();
-        $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
+        $rootScope.image = $scope.school.image;
+
+
 
           console.clear();
         $scope.accessCheck = function(response){
@@ -412,6 +414,7 @@ angular
           // --------------------------------------------------------
 
           var schoolCode= $scope.school.code;
+          console.log(schoolCode);
           var url = 'http://studymonitor.net/appimages';
           $scope.updateImage = function(){
             Student.find({filter: {where: {schoolId: $scope.schoolId}}},function(response){
