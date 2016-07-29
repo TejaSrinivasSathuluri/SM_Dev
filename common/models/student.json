@@ -6,9 +6,30 @@
     "validateUpsert": true
   },
   "properties": {
-    "firstName": {
-      "type": "String"
-    }
+    "firstName"       :  {  "type": "String" ,  "required": "true" , "length":30},
+    "lastName"        :  {  "type": "String" ,  "required": "true" , "length":20},
+    "rollNo"          :  {  "type": "Number" ,  "required": "true" , "length":10},
+    "dateofBirth"     :  {  "type": "date" ,    "required": "true" },
+    "dateofJoin"      :  {  "type": "date"   },
+    "bloodGroup"      :  {  "type": "String" ,  "required": "true"},
+    "gender"          :  {  "type": "String" ,  "required": "true" , "length":1},
+    "regId"           :  {  "type": "String" ,  "required": "true" , "length":20},
+    "RFID"            :  {  "type": "String" ,  "required": "true" , "length":30},
+    "nationalIdType"  :  {  "type": "String" ,  "length":10},
+    "nationalId"      :  {  "type": "String" ,  "length":20},
+    "contact"         :  {  "type": "Number" ,  "length":10},
+    "previousSchool"  :  {  "type": "String" ,  "length":30},
+    "previousSchoolTC":  {  "type": "String" },
+    "isDisable"       :  {  "type": "String" ,  "length" :1},
+    "status"          :  {  "type": "String" ,  "length" :1},
+    "currentAddress"  :  {  "type": "String" , "length":30},
+    "currentCity"     :  {  "type": "String" , "length":30},
+    "currentState"    :  {  "type": "String" , "length":30},
+    "currentPincode"  :  {  "type": "String" , "length":6},
+    "permanentAddress":  {  "type": "String" , "length":30},
+    "permanentCity"   :  {  "type": "String" , "length":30},
+    "permanentState"  :  {  "type": "String" , "length":30},
+    "permanentPincode":  {  "type": "String" , "length":6}
   },
   "validations": [],
   "relations": {

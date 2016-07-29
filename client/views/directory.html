@@ -342,7 +342,7 @@
 
         <!--<div class="col-sm-6"><input  type="date" class="form-control" ng-model="formData.dateofBirth"  ng-mouseover="tag7=true" ng-mouseleave="tag7=false"   required>	<div class="tag7" ng-show="tag7">Date Of Birth</div><br></div>-->
         <div class="col-sm-6">
-          <input  type="date" class="form-control" ng-model="formData.dateofBirth"  ng-mouseover="tag7=true" ng-mouseleave="tag7=false"   required>
+          <input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control" ng-model="formData.dateofBirth"  ng-mouseover="tag7=true" ng-mouseleave="tag7=false"   required>
           <div class="tag7" ng-show="tag7">Date Of Birth</div><br></div>
 
       </div>
@@ -353,7 +353,7 @@
           <option value="">Class-Section*</option>
           <option ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
         </select><br></div>
-        <div class="col-sm-6"><input  type="text" class="form-control" placeholder="RollNo*" ng-change="checkRollnoExists()"     ng-model="formData.rollNo"     ng-mouseover="tag5=true" ng-mouseleave="tag5=false"   required><div class="tag5" ng-show="tag5">Enter Roll Number</div><br></div>
+        <div class="col-sm-6"><input  type="number" class="form-control" placeholder="RollNo*" ng-change="checkRollnoExists()"     ng-model="formData.rollNo"     ng-mouseover="tag5=true" ng-mouseleave="tag5=false"   required><div class="tag5" ng-show="tag5">Enter Roll Number</div><br></div>
 
       </div>
       <div class="col-sm-12">
@@ -418,21 +418,21 @@
         <div class="col-sm-12">
           <div class="col-sm-6"><input  type="text" class="form-control" placeholder="Father Name*"      ng-model="formData.fatherName"      ng-mouseover="tag34=true" ng-mouseleave="tag34=false"  >
 
-            <div class="tag3" ng-show="tag34">Enter Father Name   </div><br><br>
+            <div class="tag3" ng-show="tag34">Enter Father Name   </div><br>
           </div>
           <div class="col-sm-6"><input  type="text" class="form-control" placeholder="Mother Name*"      ng-model="formData.motherName"      ng-mouseover="tag35=true" ng-mouseleave="tag35=false"   >
 
-            <div class="tag3" ng-show="tag35">Enter Mother Name   </div><br><br>
+            <div class="tag3" ng-show="tag35">Enter Mother Name   </div><br>
           </div>
         </div>
       <div class="col-sm-12">
           <div class="col-sm-6"><input  type="email" class="form-control" placeholder="Father Email"      ng-model="formData.fatherEmail"      ng-mouseover="tag32=true" ng-mouseleave="tag32=false"  >
 
-            <div class="tag3" ng-show="tag32">Enter Father Email   </div><br><br>
+            <div class="tag3" ng-show="tag32">Enter Father Email   </div><br>
           </div>
           <div class="col-sm-6"><input  type="email" class="form-control" placeholder="Mother Email"      ng-model="formData.motherEmail"      ng-mouseover="tag33=true" ng-mouseleave="tag33=false"   >
 
-            <div class="tag3" ng-show="tag33">Enter Mother Email   </div><br><br>
+            <div class="tag3" ng-show="tag33">Enter Mother Email   </div><br>
           </div>
         </div>
 
@@ -481,7 +481,7 @@
       <div class="col-sm-12">
         <div class="col-sm-6">
           <span ng-show="RollnoExists" style="color:red">Roll Number Already Exists</span>
-          <input  type="text" class="form-control" placeholder="RollNo*"      ng-model="editData.rollNo"    ng-change="checkRollnoExistsEdit()"   required><br>
+          <input  type="number" class="form-control" placeholder="RollNo*"      ng-model="editData.rollNo"    ng-change="checkRollnoExistsEdit()"   required><br>
         </div>
         <div class="col-sm-6">
           <input  type="text" class="form-control" placeholder="Reg Id*"      ng-model="editData.regId"        required><br>
@@ -604,7 +604,7 @@
             <td class="col-sm-1">
               <img style="height: 150px;width: 120px" src="{{formData.image}}">
             </td>
-            <td  class="col-sm-2 pull-left">
+            <td  class="col-sm-3 pull-left">
 
                 <ul style="padding: 0px;">{{formData.firstName}} {{formData.lastName}}</ul>
                 <ul style="padding: 0px;"> {{formData.rollNo}}</ul>
@@ -613,7 +613,7 @@
               <ul style="padding: 0px;">                {{formData.contact}} </ul>
 
             </td>
-            <td class="col-sm-1 pull-left">
+            <td class="col-sm-1 pull-right">
               <ul style="padding: 0px;">                <i class="fa fa-facebook-square" style="font-size: 1.5em;"  ></i></ul>
               <ul style="padding: 0px;">              <i class="fa fa-envelope-o" style="font-size: 1.5em;"  aria-hidden="true"></i></ul>
               <ul style="padding: 0px;">               <i class="fa fa-comments-o text-" style="font-size: 1.5em;" ></i></ul>

@@ -442,8 +442,7 @@ angular
                     var date2 = new Date(formData.dateofJoin);
                     formData.dateofBirth = new Date(date1.setDate(formData.dateofBirth.getDate()+1));
                     formData.dateofJoin  = new Date(date2.setDate(formData.dateofBirth.getDate()+1));
-                    //var getclass = Class.findOne({filter:{where:{id:formData.classId}}});
-                    //console.log(getclass);
+
                     $scope.image =  url + '/' +schoolCode+ '/' +formData.classId+ '/' + formData.rollNo + '.png';
 
 
@@ -485,6 +484,8 @@ angular
                       fatherEmail     : formData.fatherEmail,
                       motherEmail     : formData.motherEmail,
                       fatherName      : formData.fatherName,
+                      motherName      : formData.motherName,
+                      motherName      : formData.motherName,
                       motherName      : formData.motherName,
                       image           : $scope.image
 
@@ -705,6 +706,7 @@ angular
 
                 },
                 function (value) {
+
                 }
               );
             }
@@ -774,6 +776,9 @@ angular
                     });
                 },
                 function (value) {
+                  $scope.studentList = [];
+                  $scope.studentList = Student.find({filter: {where: {schoolId: $scope.schoolId}, include: 'class'}});
+
                 }
               );
             }
@@ -1049,7 +1054,7 @@ angular
             }).then(
               function(formData) {
 
-                $scope.classExists = Class.findOne({filter: {where: { schoolId: formData.schoolId, className: formData.className, sectionName: formData.sectionName}}},
+                $scope.classExists = Class.findOne({filter: {where: { schoolId: $scope.schoolId, className: formData.className, sectionName: formData.sectionName}}},
                   function ()
                   {
                     $scope.error = true;
@@ -1202,13 +1207,24 @@ angular
             if (response.status = 401) $state.go('logout', {}, {reload: true});
           });
           $scope.showSubject = function(){
-            $scope.subjectList=[];
-            $scope.subjectList = Subject.find({filter: {include: ['staff', 'class']}});
+
+            $scope.subjectList = Subject.find({filter: {where:{schoolId: $scope.schoolId},include: ['staff', 'class']}});
 
           }
+          //$scope.subjectList = Subject.find({filter: {include: ['staff', 'class']}},function(response){
+          //  response.forEach(function(subject){
+          //    var sub  = subject.toJSON();
+          //    console.log(sub.class.schoolId);
+          //    Subject.prototype$updateAttributes({id:sub.id,schoolId:sub.class.schoolId},function(){
+          //
+          //    },function(response){
+          //      console.log(response.data.error.message);
+          //    });
+          //  })
+          //});
+
           $scope.showSubject();
    $scope.successCallSubject = function(){
-     console.log('Called');
      $scope.error = false;
      $scope.success = true;
 
@@ -1228,8 +1244,7 @@ angular
                 $scope.checkSub = Subject.findOne({
                     filter: {
                       where: {
-                        classId: formData.classSelected,
-                        subjectName: formData.subjectName
+                          schoolId:$scope.schoolId,classId: formData.classSelected,subjectName: formData.subjectName
                       }
                     }
                   },
@@ -1241,7 +1256,8 @@ angular
                     Subject.create({
                         subjectName: formData.subjectName,
                         classId: formData.classSelected,
-                        staffId: formData.staffSelected
+                        staffId: formData.staffSelected,
+                        schoolId:$scope.schoolId
                       },
                       function () {
 
