@@ -8062,6 +8062,33 @@ module.factory(
           method: "GET"
         },
 
+        // INTERNAL. Use Class.subjects.findById() instead.
+        "prototype$__findById__subjects": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/subjects/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Class.subjects.destroyById() instead.
+        "prototype$__destroyById__subjects": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/subjects/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Class.subjects.updateById() instead.
+        "prototype$__updateById__subjects": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/subjects/:fk",
+          method: "PUT"
+        },
+
         // INTERNAL. Use Class.assignments.findById() instead.
         "prototype$__findById__assignments": {
           params: {
@@ -8162,6 +8189,31 @@ module.factory(
         // INTERNAL. Use Class.students.count() instead.
         "prototype$__count__students": {
           url: urlBase + "/Classes/:id/students/count",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Class.subjects() instead.
+        "prototype$__get__subjects": {
+          isArray: true,
+          url: urlBase + "/Classes/:id/subjects",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Class.subjects.create() instead.
+        "prototype$__create__subjects": {
+          url: urlBase + "/Classes/:id/subjects",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Class.subjects.destroyAll() instead.
+        "prototype$__delete__subjects": {
+          url: urlBase + "/Classes/:id/subjects",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Class.subjects.count() instead.
+        "prototype$__count__subjects": {
+          url: urlBase + "/Classes/:id/subjects/count",
           method: "GET"
         },
 
@@ -9244,6 +9296,307 @@ module.factory(
         R.staff = function() {
           var TargetResource = $injector.get("Staff");
           var action = TargetResource["::get::Class::staff"];
+          return action.apply(R, arguments);
+        };
+    /**
+     * @ngdoc object
+     * @name lbServices.Class.subjects
+     * @header lbServices.Class.subjects
+     * @object
+     * @description
+     *
+     * The object `Class.subjects` groups methods
+     * manipulating `Subject` instances related to `Class`.
+     *
+     * Call {@link lbServices.Class#subjects Class.subjects()}
+     * to query all related instances.
+     */
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class#subjects
+         * @methodOf lbServices.Class
+         *
+         * @description
+         *
+         * Queries subjects of Class.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Subject` object.)
+         * </em>
+         */
+        R.subjects = function() {
+          var TargetResource = $injector.get("Subject");
+          var action = TargetResource["::get::Class::subjects"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.subjects#count
+         * @methodOf lbServices.Class.subjects
+         *
+         * @description
+         *
+         * Counts subjects of Class.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        R.subjects.count = function() {
+          var TargetResource = $injector.get("Subject");
+          var action = TargetResource["::count::Class::subjects"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.subjects#create
+         * @methodOf lbServices.Class.subjects
+         *
+         * @description
+         *
+         * Creates a new instance in subjects of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Subject` object.)
+         * </em>
+         */
+        R.subjects.create = function() {
+          var TargetResource = $injector.get("Subject");
+          var action = TargetResource["::create::Class::subjects"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.subjects#createMany
+         * @methodOf lbServices.Class.subjects
+         *
+         * @description
+         *
+         * Creates a new instance in subjects of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Subject` object.)
+         * </em>
+         */
+        R.subjects.createMany = function() {
+          var TargetResource = $injector.get("Subject");
+          var action = TargetResource["::createMany::Class::subjects"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.subjects#destroyAll
+         * @methodOf lbServices.Class.subjects
+         *
+         * @description
+         *
+         * Deletes all subjects of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.subjects.destroyAll = function() {
+          var TargetResource = $injector.get("Subject");
+          var action = TargetResource["::delete::Class::subjects"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.subjects#destroyById
+         * @methodOf lbServices.Class.subjects
+         *
+         * @description
+         *
+         * Delete a related item by id for subjects.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for subjects
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.subjects.destroyById = function() {
+          var TargetResource = $injector.get("Subject");
+          var action = TargetResource["::destroyById::Class::subjects"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.subjects#findById
+         * @methodOf lbServices.Class.subjects
+         *
+         * @description
+         *
+         * Find a related item by id for subjects.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for subjects
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Subject` object.)
+         * </em>
+         */
+        R.subjects.findById = function() {
+          var TargetResource = $injector.get("Subject");
+          var action = TargetResource["::findById::Class::subjects"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.subjects#updateById
+         * @methodOf lbServices.Class.subjects
+         *
+         * @description
+         *
+         * Update a related item by id for subjects.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for subjects
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Subject` object.)
+         * </em>
+         */
+        R.subjects.updateById = function() {
+          var TargetResource = $injector.get("Subject");
+          var action = TargetResource["::updateById::Class::subjects"];
           return action.apply(R, arguments);
         };
     /**
@@ -11648,6 +12001,65 @@ module.factory(
         // INTERNAL. Use Staff.subject() instead.
         "::get::Staff::subject": {
           url: urlBase + "/Staffs/:id/subject",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Class.subjects.findById() instead.
+        "::findById::Class::subjects": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/subjects/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Class.subjects.destroyById() instead.
+        "::destroyById::Class::subjects": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/subjects/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Class.subjects.updateById() instead.
+        "::updateById::Class::subjects": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/subjects/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Class.subjects() instead.
+        "::get::Class::subjects": {
+          isArray: true,
+          url: urlBase + "/Classes/:id/subjects",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Class.subjects.create() instead.
+        "::create::Class::subjects": {
+          url: urlBase + "/Classes/:id/subjects",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Class.subjects.createMany() instead.
+        "::createMany::Class::subjects": {
+          isArray: true,
+          url: urlBase + "/Classes/:id/subjects",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Class.subjects.destroyAll() instead.
+        "::delete::Class::subjects": {
+          url: urlBase + "/Classes/:id/subjects",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Class.subjects.count() instead.
+        "::count::Class::subjects": {
+          url: urlBase + "/Classes/:id/subjects/count",
           method: "GET"
         },
       }

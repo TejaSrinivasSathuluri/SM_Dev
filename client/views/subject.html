@@ -95,13 +95,13 @@
 
                 <tr ng-repeat="a in  filtered = (subjectList | filter:search) | orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
                   <td>{{a.subjectName}}</td>
-                  <td>{{a.class.className}}-{{a.class.sectionName}}</td>
+                  <td>{{a.className}}-{{a.class.sectionName}}</td>
                   <td ng-hide="Admin">{{a.staff.firstName}}</td>
                   <td ng-show="Admin">
 						  <address style="height:0.5px" ng-hide="editsubject">{{a.staff.firstName}} {{a.staff.lastName}}</address>
 						  <select ng-show="editsubject" ng-model="a.staff.id" class="form-control Staff" required>
 							  <option value="">Teacher</option>
-							  <option ng-repeat="y in staffList" value="{{y.id}}">{{y.firstName}}{{y.lastName}}</option>
+							  <option ng-repeat="y in staffList" value="{{y.id}}">{{y.firstName}} {{y.lastName}}</option>
 							</select>
 				  </td>
                   <td ng-show="Admin">

@@ -37,6 +37,11 @@
       "type": "hasMany",
       "model": "Exam",
       "foreignKey": ""
+    },
+    "subjects": {
+      "type": "hasMany",
+      "model": "Subject",
+      "foreignKey": ""
     }
   },
   "acls": [

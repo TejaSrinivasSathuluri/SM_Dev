@@ -187,6 +187,7 @@
                     <td  ng-show="Admin"># </td>
                     <td>Location </td>
                     <td>Duration</td>
+                    <td>Time</td>
                     <td>Fee</td>
                   </tr>
                   </thead>
@@ -196,9 +197,10 @@
                       <a ng-click="deleteRecipient(receiver)"><i class="glyphicon glyphicon-minus"></i></a>
                       {{$index+1}}
                     </td>
-                    <td><input type="text"     ng-disabled="Staff || Student || Parent" class="form-control" ng-model="receiver.location"></td>
-                    <td><input type="number"   ng-disabled="Staff || Student || Parent" class="form-control" min="0" ng-model="receiver.duration"></td>
-                    <td><input type="number"   ng-disabled="Staff || Student || Parent" class="form-control" min="0" ng-model="receiver.fee"></td>
+                    <td><input type="text"     class="form-control" ng-model="receiver.location"></td>
+                    <td><input type="number" min="0" max="100" step="5" value="0"  ng-change="setTime($index)" class="form-control" min="0" ng-model="receiver.duration"></td>
+                    <td><input type="time"    ng-disabled="true" class="form-control" min="0" ng-model="receiver.pickUpTime"></td>
+                    <td><input type="number"   class="form-control" min="0" ng-model="receiver.fee"></td>
 
                   </tr>
 

@@ -385,9 +385,9 @@ angular
           // --------------------------------------------------------
           $scope.checkRollnoExists = function() {
             $scope.RollnoExists = false;
-
             if($scope.formData.rollNo != null && $scope.formData.classId != null){
-              $scope.checkRoll = Student.findOne({filter:{where:{classId :$scope.formData.classId,rollNo:$scope.formData.rollNo}}},
+              var rollNo = parseInt($scope.formData.rollNo);
+              $scope.checkRoll = Student.findOne({filter:{where:{classId :$scope.formData.classId,rollNo:rollNo}}},
               function(){
                 $scope.RollnoExists =true;
               });
@@ -414,7 +414,6 @@ angular
           // --------------------------------------------------------
 
           var schoolCode= $scope.school.code;
-          console.log(schoolCode);
           var url = 'http://studymonitor.net/appimages';
           $scope.updateImage = function(){
             Student.find({filter: {where: {schoolId: $scope.schoolId}}},function(response){
@@ -443,7 +442,7 @@ angular
                     formData.dateofBirth = new Date(date1.setDate(formData.dateofBirth.getDate()+1));
                     formData.dateofJoin  = new Date(date2.setDate(formData.dateofBirth.getDate()+1));
 
-                    $scope.image =  url + '/' +schoolCode+ '/' +formData.classId+ '/' + formData.rollNo + '.png';
+                    $scope.image =  url + '/' + schoolCode + '/' +formData.classId+ '/' + formData.rollNo + '.png';
 
 
                     $scope.newStudent = Student.create({
@@ -481,39 +480,12 @@ angular
                       contact         : formData.contact,
                       type            : "Student",
                       created         : new Date(),
-                      fatherEmail     : formData.fatherEmail,
-                      motherEmail     : formData.motherEmail,
-                      fatherName      : formData.fatherName,
-                      motherName      : formData.motherName,
-                      motherName      : formData.motherName,
-                      motherName      : formData.motherName,
                       image           : $scope.image
 
                     },
                       function () {
-
-                                                          //if (formData.image != null){
-                                                          //  console.log('Uploading Image');
-                                                          //  xhr.open('POST', 'https://content.dropboxapi.com/2/files/upload');
-                                                          //  xhr.setRequestHeader('Authorization', 'Bearer ' + dropboxToken);
-                                                          //  xhr.setRequestHeader('Content-Type', 'application/octet-stream');
-                                                          //  xhr.setRequestHeader('Dropbox-API-Arg', JSON.stringify({
-                                                          //    path: '/' + response.id + '.png',
-                                                          //    mode: 'add',
-                                                          //    autorename: true,
-                                                          //    mute: false
-                                                          //  }),function(){
-                                                          //    console.log(xhr.response);
-                                                          //
-                                                          //  });
-                                                          //
-                                                          //  xhr.send(formData.image);
-                                                          //
-                                                          //}
-
                         $scope.response = 'Student Added Successfully';
                         $scope.error = true;
-
                         setTimeout( function()
                         {
                           $state.go($state.current, {}, {reload: true});
@@ -521,7 +493,7 @@ angular
                         }, 1000 );
                       },
                       function (response) {
-                        $scope.response = 'Student Not Created.PleaseCheck All the Fields';
+                        $scope.response = 'Student Not Created.Please Check All the Fields';
                         $scope.error = true;
                         setTimeout( function()
                         {
@@ -656,6 +628,7 @@ angular
                             classId              : editData.classId,
                             RFID                 : editData.RFID,
                             previousSchool       : editData.previousSchool,
+                            previousSchoolTC     : editData.previousSchoolTC,
                             dateofJoin           : editData.dateofJoin,
                             status               : editData.status,
                             regId                : editData.regId,
@@ -676,11 +649,7 @@ angular
                             motherTounge         : editData.motherTounge,
                             nationalIdType       : editData.nationalIdType,
                             subCaste             : editData.subCaste,
-                            contact              : editData.contact,
-                            fatherEmail          : editData.fatherEmail,
-                            motherEmail          : editData.motherEmail,
-                            fatherName           : editData.fatherName,
-                            motherName           : editData.motherName
+                            contact              : editData.contact
 
                           },
                           function () {
@@ -717,7 +686,6 @@ angular
               var d = new Date($scope.editData.dateofBirth);
               var date2 = new Date(d);
               $scope.editData.dateofBirth = new Date(date2.setDate(d.getDate()));
-              console.log($scope.editData.dateofBirth);
               $scope.editData.dateofBirth = new Date($scope.editData.dateofBirth);
 
 
@@ -725,7 +693,6 @@ angular
               var d = new Date($scope.editData.dateofJoin);
               var date2 = new Date(d);
               $scope.editData.dateofJoin = new Date(date2.setDate(d.getDate()));
-              console.log($scope.editData.dateofJoin);
               $scope.editData.dateofJoin = new Date($scope.editData.dateofJoin);
 
               ngDialog.openConfirm({
@@ -1206,34 +1173,15 @@ angular
           }, function (response) {
             if (response.status = 401) $state.go('logout', {}, {reload: true});
           });
-          $scope.showSubject = function(){
-
+          $scope.subjectList =[];
+          $scope.showSubject = function()
+          {
             $scope.subjectList = Subject.find({filter: {where:{schoolId: $scope.schoolId},include: ['staff', 'class']}});
 
           }
-          //$scope.subjectList = Subject.find({filter: {include: ['staff', 'class']}},function(response){
-          //  response.forEach(function(subject){
-          //    var sub  = subject.toJSON();
-          //    console.log(sub.class.schoolId);
-          //    Subject.prototype$updateAttributes({id:sub.id,schoolId:sub.class.schoolId},function(){
-          //
-          //    },function(response){
-          //      console.log(response.data.error.message);
-          //    });
-          //  })
-          //});
-
           $scope.showSubject();
-   $scope.successCallSubject = function(){
-     $scope.error = false;
-     $scope.success = true;
-
-   }
-          $scope.failureCallSubject = function(){
-     $scope.error = true;
-     $scope.success = false;
-
-   }
+          $scope.successCallSubject = function() {$scope.error = false;$scope.success = true;}
+          $scope.failureCallSubject = function() {$scope.error = true;$scope.success = false;}
 
 
           $scope.addSubject = function () {
@@ -2571,18 +2519,16 @@ angular
 
         }}},function(){
           $scope.responseAddBusService = 'Service Already Exists';
-        }, function () {
-
-            $scope.receivers = [{location: "", duration: "",fee:""}];
-
-
+        }, function ()
+        {
+            $scope.receivers = [{location: $scope.formData.serviceStartPoint, duration: 0,fee:"",pickUpTime:$scope.formData.serviceStartTime1}];
         });
 
       }
       $scope.addRecipient = function (receiver) {
       if (receiver.location.length == 0)  alert('Please Fill All The Fields');
       else {
-        $scope.receivers.push({no:"",location: "", duration: "",fee:""});
+        $scope.receivers.push({location: "", duration: "",fee:"",pickUpTime:""});
       }
     }
       $scope.deleteRecipient = function (receiver) {
@@ -2595,6 +2541,11 @@ angular
       }
     }
 
+
+    $scope.setTime =  function(i){
+      if(i>=1) $scope.receivers[i].pickUpTime   = new Date($scope.formData.serviceStartTime1.getTime() + $scope.receivers[i].duration*60000);
+      else $scope.receivers[i].duration  =0;
+    }
       $scope.saveRoutes = function ()
         {
             if ($scope.receivers[$scope.receivers.length - 1].location == 0){
@@ -2619,7 +2570,7 @@ angular
                         serviceDropTime1  :$scope.formData.serviceDropTime1    ,
                         serviceDropTime2  :$scope.formData.serviceDropTime2    ,
                         serviceRoutes     : $scope.receivers
-                    },function(response){
+                    },function(){
                         $scope.response = "Bus Service Created Successfully";
                         $scope.successCallBusService();
                     },function(response){
@@ -2701,9 +2652,8 @@ angular
 
             $scope.startLocation[i] = x.serviceRoutes[i].location;
             $scope.endLocation[i] = x.serviceRoutes[i+1].location;
-            if(i==0)    $scope.startTime[i] = new Date(new Date(x.serviceStartTime1).getTime() - 330*60000);
-            else        $scope.startTime[i] = $scope.endTime[i-1];
-                        $scope.endTime[i] = new Date($scope.startTime[i].getTime() + x.serviceRoutes[i].duration*60000);
+                        $scope.startTime[i] = new Date(new Date(x.serviceRoutes[i].pickUpTime).getTime() - 330*60000);
+                        $scope.endTime[i] =  new Date(new Date(x.serviceRoutes[i+1].pickUpTime).getTime() - 330*60000);
             $scope.routeDetails[i] = {startLocation :$scope.startLocation[i],endLocation :$scope.endLocation[i],
               startTime : $scope.startTime[i],endTime : $scope.endTime[i]};
 
