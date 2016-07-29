@@ -178,6 +178,7 @@ angular
         if ($scope.userData.type == 'Student') { $scope.Student = true;}
         if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
         if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
+        console.clear();
 
         $scope.schoolName= null;
         $scope.schoolId = $scope.userData.schoolId;
@@ -186,7 +187,6 @@ angular
 
 
 
-          console.clear();
         $scope.accessCheck = function(response){
           if (response.status =401) $state.go('logout', {}, {reload: true}) ;
         }
@@ -225,8 +225,6 @@ angular
 
         //*********************ADMIN & STAFF ACCESS*********************
         if (Admin || Staff)
-
-
         {
           $scope.studentParent = StudentParent.find({filter: {where: {schoolId: $scope.schoolId}, include: 'parent'}},
             function (response) {
@@ -311,22 +309,6 @@ angular
                   //else    $state.go($state.current, {}, {reload: true});
         }
 
-        //$scope.checkImg = function(x){
-        //  $http({
-        //    method: 'GET',
-        //    url: 'http://studymonitor.net/appimages/101/576b482f25b53ebc1690e1f1/3.png'
-        //  }).then(function successCallback(response) {
-        //    console.log(response);
-        //    // this callback will be called asynchronously
-        //    // when the response is available
-        //  }, function errorCallback(response) {
-        //
-        //
-        //    // called asynchronously if an error occurs
-        //    // or server returns response with an error status.
-        //  });
-        //  return true;
-        //}
 
 
 
@@ -355,27 +337,17 @@ angular
             }
             else if ( type == 'ST')
             {
-              $scope.emailCheck = Staff.findOne({filter: {where: {email: $scope.formData.email}}},function(){
-                  alert('Email Already Exists');
-                },
-                // Email Is Not Conflicting
-                function(){             });
+              if ($scope.formData.email){
+                $scope.emailCheck = Staff.findOne({filter: {where: {email: $scope.formData.email}}},function(){
+                    alert('Email Already Exists');
+                  },
+                  // Email Is Not Conflicting
+                  function(){             });
+
+              }
             }
             else if(type =='P')
             {
-              $scope.emailCheck = Parent.findOne({filter: {where: {email: $scope.formData.fatherEmail}}},function(){
-                  var dialog = ngDialog.open({template: 'linkParent'});
-                  dialog.closePromise.then(function (data) {
-                    if (data.value && data.value != '$document' && data.value != '$closeButton') {
-                      StudentParent.create({ parentId: $scope.emailCheck.id,schoolId: $scope.schoolId});
-                    }
-
-                    return true;
-                  });
-                },
-
-                // Email Is Not Conflicting
-                function(){             });
             }
 
           }
@@ -427,7 +399,7 @@ angular
             });
           }
           //$scope.updateImage();
-
+   console.log(schoolCode);
 
 
           $scope.addStudentForm = function () {
@@ -480,8 +452,11 @@ angular
                       contact         : formData.contact,
                       type            : "Student",
                       created         : new Date(),
-                      image           : $scope.image
-
+                      image           : $scope.image,
+                      fatherName      : formData.fatherName,
+                      motherName      : formData.motherName,
+                      fatherContact   : formData.fatherContact,
+                      motherContact   : formData.motherContact
                     },
                       function () {
                         $scope.response = 'Student Added Successfully';
@@ -517,6 +492,8 @@ angular
 
 
 
+          //--------------------------------------------------------
+          //--------------------------------------------------------
           //--------------------------------------------------------
           //                 EDIT STUDENT/PARENT/STAFF STARTS
           //--------------------------------------------------------
@@ -581,8 +558,8 @@ angular
                         nationalIdType       : editData.nationalIdType,
                         subCaste             : editData.subCaste,
                         contact              : editData.contact,
-                        fatherEmail          : editData.fatherEmail,
-                        motherEmail          : editData.motherEmail,
+                        fatherContact          : editData.fatherContact,
+                        motherContact          : editData.motherContact,
                         fatherName           : editData.fatherName,
                         motherName           : editData.motherName
 
@@ -649,7 +626,11 @@ angular
                             motherTounge         : editData.motherTounge,
                             nationalIdType       : editData.nationalIdType,
                             subCaste             : editData.subCaste,
-                            contact              : editData.contact
+                            contact              : editData.contact,
+                            fatherName           : editData.fatherName,
+                            motherName           : editData.motherName,
+                            fatherContact        : editData.fatherContact,
+                            motherContact        : editData.motherContact
 
                           },
                           function () {
@@ -932,13 +913,6 @@ angular
           $scope.setTab = function(newTab){  $scope.tab = newTab; };
           $scope.isSet = function(tabNum){   return $scope.tab === tabNum; };
           $scope.formData =x;
-
-          $scope.scheduleList = Schedule.findOne({filter:{where:{classId: x.classId}}},function(){
-            $scope.list = $scope.scheduleList.schedule;
-            console.log($scope.list[0].Monday);
-
-          });
-
           if      (x.type =='Student')   ngDialog.openConfirm({template: 'showStudent', scope: $scope});
           else if (x.type =='Parent')    ngDialog.openConfirm({template: 'showParent',  scope: $scope});
           else if (x.type =='Staff')     ngDialog.openConfirm({template: 'showStaff',   scope: $scope});
@@ -2646,17 +2620,11 @@ angular
           $scope.startTime = [];
           $scope.endTime =[];
           $scope.routeDetails =[];
-          for(var i=0;i< x.serviceRoutes.length-1;i++)
+          for(var i=0;i< x.serviceRoutes.length;i++)
           {
-
-
             $scope.startLocation[i] = x.serviceRoutes[i].location;
-            $scope.endLocation[i] = x.serviceRoutes[i+1].location;
-                        $scope.startTime[i] = new Date(new Date(x.serviceRoutes[i].pickUpTime).getTime() - 330*60000);
-                        $scope.endTime[i] =  new Date(new Date(x.serviceRoutes[i+1].pickUpTime).getTime() - 330*60000);
-            $scope.routeDetails[i] = {startLocation :$scope.startLocation[i],endLocation :$scope.endLocation[i],
-              startTime : $scope.startTime[i],endTime : $scope.endTime[i]};
-
+            $scope.startTime[i] = x.serviceRoutes[i].pickUpTime;
+            $scope.routeDetails[i] = {startLocation :$scope.startLocation[i],startTime : $scope.startTime[i]};
           }
 
       }

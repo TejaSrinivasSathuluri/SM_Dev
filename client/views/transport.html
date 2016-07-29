@@ -151,7 +151,7 @@
           <!------------------------------------------------------------------------>
           <div ng-show="isSet(2)">
             <div class="col-sm-12">
-              <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <form ng-submit="addService()">
 
                   <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -162,23 +162,32 @@
 
                     <input  type="number" class="form-control" placeholder="Service No"    ng-model="formData.serviceNo"         required><br>
                     <span class="text-center">Locations:</span>
-                    <input  type="text"   class="form-control" placeholder="PickUp Point"  ng-model="formData.serviceStartPoint" required><br>
-                    <input  type="text"   class="form-control" placeholder="Drop Point"    ng-model="formData.serviceDropPoint"  required><br>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+                    <input  type="text"   class="form-control" placeholder="PickUp Point"  ng-model="formData.serviceStartPoint" required>-<input  type="text"   class="form-control" placeholder="Drop Point"    ng-model="formData.serviceDropPoint"  required><br>
                     <button type="submit" class="btn btn-success uppercase">Add Routes</button>
 
                   </div>
                   <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <br><br><br>
-                    <input  type="text"   class="form-control" placeholder="Service Name"  ng-model="formData.serviceName"       required><br>
+                    <br><br><br><br>
+                    <br><br>
+                    <!--<input  type="text"   class="form-control" placeholder="Service Name"  ng-model="formData.serviceName"       required><br>-->
                     <span class="text-center">Start Time:</span>
+                    <br>
+                    <input type="text" class="form-control" name="daterange" value="01/01/2015 - 01/31/2015" />
 
-                     <input  type="time"   class="form-control"    ng-model="formData.serviceStartTime1"  required><br>
-                    <input  type="time"   class="form-control"    ng-model="formData.serviceStartTime2"  required>
+                    <!--<script type="text/javascript">-->
+                      <!--$(function() {-->
+                        <!--$('input[name="daterange"]').daterangepicker();-->
+                      <!--});-->
+                    <!--</script>-->
+                     <!--<input  type="time"   class="form-control"    ng-model="formData.serviceStartTime1-formData.serviceStartTime2"  required><br>-->
+                    <!--<input  type="time"   class="form-control"    ng-model="formData.serviceStartTime2"  required>-->
 
                   </div>
               </form>
               </div>
-              <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 
 
                 <table class="table table-bordered table-striped table-condensed flip-content">
@@ -236,10 +245,8 @@
               </div>
               </tr>
               <div style="position: absolute;z-index: 100;background-color: grey" ng-show="popoverIsVisible">
-                <!--<ul ng-repeat="route in startTime.concat(endTime.concat(startLocation.concat(endLocation)))">-->
                 <ul ng-repeat="route in routeDetails">
-                  <li>{{route.startLocation}}({{route.startTime | date:'HH:mm:ss a'}})--
-                    {{route.endLocation}}({{route.endTime | date:'HH:mm:ss a'}})</li>
+                  <li>{{route.startLocation}}({{route.startTime | date:'HH:mm:ss a'}})</li>
                 </ul>
               </div>
 
