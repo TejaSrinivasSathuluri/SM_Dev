@@ -13,7 +13,8 @@
         <!-- -----------------------------------Search Form------------------------------->
         <div class="portlet-body" ng-show="!showForm">
           <div class="row list-separated">
-            
+            <div class="alert alert-success" ng-show="success">{{responseGrade}}</div>
+            <div class="alert alert-error" ng-show="error">{{responseGrade}}</div>
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <form ng-submit="addGrade()">
@@ -33,7 +34,7 @@
 
             <div class="col-sm-12 col-xs-12 col-lg-2 col-md-4">
         
-        <input  type="number" class="form-control" placeholder="To %" ng-model="formData.percentageRangeTo"  required>
+        <input  type="number" class="form-control" placeholder="To %" ng-model="formData.percentageRangeTo" min={{formData.percentageRangeFrom}} required>
       </div>
       <div class="col-sm-12 col-xs-12 col-lg-2 col-md-4">
       
@@ -50,11 +51,10 @@
                 <table class="table table-bordered table-striped table-condensed flip-content">
                   <thead flip-content>
                   <tr>
-                    <!--<th>#</th>-->
-                    <th><a ng-click="sortType = 'examName'; sortReverse = !sortReverse">Exam Name</a></th>
-                    <th><a ng-click="sortType = 'FromDate'; sortReverse = !sortReverse">FromDate</a></th>
-                    <th><a ng-click="sortType = 'toDate'; sortReverse = !sortReverse">ToDate</a></th>
-                    <th><a ng-click="sortType = 'classId'; sortReverse = !sortReverse">Class</a></th>
+                    <th><a ng-click="sortType = 'gradeName'; sortReverse = !sortReverse">Grade Name</a></th>
+                    <th><a ng-click="sortType = 'gradePoint'; sortReverse = !sortReverse">Grade Point</a></th>
+                    <th><a ng-click="sortType = 'percentageRangeFrom'; sortReverse = !sortReverse">From %</a></th>
+                    <th><a ng-click="sortType = 'percentageRangeTo'; sortReverse = !sortReverse">To %</a></th>
                     <th ng-show="Admin">Option</th>
                   </tr>
                   </thead>
@@ -63,16 +63,14 @@
                   <tr data-ng-repeat="x in gradesList | filter:search |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
                     <div data-ng-bind-html="x.id">
 
-                      <td><a ng-click="addExamSubject(x)">{{x.examName}}</a></text></td>
-                      <td>{{x.fromDate | date:'MMM dd yyyy'}}</td>
-                      <td>{{x.toDate | date:'MMM dd yyyy'}}</td>
+                      <td><a ng-click="addExamSubject(x)">{{x.gradeName}}</a></text></td>
+                      <td>{{x.gradePoint}}</td>
+                      <td>{{x.percentageRangeFrom}}</td>
+                      <td>{{x.percentageRangeTo}}</td>
                       
-                      <td>{{x.class.className}}-{{x.class.sectionName}}</td>
-
-
-                      <td ng-show="Admin">{{x.option}}
-                        <i class="glyphicon glyphicon-edit" ng-click="editExam(x)"></i>
-                        <i class="glyphicon glyphicon-remove"  ng-click="deleteExam(x)"></i>
+                    <td ng-show="Admin">{{x.option}}
+                        <i class="glyphicon glyphicon-edit" ng-click="editGrade(x)"></i>
+                        <i class="glyphicon glyphicon-remove"  ng-click="deleteGrade(x)"></i>
 
                       </td>
                     </div>
@@ -80,7 +78,7 @@
                   </tbody>
                 </table>
                 <div class="pull-left">
-                  Total Results: {{examList.length}}
+                  Total Results: {{gradesList.length}}
                 </div>
                 <div class="pull-right">
                   <button  ng-disabled="currentPage == 0"                        ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
