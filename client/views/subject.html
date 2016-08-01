@@ -25,7 +25,7 @@
               <br>
               <select ng-model="formData.staffSelected" id="repeatSelect2" class="form-control" required>
                   <option value="">Select Teacher</option>
-                  <option ng-repeat="option1 in staffList" value=" {{option1.id}}">{{option1.firstName}}{{option1.lastName}}</option>
+                  <option ng-repeat="option1 in staffList" value=" {{option1.id}}">{{option1.firstName}} {{option1.lastName}}</option>
                 </select>
 
 
@@ -88,6 +88,7 @@
         				  <th><a ng-click="sortType = 'subjectName'; sortReverse = !sortReverse">Subject</a></th>
                   <th><a ng-click="sortType = 'className'; sortReverse = !sortReverse">Class</a></th>
                   <th><a ng-click="sortType = 'class.staffName'; sortReverse = !sortReverse">Teacher</a></th>
+                  <th ng-show="Admin">Exam Enabled</th>
                   <th ng-show="Admin">Action</th>
                 </tr>
                 </thead>
@@ -95,29 +96,26 @@
 
                 <tr ng-repeat="a in  filtered = (subjectList | filter:search) | orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
                   <td>{{a.subjectName}}</td>
-                  <td>{{a.className}}-{{a.class.sectionName}}</td>
-                  <td ng-hide="Admin">{{a.staff.firstName}}</td>
+                  <td>{{a.class.className}}-{{a.class.sectionName}}</td>
+                  <td ng-hide="Admin">{{a.staff.firstName}} {{a.staff.lastName}}</td>
+                
                   <td ng-show="Admin">
 						  <address style="height:0.5px" ng-hide="editsubject">{{a.staff.firstName}} {{a.staff.lastName}}</address>
 						  <select ng-show="editsubject" ng-model="a.staff.id" class="form-control Staff" required>
 							  <option value="">Teacher</option>
-							  <option ng-repeat="y in staffList" value="{{y.id}}">{{y.firstName}} {{y.lastName}}</option>
+							  <option ng-repeat="y in staffList" value="{{y.id}}">{{y.firstName}} {{y.cmlastName}}</option>
 							</select>
-				  </td>
+				  </td>  <td ng-show="Admin"> <input type="checkbox" ng-model="a.examFlag" ng-click="addExamEligibility(a)"</td>
                   <td ng-show="Admin">
                       <i class="glyphicon glyphicon-edit" ng-hide="editsubject" ng-click="clearResponse();editsubject=true"></i>
                       <i class="glyphicon glyphicon-save" ng-show="editsubject" ng-click="updateSubject(a)"></i>
                       <i class="glyphicon glyphicon-remove"  ng-click="deleteSubject(a)"></i>
                    </td>
                 </tbody>
-
               </table>
-
-
-
                 </div>
                 <div class="pull-right">
-                  <button ng-disabled="currentPage == 0"               ng-click="currentPage=currentPage-1">Previous</button>
+                  <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">Previous</button>
                   {{currentPage+1}}/{{numberOfPages()}}
                   <button ng-disabled="currentPage >= filtered.length/pageSize-1"   ng-click="currentPage=currentPage+1">Next</button>
 

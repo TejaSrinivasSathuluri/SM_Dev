@@ -5,23 +5,23 @@
       <div class="col-sm-12">
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 
-        <input type="text" class="form-control" placeholder="Vehicle Number"  ng-model="editData.busNo" required>
-</div>
+          <input type="text" class="form-control" placeholder="Vehicle Number"  ng-model="editData.busNo" required>
+        </div>
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 
-        <select ng-model="editData.busType" class="form-control" required>
-          <option value="">Select</option>
-          <option>Mini Bus</option>
-          <option>Van</option>
-          <option>Cab</option>
-          <option>Bus</option>
-          <option>Jeep</option>
-        </select>
-</div>
+          <select ng-model="editData.busType" class="form-control" required>
+            <option value="">Select</option>
+            <option>Mini Bus</option>
+            <option>Van</option>
+            <option>Cab</option>
+            <option>Bus</option>
+            <option>Jeep</option>
+          </select>
+        </div>
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 
-        <input type="number" class="form-control" placeholder="No Of Persons" min="1" max="100" maxlength="3" ng-model="editData.busCapacity" required><br>
-</div>
+          <input type="number" class="form-control" placeholder="No Of Persons" min="1" max="100" maxlength="3" ng-model="editData.busCapacity" required><br>
+        </div>
 
         <div class="col-sm-2">  <button type="submit" class="btn btn-success uppercase">Add Bus</button></div>
       </div>
@@ -62,11 +62,11 @@
         <div class="portlet-title">
           <div class="caption caption-md pull-left">Transport</div>
           <div class="caption caption-md pull-right">
-          <!--Tab Buttons-->
-          <button class="btn btn-default" ng-class="{ active: isSet(1) }" href ng-click="setTab(1)">Add Bus</button>
-          <button class="btn btn-default" ng-class="{ active: isSet(2) }" href ng-click="setTab(2)">Add Service</button>
-          <button class="btn btn-default" ng-class="{ active: isSet(3) }" href ng-click="setTab(3)">Subscription</button>
-          <!--Tab Buttons-->
+            <!--Tab Buttons-->
+            <button class="btn btn-default" ng-class="{ active: isSet(1) }" href ng-click="setTab(1)">Add Bus</button>
+            <button class="btn btn-default" ng-class="{ active: isSet(2) }" href ng-click="setTab(2)">Add Service</button>
+            <button class="btn btn-default" ng-class="{ active: isSet(3) }" href ng-click="setTab(3)">Subscription</button>
+            <!--Tab Buttons-->
           </div>
 
         </div>
@@ -76,118 +76,153 @@
           <div class="row">
 
 
-          <!------------------------------------------------------------------------>
-          <!--                               TAB 1                                 ->
-          <!------------------------------------------------------------------------>
-          <div ng-show="isSet(1)">
-            <div class="col-sm-12">
-              <div>{{responseAddBus}}</div>
-              <form ng-submit="addBus()" >
-                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                  <input type="text" class="form-control" placeholder="Vehicle Number"  ng-model="formData.busNo" required>     </div>
-                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                <select ng-model="formData.busType" class="form-control" required>
-                    <option value="">Select</option>
-                    <option>Mini Bus</option>
-                    <option>Van</option>
-                    <option>Cab</option>
-                    <option>Bus</option>
-                    <option>Jeep</option>
-                  </select>
+            <!----------------------------------------------------------------------
+            <!--                               TAB 1                                 ->
+            <!------------------------------------------------------------------------>
+            <div ng-show="isSet(1)">
+              <div class="col-sm-12">
+                <div>{{responseAddBus}}</div>
+                <form ng-submit="addBus()" >
+                  <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                    <input type="text" class="form-control" placeholder="Vehicle Number"  ng-model="formData.busNo" required>     </div>
+                  <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                    <select ng-model="formData.busType" class="form-control" required>
+                      <option value="">Select</option>
+                      <option>Mini Bus</option>
+                      <option>Van</option>
+                      <option>Cab</option>
+                      <option>Bus</option>
+                      <option>Jeep</option>
+                    </select>
                   </div>
-                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                  <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 
-                <input type="number" class="form-control" placeholder="No Of Persons" min="1" max="100" maxlength="3" ng-model="formData.busCapacity" required><br>
+                    <input type="number" class="form-control" placeholder="No Of Persons" min="1" max="100" maxlength="3" ng-model="formData.busCapacity" required><br>
 
                   </div>
-                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                  <button type="submit" class="btn btn-success uppercase">Add Bus</button>
-                </div>
-              </form>
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-
-              <table class="table table-bordered table-striped table-condensed flip-content">
-                <thead flip-content>
-                <tr>
-                  <th><a ng-click="sortType = 'busNo';       sortReverse = !sortReverse">Vehicle No</a>  </th>
-                  <th><a ng-click="sortType = 'busType';     sortReverse = !sortReverse">Vehicle Type</a></th>
-                  <th><a ng-click="sortType = 'busCapacity'; sortReverse = !sortReverse">Capacity</a>    </th>
-                  <th ng-show="Admin">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr data-ng-repeat="x in  filtered = (busList | filter:search) |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
-                  <div data-ng-bind-html="x.id">
-                    <td>{{x.busNo}}</td>
-                    <td>{{x.busType}}</td>
-                    <td>{{x.busCapacity}}</td>
-                    <td ng-show="Admin">
-                      <i class="glyphicon glyphicon-edit"    ng-click="editBus(x)"></i>
-                      <i class="glyphicon glyphicon-remove"  ng-click="deleteBus(x)"></i>
-                    </td>
+                  <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                    <button type="submit" class="btn btn-success uppercase">Add Bus</button>
                   </div>
-                </tr>
-                </tbody>
-              </table>
-              <div class="pull-left">
-                Total Results :{{ busList.length}} |  Filtered Results :{{ filtered.length}}
-
-
-
+                </form>
               </div>
-              <div class="pull-right">
-                <button ng-disabled="currentPage == 0"               ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
-                <button ng-disabled="currentPage >= filtered.length/pageSize-1" ng-click="currentPage=currentPage+1">Next</button>
-
-              </div>
-            </div>
-
-          </div>
-
-
-          <!------------------------------------------------------------------------>
-          <!--                               TAB 2                                 ->
-          <!------------------------------------------------------------------------>
-          <div ng-show="isSet(2)">
-            <div class="col-sm-12">
+              <div class="col-sm-12">
               <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <form ng-submit="addService()">
 
-                  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <select ng-model="formData.busId" class="form-control" required>
+                <table class="table table-bordered table-striped table-condensed flip-content">
+                  <thead flip-content>
+                  <tr>
+                    <th><a ng-click="sortType = 'busNo';       sortReverse = !sortReverse">Vehicle No</a>  </th>
+                    <th><a ng-click="sortType = 'busType';     sortReverse = !sortReverse">Vehicle Type</a></th>
+                    <th><a ng-click="sortType = 'busCapacity'; sortReverse = !sortReverse">Capacity</a>    </th>
+                    <th ng-show="Admin">Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr data-ng-repeat="x in  filtered = (busList | filter:search) |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
+                    <div data-ng-bind-html="x.id">
+                      <td>{{x.busNo}}</td>
+                      <td>{{x.busType}}</td>
+                      <td>{{x.busCapacity}}</td>
+                      <td ng-show="Admin">
+                        <i class="glyphicon glyphicon-edit"    ng-click="editBus(x)"></i>
+                        <i class="glyphicon glyphicon-remove"  ng-click="deleteBus(x)"></i>
+                      </td>
+                    </div>
+                  </tr>
+                  </tbody>
+                </table>
+                <div class="pull-left">
+                  Total Results :{{ busList.length}} |  Filtered Results :{{ filtered.length}}
+
+
+
+                </div>
+                <div class="pull-right">
+                  <button ng-disabled="currentPage == 0"               ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
+                  <button ng-disabled="currentPage >= filtered.length/pageSize-1" ng-click="currentPage=currentPage+1">Next</button>
+
+                </div>
+              </div>
+              </div>
+            </div>
+
+
+            <!------------------------------------------------------------------------>
+            <!--                               TAB 2                                 ->
+            <!------------------------------------------------------------------------>
+            <div ng-show="isSet(2)">
+        
+               
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+               <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <form ng-submit="addService()">
+                  <div class="col-sm-12">
+                    <div class="col-sm-6">
+                   <select ng-model="formData.busId" class="form-control" required>
                       <option value="">Buses </option>
                       <option ng-repeat="y in busList" value="{{y.id}}" >{{y.busNo}}-{{y.busType}}</option>
-                    </select><br>
-
-                    <input  type="number" class="form-control" placeholder="Service No"    ng-model="formData.serviceNo"         required><br>
-                    <span class="text-center">Locations:</span>
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-
-                    <input  type="text"   class="form-control" placeholder="PickUp Point"  ng-model="formData.serviceStartPoint" required>-<input  type="text"   class="form-control" placeholder="Drop Point"    ng-model="formData.serviceDropPoint"  required><br>
+                    </select><br><br>
+                     <input  type="text"   class="form-control" placeholder="PickUp Point"  ng-model="formData.serviceStartPoint" required>-<input  type="text"   class="form-control" placeholder="Drop Point"    ng-model="formData.serviceDropPoint"  required><br>
                     <button type="submit" class="btn btn-success uppercase">Add Routes</button>
 
-                  </div>
-                  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <br><br><br><br>
-                    <br><br>
-                    <!--<input  type="text"   class="form-control" placeholder="Service Name"  ng-model="formData.serviceName"       required><br>-->
-                    <span class="text-center">Start Time:</span>
-                    <br>
-                    <input type="text" class="form-control" name="daterange" value="01/01/2015 - 01/31/2015" />
+                    </div>
+               <div class="col-sm-6">
+                    <input  type="number" class="form-control" placeholder="Service No"    ng-model="formData.serviceNo"         required><br>
+                   <span class="text-center">Start Time:</span>
+                    <input  type="time"   class="form-control"    ng-model="formData.serviceStartTime1"  required><br>
+                    <input  type="time"   class="form-control"    ng-model="formData.serviceStartTime2"  required>
+                   </div>
+                   <br>
+                   <table class="table table-bordered table-striped table-condensed flip-content">
+              <thead flip-content>
+              <tr>
+              <th><a ng-click="sortType = 'serviceNo'; sortReverse = !sortReverse">Service No</a></th>
+              <th><a ng-click="sortType = 'serviceName'; sortReverse = !sortReverse">Service Name</a></th>
+              <th><a ng-click="sortType = 'bus.busNo'; sortReverse = !sortReverse">Bus</a></th>
+              <th ng-show="Admin">Option</th>
+              </tr>
+              </thead>
 
-                    <!--<script type="text/javascript">-->
-                      <!--$(function() {-->
-                        <!--$('input[name="daterange"]').daterangepicker();-->
-                      <!--});-->
-                    <!--</script>-->
-                     <!--<input  type="time"   class="form-control"    ng-model="formData.serviceStartTime1-formData.serviceStartTime2"  required><br>-->
-                    <!--<input  type="time"   class="form-control"    ng-model="formData.serviceStartTime2"  required>-->
+              <tbody>
 
-                  </div>
-              </form>
+              <tr data-ng-repeat="x in serviceList |filter:search | orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
+              <div data-ng-bind-html="x.id">
+              <td>
+                <span ng-mouseover="showRoutes(x)" ng-mouseleave="hideRoutes()">
+                {{x.serviceNo}}
+                </span>
+
+                </td>
+              <td>{{x.serviceName}}</td>
+              <td>{{x.bus.busNo}}</td>
+              <td ng-show="Admin"><div>
+              <i class="glyphicon glyphicon-edit" ng-model="collapsed1" ></i>
+              <i class="glyphicon glyphicon-remove" ng-click="deleteBusService(x)"></i>
               </div>
-              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              </td>
+              </div>
+              </tr>
+              </tbody>
+              </table>
+                  </div>
+                </form>
+
+                                 <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12" style="position: absolute;z-index: 100" ng-show="popoverIsVisible">  
+                <table class="table table-bordered table-striped table-condensed flip-content" style="width:40% ;background-color: grey">
+                          <thead>
+                            <tr>
+                              <th>PickUp</th>
+                              <th>DropUp</th>
+                            </tr>
+                          </thead>
+                <tr  ng-repeat="route in routeDetails">
+                  <td>{{route.startLocation}}[{{route.startTime | date:'HH:mm:ss a'}}]</td> 
+                  <td> {{route.startLocationDrop}}({{route.startTimeDrop | date:'HH:mm:ss a'}}) </td>
+                </tr>
+                </table>
+              </div>
+               </div>
+ <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 
 
                 <table class="table table-bordered table-striped table-condensed flip-content">
@@ -200,7 +235,6 @@
                     <td>Fee</td>
                   </tr>
                   </thead>
-
                   <tr ng-repeat = "receiver in receivers">
                     <td ng-show="Admin"><a ng-click="addRecipient(receiver)"><i class="glyphicon glyphicon-edit"></i></a>
                       <a ng-click="deleteRecipient(receiver)"><i class="glyphicon glyphicon-minus"></i></a>
@@ -217,109 +251,110 @@
                                <button type="submit" class="btn btn-success uppercase"  ng-click="saveRoutes()">Save</button>
 
               </div>
-
+              </div>
             </div>
-            <div class="col-sm-12">
-              <table class="table table-bordered table-striped table-condensed flip-content">
+
+            <!------------------------------------------------------------------------>
+            <!--                               TAB 3                                 ->
+            <!------------------------------------------------------------------------>
+            <div ng-show="isSet(3)">
+              <div class="col-sm-12">
+                {{responseSubscription}}
+                <form ng-submit="addSubscription()">
+                  <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                    <select ng-model="formData.busServiceId" class="form-control" ng-change="setRoutes()" required>
+                      <option value="">Services </option>
+                      <option ng-repeat="x in serviceList" value="{{x.id}}" >{{x.serviceName}}</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+
+                    <select ng-model="formData.classId" class="form-control" ng-change="setStudentList()" required>
+                      <option value="">Classes </option>
+                      <option ng-repeat="y in classList" value="{{y.id}}" >{{y.className}}-{{y.sectionName}}</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+
+                    <select ng-model="formData.studentId" class="form-control" required>
+                      <option value="">Student</option>
+                      <option ng-repeat="w in studentList" value="{{w.id}}" >{{w.firstName}}-{{w.lastName}}</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+
+                    <select ng-model="formData.pickupLocation" class="form-control" required>
+                      <option value="">Routes</option>
+                      <option ng-repeat="z in routesList">{{z.location}}</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+
+                    <button type="submit" class="btn btn-success uppercase">Subscribe</button>
+                  </div>
+                </form>
+
+
+             
+              </div>
+   <div class="col-sm-12">
+                  <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+              <br>
+     
+          <table class="table table-bordered table-striped table-condensed flip-content">
               <thead flip-content>
               <tr>
+              <th><a ng-click="sortType = 'firstName'; sortReverse = !sortReverse">Student Name</a></th>
+              <th><a ng-click="sortType = 'className'; sortReverse = !sortReverse">Class</a></th>
               <th><a ng-click="sortType = 'serviceNo'; sortReverse = !sortReverse">Service No</a></th>
+              
               <th><a ng-click="sortType = 'serviceName'; sortReverse = !sortReverse">Service Name</a></th>
-              <th><a ng-click="sortType = 'bus.busNo'; sortReverse = !sortReverse">Bus</a></th>
+              <th><a ng-click="sortType = 'pickupLocation'; sortReverse = !sortReverse">Pickup</a></th>
               <th ng-show="Admin">Option</th>
               </tr>
               </thead>
 
               <tbody>
 
-              <tr data-ng-repeat="x in serviceList |filter:search | orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
+              <tr data-ng-repeat="x in busSubscriptionList |filter:formData | orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
               <div data-ng-bind-html="x.id">
-              <td  ng-mouseover="showRoutes(x)" ng-mouseleave="hideRoutes()">{{x.serviceNo}}</td>
-              <td>{{x.serviceName}}</td>
-              <td>{{x.bus.busNo}}</td>
-              <td ng-show="Admin"><div>
-              <i class="glyphicon glyphicon-edit" ng-model="collapsed1" ng-click=""></i>
-              <i class="glyphicon glyphicon-remove"  ng-click=""></i>
-              </div>
+              <td >{{x.student.firstName}} {{x.student.lastName}}</td>
+              <td >{{x.student.class.className}}{{x.student.class.sectionName}}</td>
+              <td>{{x.busService.serviceNo}}</td>
+              <td>{{x.busService.serviceName}}</td>
+              
+              <td>{{x.pickupLocation}}</td>
+              
+              <td ng-show="Admin">
+                <button class="btn btn-default uppercase" type=="checkbox" ng-click="removeSubscription(x)" >UnSubscribe</button>
+              
               </td>
               </div>
               </tr>
-              <div style="position: absolute;z-index: 100;background-color: grey" ng-show="popoverIsVisible">
-                <ul ng-repeat="route in routeDetails">
-                  <li>{{route.startLocation}}({{route.startTime | date:'HH:mm:ss a'}})</li>
-                </ul>
-              </div>
-
               </tbody>
               </table>
-            </div>
-
-
-          </div>
-
-          <!------------------------------------------------------------------------>
-          <!--                               TAB 3                                 ->
-          <!------------------------------------------------------------------------>
-          <div ng-show="isSet(3)">
-            <div class="col-sm-12">
-          {{responseSubscription}}
-                  <form ng-submit="addSubscription()">
-                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                    <select ng-model="formData.busServiceId" class="form-control" ng-change="setRoutes()" required>
-                    <option value="">Services </option>
-                    <option ng-repeat="x in serviceList" value="{{x.id}}" >{{x.serviceName}}</option>
-                  </select>
-            </div>
-                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-
-                    <select ng-model="formData.classId" class="form-control" ng-change="setStudentList()" required>
-                    <option value="">Classes </option>
-                    <option ng-repeat="y in classList" value="{{y.id}}" >{{y.className}}-{{y.sectionName}}</option>
-                  </select>
-                      </div>
-                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-
-                    <select ng-model="formData.studentId" class="form-control" required>
-                    <option value="">Student</option>
-                    <option ng-repeat="w in studentList" value="{{w.id}}" >{{w.firstName}}-{{w.lastName}}</option>
-                  </select>
-                      </div>
-                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-
-                    <select ng-model="formData.pickupLocation" class="form-control" required>
-                    <option value="">Routes</option>
-                    <option ng-repeat="z in routesList">{{z.location}}</option>
-                  </select>
-</div>
-                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-
-                    <button type="submit" class="btn btn-success uppercase">Subscribe</button>
-                      </div>
-                  </form>
-
-
-                </div>
-
+   </div>
+   </div>
 
 
             </div>
 
-
+            
           </div>
 
 
 
-          </div>
-
-
-
-    	  </div>
-        <!-- -----------------------------------------------------------------------------Admission Form-------------------------------------------------->
-
+        </div>
 
 
 
       </div>
+      <!-- -----------------------------------------------------------------------------Admission Form-------------------------------------------------->
+
+
+
+
     </div>
   </div>
+</div>
 </div>

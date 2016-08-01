@@ -60,30 +60,6 @@
   <script src="../../assets/global/scripts/metronic.js"      type="text/javascript">                                        </script>
   <script src="../../assets/admin/layout3/scripts/layout.js" type="text/javascript">                                        </script>
   <!-------------------------------------------------------------------------------------------------------------------------------->
-  <!--<script src="/socket.io/socket.io.js"></script>-->
-  <!--<script src="http://code.jquery.com/jquery-1.11.1.js"></script>-->
-  <!--<style>-->
-    <!--* { margin: 0; padding: 0; box-sizing: border-box; }-->
-    <!--body { font: 13px Helvetica, Arial; }-->
-    <!--.c { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }-->
-    <!--.chat { border: 0; padding: 10px; width: 81%; margin-right: .5%; }-->
-    <!--.chatbutton { width: 18%; background: rgb(130, 224, 255); border: none; padding: 10px; }-->
-    <!--#messages { list-style-type: none; margin: 0; padding: 0; }-->
-    <!--#messages li { padding: 5px 10px; }-->
-    <!--#messages li:nth-child(odd) { background: #eee; }-->
-  <!--</style>-->
-  <!--<script>-->
-    <!--var socket = io();-->
-    <!--$('form').submit(function(){-->
-      <!--socket.emit('chat message', $('#m').val());-->
-      <!--$('#m').val('');-->
-      <!--return false;-->
-    <!--});-->
-    <!--socket.on('chat message', function(msg){-->
-      <!--$('#messages').append($('<li>').text(msg));-->
-    <!--});-->
-  <!--</script>-->
-  <!-------------------------------------------------------------------------------------------------------------------------------->
 </head>
 <body>
 <div class="page-header" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px">
@@ -105,7 +81,7 @@
 
 
         <div ng-show ="currentUser" class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-          <img src={{image}} class="logo-default" style="width:100%;
+          <img ng-src={{image}} class="logo-default" style="width:100%;
                         margin: 2px;
                         height: 70px;
                         margin-top: 1px;">
@@ -222,7 +198,12 @@
             <ul class="dropdown-menu pull-left">
               <li><a ui-sref="assignment"><i class="icon-briefcase"></i>Assignments </a></li>
               <li><a ui-sref="attendance"><i class="icon-pointer"></i>Attandance </a></li>
-              <li><a ui-sref="exams"><i class="icon-briefcase"></i>Exams</a></li>
+              <li class="dropdown-submenu"><a><i class="icon-briefcase"></i>Exams</a>
+              <ul class="dropdown-menu">
+              <li><a ui-sref="exams">Exams</a></li>
+              <li><a ui-sref="grades">Grades</a></li>
+            </ul>
+            </li>
               <li><a ui-sref="marks"><i class="icon-briefcase"></i>Marks </a></li>
               <li><a ui-sref="library"><i class="icon-briefcase"></i>Library </a></li>
 

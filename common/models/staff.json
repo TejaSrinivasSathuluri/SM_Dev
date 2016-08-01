@@ -6,12 +6,28 @@
     "validateUpsert": true
   },
   "properties": {
-
-    "firstName":{"type":"String","required":"true" ,"length": 25},
-    "lastName":{"type":"String","required":"true" ,"length": 25},
-    "gender":{"type":"String" , "required":"true","length": 1},
-    "dateofBirth":{"type":"date", "required":"true"},
-    "dateofJoin":{"type":"date"},
+    "firstName": {
+      "type": "String",
+      "required": "true",
+      "length": 25
+    },
+    "lastName": {
+      "type": "String",
+      "required": "true",
+      "length": 25
+    },
+    "gender": {
+      "type": "String",
+      "required": "true",
+      "length": 1
+    },
+    "dateofBirth": {
+      "type": "date",
+      "required": "true"
+    },
+    "dateofJoin": {
+      "type": "date"
+    },
     "RFID": {
       "type": "String",
       "required": "true",
@@ -21,15 +37,20 @@
       "type": "String",
       "length": 30
     },
-    "status":{"type":"String" ,"length": 1},
+    "status": {
+      "type": "String",
+      "length": 1
+    },
     "isDisable": {
       "type": "String",
       "length": 1
     },
     "regId": {
       "type": "String",
-      "required":"true","length": 1
-    },  "currentAddress": {
+      "required": "true",
+      "length": 1
+    },
+    "currentAddress": {
       "type": "String",
       "length": 30
     },
@@ -106,15 +127,21 @@
       "type": "String",
       "required": "true"
     },
-   "qualification": {    "type": "String","length":20    },
-   "qualifiedUniversity": {    "type": "String"    },
-   "percentage": {    "type": "Number" ,"length":2    },
-   "BED": {    "type": "String" ,"length":1   }
-
-
-
-
-
+    "qualification": {
+      "type": "String",
+      "length": 20
+    },
+    "qualifiedUniversity": {
+      "type": "String"
+    },
+    "percentage": {
+      "type": "Number",
+      "length": 2
+    },
+    "BED": {
+      "type": "String",
+      "length": 1
+    }
   },
   "validations": [],
   "relations": {

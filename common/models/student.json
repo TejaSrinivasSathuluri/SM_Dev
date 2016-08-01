@@ -48,86 +48,107 @@
       "length": 30
     },
     "image": {
-      "type": "String","default":""
+      "type": "String",
+      "default": ""
     },
     "nationalIdType": {
       "type": "String",
-      "length": 10,"default":""
+      "length": 10,
+      "default": ""
     },
     "nationalId": {
       "type": "String",
-      "length": 20,"default":""
+      "length": 20,
+      "default": ""
     },
     "contact": {
       "type": "Number",
-      "length": 10,"default":0
+      "length": 10,
+      "default": 0
     },
     "alternateContact": {
       "type": "Number",
-      "length": 10,"default":0
+      "length": 10,
+      "default": 0
     },
     "previousSchool": {
       "type": "String",
-      "length": 30,"default":""
+      "length": 30,
+      "default": ""
     },
     "previousSchoolTC": {
-      "type": "String","default":""
+      "type": "String",
+      "default": ""
     },
     "isDisable": {
       "type": "String",
-      "length": 1,"default":""
+      "length": 1,
+      "default": ""
     },
     "status": {
       "type": "String",
-      "length": 1,"default":""
+      "length": 1,
+      "default": ""
     },
     "religion": {
       "type": "String",
-      "length": 15,"default":""
+      "length": 15,
+      "default": ""
     },
     "caste": {
       "type": "String",
-      "length": 15,"default":""
+      "length": 15,
+      "default": ""
     },
     "subCaste": {
       "type": "String",
-      "length": 15,"default":""
+      "length": 15,
+      "default": ""
     },
     "motherTounge": {
       "type": "String",
-      "length": 15,"default":""
+      "length": 15,
+      "default": ""
     },
     "currentAddress": {
       "type": "String",
-      "length": 30,"default":""
+      "length": 30,
+      "default": ""
     },
     "currentCity": {
       "type": "String",
-      "length": 30,"default":""
+      "length": 30,
+      "default": ""
     },
     "currentState": {
       "type": "String",
-      "length": 30,"default":""
+      "length": 30,
+      "default": ""
     },
     "currentPincode": {
       "type": "Number",
-      "length": 6,"default":999999
+      "length": 6,
+      "default": 999999
     },
     "permanentAddress": {
       "type": "String",
-      "length": 30,"default":""
+      "length": 30,
+      "default": ""
     },
     "permanentCity": {
       "type": "String",
-      "length": 30,"default":""
+      "length": 30,
+      "default": ""
     },
     "permanentState": {
       "type": "String",
-      "length": 30,"default":""
+      "length": 30,
+      "default": ""
     },
     "permanentPincode": {
       "type": "Number",
-      "length": 6,"default":999999
+      "length": 6,
+      "default": 999999
     },
     "type": {
       "type": "String"
@@ -135,10 +156,26 @@
     "created": {
       "type": "date"
     },
-    "fatherName":{ "type":"String", "length":25 ,"default":""},
-    "fatherContact":{ "type":"Number", "length":10 ,"default":0},
-    "motherName":{ "type":"String", "length":25,"default":"" },
-    "motherContact":{ "type":"Number", "length":10,"default":0 }
+    "fatherName": {
+      "type": "String",
+      "length": 25,
+      "default": ""
+    },
+    "fatherContact": {
+      "type": "Number",
+      "length": 10,
+      "default": 0
+    },
+    "motherName": {
+      "type": "String",
+      "length": 25,
+      "default": ""
+    },
+    "motherContact": {
+      "type": "Number",
+      "length": 10,
+      "default": 0
+    }
   },
   "validations": [],
   "relations": {

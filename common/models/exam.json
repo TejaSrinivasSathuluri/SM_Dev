@@ -6,7 +6,11 @@
     "validateUpsert": true
   },
   "properties": {
-    "examDate": {
+    "toDate": {
+      "type": "date",
+      "required": "true"
+    },
+    "fromDate": {
       "type": "date",
       "required": "true"
     },
@@ -33,35 +37,7 @@
       "accessType": "*",
       "principalType": "ROLE",
       "principalId": "$everyone",
-      "permission": "DENY"
-    },
-    {
-      "accessType": "EXECUTE",
-      "principalType": "ROLE",
-      "principalId": "$authenticated",
-      "permission": "ALLOW",
-      "property": "find"
-    },
-    {
-      "accessType": "EXECUTE",
-      "principalType": "ROLE",
-      "principalId": "$authenticated",
-      "permission": "ALLOW",
-      "property": "findOne"
-    },
-    {
-      "accessType": "EXECUTE",
-      "principalType": "ROLE",
-      "principalId": "$authenticated",
-      "permission": "ALLOW",
-      "property": "create"
-    },
-    {
-      "accessType": "EXECUTE",
-      "principalType": "ROLE",
-      "principalId": "$authenticated",
-      "permission": "ALLOW",
-      "property": "deleteById"
+      "permission": "ALLOW"
     }
   ],
   "methods": {}
