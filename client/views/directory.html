@@ -322,15 +322,12 @@
         <div class="col-sm-4"></div>
       </div>
       <div class="col-sm-12">
-        <div class="col-sm-6"><input  type="text" class="form-control" placeholder="First Name*"  ng-model="formData.firstName" ng-mouseover="tag1=true" ng-mouseleave="tag1=false"   required><div class="tag1" ng-show="tag1">Enter First Name</div><br></div>
-        <div class="col-sm-6"><input  type="text" class="form-control" placeholder="Last Name*"   ng-model="formData.lastName"   ng-mouseover="tag2=true" ng-mouseleave="tag2=false"   required ><div class="tag2" ng-show="tag2">Enter Last  Name</div><br></div>
+        <div class="col-sm-6"><input  type="text" class="form-control" placeholder="First Name*"  ng-model="formData.firstName"  minlength="1" maxlength="25" ng-mouseover="tag1=true" ng-mouseleave="tag1=false"   required> <div class="tag1" ng-show="tag1">Enter First Name</div><br></div>
+        <div class="col-sm-6"><input  type="text" class="form-control" placeholder="Last Name*"   ng-model="formData.lastName"   minlength="1" maxlength="25" ng-mouseover="tag2=true" ng-mouseleave="tag2=false"   required> <div class="tag2" ng-show="tag2">Enter Last  Name</div><br></div>
       </div>
       <div class="col-sm-12">
-        <div class="col-sm-6"><input  type="email" class="form-control" placeholder="Email*"    ng-change="checkEmail('S')"   ng-model="formData.email"      ng-mouseover="tag3=true" ng-mouseleave="tag3=false"   required>
-
-          <div class="tag3" ng-show="tag3">Enter Email   </div><br>
-        </div>
-        <div class="col-sm-6"><input  type="password" class="form-control" placeholder="Password*"    ng-model="formData.password"   ng-mouseover="tag4=true" ng-mouseleave="tag4=false"   required><div class="tag4" ng-show="tag4">Enter Password</div><br></div>
+        <div class="col-sm-6"><input  type="email"    class="form-control" placeholder="Email*"    ng-model="formData.email"      ng-mouseover="tag3=true" ng-mouseleave="tag3=false"   required><div class="tag3" ng-show="tag3">Enter Email   </div><br></div>
+        <div class="col-sm-6"><input  type="password" class="form-control" placeholder="Password*" ng-model="formData.password"   minlength="6" maxlength="20" ng-mouseover="tag4=true" ng-mouseleave="tag4=false"   required><div class="tag4" ng-show="tag4">Enter Password</div><br></div>
       </div>
       <div class="col-sm-12">
 
@@ -339,16 +336,13 @@
           <option value="F">Female</option>
           <option value="M">Male</option>
         </select > <br></div>
-
-        <!--<div class="col-sm-6"><input  type="date" class="form-control" ng-model="formData.dateofBirth"  ng-mouseover="tag7=true" ng-mouseleave="tag7=false"   required>	<div class="tag7" ng-show="tag7">Date Of Birth</div><br></div>-->
         <div class="col-sm-6">
           <input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control" ng-model="formData.dateofBirth"  ng-mouseover="tag7=true" ng-mouseleave="tag7=false"   required>
           <div class="tag7" ng-show="tag7">Date Of Birth</div><br></div>
 
       </div>
       <div class="col-sm-12">
-        <span ng-show="RollnoExists" style="color:red">Roll Number Already Exists</span>
-
+        <text ng-show="RollnoExists" style="color:red">Roll Number Already Exists</text>
         <div class="col-sm-6"><select class="form-control" ng-model="formData.classId" ng-change="checkRollnoExists()"  required>
           <option value="">Class-Section*</option>
           <option ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
@@ -370,17 +364,14 @@
         <div class="col-sm-6"><input type = "file" file-model = "formData.TC" class="form-control" ng-mouseover="tag12=true" ng-mouseleave="tag12=false"	 ><br></div><div class="tag12" ng-show="tag12">Previous School TC</div><br>
       </div>
       <div class="col-sm-12">
-        <div class="col-sm-12">
-          <div class="col-sm-4"></div>
-          <div class="col-sm-4"><h5><b>Personal Info</b></h5></div>
-          <div class="col-sm-4"></div>
+        <div class="col-sm-12">Personal Info
         </div>
         <br><br>
         <div class="col-sm-6">
           <input  type="text" class="form-control" placeholder="Permanent Address"   ng-model="formData.permanentAddress"   	ng-mouseover="tag15=true" ng-mouseleave="tag15=false"   ><div class="tag15" ng-show="tag15">Permanent Address</div><br>
           <input  type="text" class="form-control" placeholder="Permanent City"      ng-model="formData.permanentCity"   		ng-mouseover="tag16=true" ng-mouseleave="tag16=false"   ><div class="tag16" ng-show="tag16">Permanent City</div><br>
           <input  type="text" class="form-control" placeholder="Permanent State"     ng-model="formData.permanentState"   		ng-mouseover="tag17=true" ng-mouseleave="tag17=false"   ><div class="tag17" ng-show="tag17">Permanent State</div><br>
-          <input  type="number" class="form-control" placeholder="Permanent Pincode"   ng-model="formData.permanentPincode"   	ng-mouseover="tag18=true" ng-mouseleave="tag18=false"   ><div class="tag18" ng-show="tag18">Permanent Pincode</div><br>
+          <input  type="number" class="form-control" placeholder="Permanent Pincode" min="1" maxlength="6" max="999999" ng-model="formData.permanentPincode"   	ng-mouseover="tag18=true" ng-mouseleave="tag18=false"   ><div class="tag18" ng-show="tag18">Permanent Pincode</div><br>
           <select class="form-control"   ng-model="formData.bloodGroup"   required  >
             <option value="">Blood Group*</option>
             <option value="A+"> A+  </option>  <option value="A-"> A- </option>
@@ -395,13 +386,13 @@
           </select > <br>
           <input  type="text" class="form-control" placeholder="National ID Number"    		ng-model="formData.nationalId"   		  ng-mouseover="tag27=true" ng-mouseleave="tag27=false"   ><div class="tag27" ng-show="tag27">National ID</div><br>
           <input  type="text" class="form-control" placeholder="Mother Tounge"       ng-model="formData.motherTounge"   		  ng-mouseover="tag20=true" ng-mouseleave="tag20=false"   ><div class="tag20" ng-show="tag20">Mother Tounge</div><br>
-          <input  type="number" class="form-control" placeholder="Contact Number"     min="0"  max="9999999999"   ng-model="formData.contact"   			    ng-mouseover="tag22=true" ng-mouseleave="tag22=false"   ><div class="tag22" ng-show="tag22">Contact Number</div><br>
+          <input  type="number" class="form-control" placeholder="Contact Number"     min="0"  max="9999999999" minlength="10" maxlength="10"   ng-model="formData.contact"   			    ng-mouseover="tag22=true" ng-mouseleave="tag22=false"   ><div class="tag22" ng-show="tag22">Contact Number</div><br>
         </div>
         <div class="col-sm-6">
           <input  type="text" class="form-control" placeholder="Current Address"   	ng-model="formData.currentAddress"   	ng-mouseover="tag23=true" ng-mouseleave="tag23=false"   ><div class="tag23" ng-show="tag23">Current Address</div><br>
           <input  type="text" class="form-control" placeholder="Current City"      	ng-model="formData.currentCity"   		  ng-mouseover="tag24=true" ng-mouseleave="tag24=false"   ><div class="tag24" ng-show="tag24">Current City</div><br>
           <input  type="text" class="form-control" placeholder="Current State"     	ng-model="formData.currentState"   		ng-mouseover="tag25=true" ng-mouseleave="tag25=false"   ><div class="tag25" ng-show="tag25">Current State</div><br>
-          <input  type="number" class="form-control" placeholder="Current Pincode"   	ng-model="formData.currentPincode"   	ng-mouseover="tag26=true" ng-mouseleave="tag26=false"   ><div class="tag26" ng-show="tag26">Current Pincode</div><br>
+          <input  type="number" class="form-control" placeholder="Current Pincode"   min="1" maxlength="6" max="999999"	ng-model="formData.currentPincode"   	ng-mouseover="tag26=true" ng-mouseleave="tag26=false"   ><div class="tag26" ng-show="tag26">Current Pincode</div><br>
           <input  type="text" class="form-control" placeholder="Caste"   		     	ng-model="formData.caste"   				      ng-mouseover="tag30=true" ng-mouseleave="tag30=false"   ><div class="tag30" ng-show="tag30">Caste</div><br>
 
           <input  type="text" class="form-control" placeholder="SubCaste"   		   ng-model="formData.subCaste"   			      ng-mouseover="tag21=true" ng-mouseleave="tag21=false"   ><div class="tag21" ng-show="tag21">SubCaste</div><br>
@@ -411,31 +402,29 @@
             <option value="Y">Yes</option>
             <option value="N">No</option>
           </select > <br>
-          <input  type="number" class="form-control" placeholder="Alternate Contact No" ng-model="formData.alternateContact"    min="0"  max="9999999999" 	ng-mouseover="tag31=true" ng-mouseleave="tag31=false"   ><div class="tag31" ng-show="tag31">Alternate Contact Number</div><br>
+          <input  type="number" class="form-control" placeholder="Alternate Contact No" ng-model="formData.alternateContact" min="0"  max="9999999999" minlength="10" maxlength="10"	ng-mouseover="tag31=true" ng-mouseleave="tag31=false"   ><div class="tag31" ng-show="tag31">Alternate Contact Number</div><br>
 
         </div>
         </div>
-        <div class="col-sm-12">
-          <div class="col-sm-6"><input  type="text" class="form-control" placeholder="Father Name*"      ng-model="formData.fatherName"      ng-mouseover="tag34=true" ng-mouseleave="tag34=false"  >
+    <div class="col-sm-12">
+      <div class="col-sm-6"><input  type="text" class="form-control" placeholder="Father Name"      ng-model="formData.fatherName"      ng-mouseover="tag34=true" ng-mouseleave="tag34=false">
+        <div class="tag3" ng-show="tag34">Enter Father Name   </div><br>
+      </div>
+      <div class="col-sm-6"><input  type="text" class="form-control" placeholder="Mother Name"      ng-model="formData.motherName"      ng-mouseover="tag35=true" ng-mouseleave="tag35=false"   >
 
-            <div class="tag3" ng-show="tag34">Enter Father Name   </div><br>
-          </div>
-          <div class="col-sm-6"><input  type="text" class="form-control" placeholder="Mother Name*"      ng-model="formData.motherName"      ng-mouseover="tag35=true" ng-mouseleave="tag35=false"   >
+        <div class="tag3" ng-show="tag35">Enter Mother Name   </div><br>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="col-sm-6"><input  type="email" class="form-control" placeholder="Father Contact"      ng-model="formData.fatherContact"      ng-mouseover="tag32=true" ng-mouseleave="tag32=false"  >
 
-            <div class="tag3" ng-show="tag35">Enter Mother Name   </div><br>
-          </div>
-        </div>
-      <div class="col-sm-12">
-          <div class="col-sm-6"><input  type="email" class="form-control" placeholder="Father Email"      ng-model="formData.fatherEmail"      ng-mouseover="tag32=true" ng-mouseleave="tag32=false"  >
+        <div class="tag3" ng-show="tag32">Enter Father Email   </div><br>
+      </div>
+      <div class="col-sm-6"><input  type="email" class="form-control" placeholder="Mother Contact"      ng-model="formData.motherContact"      ng-mouseover="tag33=true" ng-mouseleave="tag33=false"   >
 
-            <div class="tag3" ng-show="tag32">Enter Father Email   </div><br>
-          </div>
-          <div class="col-sm-6"><input  type="email" class="form-control" placeholder="Mother Email"      ng-model="formData.motherEmail"      ng-mouseover="tag33=true" ng-mouseleave="tag33=false"   >
-
-            <div class="tag3" ng-show="tag33">Enter Mother Email   </div><br>
-          </div>
-        </div>
-
+        <div class="tag3" ng-show="tag33">Enter Mother Email   </div><br>
+      </div>
+    </div>
       <div class="col-sm-12">
       <button type="submit" class="btn btn-success uppercase">Create</button>
       <button type="button" class="btn btn-success uppercase pull-right" ng-click=closeThisDialog("Cancel")>Cancel</button>
@@ -529,38 +518,33 @@
         <div class="col-sm-6">
           <input  type="text" class="form-control" placeholder="Status"     ng-model="editData.status"        > <br>
         </div>
-
         <div class="col-sm-6">
-
           <input  type="text" class="form-control" placeholder="isDisabled" ng-model="editData.isDisable"     ><br>
         </div>
       </div>
+
       <div class="col-sm-12">
-        <div class="col-sm-12">
-          <div class="col-sm-2"></div>
-          <div class="col-sm-9"><h4><b>Personal Information</b></h4></div>
-          <div class="col-sm-1"></div>
-        </div>
+        <div class="col-sm-12"><div class="col-sm-2"></div><div class="col-sm-9"><h4><b>Personal Information</b></h4></div><div class="col-sm-1"></div></div>
         <br><br>
         <div class="col-sm-6">
-          <input  type="text" class="form-control" placeholder="Permanent Address"   ng-model="editData.permanentAddress"    ><br>
-          <input  type="text" class="form-control" placeholder="Permanent City"      ng-model="editData.permanentCity"      ><br>
-          <input  type="text" class="form-control" placeholder="Permanent State"     ng-model="editData.permanentState"     ><br>
-          <input  type="text" class="form-control" placeholder="Permanent Pincode"   ng-model="editData.permanentPincode"    ><br>
-          <input  type="text" class="form-control" placeholder="National ID Type"    ng-model="editData.nationalIdType"     ><br>
-          <input  type="text" class="form-control" placeholder="Mother Tounge"       ng-model="editData.motherTounge"   	    ><br>
-          <input  type="text" class="form-control" placeholder="SubCaste"   		     ng-model="editData.subCaste"   			   ><br>
+          <input  type="text"   class="form-control" placeholder="Permanent Address"   ng-model="editData.permanentAddress"><br>
+          <input  type="text"   class="form-control" placeholder="Permanent City"      ng-model="editData.permanentCity"><br>
+          <input  type="text"   class="form-control" placeholder="Permanent State"     ng-model="editData.permanentState"><br>
+          <input  type="text"   class="form-control" placeholder="Permanent Pincode"   ng-model="editData.permanentPincode"><br>
+          <input  type="text"   class="form-control" placeholder="National ID Type"    ng-model="editData.nationalIdType"><br>
+          <input  type="text"   class="form-control" placeholder="Mother Tounge"       ng-model="editData.motherTounge"><br>
+          <input  type="text"   class="form-control" placeholder="SubCaste"   		     ng-model="editData.subCaste"><br>
           <input  type="number" class="form-control" placeholder="Contact Number"    min="0"  max="9999999999"   ng-model="editData.contact" >           <br>
         </div>
         <div class="col-sm-6">
-          <input  type="text" class="form-control" placeholder="Current Address"   	ng-model="editData.currentAddress"   	 > <br>
-          <input  type="text" class="form-control" placeholder="Current City"      	ng-model="editData.currentCity"   		   > <br>
-          <input  type="text" class="form-control" placeholder="Current State"     	ng-model="editData.currentState"   		 > <br>
-          <input  type="text" class="form-control" placeholder="Current Pincode"   	ng-model="editData.currentPincode"   	 > <br>
-          <input  type="text" class="form-control" placeholder="National ID"    		ng-model="editData.nationalId"   		   > <br>
+          <input  type="text" class="form-control" placeholder="Current Address"   	ng-model="editData.currentAddress"> <br>
+          <input  type="text" class="form-control" placeholder="Current City"      	ng-model="editData.currentCity"> <br>
+          <input  type="text" class="form-control" placeholder="Current State"     	ng-model="editData.currentState"> <br>
+          <input  type="text" class="form-control" placeholder="Current Pincode"   	ng-model="editData.currentPincode"> <br>
+          <input  type="text" class="form-control" placeholder="National ID"    		ng-model="editData.nationalId"> <br>
           <input  type="text" class="form-control" placeholder="Blood Group*"    	 	ng-model="editData.bloodGroup" required > <br>
-          <input  type="text" class="form-control" placeholder="Religion"       	 	ng-model="editData.religion"   			   > <br>
-          <input  type="text" class="form-control" placeholder="Caste"   		     	ng-model="editData.caste"   				       > <br>
+          <input  type="text" class="form-control" placeholder="Religion"       	 	ng-model="editData.religion"> <br>
+          <input  type="text" class="form-control" placeholder="Caste"   		       	ng-model="editData.caste"> <br>
 
         </div>
       </div>
@@ -595,48 +579,53 @@
 <!-------------------------------------------View Form Templates------------------------------------------------------------------------------------->
 <script type="text/ng-template" id="showStudent">
 
-  <div class = "panel panel-primary">
-      <div class="panel-heading ng-binding text-center" style="background-color: rgba(31, 73, 125, 0.74);">
-        Student Information
-        <div>
-          <table>
-            <tbody class="col-sm-12">
-            <td class="col-sm-1">
-              <img style="height: 150px;width: 120px" src="{{formData.image}}">
-            </td>
-            <td  class="col-sm-3 pull-left">
-
-                <ul style="padding: 0px;">{{formData.firstName}} {{formData.lastName}}</ul>
-                <ul style="padding: 0px;"> {{formData.rollNo}}</ul>
-                <ul style="padding: 0px;">                 {{formData.class.className}}-{{formData.class.sectionName}}</ul>
-                <ul style="padding: 0px;">               {{formData.email}}</ul>
-              <ul style="padding: 0px;">                {{formData.contact}} </ul>
-
-            </td>
-            <td class="col-sm-1 pull-right">
-              <ul style="padding: 0px;">                <i class="fa fa-facebook-square" style="font-size: 1.5em;"  ></i></ul>
-              <ul style="padding: 0px;">              <i class="fa fa-envelope-o" style="font-size: 1.5em;"  aria-hidden="true"></i></ul>
-              <ul style="padding: 0px;">               <i class="fa fa-comments-o text-" style="font-size: 1.5em;" ></i></ul>
-            </td>
-            <td style="padding: 0px;" class="col-sm-4 pull-left">
-              <!--<ul style="padding: 0px;">	Current Address  : {{	formData.currentAddress   }}                   </ul>-->
-              <!--<ul style="padding: 0px;">	Current City :{{	formData.currentCity      }}               </ul>-->
-              <!--<ul style="padding: 0px;">  Current State :{{	formData.currentState     }}                                      </ul>-->
-              <!--<ul style="padding: 0px;">  CurrentPincode :{{	formData.currentPincode   }}             </ul>-->
-              <!---->
-              <ul>	 <strong>Address</strong>                     </ul>
-              <ul>	  {{	formData.currentAddress   }}                   </ul>
-              <ul>	 {{	formData.currentCity      }}               </ul>
-              <ul>   {{	formData.currentState     }}                                      </ul>
-              <ul>   {{	formData.currentPincode   }}             </ul>
-            </td>
-            </tr>
-            </tbody>
-          </table>
-
-         </div>
+  <div class = "">
+    <div class = "col-sm-12" style="color: #D8E3F2;background-color: #428bca; border-color: #3595bd;">
+      <center>Student Information</center>
+          <div class="col-sm-3" style="top: -10px;">
+            <img style="height: 150px;width: 120px;" src="{{formData.image}}"/>
+          </div>
+          <div class="col-sm-4">
+            <span>{{formData.firstName}} {{formData.lastName}} </span>
+            <br>
+            <span>{{formData.rollNo}}</span>
+            <br>
+            <span>{{formData.class.className}}-{{formData.class.sectionName}}  </span>
+            <br>
+            <span>{{formData.email}}     </span>
+            <br>
+            <span>{{formData.contact}}</span>
+          </div>
+      <div class="col-sm-2">
+        <i class="fa fa-facebook-square" style="font-size: 1.5em;"  ></i>
+        <br>
+        <br>
+        <i class="fa fa-envelope-o" style="font-size: 1.5em;"  aria-hidden="true"></i>
+        <br>
+        <br>
+        <i class="fa fa-comments-o text-" style="font-size: 1.5em;" ></i>
+      </div>
+      <div class="col-sm-3">
+        <strong>Address</strong>
+        <br><br>
+        {{ formData.currentAddress   }}
+        <br>
+        {{ formData.currentCity      }}
+        <br>
+        {{ formData.currentState     }}
+        <br>
+        {{ formData.currentPincode   }}
       </div>
     </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <button class="btn btn-default" ng-class="{ active: isSet(1) }" href ng-click="setTab(1)">Personal Info</button>
     <button class="btn btn-default" ng-class="{ active: isSet(2) }" href ng-click="setTab(2)">Attendance</button>
     <button class="btn btn-default" ng-class="{ active: isSet(3) }" href ng-click="setTab(4)">Marks</button>
@@ -647,16 +636,16 @@
 
     <div ng-show="isSet(1)">
       <table class="table table-hover table-bordered table-striped table-condensed flip-content">
-        <tr>           <th >	DateofBirth     :</th>       <td >{{	formData.dateofBirth | date:'MMM dd'      }}</td> </tr>
-        <tr>           <th >	DateofJoin      :</th>       <td >{{	formData.dateofJoin   | date:'MMM dd yyyy'   }}</td> </tr>
+        <tr>           <th >	DateofBirth     :</th>        <td >{{	formData.dateofBirth | date:'MMM dd'      }}</td> </tr>
+        <tr>           <th >	DateofJoin      :</th>        <td >{{	formData.dateofJoin   | date:'MMM dd yyyy'   }}</td> </tr>
         <tr>           <th >	BloodGroup      :</th>        <td >{{	formData.bloodGroup       }}                 </td> </tr>
         <tr>           <th >	MotherTounge    :</th>        <td >{{	formData.motherTounge     }}                 </td> </tr>
         <tr>           <th >	Father Name :</th>            <td >{{	formData.fatherName      }}                 </td> </tr>
         <tr>           <th >	Mother Name :</th>            <td >{{	formData.motherName      }}                 </td> </tr>
         <tr>           <th >	Father Email:</th>            <td >{{	formData.fatherEmail      }}                 </td> </tr>
         <tr>           <th >	Mother Email:</th>            <td >{{	formData.fatherEmail      }}                 </td> </tr>
-        <tr>           <th >	Father Mobile:</th>            <td >{{	formData.fatherContact      }}                 </td> </tr>
-        <tr>           <th >	Mother Mobile:</th>            <td >{{	formData.motherContact      }}              </td>    </tr>
+        <tr>           <th >	Father Mobile:</th>           <td >{{	formData.fatherContact      }}                 </td> </tr>
+        <tr>           <th >	Mother Mobile:</th>           <td >{{	formData.motherContact      }}              </td>    </tr>
 
       </table>
     </div>

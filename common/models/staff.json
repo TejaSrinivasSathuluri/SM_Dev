@@ -6,8 +6,141 @@
     "validateUpsert": true
   },
   "properties": {
+    "firstName": {
+      "type": "String",
+      "required": "true",
+      "length": 25
+    },
+    "lastName": {
+      "type": "String",
+      "required": "true",
+      "length": 25
+    },
+    "gender": {
+      "type": "String",
+      "required": "true",
+      "length": 1
+    },
+    "dateofBirth": {
+      "type": "date",
+      "required": "true"
+    },
+    "dateofJoin": {
+      "type": "date"
+    },
+    "RFID": {
+      "type": "String",
+      "required": "true",
+      "length": 30
+    },
+    "previousSchool": {
+      "type": "String",
+      "length": 30
+    },
+    "status": {
+      "type": "String",
+      "length": 1
+    },
+    "isDisable": {
+      "type": "String",
+      "length": 1
+    },
+    "regId": {
+      "type": "String",
+      "required": "true",
+      "length": 1
+    },
     "currentAddress": {
+      "type": "String",
+      "length": 30
+    },
+    "currentCity": {
+      "type": "String",
+      "length": 30
+    },
+    "currentState": {
+      "type": "String",
+      "length": 30
+    },
+    "currentPincode": {
+      "type": "Number",
+      "length": 6
+    },
+    "permanentAddress": {
+      "type": "String",
+      "length": 30
+    },
+    "permanentCity": {
+      "type": "String",
+      "length": 30
+    },
+    "permanentState": {
+      "type": "String",
+      "length": 30
+    },
+    "permanentPincode": {
+      "type": "Number",
+      "length": 6
+    },
+    "type": {
       "type": "String"
+    },
+    "created": {
+      "type": "date"
+    },
+    "religion": {
+      "type": "String",
+      "length": 15
+    },
+    "caste": {
+      "type": "String",
+      "length": 15
+    },
+    "subCaste": {
+      "type": "String",
+      "length": 15
+    },
+    "motherTounge": {
+      "type": "String",
+      "length": 15
+    },
+    "image": {
+      "type": "String"
+    },
+    "nationalIdType": {
+      "type": "String",
+      "length": 10
+    },
+    "nationalId": {
+      "type": "String",
+      "length": 20
+    },
+    "contact": {
+      "type": "Number",
+      "length": 10
+    },
+    "alternateContact": {
+      "type": "Number",
+      "length": 10
+    },
+    "bloodGroup": {
+      "type": "String",
+      "required": "true"
+    },
+    "qualification": {
+      "type": "String",
+      "length": 20
+    },
+    "qualifiedUniversity": {
+      "type": "String"
+    },
+    "percentage": {
+      "type": "Number",
+      "length": 2
+    },
+    "BED": {
+      "type": "String",
+      "length": 1
     }
   },
   "validations": [],

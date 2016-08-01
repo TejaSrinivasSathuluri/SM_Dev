@@ -11,13 +11,13 @@
   <div class="ngdialog-message">
     <h3>Edit Book</h3>
     <div class="ngdialog-contents">
-      <form>
-        <input  type="text" class="form-control"   placeholder="Name"   ng-value="name"    ng-model="formData.name" ng-mouseover="tag1=true" required ng-mouseleave="tag1=false"><div class="tag1" ng-show="tag1">Name</div><br>
-        <input  type="text" class="form-control"   placeholder="Author"  ng-value="author"      required        ng-model="formData.author" ng-mouseover="tag2=true" ng-mouseleave="tag2=false"><div class="tag2" ng-show="tag2">Author</div><br>
+      <form ng-submit="closeThisDialog(formData)">
+        <input  type="text" class="form-control" maxlength="50" minlength="1"    placeholder="Name"   ng-value="name"    ng-model="formData.name" ng-mouseover="tag1=true" required ng-mouseleave="tag1=false"><div class="tag1" ng-show="tag1">Name</div><br>
+        <input  type="text" class="form-control"   placeholder="Author" maxlength="30" minlength="1"  ng-value="author"      required        ng-model="formData.author" ng-mouseover="tag2=true" ng-mouseleave="tag2=false"><div class="tag2" ng-show="tag2">Author</div><br>
         <textarea rows="4" cols="50" class="form-control" placeholder="Description"  required ng-model="formData.description" ng-mouseover="tag3=true" ng-mouseleave="tag3=false"></textarea><div class="tag3" ng-show="tag3">Description</div><br>
-        <input  type="number" class="form-control" placeholder="Price"      ng-value="price"      required     ng-model="formData.price" ng-mouseover="tag4=true" ng-mouseleave="tag4=false"><div class="tag4" ng-show="tag4">Price</div><br>
+        <input  type="number" class="form-control" placeholder="Price"      ng-value="price" minlength="1" maxlength="4" min="1" max="9999"    required     ng-model="formData.price" ng-mouseover="tag4=true" ng-mouseleave="tag4=false"><div class="tag4" ng-show="tag4">Price</div><br>
         <input  type="number" class="form-control" placeholder="No.of Books Available" ng-value="available" required ng-model="formData.available" ng-mouseover="tag5=true" ng-mouseleave="tag5=false"><div class="tag5" ng-show="tag5">No.Of Books Available</div><br>
-        <button type="submit" class="btn btn-success uppercase" ng-click=confirm(formData)>Save</button>
+        <button type="submit" class="btn btn-success uppercase">Save</button>
         <button type="button" class="btn btn-success uppercase" ng-click=closeThisDialog("Cancel")>Cancel</button>
 
       </form>
@@ -28,15 +28,15 @@
 <script type="text/ng-template" id="addBook">
   <div class="ngdialog-message">
     <h1>Add Book</h1>
-    <form ng-submit="confirm(formData)">
+    <form ng-submit="closeThisDialog(formData)">
       <div>
-        <input  type="text" class="form-control" placeholder="Name"    ng-model="formData.name"   required><br>
-        <input  type="text" class="form-control" placeholder="Author " ng-model="formData.author" required></input><br>
+        <input  type="text" class="form-control" placeholder="Name" maxlength="50" minlength="1"   ng-model="formData.name"   required><br>
+        <input  type="text" class="form-control" placeholder="Author " maxlength="30" minlength="1" ng-model="formData.author" required></input><br>
         <textarea rows="4" cols="50" class="form-control" placeholder="Description"  required ng-model="formData.description" ng-mouseover="tag3=true" ng-mouseleave="tag3=false"></textarea><div class="tag3" ng-show="tag3">Description</div><br>
 
-        <input  type="number" class="form-control" placeholder="Price"      ng-value="price"      required     ng-model="formData.price" ng-mouseover="tag4=true" ng-mouseleave="tag4=false"><div class="tag4" ng-show="tag4">Price</div><br>
+        <input  type="number" class="form-control" placeholder="Price"      ng-value="price"   minlength="1" maxlength="4" min="1" max="9999"   required     ng-model="formData.price" ng-mouseover="tag4=true" ng-mouseleave="tag4=false"><div class="tag4" ng-show="tag4">Price</div><br>
         <input  type="number" class="form-control" placeholder="No.of Books Available" ng-value="available" required ng-model="formData.available" ng-mouseover="tag5=true" ng-mouseleave="tag5=false"><div class="tag5" ng-show="tag5">No.Of Books Available</div><br>
-        <button type="submit" class="btn btn-success uppercase" ng-click=confirm(formData)>Save</button>
+        <button type="submit" class="btn btn-success uppercase">Save</button>
         <button type="button" class="btn btn-success uppercase" ng-click=closeThisDialog("Cancel")>Cancel</button>
 
 
@@ -76,7 +76,9 @@
 
 
               <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12"  style="height:260px;overflow-y:auto;" >
-			               <p  style="color:red">{{responseAddLibrary}} </p>
+			               <div class="alert alert-success"  ng-show ="success"   >{{responseAddLibrary}} </div>
+			               <div  class="alert alert-error" ng-show ="error" >{{responseAddLibrary}} </div>
+                     
                 <table class="table table-bordered table-striped table-condensed flip-content">
                   <thead flip-content>
                   <tr>
