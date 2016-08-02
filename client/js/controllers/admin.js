@@ -565,14 +565,10 @@ angular
 
                       },
                       function () {
-
                         $scope.response = 'Student Updated Successfully';
                         $scope.error = true;
-
                         setTimeout( function()
                         {
-                          $state.go($state.current, {}, {reload: true});
-                          $scope.$apply();
                         }, 1000 );
                       },
                       function (response) {
@@ -634,7 +630,6 @@ angular
 
                           },
                           function () {
-
                             $scope.response = 'Student Updated Successfully';
                             $scope.error = true;
 
@@ -656,7 +651,12 @@ angular
 
                 },
                 function (value) {
-
+                            $scope.response = 'Student Not Updated.Please Check All The Fields';
+                            $scope.error =true ;   
+                            setTimeout( function()
+                            {
+                              $scope.error = false;
+                            }, 1000 );                         
                 }
               );
             }
@@ -826,29 +826,40 @@ angular
 							   if (x.type == "Student")    {
 										Student.delete({id: x.id}, function ()
                     {
-                              $scope.resultStudentParent = StudentParent.find({
-                                filter: {
-                                  where: {
-                                  studentId: x.id,
-                                  schoolId: $scope.schoolId
-                                  }
-                                }
-                                }, function (response) {
-                                    response.forEach(function (resultStudentParent) {
-                                    var p = resultStudentParent.toJSON();
-                                    StudentParent.deleteById({id: p.id}, function () {
-                                    console.log('deleting student and student relation with parent');
-                                    $state.go($state.current, {}, {reload: true});
-                                    }, function (response) {
-                                    console.log(response.data.error.message);
-                                    });
-                                  });
-                                  $state.go($state.current, {}, {reload: true});
-                                  },
-                                  function (response) {
-                                  console.log(response.data.error.message);
-                                  }
-                                  );
+                                           $scope.error = true;
+                      
+                       $scope.response = 'Student Deleted Successfully';
+                        setTimeout(function() {
+                          $scope.response = null;
+                          $scope.error = false;
+                          $scope.processSearch();
+                          
+                        }, 1000);                                           
+                              // $scope.resultStudentParent = StudentParent.find({
+                              //   filter: {
+                              //     where: {
+                              //     studentId: x.id,
+                              //     schoolId: $scope.schoolId
+                              //     }
+                              //   }
+                              //   }, function (response) 
+                              //           {
+                              //             //   response.forEach(function (resultStudentParent) 
+                              //             //   {
+                              //             //   var p = resultStudentParent.toJSON();
+                              //             //   StudentParent.deleteById({id: p.id}, function () {
+                              //             //        console.log('deleting student and student relation with parent');
+                              //             //        $state.go($state.current, {}, {reload: true});
+                              //             //       }, function (response) { console.log(response.data.error.message);});
+                              //             //   });
+                              //             // $state.go($state.current, {}, {reload: true});
+                              //             // },
+                              //             // function (response) {
+                              //             // console.log(response.data.error.message);
+                                          
+
+                              //           }
+                              //     );
 												});
 
                   }
@@ -1661,286 +1672,7 @@ angular
 
 
     }])
-
-  .controller('ExamController', function ($scope, $state, School, Exam,ExamSchedule,Class,$rootScope, $window,ngDialog,$filter,Subject) 
-  {
-
-        //------------------------------------------------
-        //            BASIC USER DATA
-        //------------------------------------------------
-
-        $scope.user = $window.localStorage.getItem('user');
-        $scope.userData = JSON.parse($scope.user);
-        $scope.schoolId = $scope.userData.schoolId;
-        if ($scope.userData.type == 'Admin') { $scope.Admin = true;}
-        if ($scope.userData.type == 'Student') { $scope.Student = true;}
-        if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
-        if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
-        $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
-         //--------------------------------------------
-         //          GET CLASS LIST
-         //--------------------------------------------
-         $scope.classList = Class.find({filter: {where: {schoolId: $scope.schoolId}}});
-
-         //--------------------------------------------
-         //          SHOW NOTICE
-         //--------------------------------------------
-      
-          $scope.examList =[];
-          $scope.showExamList = function()
-          {
-          $scope.examList = Exam.find({filter: {where: {schoolId: $scope.schoolId},include:'class'}});
-
-         }
-         $scope.showExamList();
-
-
-
-         //----------------------------------------------
-         //                 CLEAR RESPONSE
-         //----------------------------------------------
-
-         $scope.clearResponseExam = function(){ $scope.responseExam = null;}
-
-
-
-       //----------------------------------------------
-       //                 ADD EXAM
-       //----------------------------------------------
-       $scope.addExam = function () 
-       {
-     
-          var toDate   = $filter('date')(new Date($scope.formData.toDate), 'yyyy-MM-dd');     
-          var fromDate = $filter('date')(new Date($scope.formData.fromDate), 'yyyy-MM-dd');
-          Exam.findOne
-          (
-            {
-              filter:{
-                  where:{
-                        schoolId:$scope.schoolId,
-                        examName:$scope.formData.examName,
-                        classId:$scope.formData.classId
-                  }
-              }
-            },
-          function(response){
-            $scope.responseExam = 'Exam Already Exists For This Class';
-
-          },function(){
-
-
-      Exam.create({
-                  fromDate   : fromDate,
-                  toDate     : toDate,
-                  examName   : $scope.formData.examName,
-                  classId    : $scope.formData.classId,
-                  schoolId   : $scope.schoolId,
-                  subjectList: $scope.subjectList
-                },
-                function ()
-                {
-                  $scope.responseExam = "Exam Added Successfully";
-                  setTimeout( function()
-                  {
-                    $scope.showExamList();
-                    $scope.clearResponseExam();
-                  }, 1000 );
-
-                },function(response){
-                  console.log(response.data.error.message);
-                });
-      
-
-             
-
-          });
-
-               }    
-      
-     
-       //----------------------------------------------
-       //                 DELETE EXAM
-       //----------------------------------------------
-       $scope.deleteExam = function (x) {
-
-         var dialog = ngDialog.open({template: 'deleteExam'});
-         dialog.closePromise.then(function (data) {
-           if (data.value && data.value != '$document' && data.value != '$closeButton')
-           {
-             Exam.deleteById({id: x.id},
-               function ()
-               {
-                 $scope.responseExam = "Exam Deleted Successfully";
-                 setTimeout( function()
-                 {
-                   $scope.showExamList();
-                   $scope.clearResponseExam();
-                 }, 1000 );
-
-               },function(response){
-                 console.log(response.data.error.message);
-               });
-             return true;
-           }
-         });
-
-        }  
-
-  
-      
-       
-
-
-        //----------------------------------------------
-        //               SORT TABLE TECHNIQUE
-        //----------------------------------------------
-
-        $scope.sortType     = 'title';
-        $scope.sortReverse  = false;
-        $scope.searchFish   = '';
-        $scope.currentPage = 0;
-        $scope.pageSize = 10;
-        $scope.numberOfPages=function(){    return Math.ceil($scope.examList.length/$scope.pageSize);}
-
-
-      })
-
     
-  .controller('GradeController', function ($scope, $state, School, Grade,Class,$rootScope, $window,ngDialog,$filter) {
-
-        //------------------------------------------------
-        //            BASIC USER DATA
-        //------------------------------------------------
-
-        $scope.user = $window.localStorage.getItem('user');
-        $scope.userData = JSON.parse($scope.user);
-        $scope.schoolId = $scope.userData.schoolId;
-        if ($scope.userData.type == 'Admin') { $scope.Admin = true;}
-        if ($scope.userData.type == 'Student') { $scope.Student = true;}
-        if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
-        if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
-        $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
-  
-
-    $scope.clearResponseGrade = function(){
-      $scope.responseGrade = null;
-      $scope.error = false;
-      $scope.success = false;
-      $scope.formData =null;
-    }
-
-    $scope.gradesList = [];
-     $scope.showGrades = function(){
-       $scope.gradesList = Grade.find({filter:{where:{schoolId : $scope.schoolId}}});
-     }
- $scope.showGrades();
-     $scope.addGrade = function(){
-       Grade.create({
-         schoolId:$scope.schoolId,
-         gradeName:$scope.formData.gradeName,
-         gradePoint: $scope.formData.gradePoint,
-         percentageRangeFrom:$scope.formData.percentageRangeFrom,
-         percentageRangeTo :$scope.formData.percentageRangeTo
-       },function(){
-         $scope.responseGrade = 'Grade Added Successfully';
-         $scope.success = true;
-         $scope.error = false;
-         
-         setTimeout(function() {
-          $scope.showGrades();
-          $scope.clearResponseGrade();
-           
-         }, 1000);
-       },function(){
-           if (response.data.error.details.messages.gradeName[0])     $scope.responseSubscription =response.data.error.details.messages.gradeName[0];
-           else if (response.data.error.details.messages.gradePoint[0])     $scope.responseSubscription =response.data.error.details.messages.gradePoint[0];
-           else if (response.data.error.details.messages.percentageRangeFrom[0])     $scope.responseSubscription =response.data.error.details.messages.percentageRangeFrom[0];
-           else if (response.data.error.details.messages.percentageRangeTo[0])     $scope.responseSubscription =response.data.error.details.messages.percentageRangeTo[0];
-           
-       });
-     }
-       
-       $scope.deleteGrade = function(x){
-         Grade.deleteById({id:x.id},function(){
-                    $scope.responseGrade = 'Grade Deleted Successfully';
-         $scope.success = true;
-         $scope.error = false;
-         setTimeout(function() {
-          $scope.showGrades();
-          $scope.clearResponseGrade();
-           
-         }, 1000);
-
-         });
-       }
-  
-
-  })
-
-      
-  .controller('MarksController', function ($scope, $state, School, Marks,Class,$rootScope, $window,ngDialog,$filter) {
-
-        //------------------------------------------------
-        //            BASIC USER DATA
-        //------------------------------------------------
-
-        $scope.user = $window.localStorage.getItem('user');
-        $scope.userData = JSON.parse($scope.user);
-        $scope.schoolId = $scope.userData.schoolId;
-        if ($scope.userData.type == 'Admin') { $scope.Admin = true;}
-        if ($scope.userData.type == 'Student') { $scope.Student = true;}
-        if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
-        if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
-        $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
-         //--------------------------------------------
-         //          GET CLASS LIST
-         //--------------------------------------------
-         $scope.classList = Class.find({filter: {where: {schoolId: $scope.schoolId}}});
-
-         //--------------------------------------------
-         //          Show Notice
-         //--------------------------------------------
-          $scope.marksList =[];
-         // $scope.showExamList = function(){
-         // $scope.examList = Exam.find({filter: {where: {schoolId: $scope.schoolId},include:'class'}});
-         //
-         //}
-         //$scope.showExamList();
-
-
-
-         //----------------------------------------------
-         //                 CLEAR RESPONSE
-         //----------------------------------------------
-
-         //$scope.clearResponseExam = function(){ $scope.responseExam = null;}
-
-
-
-
-       //----------------------------------------------
-       //                 ADD EXAM
-       //----------------------------------------------
-
-
-
-        //----------------------------------------------
-        //               SORT TABLE TECHNIQUE
-        //----------------------------------------------
-
-        $scope.sortType     = 'title';
-        $scope.sortReverse  = false;
-        $scope.searchFish   = '';
-        $scope.currentPage = 0;
-        $scope.pageSize = 10;
-        //$scope.numberOfPages=function(){    return Math.ceil($scope.examList.length/$scope.pageSize);}
-
-
-
-
-
-      })
-
 
   .controller('LibraryController',
     ['$scope', '$state', 'School', 'Library', '$rootScope', '$window','ngDialog',
@@ -1960,7 +1692,7 @@ angular
 $scope.clearResponse();
  
               var library = ngDialog.open({template: 'addBook',
-                scope: $scope //Pass the scope object if you need to access in the template
+                scope: $scope  
               });
               library.closePromise.then(
                 function(data) { 
@@ -2052,30 +1784,33 @@ $scope.clearResponse();
       $scope.editLibrary = function (x) {
 		   
 		    $scope.formData = x;
-		   var library = ngDialog.open({template: 'editLibrary',
-          scope: $scope 
-        });
-        library.closePromise.then(
-          function(data) {
-          
-         if (data.value != '$document' && data.value != '$closeButton'){
-          
-            formData = data.value;
-            Library.upsert({id:x.id, name : formData.name,author : formData.author,description: formData.description,price: formData.price,available:formData.available},
-              function () {
-				  $scope.responseAddLibrary = "Book Edited Successfully";
-               $scope.error= false;
-                      $scope.success = true;
-				   setTimeout( function()
-						{
-                
-                                              $scope.showBooks();
-                        $scope.clearResponse();
-
-						}, 1000 );
-			  });
-          }
-          }        );
+		   var library = ngDialog.open({template: 'editLibrary',scope: $scope });
+        library.closePromise.then
+        (
+             function(data) 
+             {   
+                    console.log(data.value);
+                    if (data.value != '$document' && data.value != '$closeButton')
+                    {
+                      
+                          formData = data.value;
+                          Library.upsert({id:x.id, name : formData.name,author : formData.author,description: formData.description,price: formData.price,available:formData.available},
+                          function () 
+                          {
+                          $scope.responseAddLibrary = "Book Edited Successfully";
+                          $scope.error= false;$scope.success = true;
+                          setTimeout( function() {$scope.showBooks();$scope.clearResponse();},1000 );
+                          },function(response){
+                            
+                          });
+                      }
+                      else{
+                          $scope.responseAddLibrary = "Book Not Edited";
+                          $scope.error= true;$scope.success = false;
+                          setTimeout( function() {$scope.showBooks();$scope.clearResponse();},1000 );
+                      }
+              }     
+          );
       }
 
         $scope.sortType     = 'className';
@@ -3675,6 +3410,7 @@ BusSubscription.find({filter:{where:{schoolId:$scope.schoolId},include:[{relatio
           var url = 'http://studymonitor.net/appimages';
         
         var data;
+        var count =0;
           $scope.uploadFile= function(){
               Papa.parse($scope.myFile, {
                   header: true,
@@ -3687,7 +3423,6 @@ BusSubscription.find({filter:{where:{schoolId:$scope.schoolId},include:[{relatio
                         $scope.list[i].classId= $scope.classId; 
                         $scope.list[i].dateofBirth = $filter('date')(new Date($scope.list[i].dateofJoin), 'yyyy-MM-dd');
                         $scope.list[i].dateofJoin = $filter('date')(new Date($scope.list[i].dateofBirth), 'yyyy-MM-dd');
-
                             $scope.image =  url + '/' + schoolCode + '/' +$scope.list[i].classId+ '/' + $scope.list[i].rollNo + '.png';
                     Student.create({
                       schoolId        : $scope.schoolId,
@@ -3730,11 +3465,11 @@ BusSubscription.find({filter:{where:{schoolId:$scope.schoolId},include:[{relatio
                       fatherContact   : $scope.list[i].fatherContact,
                       motherContact   : $scope.list[i].motherContact
                         },function(){
-
+                          count++;
+                         console.log('Student'+ count +'Created Successfully');
                         },function(response){
                           console.log(response.data.error.message);
                         });
- console.log($scope.list[i]);
                       }
                    }
               });

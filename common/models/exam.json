@@ -30,6 +30,11 @@
       "type": "belongsTo",
       "model": "School",
       "foreignKey": ""
+    },
+    "marks": {
+      "type": "hasMany",
+      "model": "Marks",
+      "foreignKey": ""
     }
   },
   "acls": [

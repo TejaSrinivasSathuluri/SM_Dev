@@ -1327,6 +1327,33 @@ module.factory(
           method: "DELETE"
         },
 
+        // INTERNAL. Use Student.marks.findById() instead.
+        "prototype$__findById__marks": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Students/:id/marks/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Student.marks.destroyById() instead.
+        "prototype$__destroyById__marks": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Students/:id/marks/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Student.marks.updateById() instead.
+        "prototype$__updateById__marks": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Students/:id/marks/:fk",
+          method: "PUT"
+        },
+
         /**
          * @ngdoc method
          * @name lbServices.Student#prototype$__get__accessTokens
@@ -1486,6 +1513,31 @@ module.factory(
         // INTERNAL. Use Student.studentParents.count() instead.
         "prototype$__count__studentParents": {
           url: urlBase + "/Students/:id/studentParents/count",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Student.marks() instead.
+        "prototype$__get__marks": {
+          isArray: true,
+          url: urlBase + "/Students/:id/marks",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Student.marks.create() instead.
+        "prototype$__create__marks": {
+          url: urlBase + "/Students/:id/marks",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Student.marks.destroyAll() instead.
+        "prototype$__delete__marks": {
+          url: urlBase + "/Students/:id/marks",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Student.marks.count() instead.
+        "prototype$__count__marks": {
+          url: urlBase + "/Students/:id/marks/count",
           method: "GET"
         },
 
@@ -2211,6 +2263,12 @@ module.factory(
         // INTERNAL. Use BusSubscription.student() instead.
         "::get::BusSubscription::student": {
           url: urlBase + "/BusSubscriptions/:id/student",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Marks.student() instead.
+        "::get::Marks::student": {
+          url: urlBase + "/Marks/:id/student",
           method: "GET"
         },
 
@@ -3001,6 +3059,307 @@ module.factory(
         R.busSubscriptions.update = function() {
           var TargetResource = $injector.get("BusSubscription");
           var action = TargetResource["::update::Student::busSubscriptions"];
+          return action.apply(R, arguments);
+        };
+    /**
+     * @ngdoc object
+     * @name lbServices.Student.marks
+     * @header lbServices.Student.marks
+     * @object
+     * @description
+     *
+     * The object `Student.marks` groups methods
+     * manipulating `Marks` instances related to `Student`.
+     *
+     * Call {@link lbServices.Student#marks Student.marks()}
+     * to query all related instances.
+     */
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Student#marks
+         * @methodOf lbServices.Student
+         *
+         * @description
+         *
+         * Queries marks of Student.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - User id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Marks` object.)
+         * </em>
+         */
+        R.marks = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::get::Student::marks"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Student.marks#count
+         * @methodOf lbServices.Student.marks
+         *
+         * @description
+         *
+         * Counts marks of Student.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - User id
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        R.marks.count = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::count::Student::marks"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Student.marks#create
+         * @methodOf lbServices.Student.marks
+         *
+         * @description
+         *
+         * Creates a new instance in marks of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - User id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Marks` object.)
+         * </em>
+         */
+        R.marks.create = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::create::Student::marks"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Student.marks#createMany
+         * @methodOf lbServices.Student.marks
+         *
+         * @description
+         *
+         * Creates a new instance in marks of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - User id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Marks` object.)
+         * </em>
+         */
+        R.marks.createMany = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::createMany::Student::marks"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Student.marks#destroyAll
+         * @methodOf lbServices.Student.marks
+         *
+         * @description
+         *
+         * Deletes all marks of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - User id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.marks.destroyAll = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::delete::Student::marks"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Student.marks#destroyById
+         * @methodOf lbServices.Student.marks
+         *
+         * @description
+         *
+         * Delete a related item by id for marks.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - User id
+         *
+         *  - `fk` – `{*}` - Foreign key for marks
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.marks.destroyById = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::destroyById::Student::marks"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Student.marks#findById
+         * @methodOf lbServices.Student.marks
+         *
+         * @description
+         *
+         * Find a related item by id for marks.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - User id
+         *
+         *  - `fk` – `{*}` - Foreign key for marks
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Marks` object.)
+         * </em>
+         */
+        R.marks.findById = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::findById::Student::marks"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Student.marks#updateById
+         * @methodOf lbServices.Student.marks
+         *
+         * @description
+         *
+         * Update a related item by id for marks.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - User id
+         *
+         *  - `fk` – `{*}` - Foreign key for marks
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Marks` object.)
+         * </em>
+         */
+        R.marks.updateById = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::updateById::Student::marks"];
           return action.apply(R, arguments);
         };
 
@@ -8167,6 +8526,33 @@ module.factory(
           method: "PUT"
         },
 
+        // INTERNAL. Use Class.marks.findById() instead.
+        "prototype$__findById__marks": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/marks/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Class.marks.destroyById() instead.
+        "prototype$__destroyById__marks": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/marks/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Class.marks.updateById() instead.
+        "prototype$__updateById__marks": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/marks/:fk",
+          method: "PUT"
+        },
+
         // INTERNAL. Use Class.students() instead.
         "prototype$__get__students": {
           isArray: true,
@@ -8264,6 +8650,31 @@ module.factory(
         // INTERNAL. Use Class.exams.count() instead.
         "prototype$__count__exams": {
           url: urlBase + "/Classes/:id/exams/count",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Class.marks() instead.
+        "prototype$__get__marks": {
+          isArray: true,
+          url: urlBase + "/Classes/:id/marks",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Class.marks.create() instead.
+        "prototype$__create__marks": {
+          url: urlBase + "/Classes/:id/marks",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Class.marks.destroyAll() instead.
+        "prototype$__delete__marks": {
+          url: urlBase + "/Classes/:id/marks",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Class.marks.count() instead.
+        "prototype$__count__marks": {
+          url: urlBase + "/Classes/:id/marks/count",
           method: "GET"
         },
 
@@ -8781,6 +9192,12 @@ module.factory(
         // INTERNAL. Use Exam.class() instead.
         "::get::Exam::class": {
           url: urlBase + "/Exams/:id/class",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Marks.class() instead.
+        "::get::Marks::class": {
+          url: urlBase + "/Marks/:id/class",
           method: "GET"
         },
       }
@@ -10396,6 +10813,307 @@ module.factory(
           var action = TargetResource["::updateById::Class::exams"];
           return action.apply(R, arguments);
         };
+    /**
+     * @ngdoc object
+     * @name lbServices.Class.marks
+     * @header lbServices.Class.marks
+     * @object
+     * @description
+     *
+     * The object `Class.marks` groups methods
+     * manipulating `Marks` instances related to `Class`.
+     *
+     * Call {@link lbServices.Class#marks Class.marks()}
+     * to query all related instances.
+     */
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class#marks
+         * @methodOf lbServices.Class
+         *
+         * @description
+         *
+         * Queries marks of Class.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Marks` object.)
+         * </em>
+         */
+        R.marks = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::get::Class::marks"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.marks#count
+         * @methodOf lbServices.Class.marks
+         *
+         * @description
+         *
+         * Counts marks of Class.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        R.marks.count = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::count::Class::marks"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.marks#create
+         * @methodOf lbServices.Class.marks
+         *
+         * @description
+         *
+         * Creates a new instance in marks of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Marks` object.)
+         * </em>
+         */
+        R.marks.create = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::create::Class::marks"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.marks#createMany
+         * @methodOf lbServices.Class.marks
+         *
+         * @description
+         *
+         * Creates a new instance in marks of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Marks` object.)
+         * </em>
+         */
+        R.marks.createMany = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::createMany::Class::marks"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.marks#destroyAll
+         * @methodOf lbServices.Class.marks
+         *
+         * @description
+         *
+         * Deletes all marks of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.marks.destroyAll = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::delete::Class::marks"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.marks#destroyById
+         * @methodOf lbServices.Class.marks
+         *
+         * @description
+         *
+         * Delete a related item by id for marks.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for marks
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.marks.destroyById = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::destroyById::Class::marks"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.marks#findById
+         * @methodOf lbServices.Class.marks
+         *
+         * @description
+         *
+         * Find a related item by id for marks.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for marks
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Marks` object.)
+         * </em>
+         */
+        R.marks.findById = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::findById::Class::marks"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.marks#updateById
+         * @methodOf lbServices.Class.marks
+         *
+         * @description
+         *
+         * Update a related item by id for marks.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for marks
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Marks` object.)
+         * </em>
+         */
+        R.marks.updateById = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::updateById::Class::marks"];
+          return action.apply(R, arguments);
+        };
 
     return R;
   }]);
@@ -11576,6 +12294,58 @@ module.factory(
           method: "GET"
         },
 
+        // INTERNAL. Use Subject.marks.findById() instead.
+        "prototype$__findById__marks": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Subjects/:id/marks/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Subject.marks.destroyById() instead.
+        "prototype$__destroyById__marks": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Subjects/:id/marks/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Subject.marks.updateById() instead.
+        "prototype$__updateById__marks": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Subjects/:id/marks/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Subject.marks() instead.
+        "prototype$__get__marks": {
+          isArray: true,
+          url: urlBase + "/Subjects/:id/marks",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Subject.marks.create() instead.
+        "prototype$__create__marks": {
+          url: urlBase + "/Subjects/:id/marks",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Subject.marks.destroyAll() instead.
+        "prototype$__delete__marks": {
+          url: urlBase + "/Subjects/:id/marks",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Subject.marks.count() instead.
+        "prototype$__count__marks": {
+          url: urlBase + "/Subjects/:id/marks/count",
+          method: "GET"
+        },
+
         /**
          * @ngdoc method
          * @name lbServices.Subject#create
@@ -12063,6 +12833,12 @@ module.factory(
           method: "GET"
         },
 
+        // INTERNAL. Use Marks.subject() instead.
+        "::get::Marks::subject": {
+          url: urlBase + "/Marks/:id/subject",
+          method: "GET"
+        },
+
         // INTERNAL. Use ExamSchedule.subject() instead.
         "::get::ExamSchedule::subject": {
           url: urlBase + "/ExamSchedules/:id/subject",
@@ -12316,6 +13092,307 @@ module.factory(
         R.class = function() {
           var TargetResource = $injector.get("Class");
           var action = TargetResource["::get::Subject::class"];
+          return action.apply(R, arguments);
+        };
+    /**
+     * @ngdoc object
+     * @name lbServices.Subject.marks
+     * @header lbServices.Subject.marks
+     * @object
+     * @description
+     *
+     * The object `Subject.marks` groups methods
+     * manipulating `Marks` instances related to `Subject`.
+     *
+     * Call {@link lbServices.Subject#marks Subject.marks()}
+     * to query all related instances.
+     */
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Subject#marks
+         * @methodOf lbServices.Subject
+         *
+         * @description
+         *
+         * Queries marks of Subject.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Marks` object.)
+         * </em>
+         */
+        R.marks = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::get::Subject::marks"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Subject.marks#count
+         * @methodOf lbServices.Subject.marks
+         *
+         * @description
+         *
+         * Counts marks of Subject.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        R.marks.count = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::count::Subject::marks"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Subject.marks#create
+         * @methodOf lbServices.Subject.marks
+         *
+         * @description
+         *
+         * Creates a new instance in marks of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Marks` object.)
+         * </em>
+         */
+        R.marks.create = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::create::Subject::marks"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Subject.marks#createMany
+         * @methodOf lbServices.Subject.marks
+         *
+         * @description
+         *
+         * Creates a new instance in marks of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Marks` object.)
+         * </em>
+         */
+        R.marks.createMany = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::createMany::Subject::marks"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Subject.marks#destroyAll
+         * @methodOf lbServices.Subject.marks
+         *
+         * @description
+         *
+         * Deletes all marks of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.marks.destroyAll = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::delete::Subject::marks"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Subject.marks#destroyById
+         * @methodOf lbServices.Subject.marks
+         *
+         * @description
+         *
+         * Delete a related item by id for marks.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for marks
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.marks.destroyById = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::destroyById::Subject::marks"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Subject.marks#findById
+         * @methodOf lbServices.Subject.marks
+         *
+         * @description
+         *
+         * Find a related item by id for marks.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for marks
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Marks` object.)
+         * </em>
+         */
+        R.marks.findById = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::findById::Subject::marks"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Subject.marks#updateById
+         * @methodOf lbServices.Subject.marks
+         *
+         * @description
+         *
+         * Update a related item by id for marks.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for marks
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Marks` object.)
+         * </em>
+         */
+        R.marks.updateById = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::updateById::Subject::marks"];
           return action.apply(R, arguments);
         };
 
@@ -29256,6 +30333,24 @@ module.factory(
       { 'id': '@id' },
       {
 
+        // INTERNAL. Use Marks.student() instead.
+        "prototype$__get__student": {
+          url: urlBase + "/Marks/:id/student",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Marks.class() instead.
+        "prototype$__get__class": {
+          url: urlBase + "/Marks/:id/class",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Marks.subject() instead.
+        "prototype$__get__subject": {
+          url: urlBase + "/Marks/:id/subject",
+          method: "GET"
+        },
+
         /**
          * @ngdoc method
          * @name lbServices.Marks#create
@@ -29677,6 +30772,183 @@ module.factory(
           url: urlBase + "/Marks/change-stream",
           method: "POST"
         },
+
+        // INTERNAL. Use Student.marks.findById() instead.
+        "::findById::Student::marks": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Students/:id/marks/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Student.marks.destroyById() instead.
+        "::destroyById::Student::marks": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Students/:id/marks/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Student.marks.updateById() instead.
+        "::updateById::Student::marks": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Students/:id/marks/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Student.marks() instead.
+        "::get::Student::marks": {
+          isArray: true,
+          url: urlBase + "/Students/:id/marks",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Student.marks.create() instead.
+        "::create::Student::marks": {
+          url: urlBase + "/Students/:id/marks",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Student.marks.createMany() instead.
+        "::createMany::Student::marks": {
+          isArray: true,
+          url: urlBase + "/Students/:id/marks",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Student.marks.destroyAll() instead.
+        "::delete::Student::marks": {
+          url: urlBase + "/Students/:id/marks",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Student.marks.count() instead.
+        "::count::Student::marks": {
+          url: urlBase + "/Students/:id/marks/count",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Class.marks.findById() instead.
+        "::findById::Class::marks": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/marks/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Class.marks.destroyById() instead.
+        "::destroyById::Class::marks": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/marks/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Class.marks.updateById() instead.
+        "::updateById::Class::marks": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/marks/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Class.marks() instead.
+        "::get::Class::marks": {
+          isArray: true,
+          url: urlBase + "/Classes/:id/marks",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Class.marks.create() instead.
+        "::create::Class::marks": {
+          url: urlBase + "/Classes/:id/marks",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Class.marks.createMany() instead.
+        "::createMany::Class::marks": {
+          isArray: true,
+          url: urlBase + "/Classes/:id/marks",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Class.marks.destroyAll() instead.
+        "::delete::Class::marks": {
+          url: urlBase + "/Classes/:id/marks",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Class.marks.count() instead.
+        "::count::Class::marks": {
+          url: urlBase + "/Classes/:id/marks/count",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Subject.marks.findById() instead.
+        "::findById::Subject::marks": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Subjects/:id/marks/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Subject.marks.destroyById() instead.
+        "::destroyById::Subject::marks": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Subjects/:id/marks/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Subject.marks.updateById() instead.
+        "::updateById::Subject::marks": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Subjects/:id/marks/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Subject.marks() instead.
+        "::get::Subject::marks": {
+          isArray: true,
+          url: urlBase + "/Subjects/:id/marks",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Subject.marks.create() instead.
+        "::create::Subject::marks": {
+          url: urlBase + "/Subjects/:id/marks",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Subject.marks.createMany() instead.
+        "::createMany::Subject::marks": {
+          isArray: true,
+          url: urlBase + "/Subjects/:id/marks",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Subject.marks.destroyAll() instead.
+        "::delete::Subject::marks": {
+          url: urlBase + "/Subjects/:id/marks",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Subject.marks.count() instead.
+        "::count::Subject::marks": {
+          url: urlBase + "/Subjects/:id/marks/count",
+          method: "GET"
+        },
       }
     );
 
@@ -29819,6 +31091,114 @@ module.factory(
     */
     R.modelName = "Marks";
 
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Marks#student
+         * @methodOf lbServices.Marks
+         *
+         * @description
+         *
+         * Fetches belongsTo relation student.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Student` object.)
+         * </em>
+         */
+        R.student = function() {
+          var TargetResource = $injector.get("Student");
+          var action = TargetResource["::get::Marks::student"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Marks#class
+         * @methodOf lbServices.Marks
+         *
+         * @description
+         *
+         * Fetches belongsTo relation class.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Class` object.)
+         * </em>
+         */
+        R.class = function() {
+          var TargetResource = $injector.get("Class");
+          var action = TargetResource["::get::Marks::class"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Marks#subject
+         * @methodOf lbServices.Marks
+         *
+         * @description
+         *
+         * Fetches belongsTo relation subject.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Subject` object.)
+         * </em>
+         */
+        R.subject = function() {
+          var TargetResource = $injector.get("Subject");
+          var action = TargetResource["::get::Marks::subject"];
+          return action.apply(R, arguments);
+        };
 
     return R;
   }]);
