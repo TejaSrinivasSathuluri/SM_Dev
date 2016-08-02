@@ -62,7 +62,14 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
                                      relation : 'exams' ,
                                      scope :{
                                                include:[
-                                                   'marks'
+                                                   {
+                                                        relation :'marks',
+                                                         scope:{
+                                                                 where :{ subjectId : "579b6aca46bc41981fd5118b"
+
+                                                                 }
+                                                              }
+                                                   }
                                                ]
                                             }  
                                     }
@@ -83,13 +90,12 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
                 for(var i=0;i<$scope.list.length;i++){
                     for(var j=0;j<$scope.list[i].class.exams.length;j++)
                     {
-                        // Marks.create({
-                            // marksObtained    :
-                        // });
-                        console.log($scope.list[i].class.exams[j].marksObtained);
-                        console.log($scope.list[i].class.id);
-                        console.log($scope.formData.subjectId);
-                        console.log($scope.list[i].class.exams[j].id);
+                        Marks.create({
+                            marksObtained    : $scope.list[i].class.exams[j].marksObtained,
+                            classId          : $scope.formData.classId,
+                            subjectId        : $scope.formData.subjectId,
+                            examId           : $scope.list[i].class.exams[j].id                            
+                        });
                         
 
                     }
