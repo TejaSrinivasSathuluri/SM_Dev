@@ -40,7 +40,7 @@
       "principalId": "$unauthenticated",
       "permission": "ALLOW",
       "property": "findById"
-    },  
+    },
     {
       "accessType": "EXECUTE",
       "principalType": "ROLE",

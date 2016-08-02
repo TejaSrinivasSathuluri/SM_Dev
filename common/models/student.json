@@ -198,6 +198,11 @@
       "type": "hasOne",
       "model": "BusSubscription",
       "foreignKey": ""
+    },
+    "marks": {
+      "type": "hasMany",
+      "model": "Marks",
+      "foreignKey": ""
     }
   },
   "acls": [
