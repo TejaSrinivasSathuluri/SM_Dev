@@ -43,12 +43,13 @@
 										<tr data-ng-repeat="x in list | filter:search |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
 											<div data-ng-bind-html="x.id">
 												<td>{{x.firstName}}</td>
-												<td>{{x.rollNo}}</td>
-												
-                          <td ng-repeat=" y in x.class.exams">
-													<input type="number" value=0 ng-model="y.marksObtained" class="form-control" min="0" max="100" minlength="1" maxlength="3"> 
-
-                          </td>
+												<td>{{x.rollNo}}</td>												
+                        <td ng-repeat=" y in x.class.exams">
+                        <td ng-repeat=" z in y.marks">
+                          
+   													<input type="number" ng-model="y.marksObtained" class="form-control" min="0" max="100" minlength="1" maxlength="3"> 
+                        </td>
+                        </td>
 											</div>
 										</tr>
 									</tbody>
