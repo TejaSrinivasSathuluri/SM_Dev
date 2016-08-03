@@ -4,7 +4,7 @@
 // License text available at https://opensource.org/licenses/MIT
 
 angular
-  .module('app', [
+  .module('app', [ 
     'ui.router',
     'lbServices',
     'ngDialog',
@@ -29,10 +29,11 @@ angular
     .state('holiday',               { url: '/schoolcalendar',    templateUrl: 'views/holiday.html',            controller: 'HolidayController',  authenticate: true})
     .state('profile',               { url: '/profile',           templateUrl: 'views/profile.html',            controller: 'ProfileController',  authenticate: true})
     .state('expensemanagement',     { url: '/expensemanagement', templateUrl: 'views/expensemanagement.html',  controller: 'ExpenseController',  authenticate: true})
+    .state('fees',                  { url: '/feepayments',       templateUrl: 'views/fee.html',                controller: 'FeeController',  authenticate: true})
     .state('exams',                 { url: '/exams',             templateUrl: 'views/exams.html',              controller: 'ExamController',  authenticate: true})
     .state('grades',                { url: '/grades',            templateUrl: 'views/grades.html',             controller: 'GradeController',  authenticate: true})
     .state('marks',                 { url: '/marks',             templateUrl: 'views/marks.html',              controller: 'MarksController',  authenticate: true})
-    .state('bulk',                 { url: '/bulkuploads',             templateUrl: 'views/bulk.html',              controller: 'BulkController',  authenticate: true})
+    .state('bulk',                  { url: '/bulkuploads',       templateUrl: 'views/bulk.html',               controller: 'BulkController',  authenticate: true})
 
       //--------------Auth Services
       .state('index',        { url: '/index',      controller: 'LandingPageController'})

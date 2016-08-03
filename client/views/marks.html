@@ -10,7 +10,7 @@
 					<div class="row list-separated">
 						<!---->
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-success" ng-show="success"> {{responseMarks}}}</div>
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-success" ng-show="success"> {{responseMarks}}</div>
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-danger" ng-show="error"> {{responseMarks}}</div>
 							<form ng-submit="showMarks()">
 								<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
@@ -26,9 +26,24 @@
 									</select>
 								</div>
 								<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+									<select class="form-control" ng-model="formData.examId" required>
+										<option value="">Exams</option>
+										<option ng-repeat="x in examList" value="{{x.id}}">{{x.examName}}</option>
+									</select>
+								</div>
+
+
+								<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 									<button type="submit" class="btn btn-success uppercase">Manage Marks</button>
+									</div>
+									<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+									<button class="btn btn-success uppercase" ng-click="setMaxMarks()">Set Max Marks</button>
+									</div>
+																		<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+									<input type="number" class="form-control" ng-model="formData.maxMarks"/>
 									<br>
 									<br> </div>
+
 							</form>
 							<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12" style="height:260px;overflow-y:auto;">
 								<table class="table table-bordered table-striped table-condensed flip-content">
@@ -36,26 +51,30 @@
 										<tr>
 											<th><a ng-click="sortType = 'firstName'; sortReverse = !sortReverse">Student Name</a> </th>
 											<th><a ng-click="sortType = 'rollNo'; sortReverse = !sortReverse">Roll No</a> </th>
-										<th data-ng-repeat="x in exams"> {{x.examName}} </th>
+											<th><a ng-click="sortType = 'marksObtained'; sortReverse = !sortReverse">Marks</a> </th>
+											<th><a ng-click="sortType = 'Percentage'; sortReverse = !sortReverse">Percentage</a> </th>
+                      
                     </tr>
 									</thead>
 									<tbody>
-										<tr data-ng-repeat="x in list | filter:search |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
+										<tr data-ng-repeat="x in list track by $index">
 											<div data-ng-bind-html="x.id">
-												<td>{{x.firstName}}</td>
-												<td>{{x.rollNo}}</td>												
-                        <td ng-repeat=" y in x.class.exams">
-                        <td ng-repeat=" z in y.marks">
-                          
-   													<input type="number" ng-model="y.marksObtained" class="form-control" min="0" max="100" minlength="1" maxlength="3"> 
-                        </td>
-                        </td>
+												<td>{{x.student.firstName}} {{x.student.lastName}}</td>
+												<td>{{x.student.rollNo}}</td>
+												
+                          <td>
+													<input type="number" ng-model="x.marksObtained" class="form-control" min="0" max="100" minlength="1" maxlength="3"> 
+                          </td>
+						  <td>{{x.marksObtained}}/{{x.maxMarks}}  </td>
 											</div>
 										</tr>
-									</tbody>
-								<button ng-click ="saveMarks(x)" class="btn btn-success uppercase">Save Marks</button>
+                    
+									
+                  
+                  </tbody>
                   
 								</table>
+								<button ng-click ="saveMarks(x)" ng-show="saveMarksFlag" class="btn btn-success uppercase">Save Marks</button>
 
 								<div class="pull-left"> Total Results: {{examList.length}} </div>
 								<div class="pull-right">

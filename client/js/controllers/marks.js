@@ -17,89 +17,156 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
             if ($scope.user.type == 'Parent')  { $scope.Parent  = true; }
             if ($scope.user.type == 'Staff')   { $scope.Staff   = true; }
 
-            //--------------------------------------------
-            //            CLEAR CONSOLE
-            //--------------------------------------------
-            // console.log = function() {}
+             //--------------------------------------------
+             //            CLEAR CONSOLE
+             //--------------------------------------------
+             // console.log = function() {}
             
-            //--------------------------------------------
-            //          GET CLASS LIST & SUBJECT LIST
-            //--------------------------------------------
-            $scope.classList = Class.find({filter: {where: {schoolId: $scope.schoolId}}});
+             //--------------------------------------------
+             //          GET CLASS LIST & SUBJECT LIST
+             //--------------------------------------------
+             $scope.classList = Class.find({filter: {where: {schoolId: $scope.schoolId}}});
 
-            $scope.setSubjectList = function()
-            {
+             $scope.setSubjectList = function()
+             {
                 $scope.examList    = Exam.find({filter: {where: {classId: $scope.formData.classId}}});
                 $scope.subjectList = Subject.find({filter: {where: {classId: $scope.formData.classId,examFlag:true}}});
-            }
+             }
         
 
-            //----------------------------------------------
-            //                 CLEAR RESPONSE
-            //----------------------------------------------
+             //----------------------------------------------
+             //                 CLEAR RESPONSE
+             //----------------------------------------------
 
-            $scope.clearResponseExam = function()
-            { 
+             $scope.clearResponseExam = function()
+             { 
                 $scope.responseMarks = null;
                 $scope.formData      = null;
                 $scope.error         = false;
                 $scope.success       = false;
-            }
+             }
 
 
-            //----------------------------------------------
-            //                 SHOW MARKS
-            //----------------------------------------------
-            $scope.list =[];
-            $scope.showMarks = function() {
-                $scope.list =Student.find({filter:{where:{classId:$scope.formData.classId},
-                include:
-                    [
-                        {
-                            relation : 'class',scope :{
-                                include:[
-                                    {
-                                     relation : 'exams' ,
-                                     scope :{
-                                               include:[
-                                                   {
-                                                        relation :'marks',
-                                                         scope:{
-                                                                 where :{ subjectId : "579b6aca46bc41981fd5118b"
-
-                                                                 }
-                                                              }
-                                                   }
-                                               ]
-                                            }  
-                                    }
-                                ]
-
-                            }
-                        }
-                    ]
-                }});
-
-           $scope.exams = Exam.find({filter:{where:{classId : $scope.formData.classId }}});
-                    console.log($scope.list);
-            }
-
-            $scope.saveMarks = function () 
-            {
+             //----------------------------------------------
+             //                 SHOW MARKS
+             //----------------------------------------------
+             $scope.list =[];
+             $scope.showMarks = function() {
                 
-                for(var i=0;i<$scope.list.length;i++){
-                    for(var j=0;j<$scope.list[i].class.exams.length;j++)
-                    {
-                        Marks.create({
-                            marksObtained    : $scope.list[i].class.exams[j].marksObtained,
+                $scope.students = Student.find({filter:{ where:{  classId : $scope.formData.classId },}},
+                function(response)
+                { 
+                    var i=0;
+                    response.forEach(function(element) {
+                           var p = element.toJSON();
+                           $scope.checkMarks(p,i);
+                           i++;
+
+                    });
+                
+                });
+             }
+
+
+             //----------------------------------------------
+             //                 SET MAX MARKS
+             //----------------------------------------------
+             $scope.setMaxMarks = function(){
+                 if (!$scope.formData.examId || $scope.formData.subjectId ){
+                          $scope.responseMarks = 'Please Select Class,Subject,Exam';
+                          $scope.error = true;
+                          $scope.success = false;
+                 } 
+                 else {
+
+                 Marks.find({ filter:{
+                     where:{
+                         examId    : $scope.formData.examId,
+                         subjectId : $scope.formData.subjectId
+                     }
+                 }},function (response) {
+                      response.forEach(function (marks) {
+                          var m = marks.toJSON();
+                         Marks.upsert({ id: m.id,maxMarks :$scope.formData.maxMarks },function(){
+                         
+                         },function(){
+                          $scope.responseMarks = 'Max Marks Not Saved';
+                          $scope.error = true;
+                          $scope.success = false;
+                   });
+                      });
+                          $scope.responseMarks = 'MAx Marks Saved Successfully';
+                $scope.error = false;
+                $scope.success = true;
+                setTimeout(function() {
+                    $scope.clearResponseExam();
+             $scope.list =[];
+                    
+                }, 1000);
+                 });
+                 }
+
+             }
+
+
+
+             $scope.checkMarks = function(student,i)
+             {
+                 $scope.saveMarksFlag = true;
+                 Marks.findOne
+                 ({filter:{
+                        where:{
+                            studentId : student.id,       
+                            examId    : $scope.formData.examId,
+                            subjectId : $scope.formData.subjectId
+                        },include:'student'
+                 }
+                     
+
+                 },function(response)
+                 {
+                     $scope.list[i] = response.toJSON();
+                     console.log($scope.list[i].marksObtained);
+                 },function()
+                 {
+                     Marks.create({
+                            marksObtained    : 0,
                             classId          : $scope.formData.classId,
                             subjectId        : $scope.formData.subjectId,
-                            examId           : $scope.list[i].class.exams[j].id                            
+                            studentId        : student.id,       
+                            examId           : $scope.formData.examId,
+                            maxMarks          : 100
+                        },function(response){
+                    //  $scope.list[i] = response.toJSON();
+                    $scope.showMarks(); 
+
                         });
+                     
+                 });
+
+             }
+
+             $scope.saveMarks = function () 
+             {
+                
+                for(var i=0;i<$scope.list.length;i++){
+                     
+                   Marks.upsert({ id: $scope.list[i].id,marksObtained :$scope.list[i].marksObtained},function(){},function(){
+                          $scope.responseMarks = 'Marks Not Saved';
+                          $scope.error = true;
+                          $scope.success = false;
+                   });
                         
 
-                    }
                 }
+                $scope.responseMarks = 'Marks Saved Successfully';
+                $scope.error = false;
+                $scope.success = true;
+                setTimeout(function() {
+                    $scope.clearResponseExam();
+             $scope.list =[];
+                    
+                }, 1000);
             }
                 
 
