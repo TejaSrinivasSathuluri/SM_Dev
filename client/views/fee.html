@@ -6,7 +6,7 @@
   <div class="ngdialog-message">
     <h3>Edit Fee Type</h3>
     <form ng-submit=confirm(editData) >
-      <div class="col-sm-12">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <select class="form-control"   ng-model="editData.category">
           <option value="">FEE TYPE</option>
           <option value="Monthly">Monthly</option>
@@ -17,7 +17,7 @@
         </select > <br>
         <input type="text" class="form-control" ng-disabled="false" placeholder="Fee Category*"  ng-model="editData.fee" required><br>
 
-        <div class="col-sm-2">  <button type="submit" class="btn btn-success uppercase">Save Fee Category</button></div>
+        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">  <button type="submit" class="btn btn-success uppercase">Save Fee Category</button></div>
       </div>
 
 
@@ -37,19 +37,8 @@
   <div class="ngdialog-message">
     <h3>Edit Fee Setup</h3>
     <form ng-submit=confirm(editData) >
-      <div class="col-sm-12">
-        <!--<select class="form-control" ng-change="setFeeedit()"  ng-model="editData.category"   >-->
-          <!--<option value="">FEE TYPE</option>-->
-          <!--<option>Monthly</option>-->
-          <!--<option>Quarterly</option>-->
-          <!--<option>Halfyearly</option>-->
-          <!--<option>Yearly</option>-->
-          <!--<option>OnlyOnce</option>-->
-        <!--</select > <br>-->
-        <!--<select ng-model="editData.fee" class="form-control Fee" required>-->
-          <!--<option value="">FEE Category</option>-->
-          <!--<option ng-repeat="x in FeeTypeListFilteredEdit" value="{{x.id}}">{{x.fee}}</option>-->
-        <!--</select><br>-->
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        
 <input type="text" class="form-control" ng-model="editData.category" ng-disabled="true"><br>
 <input type="text" class="form-control" ng-model="editData.fee" ng-disabled="true"><br>
         <input  type="number"   class="form-control" placeholder="FEE AMOUNT*"  ng-model="editData.amount" required><br>
@@ -59,7 +48,7 @@
           <option ng-repeat="y in classList" value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>
         </select><br>
 
-        <div class="col-sm-2">  <button type="submit" class="btn btn-success uppercase">Save Fee Setup</button></div>
+        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">  <button type="submit" class="btn btn-success uppercase">Save Fee Setup</button></div>
       </div>
 
 
@@ -80,7 +69,7 @@
   <div class="ngdialog-message">
     <h3>Edit Expense Payment</h3>
     <form ng-submit=confirm(editData) >
-      <div class="col-sm-12">
+      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <select ng-model="editData.expenseTypeId" class="form-control Expense" required>
           <option value="">EXPENSE TYPE</option>
           <option ng-repeat="x in ExpenseTypeList" value="{{x.id}}">{{x.name}}</option>
@@ -89,7 +78,7 @@
         <input type="date"  max="9999-12-31" max="0001-01-01"  class="form-control" ng-disabled="false"  ng-model="editData.date" ng-value="feeDate" required><br>
         <input type="number" class="form-control" ng-disabled="false" ng-model="editData.amount" required><br>
 
-        <div class="col-sm-2">  <button type="submit" class="btn btn-success uppercase">Save Expense Payment</button></div>
+        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">  <button type="submit" class="btn btn-success uppercase">Save Expense Payment</button></div>
       </div>
 
 
@@ -155,7 +144,7 @@
 <!---------------------------------------Main Block---------------------------->
 <div class="container">
   <div class="row margin-top-10">
-    <div class="col-md-12 col-sm-12">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="portlet light ">
         <div class="portlet-title">
           <div class="caption caption-md pull-left">EXPENSE MANAGEMENT</div>
@@ -174,30 +163,64 @@
 
             <!--Tab 3-->
             <div ng-show="isSet(1)">
-              <div class="col-sm-12">
-              <div class="alert alert-error" ng-show="success">  {{responseFee}}  </div>
-              <div class="alert alert-success" ng-show="error">  {{responseFee}}  </div>
+
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+             <div class="alert alert-success" ng-show="success">   {{responseFee}}     </div>
+
+              <div class="alert alert-error" ng-show="error">  {{responseFee}}  </div>
                 <form ng-submit="addFeeType()">
-                  <div class="col-sm-3">
+                  <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12 mbtm">
                     <select class="form-control"   ng-model="formData.occurance"   >
                       <option value="">Fee Occurance</option>
-                      <option value="Monthly">Monthly</option>
-                      <option value="Quarterly">Quarterly</option>
-                      <option value="Halfyearly">Halfyearly</option>
-                      <option value="Yearly">Yearly</option>
-                      <option value="OnlyOnce">OnlyOnce</option>
+                      <option>Monthly</option>
+                      <option>Quarterly</option>
+                      <option>Halfyearly</option>
+                      <option>Yearly</option>
+                      <option>OnlyOnce</option>
                     </select > 
-                    <br>
-                    <input  type="text"   class="form-control" placeholder="Fee Type*"  ng-model="formData.feeType" required><br>
-                    <button type="submit" class="btn btn-success uppercase">Add</button>
+                </div>
+                  <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12 mbtm">
+                    <input  type="text"   class="form-control" placeholder="Fee Type*"  ng-model="formData.feeType" required>
+                    </div>
+                  <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
+                    
+                    <button type="submit" class="btn btn-success uppercase mbtm">Add</button>
+                    
                   </div>
                 </form>
               </div>
             </div>
-
+            <br>
+            <br>
+            <br>
             <!-----------TAB 1 FEE SET UP ENDS HERE---------------------------->
 
+          <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"  style="height:260px;overflow-y:auto;"> 
+              
+                <table class="table table-bordered table-striped table-condensed flip-content">
+                  <thead flip-content>
+                  <tr>
+                    <th><a ng-click="sortType = 'occurance'; sortReverse = !sortReverse">Ocuurance</a></th>
+                    <th><a ng-click="sortType = 'feeType'; sortReverse = !sortReverse">FromDate</a></th>
+                    <th ng-show="Admin">Option</th>
+                  </tr>
+                  </thead>
 
+                  <tbody>
+                  <tr data-ng-repeat="x in feeList | filter:search |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
+                    <div data-ng-bind-html="x.id">
+
+                      <td>{{x.occurance }}</td>
+                      <td>{{x.feeType}}</td>
+                      <td ng-show="Admin">  
+                        <i class="glyphicon glyphicon-edit" ng-click="editFee(x)"></i>
+                        <i class="glyphicon glyphicon-remove"  ng-click="deleteFee(x)"></i>
+                      </td>
+                    </div>
+                  </tr>
+                  </tbody>
+                </table>
+                <div>
 
 
 

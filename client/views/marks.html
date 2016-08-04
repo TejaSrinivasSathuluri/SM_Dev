@@ -13,19 +13,19 @@
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-success" ng-show="success"> {{responseMarks}}</div>
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-danger" ng-show="error"> {{responseMarks}}</div>
 							<form ng-submit="showMarks()">
-								<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+								<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 mbtm">
 									<select class="form-control" ng-model="formData.classId" ng-change="setSubjectList()" required>
 										<option value="">Class-Section</option>
 										<option ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
 									</select>
 								</div>
-								<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+								<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 mbtm">
 									<select class="form-control" ng-model="formData.subjectId" required>
 										<option value="">Subjects</option>
 										<option ng-repeat="x in subjectList" value="{{x.id}}">{{x.subjectName}}</option>
 									</select>
 								</div>
-								<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+								<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 mbtm">
 									<select class="form-control" ng-model="formData.examId" required>
 										<option value="">Exams</option>
 										<option ng-repeat="x in examList" value="{{x.id}}">{{x.examName}}</option>
@@ -33,13 +33,13 @@
 								</div>
 
 
-								<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+								<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 mbtm">
 									<button type="submit" class="btn btn-success uppercase">Manage Marks</button>
 									</div>
-									<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+									<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 mbtm">
 									<button class="btn btn-success uppercase" ng-click="setMaxMarks()">Set Max Marks</button>
 									</div>
-																		<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+																		<div class="mbtm col-lg-2 col-md-2 col-sm-12 col-xs-12">
 									<input type="number" class="form-control" ng-model="formData.maxMarks"/>
 									<br>
 									<br> </div>

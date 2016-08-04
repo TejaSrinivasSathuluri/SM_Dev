@@ -64,10 +64,6 @@
     "dataSource": "Study_Monitor_Data",
     "public": true
   },
-  "FeeType": {
-    "dataSource": "Study_Monitor_Data",
-    "public": true
-  },
   "Timetable": {
     "dataSource": "Study_Monitor_Data",
     "public": true
@@ -145,10 +141,6 @@
     "public": true
   },
   "Marks": {
-    "dataSource": "Study_Monitor_Data",
-    "public": true
-  },
-  "ExamSchedule": {
     "dataSource": "Study_Monitor_Data",
     "public": true
   }

@@ -32,6 +32,11 @@
       "type": "hasMany",
       "model": "Library",
       "foreignKey": ""
+    },
+    "feeSetups": {
+      "type": "hasMany",
+      "model": "FeeSetup",
+      "foreignKey": ""
     }
   },
   "acls": [

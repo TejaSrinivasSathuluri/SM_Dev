@@ -11,7 +11,7 @@
   <div class="ngdialog-message">
     <h2>Edit Exam</h2>
     <form ng-submit="confirm(formData)">
-      <select ng-model="formData.classId" class="form-control">
+      <select ng-model="formData.classId" class="form-control mbtm">
         <option value="">Class </option>
         <option ng-repeat="y in classList"  value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>
       </select><br>
@@ -57,7 +57,7 @@
 
 <div class="container">
   <div class="row margin-top-10">
-    <div class="col-lg-12 col-md-12 col-sm-12` col-xs-12">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <!-- BEGIN PORTLET-->
 
       <div class="portlet light ">
@@ -71,79 +71,80 @@
             
         <br>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-success" ng-show="success"> {{responseExam}}</div>
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-danger" ng-show="error"> {{responseExam}}</div>
-
-              <form ng-submit="addExam()">
-      <div class="col-sm-12 col-xs-12 col-lg-2 col-md-4">
-        <select ng-model="formData.classId"  required ng-change="setSubjectList()" class="form-control">
-          <option value="">Class </option>
-          <option ng-repeat="y in classList"  value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>
-        </select>
-      </div>
-      <div class="col-sm-12 col-xs-12 col-lg-2 col-md-4">
-        
-        <input  type="text" class="form-control" placeholder="ExamName" ng-model="formData.examName"  required>
-      </div>
-        
-      <div class="col-sm-12 col-xs-12 col-lg-2 col-md-4">
-         <input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control"  ng-model="formData.fromDate"  required>
-      </div>
-      <div class="col-sm-12 col-xs-12 col-lg-2 col-md-4">
-      <input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control"  ng-model="formData.toDate"  required>
-      </div>
-      <div class="col-sm-12 col-xs-12 col-lg-2 col-md-4">
-      
-     <button type="submit"  class="btn btn-success uppercase">Add Exam</button><br><br>
-     </div>
-     
-
-    </form>
+                       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-success" ng-show="success"> {{responseExam}}</div>
+                       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-danger" ng-show="error"> {{responseExam}}</div>
+                        
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <form ng-submit="addExam()">
+                                        <div class="col-sm-12 col-xs-12 col-lg-2 col-md-4 mbtm">
+                                          <select ng-model="formData.classId"  required ng-change="setSubjectList()" class="form-control">
+                                            <option value="">Class </option>
+                                            <option ng-repeat="y in classList"  value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>
+                                          </select>
+                                        </div>
+                                        <div class="col-sm-12 col-xs-12 col-lg-2 col-md-4 mbtm">
+                                          
+                                          <input  type="text" class="form-control" placeholder="ExamName" ng-model="formData.examName"  required>
+                                        </div>
+                                          
+                                        <div class="col-sm-12 col-xs-12 col-lg-2 col-md-4 mbtm">
+                                          <input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control"  ng-model="formData.fromDate"  required>
+                                        </div>
+                                        <div class="col-sm-12 col-xs-12 col-lg-2 col-md-4 mbtm">
+                                        <input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control"  ng-model="formData.toDate"  required>
+                                        </div>
+                                        <div class="col-sm-12 col-xs-12 col-lg-2 col-md-4 mbtm">
+                                        
+                                      <button type="submit"  class="btn btn-success uppercase">Add Exam</button><br><br>
+                                      </div>
+                          </form>
+                          </div>
                
 
 <!--Exam Table Starts-->
-              <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"  style="height:260px;overflow-y:auto;">
+                                                  
+                          <div class="col-sm-12"  style="height:260px;overflow-y:auto;">
               
-                <table class="table table-bordered table-striped table-condensed flip-content">
-                  <thead flip-content>
-                  <tr>
-                    <!--<th>#</th>-->
-                    <th><a ng-click="sortType = 'examName'; sortReverse = !sortReverse">Exam Name</a></th>
-                    <th><a ng-click="sortType = 'FromDate'; sortReverse = !sortReverse">FromDate</a></th>
-                    <th><a ng-click="sortType = 'toDate'; sortReverse = !sortReverse">ToDate</a></th>
-                    <th><a ng-click="sortType = 'classId'; sortReverse = !sortReverse">Class</a></th>
-                    <th ng-show="Admin">Option</th>
-                  </tr>
-                  </thead>
+                              <table class="table table-bordered table-striped table-condensed flip-content">
+                                <thead flip-content>
+                                <tr>
+                                  <!--<th>#</th>-->
+                                  <th><a ng-click="sortType = 'examName'; sortReverse = !sortReverse">Exam Name</a></th>
+                                  <th><a ng-click="sortType = 'FromDate'; sortReverse = !sortReverse">FromDate</a></th>
+                                  <th><a ng-click="sortType = 'toDate'; sortReverse = !sortReverse">ToDate</a></th>
+                                  <th><a ng-click="sortType = 'classId'; sortReverse = !sortReverse">Class</a></th>
+                                  <th ng-show="Admin">Option</th>
+                                </tr>
+                                </thead>
 
-                  <tbody>
-                  <tr data-ng-repeat="x in examList | filter:search |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
-                    <div data-ng-bind-html="x.id">
+                                <tbody>
+                                <tr data-ng-repeat="x in examList | filter:search |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
+                                  <div data-ng-bind-html="x.id">
 
-                      <td><a ng-click="addExamSubject(x)">{{x.examName}}</a></text></td>
-                      <td>{{x.fromDate | date:'MMM dd yyyy'}}</td>
-                      <td>{{x.toDate | date:'MMM dd yyyy'}}</td>
-                      
-                      <td>{{x.class.className}}-{{x.class.sectionName}}</td>
+                                    <td><a ng-click="addExamSubject(x)">{{x.examName}}</a></text></td>
+                                    <td>{{x.fromDate | date:'MMM dd yyyy'}}</td>
+                                    <td>{{x.toDate | date:'MMM dd yyyy'}}</td>
+                                    
+                                    <td>{{x.class.className}}-{{x.class.sectionName}}</td>
 
 
-                      <td ng-show="Admin">{{x.option}}
-                        <i class="glyphicon glyphicon-edit" ng-click="editExam(x)"></i>
-                        <i class="glyphicon glyphicon-remove"  ng-click="deleteExam(x)"></i>
+                                    <td ng-show="Admin">{{x.option}}
+                                      <i class="glyphicon glyphicon-edit" ng-click="editExam(x)"></i>
+                                      <i class="glyphicon glyphicon-remove"  ng-click="deleteExam(x)"></i>
 
-                      </td>
-                    </div>
-                  </tr>
-                  </tbody>
-                </table>
-                <div class="pull-left">
-                  Total Results: {{examList.length}}
-                </div>
-                <div class="pull-right">
-                  <button  ng-disabled="currentPage == 0"                        ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
-                  <button  ng-disabled="currentPage >= examList.length/pageSize-1" ng-click="currentPage=currentPage+1">Next</button>
-                </div>
-              </div>
+                                    </td>
+                                  </div>
+                                </tr>
+                                </tbody>
+                              </table>
+                              <div class="pull-left">
+                                Total Results: {{examList.length}}
+                              </div>
+                              <div class="pull-right">
+                                <button  ng-disabled="currentPage == 0"                        ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
+                                <button  ng-disabled="currentPage >= examList.length/pageSize-1" ng-click="currentPage=currentPage+1">Next</button>
+                              </div>
+                            </div>
 <!--Exam Table Ends-->
               
              
