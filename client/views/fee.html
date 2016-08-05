@@ -1,176 +1,72 @@
-<!--------------------------------------------------EDIT SECTION---------------------------------------------->
-
-
-<!------------------------------- EDIT FEE TYPE--------------------------------->
-<script type="text/ng-template" id="editFeeType">
+<!--Delete Fee Script-->
+<script type="text/ng-template" id="deleteFee">
   <div class="ngdialog-message">
-    <h3>Edit Fee Type</h3>
-    <form ng-submit=confirm(editData) >
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <select class="form-control"   ng-model="editData.category">
-          <option value="">FEE TYPE</option>
-          <option value="Monthly">Monthly</option>
-          <option value="Quarterly">Quarterly</option>
-          <option value="Halfyearly">Halfyearly</option>
-          <option value="Yearly">Yearly</option>
-          <option value="OnlyOnce">OnlyOnce</option>
-        </select > <br>
-        <input type="text" class="form-control" ng-disabled="false" placeholder="Fee Category*"  ng-model="editData.fee" required><br>
-
-        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">  <button type="submit" class="btn btn-success uppercase">Save Fee Category</button></div>
-      </div>
-
-
-
-    </form>
-    <div class="ngdialog-buttons">
-    </div>
-  </div>
-</script>
-<!-----------------------------------EDIT FEE TYPE-------------------------->
-
-
-
-
-<!-----------------------------------EDIT FEE SETUP TYPE-------------------------->
-<script type="text/ng-template" id="editFeeSetup">
-  <div class="ngdialog-message">
-    <h3>Edit Fee Setup</h3>
-    <form ng-submit=confirm(editData) >
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        
-<input type="text" class="form-control" ng-model="editData.category" ng-disabled="true"><br>
-<input type="text" class="form-control" ng-model="editData.fee" ng-disabled="true"><br>
-        <input  type="number"   class="form-control" placeholder="FEE AMOUNT*"  ng-model="editData.amount" required><br>
-        <!--<p ng-repeat="y in classList" value="{{y.id}}">      <input type="checkbox" ng-click="addClass(y,$index)" ng-model="y.status">{{y.className}}-{{y.sectionName}}</p><br>-->
-        <select class="form-control" ng-model="editData.classId" ng-disabled="true">
-          <option value="">Class-Section*</option>
-          <option ng-repeat="y in classList" value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>
-        </select><br>
-
-        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">  <button type="submit" class="btn btn-success uppercase">Save Fee Setup</button></div>
-      </div>
-
-
-
-    </form>
-    <div class="ngdialog-buttons">
-    </div>
-  </div>
-</script>
-<!-----------------------------------EDIT FEE SETUP TYPE-------------------------->
-
-
-
-
-
-<!-----------------------------------EDIT EXPENSE PAYMENT TYPE-------------------------->
-<script type="text/ng-template" id="editExpensePayment">
-  <div class="ngdialog-message">
-    <h3>Edit Expense Payment</h3>
-    <form ng-submit=confirm(editData) >
-      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-        <select ng-model="editData.expenseTypeId" class="form-control Expense" required>
-          <option value="">EXPENSE TYPE</option>
-          <option ng-repeat="x in ExpenseTypeList" value="{{x.id}}">{{x.name}}</option>
-        </select><br>
-
-        <input type="date"  max="9999-12-31" max="0001-01-01"  class="form-control" ng-disabled="false"  ng-model="editData.date" ng-value="feeDate" required><br>
-        <input type="number" class="form-control" ng-disabled="false" ng-model="editData.amount" required><br>
-
-        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">  <button type="submit" class="btn btn-success uppercase">Save Expense Payment</button></div>
-      </div>
-
-
-
-    </form>
-    <div class="ngdialog-buttons">
-    </div>
-  </div>
-</script>
-<!-----------------------------------EDIT EXPENSE PAYMENT-------------------------->
-<!---------------------------------------------------------------------EDIT SECTION---------------------------------------------->
-
-
-
-
-<!---------------------------------------------------------------------DELETE SECTION---------------------------------------------->
- 
-
- 
-
-
-
-<!-----------------------------------DELETE FEE TYPE-------------------------->
-<script type="text/ng-template" id="deleteFeeType">
-  <div class="ngdialog-message">
-    <h1>Confirm Delete</h1>
+    Confirm Delete
     <div class="ngdialog-buttons">
       <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog('Yes')">Yes</button>
       <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog()">No</button>
     </div>
   </div>
 </script>
-<!-----------------------------------DELETE FEE TYPE-------------------------->
+<!--Delete Fee Script-->
 
 
 
-<!-----------------------------------DELETE FEE SETUP-------------------------->
-<script type="text/ng-template" id="deleteFeeSetup">
+<!--Update Months Fee Script-->
+<script type="text/ng-template" id="updateMonths">
   <div class="ngdialog-message">
-    <h1>Confirm Delete</h1>
-    <div class="ngdialog-buttons">
-      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog('Yes')">Yes</button>
-      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog()">No</button>
-    </div>
+    <h5>Select Months</h5>
+    <form ng-submit =closeThisDialog(formData)>
+      <input type="checkbox" ng-model="formData.January" >Jan</input>  
+      <input type="checkbox" ng-model="formData.February"> Feb </input>
+      <input type="checkbox" ng-model="formData.March" > Mar </input>
+      <input type="checkbox" ng-model="formData.April" > Apr </input>
+      <input type="checkbox" ng-model="formData.May" > May </input>
+      <input type="checkbox" ng-model="formData.June" > Jun </input>
+      <input type="checkbox" ng-model="formData.July" > July </input>
+      <input type="checkbox" ng-model="formData.August" > Aug </input>
+      <input type="checkbox" ng-model="formData.September" > Sep </input>
+      <input type="checkbox" ng-model="formData.October" > Oct </input>
+      <input type="checkbox" ng-model="formData.November" > Nov </input>
+      <input type="checkbox" ng-model="formData.December"> Dec </input>
+      <input type="submit"  value="save"> 
+    </form>
+
   </div>
 </script>
-<!-----------------------------------DELETE FEE SETUP-------------------------->
+<!--Update Months Fee Script-->
 
 
-<!-----------------------------------DELETE STUDENT DISCOUNT-------------------------->
-<script type="text/ng-template" id="deleteStudentDiscount">
-  <div class="ngdialog-message">
-    <h1>Confirm Delete</h1>
-    <div class="ngdialog-buttons">
-      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog('Yes')">Yes</button>
-      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog()">No</button>
-    </div>
-  </div>
-</script>
-<!-----------------------------------DELETE STUDENT DISCOUNT-------------------------->
-<!-----------------------------------------------------------------DELETE SECTION------------------------------------------------>
-
-<!---------------------------------------Main Block---------------------------->
+<!-- -------------------------------------------FEE VIEW--------------------------------->
 <div class="container">
   <div class="row margin-top-10">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <!-- BEGIN PORTLET-->
       <div class="portlet light ">
+
         <div class="portlet-title">
-          <div class="caption caption-md pull-left">EXPENSE MANAGEMENT</div>
-          <div class="caption caption-md pull-right">
-          <!--Tab Buttons-->
-          <button class="btn btn-default" ng-class="{ active: isSet(1) }" href ng-click="setTab(1)">FEE SETUP</button>
-          <button class="btn btn-default" ng-class="{ active: isSet(2) }" href ng-click="setTab(2)">FEE PAYMENT</button>
-          <!--Tab Buttons-->
+          <div class="caption caption-md col-sm-2">  <span class="caption-subject uppercase">Attendance</span></div>
+          <div class="col-sm-6"></div>
+          <div class="col-sm-4">
+            <button class="btn btn-default" ng-class="{ active: isSet(1) }" href ng-click="setTab(1)">FEE SETUP</button>
+            <button class="btn btn-default" ng-class="{ active: isSet(2) }" href ng-click="setTab(2)">FEE PAYMENT</button>   
           </div>
 
-         </div>
-        <!-- ------------------------------Main Block---------------------------------->
-         <div class="row list-separated">
-          <div class="row">
-            <!-----------TAB 1 FEE SET UP BEGINS HERE---------------------------->
-
-            <!--Tab 3-->
-            <div ng-show="isSet(1)">
-
+        <div class="portlet-body">
+          <div class="row list-separated">
+            <div class="row">
+                    <div ng-show="isSet(1)">
+                     
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-             <div class="alert alert-success" ng-show="success">   {{responseFee}}     </div>
+               <!--Error Division-->
+                <div class="alert alert-success" ng-show="success">   {{responseFee}}     </div>
+                <div class="alert alert-error" ng-show="error">  {{responseFee}}  </div>
+               <!--Error Division-->
 
-              <div class="alert alert-error" ng-show="error">  {{responseFee}}  </div>
+               <!--Form Submit Division-->              
                 <form ng-submit="addFeeType()">
                   <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12 mbtm">
-                    <select class="form-control"   ng-model="formData.occurance"   >
+                    <select class="form-control" required  ng-model="formData.occurance"   >
                       <option value="">Fee Occurance</option>
                       <option>Monthly</option>
                       <option>Quarterly</option>
@@ -179,59 +75,128 @@
                       <option>OnlyOnce</option>
                     </select > 
                 </div>
+                <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12 mbtm">
+                    <select class="form-control" required  ng-model="formData.classId"   >
+                      <option value="">Class</option>
+                      <option data-ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
+                   
+                    </select > 
+                </div>
                   <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12 mbtm">
                     <input  type="text"   class="form-control" placeholder="Fee Type*"  ng-model="formData.feeType" required>
                     </div>
+
+                     <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12 mbtm">
+                    <input  type="number" min=0 minlength="1" class="form-control" placeholder="Amount"  ng-model="formData.amount" required>
+                    </div>
                   <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
                     
-                    <button type="submit" class="btn btn-success uppercase mbtm">Add</button>
+                    <button type="submit" class="btn btn-success uppercase mbtm">Add Fee</button>
                     
                   </div>
                 </form>
-              </div>
+               <!--Form Submit Division-->              
+                
+
+                 <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"  style="height:260px;overflow-y:auto;"> 
+                              <table class="table table-bordered table-striped table-condensed flip-content">
+                            <thead flip-content>
+                            <tr>
+                               <th><a ng-click="sortType = 'occurance'; sortReverse = !sortReverse">Ocuurance</a></th>
+                              <th><a ng-click="sortType = 'feeType'; sortReverse = !sortReverse">Fee Type</a></th>
+                              <th><a ng-click="sortType = 'amount'; sortReverse = !sortReverse">Amount</a></th>
+                              <th><a ng-click="sortType = 'className'; sortReverse = !sortReverse">Class</a></th>
+                              <th ng-show="Admin">Option</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr data-ng-repeat="x in feeList | filter:search |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
+                              <div data-ng-bind-html="x.id">
+
+                                <td>{{x.occurance }}</td>
+                                <td><span ng-click="updateMonths(x)">{{x.feeType}}</span></td>
+                                <td>{{x.amount}}</td>
+                                <td>{{x.class.className}}-{{x.class.sectionName}}</td>
+                                <td ng-show="Admin">  
+                                  <i class="glyphicon glyphicon-edit" ng-click="editFee(x)"></i>
+                                  <i class="glyphicon glyphicon-remove"  ng-click="deleteFee(x)"></i>
+                                </td>
+                              </div>
+                            </tr>
+                            </tbody>
+                          </table>
+                          <div>
             </div>
-            <br>
-            <br>
-            <br>
-            <!-----------TAB 1 FEE SET UP ENDS HERE---------------------------->
+                      </div>
 
-          <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"  style="height:260px;overflow-y:auto;"> 
-              
-                <table class="table table-bordered table-striped table-condensed flip-content">
-                  <thead flip-content>
-                  <tr>
-                    <th><a ng-click="sortType = 'occurance'; sortReverse = !sortReverse">Ocuurance</a></th>
-                    <th><a ng-click="sortType = 'feeType'; sortReverse = !sortReverse">FromDate</a></th>
-                    <th ng-show="Admin">Option</th>
-                  </tr>
-                  </thead>
+                    
+                </div>
+              </div>
 
-                  <tbody>
-                  <tr data-ng-repeat="x in feeList | filter:search |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
-                    <div data-ng-bind-html="x.id">
+                    <div ng-show="isSet(2)">
+                  <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12 mbtm">
+                    <select class="form-control" required ng-change="setStudents()" ng-model="formData.classId"   >
+                      <option value="">Class</option>
+                      <option data-ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
+                   
+                    </select > 
+                </div>
 
-                      <td>{{x.occurance }}</td>
-                      <td>{{x.feeType}}</td>
-                      <td ng-show="Admin">  
-                        <i class="glyphicon glyphicon-edit" ng-click="editFee(x)"></i>
-                        <i class="glyphicon glyphicon-remove"  ng-click="deleteFee(x)"></i>
-                      </td>
+                <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12 mbtm">
+                    <select class="form-control" required ng-change="showFeePayment()" ng-model="formData.studentId"   >
+                      <option value="">Students</option>
+                      <option data-ng-repeat="y in studentsList" value="{{y.id}}">{{y.firstName}}-{{y.lastName}}</option>
+                   
+                    </select > 
+                </div>
+
+                <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12 mbtm">
+                    <select class="form-control" required ng-change="showPayment()" ng-model="formData.feesetUpId"   >
+                      <option value="">Fee Type</option>
+                      <option data-ng-repeat="z in feeSetupList" value="{{z.id}}">{{z.feeType}}<option>
+                   
+                    </select > 
+                </div>
+                       <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"  style="height:260px;overflow-y:auto;"> 
+                              <table class="table table-bordered table-striped table-condensed flip-content">
+                            <thead flip-content>
+                            <tr>
+                               <th><a ng-click="sortType = 'occurance'; sortReverse = !sortReverse">Ocuurance</a></th>
+                              <th><a ng-click="sortType = 'feeType'; sortReverse = !sortReverse">Fee Type</a></th>
+                              <th><a ng-click="sortType = 'amount'; sortReverse = !sortReverse">Amount</a></th>
+                              <th><a ng-click="sortType = 'className'; sortReverse = !sortReverse">Class</a></th>
+                              <th ng-show="Admin">Option</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr data-ng-repeat="x in feePayList | filter:search |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
+                              <div data-ng-bind-html="x.id">
+
+                                <td>{{x.feeType}}</td>
+                                <td data-ng-repeat="(key,value) in x.monthsList" >
+                                  {{x.amount}}({{key}})
+                                  <input type="checkbox" ng-model="flag"/>
+                                  </td>
+
+                              </div>
+                            </tr>
+                            </tbody>
+                          </table>
+                          <div>
+
                     </div>
-                  </tr>
-                  </tbody>
-                </table>
-                <div>
 
-
-
-
-
-
-
-
+        </div>
+        <!-- END PORTLET-->
       </div>
+
     </div>
   </div>
 </div>
-</div>
-</div>
+
+
+
+
+

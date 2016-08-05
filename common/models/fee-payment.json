@@ -1,5 +1,5 @@
 {
-  "name": "FeeSetup",
+  "name": "FeePayment",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
@@ -8,19 +8,14 @@
   "properties": {},
   "validations": [],
   "relations": {
-    "class": {
+    "student": {
       "type": "belongsTo",
-      "model": "Class",
+      "model": "Student",
       "foreignKey": ""
     },
-    "school": {
+    "feeSetup": {
       "type": "belongsTo",
-      "model": "School",
-      "foreignKey": ""
-    },
-    "feePayments": {
-      "type": "hasMany",
-      "model": "FeePayment",
+      "model": "FeeSetup",
       "foreignKey": ""
     }
   },

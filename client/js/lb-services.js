@@ -2272,6 +2272,12 @@ module.factory(
           method: "GET"
         },
 
+        // INTERNAL. Use FeePayment.student() instead.
+        "::get::FeePayment::student": {
+          url: urlBase + "/FeePayments/:id/student",
+          method: "GET"
+        },
+
         /**
          * @ngdoc method
          * @name lbServices.Student#getCurrent
@@ -6219,6 +6225,33 @@ module.factory(
           method: "PUT"
         },
 
+        // INTERNAL. Use School.feeSetups.findById() instead.
+        "prototype$__findById__feeSetups": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Schools/:id/feeSetups/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use School.feeSetups.destroyById() instead.
+        "prototype$__destroyById__feeSetups": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Schools/:id/feeSetups/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use School.feeSetups.updateById() instead.
+        "prototype$__updateById__feeSetups": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Schools/:id/feeSetups/:fk",
+          method: "PUT"
+        },
+
         // INTERNAL. Use School.staffs() instead.
         "prototype$__get__staffs": {
           isArray: true,
@@ -6316,6 +6349,31 @@ module.factory(
         // INTERNAL. Use School.libraries.count() instead.
         "prototype$__count__libraries": {
           url: urlBase + "/Schools/:id/libraries/count",
+          method: "GET"
+        },
+
+        // INTERNAL. Use School.feeSetups() instead.
+        "prototype$__get__feeSetups": {
+          isArray: true,
+          url: urlBase + "/Schools/:id/feeSetups",
+          method: "GET"
+        },
+
+        // INTERNAL. Use School.feeSetups.create() instead.
+        "prototype$__create__feeSetups": {
+          url: urlBase + "/Schools/:id/feeSetups",
+          method: "POST"
+        },
+
+        // INTERNAL. Use School.feeSetups.destroyAll() instead.
+        "prototype$__delete__feeSetups": {
+          url: urlBase + "/Schools/:id/feeSetups",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use School.feeSetups.count() instead.
+        "prototype$__count__feeSetups": {
+          url: urlBase + "/Schools/:id/feeSetups/count",
           method: "GET"
         },
 
@@ -6804,6 +6862,12 @@ module.factory(
         // INTERNAL. Use Attendance.school() instead.
         "::get::Attendance::school": {
           url: urlBase + "/Attendances/:id/school",
+          method: "GET"
+        },
+
+        // INTERNAL. Use FeeSetup.school() instead.
+        "::get::FeeSetup::school": {
+          url: urlBase + "/FeeSetups/:id/school",
           method: "GET"
         },
 
@@ -8353,6 +8417,307 @@ module.factory(
           var action = TargetResource["::updateById::School::libraries"];
           return action.apply(R, arguments);
         };
+    /**
+     * @ngdoc object
+     * @name lbServices.School.feeSetups
+     * @header lbServices.School.feeSetups
+     * @object
+     * @description
+     *
+     * The object `School.feeSetups` groups methods
+     * manipulating `FeeSetup` instances related to `School`.
+     *
+     * Call {@link lbServices.School#feeSetups School.feeSetups()}
+     * to query all related instances.
+     */
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School#feeSetups
+         * @methodOf lbServices.School
+         *
+         * @description
+         *
+         * Queries feeSetups of School.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `FeeSetup` object.)
+         * </em>
+         */
+        R.feeSetups = function() {
+          var TargetResource = $injector.get("FeeSetup");
+          var action = TargetResource["::get::School::feeSetups"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School.feeSetups#count
+         * @methodOf lbServices.School.feeSetups
+         *
+         * @description
+         *
+         * Counts feeSetups of School.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        R.feeSetups.count = function() {
+          var TargetResource = $injector.get("FeeSetup");
+          var action = TargetResource["::count::School::feeSetups"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School.feeSetups#create
+         * @methodOf lbServices.School.feeSetups
+         *
+         * @description
+         *
+         * Creates a new instance in feeSetups of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `FeeSetup` object.)
+         * </em>
+         */
+        R.feeSetups.create = function() {
+          var TargetResource = $injector.get("FeeSetup");
+          var action = TargetResource["::create::School::feeSetups"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School.feeSetups#createMany
+         * @methodOf lbServices.School.feeSetups
+         *
+         * @description
+         *
+         * Creates a new instance in feeSetups of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `FeeSetup` object.)
+         * </em>
+         */
+        R.feeSetups.createMany = function() {
+          var TargetResource = $injector.get("FeeSetup");
+          var action = TargetResource["::createMany::School::feeSetups"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School.feeSetups#destroyAll
+         * @methodOf lbServices.School.feeSetups
+         *
+         * @description
+         *
+         * Deletes all feeSetups of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.feeSetups.destroyAll = function() {
+          var TargetResource = $injector.get("FeeSetup");
+          var action = TargetResource["::delete::School::feeSetups"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School.feeSetups#destroyById
+         * @methodOf lbServices.School.feeSetups
+         *
+         * @description
+         *
+         * Delete a related item by id for feeSetups.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for feeSetups
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.feeSetups.destroyById = function() {
+          var TargetResource = $injector.get("FeeSetup");
+          var action = TargetResource["::destroyById::School::feeSetups"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School.feeSetups#findById
+         * @methodOf lbServices.School.feeSetups
+         *
+         * @description
+         *
+         * Find a related item by id for feeSetups.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for feeSetups
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `FeeSetup` object.)
+         * </em>
+         */
+        R.feeSetups.findById = function() {
+          var TargetResource = $injector.get("FeeSetup");
+          var action = TargetResource["::findById::School::feeSetups"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School.feeSetups#updateById
+         * @methodOf lbServices.School.feeSetups
+         *
+         * @description
+         *
+         * Update a related item by id for feeSetups.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for feeSetups
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `FeeSetup` object.)
+         * </em>
+         */
+        R.feeSetups.updateById = function() {
+          var TargetResource = $injector.get("FeeSetup");
+          var action = TargetResource["::updateById::School::feeSetups"];
+          return action.apply(R, arguments);
+        };
 
     return R;
   }]);
@@ -8475,28 +8840,31 @@ module.factory(
           method: "PUT"
         },
 
-        // INTERNAL. Use Class.feeSetups() instead.
-        "prototype$__get__feeSetups": {
-          url: urlBase + "/Classes/:id/feeSetups",
+        // INTERNAL. Use Class.feeSetups.findById() instead.
+        "prototype$__findById__feeSetups": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/feeSetups/:fk",
           method: "GET"
         },
 
-        // INTERNAL. Use Class.feeSetups.create() instead.
-        "prototype$__create__feeSetups": {
-          url: urlBase + "/Classes/:id/feeSetups",
-          method: "POST"
-        },
-
-        // INTERNAL. Use Class.feeSetups.update() instead.
-        "prototype$__update__feeSetups": {
-          url: urlBase + "/Classes/:id/feeSetups",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use Class.feeSetups.destroy() instead.
-        "prototype$__destroy__feeSetups": {
-          url: urlBase + "/Classes/:id/feeSetups",
+        // INTERNAL. Use Class.feeSetups.destroyById() instead.
+        "prototype$__destroyById__feeSetups": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/feeSetups/:fk",
           method: "DELETE"
+        },
+
+        // INTERNAL. Use Class.feeSetups.updateById() instead.
+        "prototype$__updateById__feeSetups": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/feeSetups/:fk",
+          method: "PUT"
         },
 
         // INTERNAL. Use Class.exams.findById() instead.
@@ -8625,6 +8993,31 @@ module.factory(
         // INTERNAL. Use Class.assignments.count() instead.
         "prototype$__count__assignments": {
           url: urlBase + "/Classes/:id/assignments/count",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Class.feeSetups() instead.
+        "prototype$__get__feeSetups": {
+          isArray: true,
+          url: urlBase + "/Classes/:id/feeSetups",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Class.feeSetups.create() instead.
+        "prototype$__create__feeSetups": {
+          url: urlBase + "/Classes/:id/feeSetups",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Class.feeSetups.destroyAll() instead.
+        "prototype$__delete__feeSetups": {
+          url: urlBase + "/Classes/:id/feeSetups",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Class.feeSetups.count() instead.
+        "prototype$__count__feeSetups": {
+          url: urlBase + "/Classes/:id/feeSetups/count",
           method: "GET"
         },
 
@@ -10339,21 +10732,21 @@ module.factory(
          *
          * @description
          *
-         * Fetches hasOne relation feeSetups.
+         * Queries feeSetups of Class.
          *
          * @param {Object=} parameters Request parameters.
          *
          *  - `id` – `{*}` - PersistedModel id
          *
-         *  - `refresh` – `{boolean=}` - 
+         *  - `filter` – `{object=}` - 
          *
-         * @param {function(Object,Object)=} successCb
+         * @param {function(Array.<Object>,Object)=} successCb
          *   Success callback with two arguments: `value`, `responseHeaders`.
          *
          * @param {function(Object)=} errorCb Error callback with one argument:
          *   `httpResponse`.
          *
-         * @returns {Object} An empty reference that will be
+         * @returns {Array.<Object>} An empty reference that will be
          *   populated with the actual data once the response is returned
          *   from the server.
          *
@@ -10365,6 +10758,41 @@ module.factory(
         R.feeSetups = function() {
           var TargetResource = $injector.get("FeeSetup");
           var action = TargetResource["::get::Class::feeSetups"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.feeSetups#count
+         * @methodOf lbServices.Class.feeSetups
+         *
+         * @description
+         *
+         * Counts feeSetups of Class.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        R.feeSetups.count = function() {
+          var TargetResource = $injector.get("FeeSetup");
+          var action = TargetResource["::count::Class::feeSetups"];
           return action.apply(R, arguments);
         };
 
@@ -10446,12 +10874,12 @@ module.factory(
 
         /**
          * @ngdoc method
-         * @name lbServices.Class.feeSetups#destroy
+         * @name lbServices.Class.feeSetups#destroyAll
          * @methodOf lbServices.Class.feeSetups
          *
          * @description
          *
-         * Deletes feeSetups of this model.
+         * Deletes all feeSetups of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -10469,24 +10897,95 @@ module.factory(
          *
          * This method returns no data.
          */
-        R.feeSetups.destroy = function() {
+        R.feeSetups.destroyAll = function() {
           var TargetResource = $injector.get("FeeSetup");
-          var action = TargetResource["::destroy::Class::feeSetups"];
+          var action = TargetResource["::delete::Class::feeSetups"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.Class.feeSetups#update
+         * @name lbServices.Class.feeSetups#destroyById
          * @methodOf lbServices.Class.feeSetups
          *
          * @description
          *
-         * Update feeSetups of this model.
+         * Delete a related item by id for feeSetups.
          *
          * @param {Object=} parameters Request parameters.
          *
          *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for feeSetups
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.feeSetups.destroyById = function() {
+          var TargetResource = $injector.get("FeeSetup");
+          var action = TargetResource["::destroyById::Class::feeSetups"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.feeSetups#findById
+         * @methodOf lbServices.Class.feeSetups
+         *
+         * @description
+         *
+         * Find a related item by id for feeSetups.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for feeSetups
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `FeeSetup` object.)
+         * </em>
+         */
+        R.feeSetups.findById = function() {
+          var TargetResource = $injector.get("FeeSetup");
+          var action = TargetResource["::findById::Class::feeSetups"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.feeSetups#updateById
+         * @methodOf lbServices.Class.feeSetups
+         *
+         * @description
+         *
+         * Update a related item by id for feeSetups.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for feeSetups
          *
          * @param {Object} postData Request data.
          *
@@ -10507,9 +11006,9 @@ module.factory(
          * This usually means the response is a `FeeSetup` object.)
          * </em>
          */
-        R.feeSetups.update = function() {
+        R.feeSetups.updateById = function() {
           var TargetResource = $injector.get("FeeSetup");
-          var action = TargetResource["::update::Class::feeSetups"];
+          var action = TargetResource["::updateById::Class::feeSetups"];
           return action.apply(R, arguments);
         };
     /**
@@ -12838,12 +13337,6 @@ module.factory(
           url: urlBase + "/Marks/:id/subject",
           method: "GET"
         },
-
-        // INTERNAL. Use ExamSchedule.subject() instead.
-        "::get::ExamSchedule::subject": {
-          url: urlBase + "/ExamSchedules/:id/subject",
-          method: "GET"
-        },
       }
     );
 
@@ -14386,957 +14879,6 @@ module.factory(
         R.busServices.updateById = function() {
           var TargetResource = $injector.get("BusService");
           var action = TargetResource["::updateById::Bus::busServices"];
-          return action.apply(R, arguments);
-        };
-
-    return R;
-  }]);
-
-/**
- * @ngdoc object
- * @name lbServices.FeeType
- * @header lbServices.FeeType
- * @object
- *
- * @description
- *
- * A $resource object for interacting with the `FeeType` model.
- *
- * ## Example
- *
- * See
- * {@link http://docs.angularjs.org/api/ngResource.$resource#example $resource}
- * for an example of using this object.
- *
- */
-module.factory(
-  "FeeType",
-  ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
-    var R = Resource(
-      urlBase + "/FeeTypes/:id",
-      { 'id': '@id' },
-      {
-
-        // INTERNAL. Use FeeType.feeSetups.findById() instead.
-        "prototype$__findById__feeSetups": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/FeeTypes/:id/feeSetups/:fk",
-          method: "GET"
-        },
-
-        // INTERNAL. Use FeeType.feeSetups.destroyById() instead.
-        "prototype$__destroyById__feeSetups": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/FeeTypes/:id/feeSetups/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use FeeType.feeSetups.updateById() instead.
-        "prototype$__updateById__feeSetups": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/FeeTypes/:id/feeSetups/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use FeeType.feeSetups() instead.
-        "prototype$__get__feeSetups": {
-          isArray: true,
-          url: urlBase + "/FeeTypes/:id/feeSetups",
-          method: "GET"
-        },
-
-        // INTERNAL. Use FeeType.feeSetups.create() instead.
-        "prototype$__create__feeSetups": {
-          url: urlBase + "/FeeTypes/:id/feeSetups",
-          method: "POST"
-        },
-
-        // INTERNAL. Use FeeType.feeSetups.destroyAll() instead.
-        "prototype$__delete__feeSetups": {
-          url: urlBase + "/FeeTypes/:id/feeSetups",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use FeeType.feeSetups.count() instead.
-        "prototype$__count__feeSetups": {
-          url: urlBase + "/FeeTypes/:id/feeSetups/count",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name lbServices.FeeType#create
-         * @methodOf lbServices.FeeType
-         *
-         * @description
-         *
-         * Create a new instance of the model and persist it into the data source.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *   This method does not accept any parameters.
-         *   Supply an empty object or omit this argument altogether.
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `FeeType` object.)
-         * </em>
-         */
-        "create": {
-          url: urlBase + "/FeeTypes",
-          method: "POST"
-        },
-
-        /**
-         * @ngdoc method
-         * @name lbServices.FeeType#createMany
-         * @methodOf lbServices.FeeType
-         *
-         * @description
-         *
-         * Create a new instance of the model and persist it into the data source.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *   This method does not accept any parameters.
-         *   Supply an empty object or omit this argument altogether.
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Array.<Object>,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Array.<Object>} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `FeeType` object.)
-         * </em>
-         */
-        "createMany": {
-          isArray: true,
-          url: urlBase + "/FeeTypes",
-          method: "POST"
-        },
-
-        /**
-         * @ngdoc method
-         * @name lbServices.FeeType#upsert
-         * @methodOf lbServices.FeeType
-         *
-         * @description
-         *
-         * Update an existing model instance or insert a new one into the data source.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *   This method does not accept any parameters.
-         *   Supply an empty object or omit this argument altogether.
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `FeeType` object.)
-         * </em>
-         */
-        "upsert": {
-          url: urlBase + "/FeeTypes",
-          method: "PUT"
-        },
-
-        /**
-         * @ngdoc method
-         * @name lbServices.FeeType#exists
-         * @methodOf lbServices.FeeType
-         *
-         * @description
-         *
-         * Check whether a model instance exists in the data source.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `exists` – `{boolean=}` - 
-         */
-        "exists": {
-          url: urlBase + "/FeeTypes/:id/exists",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name lbServices.FeeType#findById
-         * @methodOf lbServices.FeeType
-         *
-         * @description
-         *
-         * Find a model instance by id from the data source.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         *  - `filter` – `{object=}` - Filter defining fields and include
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `FeeType` object.)
-         * </em>
-         */
-        "findById": {
-          url: urlBase + "/FeeTypes/:id",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name lbServices.FeeType#find
-         * @methodOf lbServices.FeeType
-         *
-         * @description
-         *
-         * Find all instances of the model matched by filter from the data source.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `filter` – `{object=}` - Filter defining fields, where, include, order, offset, and limit
-         *
-         * @param {function(Array.<Object>,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Array.<Object>} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `FeeType` object.)
-         * </em>
-         */
-        "find": {
-          isArray: true,
-          url: urlBase + "/FeeTypes",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name lbServices.FeeType#findOne
-         * @methodOf lbServices.FeeType
-         *
-         * @description
-         *
-         * Find first instance of the model matched by filter from the data source.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `filter` – `{object=}` - Filter defining fields, where, include, order, offset, and limit
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `FeeType` object.)
-         * </em>
-         */
-        "findOne": {
-          url: urlBase + "/FeeTypes/findOne",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name lbServices.FeeType#updateAll
-         * @methodOf lbServices.FeeType
-         *
-         * @description
-         *
-         * Update instances of the model matched by where from the data source.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * The number of instances updated
-         */
-        "updateAll": {
-          url: urlBase + "/FeeTypes/update",
-          method: "POST"
-        },
-
-        /**
-         * @ngdoc method
-         * @name lbServices.FeeType#deleteById
-         * @methodOf lbServices.FeeType
-         *
-         * @description
-         *
-         * Delete a model instance by id from the data source.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `FeeType` object.)
-         * </em>
-         */
-        "deleteById": {
-          url: urlBase + "/FeeTypes/:id",
-          method: "DELETE"
-        },
-
-        /**
-         * @ngdoc method
-         * @name lbServices.FeeType#count
-         * @methodOf lbServices.FeeType
-         *
-         * @description
-         *
-         * Count instances of the model matched by where from the data source.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `count` – `{number=}` - 
-         */
-        "count": {
-          url: urlBase + "/FeeTypes/count",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name lbServices.FeeType#prototype$updateAttributes
-         * @methodOf lbServices.FeeType
-         *
-         * @description
-         *
-         * Update attributes for a model instance and persist it into the data source.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `FeeType` object.)
-         * </em>
-         */
-        "prototype$updateAttributes": {
-          url: urlBase + "/FeeTypes/:id",
-          method: "PUT"
-        },
-
-        /**
-         * @ngdoc method
-         * @name lbServices.FeeType#createChangeStream
-         * @methodOf lbServices.FeeType
-         *
-         * @description
-         *
-         * Create a change stream.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *   This method does not accept any parameters.
-         *   Supply an empty object or omit this argument altogether.
-         *
-         * @param {Object} postData Request data.
-         *
-         *  - `options` – `{object=}` - 
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `changes` – `{ReadableStream=}` - 
-         */
-        "createChangeStream": {
-          url: urlBase + "/FeeTypes/change-stream",
-          method: "POST"
-        },
-
-        // INTERNAL. Use FeeSetup.feeType() instead.
-        "::get::FeeSetup::feeType": {
-          url: urlBase + "/FeeSetups/:id/feeType",
-          method: "GET"
-        },
-      }
-    );
-
-
-
-        /**
-         * @ngdoc method
-         * @name lbServices.FeeType#updateOrCreate
-         * @methodOf lbServices.FeeType
-         *
-         * @description
-         *
-         * Update an existing model instance or insert a new one into the data source.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *   This method does not accept any parameters.
-         *   Supply an empty object or omit this argument altogether.
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `FeeType` object.)
-         * </em>
-         */
-        R["updateOrCreate"] = R["upsert"];
-
-        /**
-         * @ngdoc method
-         * @name lbServices.FeeType#update
-         * @methodOf lbServices.FeeType
-         *
-         * @description
-         *
-         * Update instances of the model matched by where from the data source.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * The number of instances updated
-         */
-        R["update"] = R["updateAll"];
-
-        /**
-         * @ngdoc method
-         * @name lbServices.FeeType#destroyById
-         * @methodOf lbServices.FeeType
-         *
-         * @description
-         *
-         * Delete a model instance by id from the data source.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `FeeType` object.)
-         * </em>
-         */
-        R["destroyById"] = R["deleteById"];
-
-        /**
-         * @ngdoc method
-         * @name lbServices.FeeType#removeById
-         * @methodOf lbServices.FeeType
-         *
-         * @description
-         *
-         * Delete a model instance by id from the data source.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `FeeType` object.)
-         * </em>
-         */
-        R["removeById"] = R["deleteById"];
-
-
-    /**
-    * @ngdoc property
-    * @name lbServices.FeeType#modelName
-    * @propertyOf lbServices.FeeType
-    * @description
-    * The name of the model represented by this $resource,
-    * i.e. `FeeType`.
-    */
-    R.modelName = "FeeType";
-
-    /**
-     * @ngdoc object
-     * @name lbServices.FeeType.feeSetups
-     * @header lbServices.FeeType.feeSetups
-     * @object
-     * @description
-     *
-     * The object `FeeType.feeSetups` groups methods
-     * manipulating `FeeSetup` instances related to `FeeType`.
-     *
-     * Call {@link lbServices.FeeType#feeSetups FeeType.feeSetups()}
-     * to query all related instances.
-     */
-
-
-        /**
-         * @ngdoc method
-         * @name lbServices.FeeType#feeSetups
-         * @methodOf lbServices.FeeType
-         *
-         * @description
-         *
-         * Queries feeSetups of FeeType.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `filter` – `{object=}` - 
-         *
-         * @param {function(Array.<Object>,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Array.<Object>} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `FeeSetup` object.)
-         * </em>
-         */
-        R.feeSetups = function() {
-          var TargetResource = $injector.get("FeeSetup");
-          var action = TargetResource["::get::FeeType::feeSetups"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.FeeType.feeSetups#count
-         * @methodOf lbServices.FeeType.feeSetups
-         *
-         * @description
-         *
-         * Counts feeSetups of FeeType.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `count` – `{number=}` - 
-         */
-        R.feeSetups.count = function() {
-          var TargetResource = $injector.get("FeeSetup");
-          var action = TargetResource["::count::FeeType::feeSetups"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.FeeType.feeSetups#create
-         * @methodOf lbServices.FeeType.feeSetups
-         *
-         * @description
-         *
-         * Creates a new instance in feeSetups of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `FeeSetup` object.)
-         * </em>
-         */
-        R.feeSetups.create = function() {
-          var TargetResource = $injector.get("FeeSetup");
-          var action = TargetResource["::create::FeeType::feeSetups"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.FeeType.feeSetups#createMany
-         * @methodOf lbServices.FeeType.feeSetups
-         *
-         * @description
-         *
-         * Creates a new instance in feeSetups of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Array.<Object>,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Array.<Object>} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `FeeSetup` object.)
-         * </em>
-         */
-        R.feeSetups.createMany = function() {
-          var TargetResource = $injector.get("FeeSetup");
-          var action = TargetResource["::createMany::FeeType::feeSetups"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.FeeType.feeSetups#destroyAll
-         * @methodOf lbServices.FeeType.feeSetups
-         *
-         * @description
-         *
-         * Deletes all feeSetups of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R.feeSetups.destroyAll = function() {
-          var TargetResource = $injector.get("FeeSetup");
-          var action = TargetResource["::delete::FeeType::feeSetups"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.FeeType.feeSetups#destroyById
-         * @methodOf lbServices.FeeType.feeSetups
-         *
-         * @description
-         *
-         * Delete a related item by id for feeSetups.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `fk` – `{*}` - Foreign key for feeSetups
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R.feeSetups.destroyById = function() {
-          var TargetResource = $injector.get("FeeSetup");
-          var action = TargetResource["::destroyById::FeeType::feeSetups"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.FeeType.feeSetups#findById
-         * @methodOf lbServices.FeeType.feeSetups
-         *
-         * @description
-         *
-         * Find a related item by id for feeSetups.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `fk` – `{*}` - Foreign key for feeSetups
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `FeeSetup` object.)
-         * </em>
-         */
-        R.feeSetups.findById = function() {
-          var TargetResource = $injector.get("FeeSetup");
-          var action = TargetResource["::findById::FeeType::feeSetups"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.FeeType.feeSetups#updateById
-         * @methodOf lbServices.FeeType.feeSetups
-         *
-         * @description
-         *
-         * Update a related item by id for feeSetups.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `fk` – `{*}` - Foreign key for feeSetups
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `FeeSetup` object.)
-         * </em>
-         */
-        R.feeSetups.updateById = function() {
-          var TargetResource = $injector.get("FeeSetup");
-          var action = TargetResource["::updateById::FeeType::feeSetups"];
           return action.apply(R, arguments);
         };
 
@@ -27527,15 +27069,67 @@ module.factory(
       { 'id': '@id' },
       {
 
-        // INTERNAL. Use FeeSetup.feeType() instead.
-        "prototype$__get__feeType": {
-          url: urlBase + "/FeeSetups/:id/feeType",
-          method: "GET"
-        },
-
         // INTERNAL. Use FeeSetup.class() instead.
         "prototype$__get__class": {
           url: urlBase + "/FeeSetups/:id/class",
+          method: "GET"
+        },
+
+        // INTERNAL. Use FeeSetup.school() instead.
+        "prototype$__get__school": {
+          url: urlBase + "/FeeSetups/:id/school",
+          method: "GET"
+        },
+
+        // INTERNAL. Use FeeSetup.feePayments.findById() instead.
+        "prototype$__findById__feePayments": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/FeeSetups/:id/feePayments/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use FeeSetup.feePayments.destroyById() instead.
+        "prototype$__destroyById__feePayments": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/FeeSetups/:id/feePayments/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use FeeSetup.feePayments.updateById() instead.
+        "prototype$__updateById__feePayments": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/FeeSetups/:id/feePayments/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use FeeSetup.feePayments() instead.
+        "prototype$__get__feePayments": {
+          isArray: true,
+          url: urlBase + "/FeeSetups/:id/feePayments",
+          method: "GET"
+        },
+
+        // INTERNAL. Use FeeSetup.feePayments.create() instead.
+        "prototype$__create__feePayments": {
+          url: urlBase + "/FeeSetups/:id/feePayments",
+          method: "POST"
+        },
+
+        // INTERNAL. Use FeeSetup.feePayments.destroyAll() instead.
+        "prototype$__delete__feePayments": {
+          url: urlBase + "/FeeSetups/:id/feePayments",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use FeeSetup.feePayments.count() instead.
+        "prototype$__count__feePayments": {
+          url: urlBase + "/FeeSetups/:id/feePayments/count",
           method: "GET"
         },
 
@@ -27961,8 +27555,95 @@ module.factory(
           method: "POST"
         },
 
+        // INTERNAL. Use School.feeSetups.findById() instead.
+        "::findById::School::feeSetups": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Schools/:id/feeSetups/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use School.feeSetups.destroyById() instead.
+        "::destroyById::School::feeSetups": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Schools/:id/feeSetups/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use School.feeSetups.updateById() instead.
+        "::updateById::School::feeSetups": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Schools/:id/feeSetups/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use School.feeSetups() instead.
+        "::get::School::feeSetups": {
+          isArray: true,
+          url: urlBase + "/Schools/:id/feeSetups",
+          method: "GET"
+        },
+
+        // INTERNAL. Use School.feeSetups.create() instead.
+        "::create::School::feeSetups": {
+          url: urlBase + "/Schools/:id/feeSetups",
+          method: "POST"
+        },
+
+        // INTERNAL. Use School.feeSetups.createMany() instead.
+        "::createMany::School::feeSetups": {
+          isArray: true,
+          url: urlBase + "/Schools/:id/feeSetups",
+          method: "POST"
+        },
+
+        // INTERNAL. Use School.feeSetups.destroyAll() instead.
+        "::delete::School::feeSetups": {
+          url: urlBase + "/Schools/:id/feeSetups",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use School.feeSetups.count() instead.
+        "::count::School::feeSetups": {
+          url: urlBase + "/Schools/:id/feeSetups/count",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Class.feeSetups.findById() instead.
+        "::findById::Class::feeSetups": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/feeSetups/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Class.feeSetups.destroyById() instead.
+        "::destroyById::Class::feeSetups": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/feeSetups/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Class.feeSetups.updateById() instead.
+        "::updateById::Class::feeSetups": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/feeSetups/:fk",
+          method: "PUT"
+        },
+
         // INTERNAL. Use Class.feeSetups() instead.
         "::get::Class::feeSetups": {
+          isArray: true,
           url: urlBase + "/Classes/:id/feeSetups",
           method: "GET"
         },
@@ -27980,74 +27661,21 @@ module.factory(
           method: "POST"
         },
 
-        // INTERNAL. Use Class.feeSetups.update() instead.
-        "::update::Class::feeSetups": {
-          url: urlBase + "/Classes/:id/feeSetups",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use Class.feeSetups.destroy() instead.
-        "::destroy::Class::feeSetups": {
+        // INTERNAL. Use Class.feeSetups.destroyAll() instead.
+        "::delete::Class::feeSetups": {
           url: urlBase + "/Classes/:id/feeSetups",
           method: "DELETE"
         },
 
-        // INTERNAL. Use FeeType.feeSetups.findById() instead.
-        "::findById::FeeType::feeSetups": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/FeeTypes/:id/feeSetups/:fk",
+        // INTERNAL. Use Class.feeSetups.count() instead.
+        "::count::Class::feeSetups": {
+          url: urlBase + "/Classes/:id/feeSetups/count",
           method: "GET"
         },
 
-        // INTERNAL. Use FeeType.feeSetups.destroyById() instead.
-        "::destroyById::FeeType::feeSetups": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/FeeTypes/:id/feeSetups/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use FeeType.feeSetups.updateById() instead.
-        "::updateById::FeeType::feeSetups": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/FeeTypes/:id/feeSetups/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use FeeType.feeSetups() instead.
-        "::get::FeeType::feeSetups": {
-          isArray: true,
-          url: urlBase + "/FeeTypes/:id/feeSetups",
-          method: "GET"
-        },
-
-        // INTERNAL. Use FeeType.feeSetups.create() instead.
-        "::create::FeeType::feeSetups": {
-          url: urlBase + "/FeeTypes/:id/feeSetups",
-          method: "POST"
-        },
-
-        // INTERNAL. Use FeeType.feeSetups.createMany() instead.
-        "::createMany::FeeType::feeSetups": {
-          isArray: true,
-          url: urlBase + "/FeeTypes/:id/feeSetups",
-          method: "POST"
-        },
-
-        // INTERNAL. Use FeeType.feeSetups.destroyAll() instead.
-        "::delete::FeeType::feeSetups": {
-          url: urlBase + "/FeeTypes/:id/feeSetups",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use FeeType.feeSetups.count() instead.
-        "::count::FeeType::feeSetups": {
-          url: urlBase + "/FeeTypes/:id/feeSetups/count",
+        // INTERNAL. Use FeePayment.feeSetup() instead.
+        "::get::FeePayment::feeSetup": {
+          url: urlBase + "/FeePayments/:id/feeSetup",
           method: "GET"
         },
       }
@@ -28195,42 +27823,6 @@ module.factory(
 
         /**
          * @ngdoc method
-         * @name lbServices.FeeSetup#feeType
-         * @methodOf lbServices.FeeSetup
-         *
-         * @description
-         *
-         * Fetches belongsTo relation feeType.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `refresh` – `{boolean=}` - 
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `FeeType` object.)
-         * </em>
-         */
-        R.feeType = function() {
-          var TargetResource = $injector.get("FeeType");
-          var action = TargetResource["::get::FeeSetup::feeType"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
          * @name lbServices.FeeSetup#class
          * @methodOf lbServices.FeeSetup
          *
@@ -28262,6 +27854,343 @@ module.factory(
         R.class = function() {
           var TargetResource = $injector.get("Class");
           var action = TargetResource["::get::FeeSetup::class"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.FeeSetup#school
+         * @methodOf lbServices.FeeSetup
+         *
+         * @description
+         *
+         * Fetches belongsTo relation school.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `School` object.)
+         * </em>
+         */
+        R.school = function() {
+          var TargetResource = $injector.get("School");
+          var action = TargetResource["::get::FeeSetup::school"];
+          return action.apply(R, arguments);
+        };
+    /**
+     * @ngdoc object
+     * @name lbServices.FeeSetup.feePayments
+     * @header lbServices.FeeSetup.feePayments
+     * @object
+     * @description
+     *
+     * The object `FeeSetup.feePayments` groups methods
+     * manipulating `FeePayment` instances related to `FeeSetup`.
+     *
+     * Call {@link lbServices.FeeSetup#feePayments FeeSetup.feePayments()}
+     * to query all related instances.
+     */
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.FeeSetup#feePayments
+         * @methodOf lbServices.FeeSetup
+         *
+         * @description
+         *
+         * Queries feePayments of FeeSetup.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `FeePayment` object.)
+         * </em>
+         */
+        R.feePayments = function() {
+          var TargetResource = $injector.get("FeePayment");
+          var action = TargetResource["::get::FeeSetup::feePayments"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.FeeSetup.feePayments#count
+         * @methodOf lbServices.FeeSetup.feePayments
+         *
+         * @description
+         *
+         * Counts feePayments of FeeSetup.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        R.feePayments.count = function() {
+          var TargetResource = $injector.get("FeePayment");
+          var action = TargetResource["::count::FeeSetup::feePayments"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.FeeSetup.feePayments#create
+         * @methodOf lbServices.FeeSetup.feePayments
+         *
+         * @description
+         *
+         * Creates a new instance in feePayments of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `FeePayment` object.)
+         * </em>
+         */
+        R.feePayments.create = function() {
+          var TargetResource = $injector.get("FeePayment");
+          var action = TargetResource["::create::FeeSetup::feePayments"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.FeeSetup.feePayments#createMany
+         * @methodOf lbServices.FeeSetup.feePayments
+         *
+         * @description
+         *
+         * Creates a new instance in feePayments of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `FeePayment` object.)
+         * </em>
+         */
+        R.feePayments.createMany = function() {
+          var TargetResource = $injector.get("FeePayment");
+          var action = TargetResource["::createMany::FeeSetup::feePayments"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.FeeSetup.feePayments#destroyAll
+         * @methodOf lbServices.FeeSetup.feePayments
+         *
+         * @description
+         *
+         * Deletes all feePayments of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.feePayments.destroyAll = function() {
+          var TargetResource = $injector.get("FeePayment");
+          var action = TargetResource["::delete::FeeSetup::feePayments"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.FeeSetup.feePayments#destroyById
+         * @methodOf lbServices.FeeSetup.feePayments
+         *
+         * @description
+         *
+         * Delete a related item by id for feePayments.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for feePayments
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.feePayments.destroyById = function() {
+          var TargetResource = $injector.get("FeePayment");
+          var action = TargetResource["::destroyById::FeeSetup::feePayments"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.FeeSetup.feePayments#findById
+         * @methodOf lbServices.FeeSetup.feePayments
+         *
+         * @description
+         *
+         * Find a related item by id for feePayments.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for feePayments
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `FeePayment` object.)
+         * </em>
+         */
+        R.feePayments.findById = function() {
+          var TargetResource = $injector.get("FeePayment");
+          var action = TargetResource["::findById::FeeSetup::feePayments"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.FeeSetup.feePayments#updateById
+         * @methodOf lbServices.FeeSetup.feePayments
+         *
+         * @description
+         *
+         * Update a related item by id for feePayments.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for feePayments
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `FeePayment` object.)
+         * </em>
+         */
+        R.feePayments.updateById = function() {
+          var TargetResource = $injector.get("FeePayment");
+          var action = TargetResource["::updateById::FeeSetup::feePayments"];
           return action.apply(R, arguments);
         };
 
@@ -29012,6 +28941,58 @@ module.factory(
           method: "GET"
         },
 
+        // INTERNAL. Use Exam.marks.findById() instead.
+        "prototype$__findById__marks": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Exams/:id/marks/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Exam.marks.destroyById() instead.
+        "prototype$__destroyById__marks": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Exams/:id/marks/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Exam.marks.updateById() instead.
+        "prototype$__updateById__marks": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Exams/:id/marks/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Exam.marks() instead.
+        "prototype$__get__marks": {
+          isArray: true,
+          url: urlBase + "/Exams/:id/marks",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Exam.marks.create() instead.
+        "prototype$__create__marks": {
+          url: urlBase + "/Exams/:id/marks",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Exam.marks.destroyAll() instead.
+        "prototype$__delete__marks": {
+          url: urlBase + "/Exams/:id/marks",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Exam.marks.count() instead.
+        "prototype$__count__marks": {
+          url: urlBase + "/Exams/:id/marks/count",
+          method: "GET"
+        },
+
         /**
          * @ngdoc method
          * @name lbServices.Exam#create
@@ -29493,9 +29474,9 @@ module.factory(
           method: "GET"
         },
 
-        // INTERNAL. Use ExamSchedule.exam() instead.
-        "::get::ExamSchedule::exam": {
-          url: urlBase + "/ExamSchedules/:id/exam",
+        // INTERNAL. Use Marks.exam() instead.
+        "::get::Marks::exam": {
+          url: urlBase + "/Marks/:id/exam",
           method: "GET"
         },
       }
@@ -29710,6 +29691,307 @@ module.factory(
         R.school = function() {
           var TargetResource = $injector.get("School");
           var action = TargetResource["::get::Exam::school"];
+          return action.apply(R, arguments);
+        };
+    /**
+     * @ngdoc object
+     * @name lbServices.Exam.marks
+     * @header lbServices.Exam.marks
+     * @object
+     * @description
+     *
+     * The object `Exam.marks` groups methods
+     * manipulating `Marks` instances related to `Exam`.
+     *
+     * Call {@link lbServices.Exam#marks Exam.marks()}
+     * to query all related instances.
+     */
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Exam#marks
+         * @methodOf lbServices.Exam
+         *
+         * @description
+         *
+         * Queries marks of Exam.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Marks` object.)
+         * </em>
+         */
+        R.marks = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::get::Exam::marks"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Exam.marks#count
+         * @methodOf lbServices.Exam.marks
+         *
+         * @description
+         *
+         * Counts marks of Exam.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        R.marks.count = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::count::Exam::marks"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Exam.marks#create
+         * @methodOf lbServices.Exam.marks
+         *
+         * @description
+         *
+         * Creates a new instance in marks of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Marks` object.)
+         * </em>
+         */
+        R.marks.create = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::create::Exam::marks"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Exam.marks#createMany
+         * @methodOf lbServices.Exam.marks
+         *
+         * @description
+         *
+         * Creates a new instance in marks of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Marks` object.)
+         * </em>
+         */
+        R.marks.createMany = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::createMany::Exam::marks"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Exam.marks#destroyAll
+         * @methodOf lbServices.Exam.marks
+         *
+         * @description
+         *
+         * Deletes all marks of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.marks.destroyAll = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::delete::Exam::marks"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Exam.marks#destroyById
+         * @methodOf lbServices.Exam.marks
+         *
+         * @description
+         *
+         * Delete a related item by id for marks.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for marks
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.marks.destroyById = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::destroyById::Exam::marks"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Exam.marks#findById
+         * @methodOf lbServices.Exam.marks
+         *
+         * @description
+         *
+         * Find a related item by id for marks.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for marks
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Marks` object.)
+         * </em>
+         */
+        R.marks.findById = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::findById::Exam::marks"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Exam.marks#updateById
+         * @methodOf lbServices.Exam.marks
+         *
+         * @description
+         *
+         * Update a related item by id for marks.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for marks
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Marks` object.)
+         * </em>
+         */
+        R.marks.updateById = function() {
+          var TargetResource = $injector.get("Marks");
+          var action = TargetResource["::updateById::Exam::marks"];
           return action.apply(R, arguments);
         };
 
@@ -30351,6 +30633,12 @@ module.factory(
           method: "GET"
         },
 
+        // INTERNAL. Use Marks.exam() instead.
+        "prototype$__get__exam": {
+          url: urlBase + "/Marks/:id/exam",
+          method: "GET"
+        },
+
         /**
          * @ngdoc method
          * @name lbServices.Marks#create
@@ -30949,6 +31237,65 @@ module.factory(
           url: urlBase + "/Subjects/:id/marks/count",
           method: "GET"
         },
+
+        // INTERNAL. Use Exam.marks.findById() instead.
+        "::findById::Exam::marks": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Exams/:id/marks/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Exam.marks.destroyById() instead.
+        "::destroyById::Exam::marks": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Exams/:id/marks/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Exam.marks.updateById() instead.
+        "::updateById::Exam::marks": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Exams/:id/marks/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Exam.marks() instead.
+        "::get::Exam::marks": {
+          isArray: true,
+          url: urlBase + "/Exams/:id/marks",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Exam.marks.create() instead.
+        "::create::Exam::marks": {
+          url: urlBase + "/Exams/:id/marks",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Exam.marks.createMany() instead.
+        "::createMany::Exam::marks": {
+          isArray: true,
+          url: urlBase + "/Exams/:id/marks",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Exam.marks.destroyAll() instead.
+        "::delete::Exam::marks": {
+          url: urlBase + "/Exams/:id/marks",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Exam.marks.count() instead.
+        "::count::Exam::marks": {
+          url: urlBase + "/Exams/:id/marks/count",
+          method: "GET"
+        },
       }
     );
 
@@ -31200,18 +31547,54 @@ module.factory(
           return action.apply(R, arguments);
         };
 
+        /**
+         * @ngdoc method
+         * @name lbServices.Marks#exam
+         * @methodOf lbServices.Marks
+         *
+         * @description
+         *
+         * Fetches belongsTo relation exam.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Exam` object.)
+         * </em>
+         */
+        R.exam = function() {
+          var TargetResource = $injector.get("Exam");
+          var action = TargetResource["::get::Marks::exam"];
+          return action.apply(R, arguments);
+        };
+
     return R;
   }]);
 
 /**
  * @ngdoc object
- * @name lbServices.ExamSchedule
- * @header lbServices.ExamSchedule
+ * @name lbServices.FeePayment
+ * @header lbServices.FeePayment
  * @object
  *
  * @description
  *
- * A $resource object for interacting with the `ExamSchedule` model.
+ * A $resource object for interacting with the `FeePayment` model.
  *
  * ## Example
  *
@@ -31221,29 +31604,29 @@ module.factory(
  *
  */
 module.factory(
-  "ExamSchedule",
+  "FeePayment",
   ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
     var R = Resource(
-      urlBase + "/ExamSchedules/:id",
+      urlBase + "/FeePayments/:id",
       { 'id': '@id' },
       {
 
-        // INTERNAL. Use ExamSchedule.subject() instead.
-        "prototype$__get__subject": {
-          url: urlBase + "/ExamSchedules/:id/subject",
+        // INTERNAL. Use FeePayment.student() instead.
+        "prototype$__get__student": {
+          url: urlBase + "/FeePayments/:id/student",
           method: "GET"
         },
 
-        // INTERNAL. Use ExamSchedule.exam() instead.
-        "prototype$__get__exam": {
-          url: urlBase + "/ExamSchedules/:id/exam",
+        // INTERNAL. Use FeePayment.feeSetup() instead.
+        "prototype$__get__feeSetup": {
+          url: urlBase + "/FeePayments/:id/feeSetup",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.ExamSchedule#create
-         * @methodOf lbServices.ExamSchedule
+         * @name lbServices.FeePayment#create
+         * @methodOf lbServices.FeePayment
          *
          * @description
          *
@@ -31270,18 +31653,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `ExamSchedule` object.)
+         * This usually means the response is a `FeePayment` object.)
          * </em>
          */
         "create": {
-          url: urlBase + "/ExamSchedules",
+          url: urlBase + "/FeePayments",
           method: "POST"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.ExamSchedule#createMany
-         * @methodOf lbServices.ExamSchedule
+         * @name lbServices.FeePayment#createMany
+         * @methodOf lbServices.FeePayment
          *
          * @description
          *
@@ -31308,19 +31691,19 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `ExamSchedule` object.)
+         * This usually means the response is a `FeePayment` object.)
          * </em>
          */
         "createMany": {
           isArray: true,
-          url: urlBase + "/ExamSchedules",
+          url: urlBase + "/FeePayments",
           method: "POST"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.ExamSchedule#upsert
-         * @methodOf lbServices.ExamSchedule
+         * @name lbServices.FeePayment#upsert
+         * @methodOf lbServices.FeePayment
          *
          * @description
          *
@@ -31347,18 +31730,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `ExamSchedule` object.)
+         * This usually means the response is a `FeePayment` object.)
          * </em>
          */
         "upsert": {
-          url: urlBase + "/ExamSchedules",
+          url: urlBase + "/FeePayments",
           method: "PUT"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.ExamSchedule#exists
-         * @methodOf lbServices.ExamSchedule
+         * @name lbServices.FeePayment#exists
+         * @methodOf lbServices.FeePayment
          *
          * @description
          *
@@ -31383,14 +31766,14 @@ module.factory(
          *  - `exists` – `{boolean=}` - 
          */
         "exists": {
-          url: urlBase + "/ExamSchedules/:id/exists",
+          url: urlBase + "/FeePayments/:id/exists",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.ExamSchedule#findById
-         * @methodOf lbServices.ExamSchedule
+         * @name lbServices.FeePayment#findById
+         * @methodOf lbServices.FeePayment
          *
          * @description
          *
@@ -31414,18 +31797,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `ExamSchedule` object.)
+         * This usually means the response is a `FeePayment` object.)
          * </em>
          */
         "findById": {
-          url: urlBase + "/ExamSchedules/:id",
+          url: urlBase + "/FeePayments/:id",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.ExamSchedule#find
-         * @methodOf lbServices.ExamSchedule
+         * @name lbServices.FeePayment#find
+         * @methodOf lbServices.FeePayment
          *
          * @description
          *
@@ -31447,19 +31830,19 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `ExamSchedule` object.)
+         * This usually means the response is a `FeePayment` object.)
          * </em>
          */
         "find": {
           isArray: true,
-          url: urlBase + "/ExamSchedules",
+          url: urlBase + "/FeePayments",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.ExamSchedule#findOne
-         * @methodOf lbServices.ExamSchedule
+         * @name lbServices.FeePayment#findOne
+         * @methodOf lbServices.FeePayment
          *
          * @description
          *
@@ -31481,18 +31864,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `ExamSchedule` object.)
+         * This usually means the response is a `FeePayment` object.)
          * </em>
          */
         "findOne": {
-          url: urlBase + "/ExamSchedules/findOne",
+          url: urlBase + "/FeePayments/findOne",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.ExamSchedule#updateAll
-         * @methodOf lbServices.ExamSchedule
+         * @name lbServices.FeePayment#updateAll
+         * @methodOf lbServices.FeePayment
          *
          * @description
          *
@@ -31519,14 +31902,14 @@ module.factory(
          * The number of instances updated
          */
         "updateAll": {
-          url: urlBase + "/ExamSchedules/update",
+          url: urlBase + "/FeePayments/update",
           method: "POST"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.ExamSchedule#deleteById
-         * @methodOf lbServices.ExamSchedule
+         * @name lbServices.FeePayment#deleteById
+         * @methodOf lbServices.FeePayment
          *
          * @description
          *
@@ -31548,18 +31931,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `ExamSchedule` object.)
+         * This usually means the response is a `FeePayment` object.)
          * </em>
          */
         "deleteById": {
-          url: urlBase + "/ExamSchedules/:id",
+          url: urlBase + "/FeePayments/:id",
           method: "DELETE"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.ExamSchedule#count
-         * @methodOf lbServices.ExamSchedule
+         * @name lbServices.FeePayment#count
+         * @methodOf lbServices.FeePayment
          *
          * @description
          *
@@ -31584,14 +31967,14 @@ module.factory(
          *  - `count` – `{number=}` - 
          */
         "count": {
-          url: urlBase + "/ExamSchedules/count",
+          url: urlBase + "/FeePayments/count",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.ExamSchedule#prototype$updateAttributes
-         * @methodOf lbServices.ExamSchedule
+         * @name lbServices.FeePayment#prototype$updateAttributes
+         * @methodOf lbServices.FeePayment
          *
          * @description
          *
@@ -31617,18 +32000,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `ExamSchedule` object.)
+         * This usually means the response is a `FeePayment` object.)
          * </em>
          */
         "prototype$updateAttributes": {
-          url: urlBase + "/ExamSchedules/:id",
+          url: urlBase + "/FeePayments/:id",
           method: "PUT"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.ExamSchedule#createChangeStream
-         * @methodOf lbServices.ExamSchedule
+         * @name lbServices.FeePayment#createChangeStream
+         * @methodOf lbServices.FeePayment
          *
          * @description
          *
@@ -31658,8 +32041,67 @@ module.factory(
          *  - `changes` – `{ReadableStream=}` - 
          */
         "createChangeStream": {
-          url: urlBase + "/ExamSchedules/change-stream",
+          url: urlBase + "/FeePayments/change-stream",
           method: "POST"
+        },
+
+        // INTERNAL. Use FeeSetup.feePayments.findById() instead.
+        "::findById::FeeSetup::feePayments": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/FeeSetups/:id/feePayments/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use FeeSetup.feePayments.destroyById() instead.
+        "::destroyById::FeeSetup::feePayments": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/FeeSetups/:id/feePayments/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use FeeSetup.feePayments.updateById() instead.
+        "::updateById::FeeSetup::feePayments": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/FeeSetups/:id/feePayments/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use FeeSetup.feePayments() instead.
+        "::get::FeeSetup::feePayments": {
+          isArray: true,
+          url: urlBase + "/FeeSetups/:id/feePayments",
+          method: "GET"
+        },
+
+        // INTERNAL. Use FeeSetup.feePayments.create() instead.
+        "::create::FeeSetup::feePayments": {
+          url: urlBase + "/FeeSetups/:id/feePayments",
+          method: "POST"
+        },
+
+        // INTERNAL. Use FeeSetup.feePayments.createMany() instead.
+        "::createMany::FeeSetup::feePayments": {
+          isArray: true,
+          url: urlBase + "/FeeSetups/:id/feePayments",
+          method: "POST"
+        },
+
+        // INTERNAL. Use FeeSetup.feePayments.destroyAll() instead.
+        "::delete::FeeSetup::feePayments": {
+          url: urlBase + "/FeeSetups/:id/feePayments",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use FeeSetup.feePayments.count() instead.
+        "::count::FeeSetup::feePayments": {
+          url: urlBase + "/FeeSetups/:id/feePayments/count",
+          method: "GET"
         },
       }
     );
@@ -31668,8 +32110,8 @@ module.factory(
 
         /**
          * @ngdoc method
-         * @name lbServices.ExamSchedule#updateOrCreate
-         * @methodOf lbServices.ExamSchedule
+         * @name lbServices.FeePayment#updateOrCreate
+         * @methodOf lbServices.FeePayment
          *
          * @description
          *
@@ -31696,15 +32138,15 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `ExamSchedule` object.)
+         * This usually means the response is a `FeePayment` object.)
          * </em>
          */
         R["updateOrCreate"] = R["upsert"];
 
         /**
          * @ngdoc method
-         * @name lbServices.ExamSchedule#update
-         * @methodOf lbServices.ExamSchedule
+         * @name lbServices.FeePayment#update
+         * @methodOf lbServices.FeePayment
          *
          * @description
          *
@@ -31734,8 +32176,8 @@ module.factory(
 
         /**
          * @ngdoc method
-         * @name lbServices.ExamSchedule#destroyById
-         * @methodOf lbServices.ExamSchedule
+         * @name lbServices.FeePayment#destroyById
+         * @methodOf lbServices.FeePayment
          *
          * @description
          *
@@ -31757,15 +32199,15 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `ExamSchedule` object.)
+         * This usually means the response is a `FeePayment` object.)
          * </em>
          */
         R["destroyById"] = R["deleteById"];
 
         /**
          * @ngdoc method
-         * @name lbServices.ExamSchedule#removeById
-         * @methodOf lbServices.ExamSchedule
+         * @name lbServices.FeePayment#removeById
+         * @methodOf lbServices.FeePayment
          *
          * @description
          *
@@ -31787,7 +32229,7 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `ExamSchedule` object.)
+         * This usually means the response is a `FeePayment` object.)
          * </em>
          */
         R["removeById"] = R["deleteById"];
@@ -31795,23 +32237,23 @@ module.factory(
 
     /**
     * @ngdoc property
-    * @name lbServices.ExamSchedule#modelName
-    * @propertyOf lbServices.ExamSchedule
+    * @name lbServices.FeePayment#modelName
+    * @propertyOf lbServices.FeePayment
     * @description
     * The name of the model represented by this $resource,
-    * i.e. `ExamSchedule`.
+    * i.e. `FeePayment`.
     */
-    R.modelName = "ExamSchedule";
+    R.modelName = "FeePayment";
 
 
         /**
          * @ngdoc method
-         * @name lbServices.ExamSchedule#subject
-         * @methodOf lbServices.ExamSchedule
+         * @name lbServices.FeePayment#student
+         * @methodOf lbServices.FeePayment
          *
          * @description
          *
-         * Fetches belongsTo relation subject.
+         * Fetches belongsTo relation student.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -31831,23 +32273,23 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Subject` object.)
+         * This usually means the response is a `Student` object.)
          * </em>
          */
-        R.subject = function() {
-          var TargetResource = $injector.get("Subject");
-          var action = TargetResource["::get::ExamSchedule::subject"];
+        R.student = function() {
+          var TargetResource = $injector.get("Student");
+          var action = TargetResource["::get::FeePayment::student"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.ExamSchedule#exam
-         * @methodOf lbServices.ExamSchedule
+         * @name lbServices.FeePayment#feeSetup
+         * @methodOf lbServices.FeePayment
          *
          * @description
          *
-         * Fetches belongsTo relation exam.
+         * Fetches belongsTo relation feeSetup.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -31867,12 +32309,12 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Exam` object.)
+         * This usually means the response is a `FeeSetup` object.)
          * </em>
          */
-        R.exam = function() {
-          var TargetResource = $injector.get("Exam");
-          var action = TargetResource["::get::ExamSchedule::exam"];
+        R.feeSetup = function() {
+          var TargetResource = $injector.get("FeeSetup");
+          var action = TargetResource["::get::FeePayment::feeSetup"];
           return action.apply(R, arguments);
         };
 

@@ -15,7 +15,7 @@
     school.listView().fields([
     nga.field('id').label('School Id'),
     nga.field('schoolName'),
-    nga.field('code').label('School Code'),
+     nga.field('code','number').label('School Code'),
     nga.field('address'),
     nga.field('city'),
     nga.field('state'),
@@ -24,7 +24,7 @@
   ]);
     school.creationView().fields([
     nga.field('schoolName'),
-    nga.field('code').label('School Code'),
+    nga.field('code','number').label('School Code'),
     nga.field('address'),
     nga.field('city'),
     nga.field('state'),
@@ -33,7 +33,8 @@
   ]);
     school.deletionView().fields([
     nga.field('schoolName'),
-    nga.field('code').label('School Code'),
+    nga.field('code','number')
+    .label('School Code'),
     nga.field('address'),
     nga.field('city'),
     nga.field('state'),
@@ -42,7 +43,7 @@
   ]);
     school.editionView().fields([
     nga.field('schoolName'),
-    nga.field('code').label('School Code'),
+    nga.field('code','number').label('School Code'),
     nga.field('address'),
     nga.field('city'),
     nga.field('state'),

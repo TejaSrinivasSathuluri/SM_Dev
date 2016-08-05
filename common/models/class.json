@@ -29,7 +29,7 @@
       "foreignKey": ""
     },
     "feeSetups": {
-      "type": "hasOne",
+      "type": "hasMany",
       "model": "FeeSetup",
       "foreignKey": ""
     },
