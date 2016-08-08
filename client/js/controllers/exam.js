@@ -2,7 +2,7 @@ angular.module('app')
 
 
   .controller('ExamController', 
-  function ($scope, $state, School, Exam,ExamSchedule,Class,$rootScope, $window,ngDialog,$filter,Subject) 
+  function ($scope, $state, School, Exam,Class,$rootScope, $window,ngDialog,$filter,Subject) 
   {
 
         //------------------------------------------------
@@ -152,6 +152,5 @@ angular.module('app')
 
 
       })
-  .filter('startFrom', function() { return function(input, start) { start = +start; return input.slice(start); }})
 
 ;

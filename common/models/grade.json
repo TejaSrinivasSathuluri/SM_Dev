@@ -8,26 +8,22 @@
   "properties": {
     "gradeName": {
       "type": "String",
-      "required": "true",
-      "unique": "true"
+      "required": "true"
     },
     "gradePoint": {
       "type": "Number",
       "required": "true",
-      "length": 2,
-      "unique": "true"
+      "length": 2
     },
     "percentageRangeFrom": {
       "type": "Number",
       "required": "true",
-      "length": 3,
-      "unique": "true"
+      "length": 3
     },
     "percentageRangeTo": {
       "type": "Number",
       "required": "true",
-      "length": 3,
-      "unique": "true"
+      "length": 3
     }
   },
   "validations": [],

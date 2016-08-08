@@ -144,3 +144,53 @@ slc loopback:datasource
 git pull https://mansoorshaik@bitbucket.org/mansoorshaik/sm_dev.git
 screen
 git pull https://mansoorshaik@bitbucket.org/mansoorshaik/sm_dev.git
+dir
+cd client
+dir
+cd views
+ls
+view directory.html
+screen
+git commit -m "mannu17"
+git add *
+git commit -m "mannu17"
+git add .
+git commit -m "mannu17"
+git commit -m "mannu18"
+cd 
+git add .
+git commit -m "mannu18"
+git commit -m "mannu19"
+git pull https://mansoorshaik@bitbucket.org/mansoorshaik/sm_dev.git
+git commit -m "mannu20"
+git pull https://mansoorshaik@bitbucket.org/mansoorshaik/sm_dev.git
+screen
+node .
+screen
+forever .
+node .
+screen
+npm install forever
+forever .
+forever
+npm install -g forever
+sudo npm install -g forever
+forever .
+ps -aef | grep forever
+kill -9 6160
+node .
+npm install forever-monitor.
+npm install forever-monitor
+forver .
+npm install forever
+forever server.js
+node 
+node .
+git status
+git add .
+git status
+git pull https://mansoorshaik@bitbucket.org/mansoorshaik/sm_dev.git
+git commit -m "newbranch2"
+git pull https://mansoorshaik@bitbucket.org/mansoorshaik/sm_dev.git
+node .
+screen

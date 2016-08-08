@@ -1,9 +1,13 @@
 angular
   .module('app')
+<<<<<<< HEAD
   
   
 
   .controller('ExpenseController',function($scope,$rootScope,$state,$window,$filter,ngDialog,ExpenseType,ExpensePayment,FeeType,FeeSetup,Class,Student,School) {
+=======
+  .controller('ExpenseController',function($scope,$rootScope,$state,$window,$filter,ngDialog,ExpenseType,ExpensePayment,Class,Student,School) {
+>>>>>>> 944ccfdc9907b6ff0208a85b6a61268a00f548ea
         $scope.user = $window.localStorage.getItem('user');
         $scope.userData = JSON.parse($scope.user);
         $scope.schoolId = $scope.userData.schoolId;
@@ -18,7 +22,11 @@ angular
         // TABS CODE
         //------------------------------------
 
+<<<<<<< HEAD
         $scope.tab = 0;
+=======
+        $scope.tab = 1;
+>>>>>>> 944ccfdc9907b6ff0208a85b6a61268a00f548ea
         $scope.setTab = function(newTab){  $scope.tab = newTab; };
         $scope.isSet = function(tabNum){   return $scope.tab === tabNum; };
 
@@ -261,10 +269,13 @@ angular
 
         //**************************************EXPENSE Payment CORNER************************************
       })
+<<<<<<< HEAD
 
 
 
 
   .filter('startFrom', function() { return function(input, start) { start = +start; return input.slice(start); }})
 
+=======
+>>>>>>> 944ccfdc9907b6ff0208a85b6a61268a00f548ea
 ;

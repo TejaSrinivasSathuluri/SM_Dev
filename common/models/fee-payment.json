@@ -1,0 +1,24 @@
+{
+  "name": "FeePayment",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "student": {
+      "type": "belongsTo",
+      "model": "Student",
+      "foreignKey": ""
+    },
+    "feeSetup": {
+      "type": "belongsTo",
+      "model": "FeeSetup",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

@@ -1,32 +1,54 @@
 module.exports = function(server) {
   var router = server.loopback.Router();
 
+
+
+
+// Mail Starts
+var nodemailer = require('nodemailer');
+     var studyMonitorMailSender = nodemailer.createTransport({ service: 'Gmail',auth: {user: 'mansoorshaik0201@gmail.com',pass: 'mannubh@i' }});
+     var text = 'Hello world ';
+     var mailOptions = {
+              from: 'mansoorshaik0201@gmail.com', 
+              to: 'mannuhitler@gmail.com', 
+              subject: 'Student Subscription', 
+              text: text 
+      };
+
+    // studyMonitorMailSender.sendMail(mailOptions, function(error, info){
+    // if(error)    console.log(error);
+    // else         console.log('Message sent');
+    
+// });
+
+// Mail Ends
+
+
   //----------------Modify Response
   //Add status=true element with every success response
   var remotes = server.remotes();
   remotes.after('find', function (ctx, next)  {  if (ctx.result) ctx.result.success = true; next();  });
   //----------------Modify Response
 
-//  var redis = require("redis"),
-//    client = redis.createClient();
-//
-//// if you'd like to select database 3, instead of 0 (default), call
-//// client.select(3, function() { /* ... */ });
-//
-//  client.on("error", function (err) {
-//    console.log("Error " + err);
-//  });
-//
-//  client.set("string key", "string val", redis.print);
-//  client.hset("hash key", "hashtest 1", "some value", redis.print);
-//  client.hset(["hash key", "hashtest 2", "some other value"], redis.print);
-//  client.hkeys("hash key", function (err, replies) {
-//    console.log(replies.length + " replies:");
-//    replies.forEach(function (reply, i) {
-//      console.log("    " + i + ": " + reply);
-//    });
-//    client.quit();
-//  });
+
+
+
+ //----------------Send Mail Response
+   var Email = server.models.Mail;
+  remotes.after('**', function (ctx, next)  {  
+    if (ctx.req.originalUrl.toString().indexOf('/api/Mails') > -1){
+         console.log(ctx.req.query.filter);
+    }
+    next();
+    });
+
+
+  //----------------Send Mail Response
+
+
+
+
+
 
   //----------------Load Attendance
 

@@ -13,7 +13,7 @@ angular
     'ui.rCalendar',
     'calendarDemoApp'
   ])
-  .config(['$stateProvider', '$urlRouterProvider', function($stateProvider,$urlRouterProvider) {
+  .config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $stateProvider
     .state('dashboard',             { url: '/dashboard',         templateUrl: 'views/dashboard.html',          controller: 'LandingPageController', authenticate: true})
     .state('directory',             { url: '/directory',         templateUrl: 'views/directory.html',          controller: 'DirectoryController',   authenticate: true})
@@ -37,7 +37,6 @@ angular
 
       //--------------Auth Services
       .state('index',        { url: '/index',      controller: 'LandingPageController'})
-    //.state('forbidden', { url: '/forbidden', templateUrl: 'views/forbidden.html'})
       .state('email',         { url: '/email',  templateUrl: 'views/email.html',   controller: 'EmailController'     })
       .state('login',         { url: '/login',  templateUrl: 'views/login.html',   controller: 'AuthLoginController' })
       .state('login.admin',   { url: '/admin',  templateUrl: 'views/admin.html',   controller: 'AuthLoginController' })
@@ -48,10 +47,11 @@ angular
       .state('logout',        { url: '/login',                                     controller: 'AuthLogoutController'})
 
      $urlRouterProvider.otherwise('login/admin');
-  }])
+    //  $locationProvider.html5Mode({ enabled: true, requireBase: false});
+     
+  })
 
-
-  .run(['$rootScope', '$state','$window',function($rootScope, $state,$window) {
+  .run(function($rootScope, $state,$window) {
     $rootScope.$on('$stateChangeStart', function(event, next) {
       // redirect to login page if not logged in
 
@@ -66,4 +66,4 @@ angular
       }
       $rootScope.currentUser = $window.localStorage.getItem('user');
     });
-  }]);
+  });

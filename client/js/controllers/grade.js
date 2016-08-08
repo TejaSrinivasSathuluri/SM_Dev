@@ -19,58 +19,103 @@ angular
         if ($scope.user.type == 'Parent')  { $scope.Parent  = true; }
         if ($scope.user.type == 'Staff')   { $scope.Staff   = true; }
 
-    $scope.clearResponseGrade = function(){
-      $scope.responseGrade = null;
-      $scope.error = false;
-      $scope.success = false;
-      $scope.formData =null;
-    }
+        //------------------------------------------------
+        //            SHOW GRADES LIST
+        //------------------------------------------------
+        $scope.gradesList = [];
+        $scope.showGrades = function() {$scope.gradesList = Grade.find({filter:{where:{schoolId : $scope.schoolId}}});}
+        $scope.showGrades();
 
-     $scope.gradesList = [];
-     $scope.showGrades = function(){
-     $scope.gradesList = Grade.find({filter:{where:{schoolId : $scope.schoolId}}});}
-     $scope.showGrades();
+        //------------------------------------------------
+        //              FAILURE CALL
+        //------------------------------------------------
+        failureCall = function(message)
+        {
+                $scope.responseGrade = message;
+                $scope.error = true;
+                $scope.success=false;
+                setTimeout( function()
+                            {         
+                              $scope.error=false;
+                              $scope.responseGrade = null;
+                              // $scope.formData = null;
+                              $scope.showGrades();
+                            }, 2000 );
+                          
+        }
 
-     $scope.addGrade = function(){
-       Grade.create({
-         schoolId:$scope.schoolId,
-         gradeName:$scope.formData.gradeName,
-         gradePoint: $scope.formData.gradePoint,
-         percentageRangeFrom:$scope.formData.percentageRangeFrom,
-         percentageRangeTo :$scope.formData.percentageRangeTo
-       },function()
-       {
-         $scope.responseGrade = 'Grade Added Successfully';
-         $scope.success = true;
-         $scope.error = false;
-         setTimeout(function() { $scope.showGrades(); $scope.clearResponseGrade(); }, 1000);
-       },function(response){
-           if (response.data.error.details.messages.gradeName[0])     $scope.responseGrade =response.data.error.details.messages.gradeName[0];
-           else if (response.data.error.details.messages.gradePoint[0])     $scope.responseGrade =response.data.error.details.messages.gradePoint[0];
-           else if (response.data.error.details.messages.percentageRangeFrom[0])     $scope.responseGrade =response.data.error.details.messages.percentageRangeFrom[0];
-           else if (response.data.error.details.messages.percentageRangeTo[0])     $scope.responseGrade =response.data.error.details.messages.percentageRangeTo[0];
-           $scope.error = true;$scope.success=false;
-       });
-     }
+
+        //------------------------------------------------
+        //              FAILURE CALL
+        //------------------------------------------------
+        successCall = function(message)
+        {
+                $scope.responseGrade = message;
+                $scope.error = false;
+                $scope.success=true;
+                setTimeout( function()
+                            {         
+                              $scope.success=false;
+                              $scope.responseGrade = null;
+                              $scope.formData = null;
+                              $scope.showGrades();
+                            }, 1000 );
+                          
+        }
+
+
+
+
+
+        //------------------------------------------------
+        //              ADD GRADE
+        //------------------------------------------------
+
+          $scope.addGrade = function(){
+                        // *********GRADE NAME VALIDATION************
+
+              Grade.findOne({ filter:{ where:{ schoolId:$scope.schoolId,gradeName:$scope.formData.gradeName }}},function(){ failureCall('Grade Name Already Exists'); }
+              ,function(){
+                        // *********GRADE POINT VALIDATION************
+                          Grade.findOne({ filter:{ where:{ schoolId:$scope.schoolId,gradePoint:$scope.formData.gradePoint }}},function(){ failureCall('Grade Point Already Exists');}
+                          ,function(){
+                                    
+                                      // *********GRADE PERCENTAGE VALIDATION************
+                                      Grade.findOne({ filter:{ where:{ schoolId:$scope.schoolId,percentageRangeFrom:$scope.formData.percentageRangeFrom }}},function(){ failureCall('Grade Percentage Start Limit Already Exists');}
+                                      ,function(){
+                                                
+                                                  // *********GRADE PERCENTAGE VALIDATION************
+                                                    Grade.findOne({ filter:{ where:{ schoolId:$scope.schoolId,percentageRangeTo:$scope.formData.percentageRangeTo }}},function(){failureCall('Grade Percentage End Limit Already Exists');}
+                                                    ,function(){
+                                                              
+                                                                Grade.create({
+                                                                          schoolId:$scope.schoolId,
+                                                                          gradeName:$scope.formData.gradeName,
+                                                                          gradePoint: $scope.formData.gradePoint,
+                                                                          percentageRangeFrom:$scope.formData.percentageRangeFrom,
+                                                                          percentageRangeTo :$scope.formData.percentageRangeTo
+                                                                        },function()
+                                                                        {
+                                                                          successCall('Grade Added Successfully');
+                                                                        }
+                                                                        );
+                                                                                                              
+                                                      });      
+                                    
+                                        });      
+                            });
+
+              });
+
+            
+          }
        
        $scope.deleteGrade = function(x){
            var dialog = ngDialog.open({template: 'deleteGrade'});
          dialog.closePromise.then(function (data) {
            if (data.value && data.value != '$document' && data.value != '$closeButton' && data.value != '$escape')
            {
-             
-                        Grade.deleteById({id:x.id},function()
-                        {
-                        $scope.responseGrade = 'Grade Deleted Successfully';
-                        $scope.success = true;
-                        $scope.error = false;
-                        setTimeout(function() {
-                        $scope.showGrades();
-                        $scope.clearResponseGrade(); 
-                        },1000);
-
-                        });
-                    
+                        Grade.deleteById({id:x.id},function()  { failureCall('Grade Deleted Successfully');});        
              return true;
            }
          });
@@ -87,10 +132,9 @@ angular
         $scope.searchFish   = '';
         $scope.currentPage  = 0;
         $scope.pageSize     = 10;
-        $scope.numberOfPages=function(){    return Math.ceil($scope.gradeList.length/$scope.pageSize);}
+        $scope.numberOfPages=function(){    return Math.ceil($scope.gradesList.length/$scope.pageSize);}
  
   })
 
-  .filter('startFrom', function() { return function(input, start) { start = +start; return input.slice(start); }})
 
 ;
