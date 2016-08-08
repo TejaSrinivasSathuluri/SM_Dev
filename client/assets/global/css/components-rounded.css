@@ -13808,16 +13808,34 @@ Transparent Button
   .check{
     margin: 0px 0px 0px 21px !important;
   }
+  .mbtm{
+  margin-bottom:21px !important;
+}
+.mtbtm{
+  margin-top:10px !important;
+}
 }
 @media (max-width: 991px) {
   .check{
     margin: 0px 0px 0px 21px !important;
   }
+  .mbtm{
+  margin-bottom:21px !important;
+}
+.mtbtm{
+  margin-top:10px !important;
+}
 }
 @media (min-width: 480px)  and  (max-width: 767px) {
   .check{
     margin: 0px 0px 0px 21px !important;
   }
+  .mbtm{
+  margin-bottom:21px !important;
+}
+.mtbtm{
+  margin-top:10px !important;
+}
 }
 @media (min-width: 280px)  and  (max-width: 479px) {
   .logo{
@@ -13859,6 +13877,15 @@ Transparent Button
   .caption-subject {
     font-size: 14px !important;
   }
+  .table-condensed > tbody > tr > td, .table-condensed > tbody > tr > th, .table-condensed > tfoot > tr > td, .table-condensed > tfoot > tr > th, .table-condensed > thead > tr > td, .table-condensed > thead > tr > th {
+    padding: 0px !important;
+}
+.mbtm{
+  margin-bottom:21px !important;
+}
+.mtbtm{
+  margin-top:10px !important;
+}
 }
 
 

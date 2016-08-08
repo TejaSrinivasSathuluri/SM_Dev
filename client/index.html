@@ -14,26 +14,32 @@
   <script src="js/services/auth.js">        </script>
   <!----------------------------------------------->
 
-  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>
+
   <!----------------------------------------------------------------->
   <script src="template/rcalendar/calendarDemoCtrl.js">      </script>
   <!----------------------------------------------------------------->
   
   
-  <!----------------------------------------------------------------->
-  <script src="js/controllers/exam.js">      </script>
+  <!---------------------FUNCTIONAL CONTROLLERS---------------------->
+  <script src="js/controllers/exam.js">       </script>
   <script src="js/controllers/grade.js">      </script>
   <script src="js/controllers/marks.js">      </script>
-  
-
+  <script src="js/controllers/expense.js">    </script>
+  <script src="js/controllers/fee.js">        </script>
+  <script src="js/controllers/assignment.js"> </script>
+  <script src="js/controllers/directory.js">  </script>
+  <script src="js/controllers/subject.js">  </script>
   <!----------------------------------------------------------------->
   
-  <!----------------------------------------------------------------->
-  <script src="/js/ngDialog/ngDialog.js"     type="text/javascript"></script>
-  <script src="/js/ngDialog/ngDialog.min.js" type="text/javascript"></script>
+  <!--------------------------POP UP JS & CSS------------------------------------->
+  <script src="/js/ngDialog/ngDialog.js"       type="text/javascript"></script>
+  <script src="/js/ngDialog/ngDialog.min.js"   type="text/javascript"></script>
   <link href="/styles/ngDialog.css"               rel="stylesheet" type="text/css">
   <link href="/styles/ngDialog-theme-default.css" rel="stylesheet" type="text/css">
-  <!----------------------------------------------------------------->
+  <!------------------------------------------------------------------------------>
+
+
   <!----------------------------------------------------->
   <link rel="stylesheet" href="js/calendar/calendar.css"/>
   <script src="/js/calendar/calendar.js"></script>
@@ -179,7 +185,13 @@
               <li><a ui-sref="class"><i class="icon-wallet"></i>Classes </a></li>
               <li><a ui-sref="subject"><i class="icon-bar-chart"></i>Subjects </a></li>
               <li><a ui-sref="schedule"><i class="icon-pointer"></i>Time Table </a></li>
-              <li><a ui-sref="expensemanagement"></aui-sref><i class="icon-pointer"></i>Fee Management </a></li>
+               
+              <li class="dropdown-submenu"><a><i class="icon-briefcase"></i>Fee Management</a>
+              <ul class="dropdown-menu">
+              <li><a ui-sref="expensemanagement">Expenses</a></li>
+              <li><a ui-sref="fees">Fees</a></li>
+            </ul>
+            </li>
             </ul>
           </li>
           <li class="menu-dropdown classic-menu-dropdown ">

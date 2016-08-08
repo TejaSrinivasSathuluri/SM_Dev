@@ -19,9 +19,9 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
               
                 <div class="col-sm-12">
-                     <div class="col-sm-2"> <input type = "file" file-model = "myFile" class="form-control"/></div>
-                    <div class="col-sm-2"> <button class="btn btn-success" ng-click = "uploadFile()">upload me</button></div>
-                    <div class="col-sm-5"> 
+                     <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 mbtm"> <input type = "file" file-model = "myFile" class="form-control"/></div>
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 mbtm"> <button class="btn btn-success" ng-click = "uploadFile()">upload me</button></div>
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 mbtm"> 
              <select ng-model="classId" class="form-control">
                   <option value="">Class </option>
                   <option ng-repeat="y in classList" value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>

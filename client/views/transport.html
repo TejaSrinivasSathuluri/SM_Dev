@@ -23,7 +23,7 @@
           <input type="number" class="form-control" placeholder="No Of Persons" min="1" max="100" maxlength="3" ng-model="editData.busCapacity" required><br>
         </div>
 
-        <div class="col-sm-2">  <button type="submit" class="btn btn-success uppercase">Add Bus</button></div>
+        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">  <button type="submit" class="btn btn-success uppercase">Add Bus</button></div>
       </div>
 
 
@@ -57,7 +57,7 @@
 
 <div class="container">
   <div class="row margin-top-10">
-    <div class="col-md-12 col-sm-12">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="portlet light ">
         <div class="portlet-title">
           <div class="caption caption-md pull-left">Transport</div>
@@ -65,7 +65,7 @@
             <!--Tab Buttons-->
             <button class="btn btn-default" ng-class="{ active: isSet(1) }" href ng-click="setTab(1)">Add Bus</button>
             <button class="btn btn-default" ng-class="{ active: isSet(2) }" href ng-click="setTab(2)">Add Service</button>
-            <button class="btn btn-default" ng-class="{ active: isSet(3) }" href ng-click="setTab(3)">Subscription</button>
+            <button class="btn btn-default mtbtm" ng-class="{ active: isSet(3) }" href ng-click="setTab(3)">Subscription</button>
             <!--Tab Buttons-->
           </div>
 
@@ -83,9 +83,9 @@
               <div class="col-sm-12">
                 <div>{{responseAddBus}}</div>
                 <form ng-submit="addBus()" >
-                  <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                    <input type="text" class="form-control" placeholder="Vehicle Number"  ng-model="formData.busNo" required>     </div>
-                  <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                  <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 mbtm">
+                    <input type="text" class="form-control " placeholder="Vehicle Number"  ng-model="formData.busNo" required>     </div>
+                  <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 mbtm">
                     <select ng-model="formData.busType" class="form-control" required>
                       <option value="">Select</option>
                       <option>Mini Bus</option>
@@ -95,12 +95,12 @@
                       <option>Jeep</option>
                     </select>
                   </div>
-                  <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                  <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 mbtm">
 
-                    <input type="number" class="form-control" placeholder="No Of Persons" min="1" max="100" maxlength="3" ng-model="formData.busCapacity" required><br>
+                    <input type="number" class="form-control " placeholder="No Of Persons" min="1" max="100" maxlength="3" ng-model="formData.busCapacity" required><br>
 
                   </div>
-                  <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                  <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 mbtm">
                     <button type="submit" class="btn btn-success uppercase">Add Bus</button>
                   </div>
                 </form>
@@ -163,7 +163,7 @@
                       <option ng-repeat="y in busList" value="{{y.id}}" >{{y.busNo}}-{{y.busType}}</option>
                     </select><br><br>
                      <input  type="text"   class="form-control" placeholder="PickUp Point"  ng-model="formData.serviceStartPoint" required>-<input  type="text"   class="form-control" placeholder="Drop Point"    ng-model="formData.serviceDropPoint"  required><br>
-                    <button type="submit" class="btn btn-success uppercase">Add Routes</button>
+                    <button type="submit" class="btn btn-success uppercase mbtm">Add Routes</button>
 
                     </div>
                <div class="col-sm-6">
@@ -261,34 +261,34 @@
               <div class="col-sm-12">
                 {{responseSubscription}}
                 <form ng-submit="addSubscription()">
-                  <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                  <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 mbtm">
                     <select ng-model="formData.busServiceId" class="form-control" ng-change="setRoutes()" required>
                       <option value="">Services </option>
                       <option ng-repeat="x in serviceList" value="{{x.id}}" >{{x.serviceName}}</option>
                     </select>
                   </div>
-                  <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                  <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 mbtm">
 
                     <select ng-model="formData.classId" class="form-control" ng-change="setStudentList()" required>
                       <option value="">Classes </option>
                       <option ng-repeat="y in classList" value="{{y.id}}" >{{y.className}}-{{y.sectionName}}</option>
                     </select>
                   </div>
-                  <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                  <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 mbtm">
 
                     <select ng-model="formData.studentId" class="form-control" required>
                       <option value="">Student</option>
                       <option ng-repeat="w in studentList" value="{{w.id}}" >{{w.firstName}}-{{w.lastName}}</option>
                     </select>
                   </div>
-                  <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                  <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 mbtm">
 
                     <select ng-model="formData.pickupLocation" class="form-control" required>
                       <option value="">Routes</option>
                       <option ng-repeat="z in routesList">{{z.location}}</option>
                     </select>
                   </div>
-                  <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                  <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 mbtm">
 
                     <button type="submit" class="btn btn-success uppercase">Subscribe</button>
                   </div>
