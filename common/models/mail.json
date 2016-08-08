@@ -1,6 +1,6 @@
 {
-  "name": "EmailN",
-  "base": "Email",
+  "name": "Mail",
+  "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true

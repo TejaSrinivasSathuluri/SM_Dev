@@ -96,10 +96,6 @@
     "dataSource": "Study_Monitor_Data",
     "public": true
   },
-  "EmailN": {
-    "dataSource": "myEmailDataSource",
-    "public": true
-  },
   "ChatUser": {
     "dataSource": "Study_Monitor_Data",
     "public": true
@@ -145,6 +141,10 @@
     "public": true
   },
   "FeePayment": {
+    "dataSource": "Study_Monitor_Data",
+    "public": true
+  },
+  "Mail": {
     "dataSource": "Study_Monitor_Data",
     "public": true
   }

@@ -121,7 +121,7 @@
                                 <tr data-ng-repeat="x in examList | filter:search |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
                                   <div data-ng-bind-html="x.id">
 
-                                    <td><a ng-click="addExamSubject(x)">{{x.examName}}</a></text></td>
+                                    <td>{{x.examName}}</td>
                                     <td>{{x.fromDate | date:'MMM dd yyyy'}}</td>
                                     <td>{{x.toDate | date:'MMM dd yyyy'}}</td>
                                     

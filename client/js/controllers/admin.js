@@ -2694,9 +2694,7 @@ BusSubscription.find({filter:{where:{schoolId:$scope.schoolId},include:[{relatio
         
         
         console.clear();
-
         $scope.date = new Date();
-        
         var url = 'http://studymonitor.net/appimages';
         
         $scope.classList = Class.find({filter:{where:{schoolId:$scope.schoolId}}});
@@ -2706,18 +2704,21 @@ BusSubscription.find({filter:{where:{schoolId:$scope.schoolId},include:[{relatio
         var data;
         var count =0;
           $scope.uploadFile= function(){
+            
               Papa.parse($scope.myFile, {
                   header: true,
                   dynamicTyping: true,
                   complete: function(results) 
                   {
+                    console.log('Parsing The File');
                       $scope.list = results.data;
                       for(var i=0;i<$scope.list.length-1;i++)
                       {
                         $scope.list[i].classId= $scope.classId; 
                         $scope.list[i].dateofBirth = $filter('date')(new Date($scope.list[i].dateofJoin), 'yyyy-MM-dd');
                         $scope.list[i].dateofJoin = $filter('date')(new Date($scope.list[i].dateofBirth), 'yyyy-MM-dd');
-                            $scope.image =  url + '/' + schoolCode + '/' +$scope.list[i].classId+ '/' + $scope.list[i].rollNo + '.png';
+                        $scope.image =  url + '/' + schoolCode + '/' +$scope.list[i].classId+ '/' + $scope.list[i].rollNo + '.png';
+
                     Student.create({
                       schoolId        : $scope.schoolId,
                       firstName       : $scope.list[i].firstName,

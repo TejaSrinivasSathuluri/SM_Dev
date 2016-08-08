@@ -76,28 +76,72 @@ function($scope,$rootScope,$state,$window,$filter,ngDialog,FeeSetup,Class,Studen
                 // -----------------------------------------------------
                 //   SET STUDENT LIST
                 //-----------------------------------------------------
-              $scope.feePayList = [];
-                
               $scope.setStudents = function(){
-                $scope.studentsList = Student.find({filter:{where:{ classId :$scope.formData.classId}}});
-               $scope.feeSetupList = FeeSetup.find({filter:{where:{classId :$scope.formData.classId}}});
-              }
-
-
-              $scope.showPayment = function() {
-                     FeePayment.find({filter:{where:{
-                     feeSetupId : $scope.formData.feeSetupId,studentId:$scope.formData.studentId}}}
-                   ,function(response){
-                           $scope.feePayList = response;
-                   },function(){
-                     
-
-                   });
-                  
-
-                   console.log($scope.feePayList);
                 
+                  $scope.studentsList = Student.find({filter:{where:{ classId :$scope.formData.classId}}});
               }
+
+              $scope.payFee  = function (x){
+                     FeePayment.upsert({
+                       id : x.id,
+                       paid    : true,
+                       amountPaid : x.feeSetup.amount 
+                       
+                     },function(){
+                       $scope.show();
+                     });  
+              }
+                
+
+
+                $scope.addInitialPayment = function(){
+                  $scope.classFeeSetup = FeeSetup.find({filter:{where:{ classId : $scope.formData.classId }}},
+                  function(response){
+                      response.forEach(function(feeSetups) 
+                        {
+                            var p = feeSetups.toJSON();
+                            $scope.chkFee=  FeePayment.findOne({filter:{where :{studentId : $scope.formData.studentId,feeSetupId : p.id}} }
+                                                 ,function(){},function(){
+                                                    
+                                                    FeePayment.create({
+                                                          schoolId :$scope.formData.schoolId,
+                                                          classId : $scope.formData.classId,
+                                                          paid    : false,
+                                                          feeSetupId : p.id,
+                                                          studentId : $scope.formData.studentId,
+                                                          amountPaid : 0,
+                                                    });
+                                                 });
+
+
+                      });
+
+                      });
+               
+                }
+
+               
+              $scope.show = function(){
+               
+                $scope.list = FeePayment.find({filter:{
+                  where:{
+                  studentId : $scope.formData.studentId
+                    
+                  },include :[
+                    {
+                      relation :'student'
+                    },
+                    {
+                      relation : 'feeSetup'
+                    }
+                  ]
+                }
+                });
+            
+     }
+   
+
+              
 
 
                 // -----------------------------------------------------
@@ -107,12 +151,16 @@ function($scope,$rootScope,$state,$window,$filter,ngDialog,FeeSetup,Class,Studen
                 $scope.addFeeType = function()
                 {
 
-                  $scope.chkFee = FeeSetup.findOne({
+                   
+
+
+                   FeeSetup.findOne({
                     filter:
                     {
                       where:{
                               occurance : $scope.formData.occurance,
                               feeType  : $scope.formData.feeType,
+                              classId  : $scope.formData.classId,
                               schoolId : $scope.schoolId
                           }
                         }
@@ -123,46 +171,32 @@ function($scope,$rootScope,$state,$window,$filter,ngDialog,FeeSetup,Class,Studen
                     }, 
                     function () 
                     {
-                              FeeSetup.create(
-                                {
-                                 occurance : $scope.formData.occurance,
-                                 feeType   : $scope.formData.feeType,
-                                 schoolId  : $scope.schoolId,
-                                 amount    : $scope.formData.amount,
-                                 classId   : $scope.formData.classId
-                                },
-                                function(){
-                                $scope.responseFee = 'Fee Type Added Successfully';
-                                $scope.successCallFeeType();
-                              },function(response){
-                                console.log(response.data.error.message);
-                              });
-
+                             $scope.showMonthsFlag = true;
                   });
 
                 }
 
-                // ----------------------------------------------------
-                //   SHOW FEE TYPE
-                //-----------------------------------------------------
-                $scope.updateMonths= function(x){
-                  $scope.list  = x; 
-                  console.log($scope.list);
-                  $scope.formData= x.monthsList;
-                   var dialog = ngDialog.open({template: 'updateMonths',scope:$scope});
-                      dialog.closePromise.then(function (data) {
-                        formData = data.value;
-                        console.log(formData);
-                        if (data.value && data.value != '$document' && data.value != '$closeButton' && data.value != '$escape')
-                         FeeSetup.upsert({
-                           id: x.id,
-                          monthsList : formData
-                         })
-                        return true;
-                      }
-                      );
+                $scope.saveFee = function(){
+                  var keys = Object.keys($scope.month);
+                  for (var i=0;i< keys.length;i++){
 
+                    if ($scope.month[keys[i]] = true){
+                      console.log(keys[i] + '-'  + $scope.month[keys[i]]);
+                      FeeSetup.create({
+                        occurance : $scope.formData.occurance,                        
+                        feeType   : $scope.formData.feeType,
+                        schoolId  : $scope.schoolId,
+                        amount    : $scope.formData.amount,
+                        classId   : $scope.formData.classId,
+                        month     : keys[i]
+                      });
+                    }
+                  }
+                  $scope.showMonthsFlag = false;
+                  
                 }
+
+                
 
                 // -----------------------------------------------------
                 //   DELETE FEE TYPE
@@ -183,45 +217,21 @@ function($scope,$rootScope,$state,$window,$filter,ngDialog,FeeSetup,Class,Studen
                       });
 
                 }
-              // ----------------------------------------------------
-              //                         EDIT FEE TYPE
-              //-----------------------------------------------------
-              $scope.editFeeType = function(x)
-              {
-                $scope.editData = x;
-                ngDialog.openConfirm({template: 'editFeeType',
-                  scope: $scope
-                }).then(
-                  function(editData) {
-
-                    FeeType.upsert({id: x.id,category:editData.category,fee:editData.fee},
-                      function(){
-                        $scope.responseAddFeeType = 'Fee Type Updated Successfully';
-                        $scope.successCallFeeType();
-                      });
-                  },
-                  function() {
-                    $scope.responseAddFeeType = "Fee Type Details Were Not Edited.Please Check Required Fields";
-                    $scope.successCallFeeType();
-                  }
-                );
-
-              }
-
+              
 
 
         
 
-        // ----------------------------------------------------
-        //   SHOW FEE TYPE
-        //-----------------------------------------------------
-        $scope.showFee= function(){
-          $scope.feeList = FeeSetup.find({filter:{
-            where:{schoolId:$scope.schoolId},include:'class'
-          }});
+                // ----------------------------------------------------
+                //   SHOW FEE TYPE
+                //-----------------------------------------------------
+                $scope.showFee= function(){
+                  $scope.feeList = FeeSetup.find({filter:{
+                    where:{schoolId:$scope.schoolId},include:'class'
+                  }});
 
-        }
-        $scope.showFee();
+                }
+                $scope.showFee();
 
 
 

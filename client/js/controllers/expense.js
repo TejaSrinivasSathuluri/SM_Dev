@@ -1,9 +1,6 @@
 angular
   .module('app')
-  
-  
-
-  .controller('ExpenseController',function($scope,$rootScope,$state,$window,$filter,ngDialog,ExpenseType,ExpensePayment,FeeType,FeeSetup,Class,Student,School) {
+  .controller('ExpenseController',function($scope,$rootScope,$state,$window,$filter,ngDialog,ExpenseType,ExpensePayment,Class,Student,School) {
         $scope.user = $window.localStorage.getItem('user');
         $scope.userData = JSON.parse($scope.user);
         $scope.schoolId = $scope.userData.schoolId;
@@ -18,7 +15,7 @@ angular
         // TABS CODE
         //------------------------------------
 
-        $scope.tab = 0;
+        $scope.tab = 1;
         $scope.setTab = function(newTab){  $scope.tab = newTab; };
         $scope.isSet = function(tabNum){   return $scope.tab === tabNum; };
 

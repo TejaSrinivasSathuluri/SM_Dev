@@ -2,7 +2,7 @@ angular.module('app')
 
 
   .controller('ExamController', 
-  function ($scope, $state, School, Exam,ExamSchedule,Class,$rootScope, $window,ngDialog,$filter,Subject) 
+  function ($scope, $state, School, Exam,Class,$rootScope, $window,ngDialog,$filter,Subject) 
   {
 
         //------------------------------------------------

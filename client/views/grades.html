@@ -45,7 +45,7 @@
 
             <div class="col-sm-12 col-xs-12 col-lg-2 col-md-4 mbtm">
         
-        <input  type="number" class="form-control" placeholder="To %" ng-model="formData.percentageRangeTo" min={{formData.percentageRangeFrom}} required>
+        <input  type="number" class="form-control" max="100" min="1" placeholder="To %" ng-model="formData.percentageRangeTo" min={{formData.percentageRangeFrom}} required>
       </div>
       <div class="col-sm-12 col-xs-12 col-lg-2 col-md-4 mbtm">
       
@@ -74,13 +74,13 @@
                   <tr data-ng-repeat="x in gradesList | filter:search |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
                     <div data-ng-bind-html="x.id">
 
-                      <td><a ng-click="addExamSubject(x)">{{x.gradeName}}</a></text></td>
+                      <td>{{x.gradeName}}</td>
                       <td>{{x.gradePoint}}</td>
                       <td>{{x.percentageRangeFrom}}</td>
                       <td>{{x.percentageRangeTo}}</td>
                       
                     <td ng-show="Admin">{{x.option}}
-                        <i class="glyphicon glyphicon-edit" ng-click="editGrade(x)"></i>
+                        <!--<i class="glyphicon glyphicon-edit" ng-click="editGrade(x)"></i>-->
                         <i class="glyphicon glyphicon-remove"  ng-click="deleteGrade(x)"></i>
 
                       </td>

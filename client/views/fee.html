@@ -13,7 +13,7 @@
 
 
 <!--Update Months Fee Script-->
-<script type="text/ng-template" id="updateMonths">
+<!--<script type="text/ng-template" id="updateMonths">
   <div class="ngdialog-message">
     <h5>Select Months</h5>
     <form ng-submit =closeThisDialog(formData)>
@@ -33,7 +33,7 @@
     </form>
 
   </div>
-</script>
+</script>-->
 <!--Update Months Fee Script-->
 
 
@@ -62,8 +62,11 @@
                 <div class="alert alert-success" ng-show="success">   {{responseFee}}     </div>
                 <div class="alert alert-error" ng-show="error">  {{responseFee}}  </div>
                <!--Error Division-->
+              </div>
 
-               <!--Form Submit Division-->              
+               <!--Form Submit Division-->     
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        
                 <form ng-submit="addFeeType()">
                   <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12 mbtm">
                     <select class="form-control" required  ng-model="formData.occurance"   >
@@ -91,10 +94,33 @@
                     </div>
                   <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
                     
-                    <button type="submit" class="btn btn-success uppercase mbtm">Add Fee</button>
+                    <button type="submit" class="btn btn-success uppercase mbtm">Select Months</button>
                     
                   </div>
                 </form>
+
+              </div>
+
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-show="showMonthsFlag">
+
+                      <form ng-submit ="saveFee()">
+                            <input type="checkbox" ng-model="month.January" >Jan</input>  
+                            <input type="checkbox" ng-model="month.February"> Feb </input>
+                            <input type="checkbox" ng-model="month.March" > Mar </input>
+                            <input type="checkbox" ng-model="month.April" > Apr </input>
+                            <input type="checkbox" ng-model="month.May" > May </input>
+                            <input type="checkbox" ng-model="month.June" > Jun </input>
+                            <input type="checkbox" ng-model="month.July" > July </input>
+                            <input type="checkbox" ng-model="month.August" > Aug </input>
+                            <input type="checkbox" ng-model="month.September" > Sep </input>
+                            <input type="checkbox" ng-model="month.October" > Oct </input>
+                            <input type="checkbox" ng-model="month.November" > Nov </input>
+                            <input type="checkbox" ng-model="month.December"> Dec </input>
+                            <input type="submit"  value="save"> 
+                      </form>
+
+              </div>              
+                
                <!--Form Submit Division-->              
                 
 
@@ -104,6 +130,7 @@
                             <tr>
                                <th><a ng-click="sortType = 'occurance'; sortReverse = !sortReverse">Ocuurance</a></th>
                               <th><a ng-click="sortType = 'feeType'; sortReverse = !sortReverse">Fee Type</a></th>
+                              <th><a ng-click="sortType = 'month'; sortReverse = !sortReverse">Month</a></th>
                               <th><a ng-click="sortType = 'amount'; sortReverse = !sortReverse">Amount</a></th>
                               <th><a ng-click="sortType = 'className'; sortReverse = !sortReverse">Class</a></th>
                               <th ng-show="Admin">Option</th>
@@ -115,11 +142,12 @@
                               <div data-ng-bind-html="x.id">
 
                                 <td>{{x.occurance }}</td>
-                                <td><span ng-click="updateMonths(x)">{{x.feeType}}</span></td>
+                                <td>{{x.feeType}}</td>
+                                <td>{{x.month}}</td>
                                 <td>{{x.amount}}</td>
                                 <td>{{x.class.className}}-{{x.class.sectionName}}</td>
                                 <td ng-show="Admin">  
-                                  <i class="glyphicon glyphicon-edit" ng-click="editFee(x)"></i>
+                                  <!--<i class="glyphicon glyphicon-edit" ng-click="editFee(x)"></i>-->
                                   <i class="glyphicon glyphicon-remove"  ng-click="deleteFee(x)"></i>
                                 </td>
                               </div>
@@ -136,54 +164,60 @@
 
                     <div ng-show="isSet(2)">
                   <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12 mbtm">
-                    <select class="form-control" required ng-change="setStudents()" ng-model="formData.classId"   >
+                    <select class="form-control" required  ng-change="setStudents()" ng-model="formData.classId"   >
                       <option value="">Class</option>
                       <option data-ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
                    
-                    </select > 
+                    </select > <br>
+                    <button ng-click="addInitialPayment()" class="btn btn-success uppercase mbtm">Generate</button>
+                    
                 </div>
 
                 <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12 mbtm">
-                    <select class="form-control" required ng-change="showFeePayment()" ng-model="formData.studentId"   >
+                    <!--<select class="form-control" required ng-change="show()" ng-model="formData.studentId"   >-->
+                    <select class="form-control" required ng-model="formData.studentId"   >
                       <option value="">Students</option>
                       <option data-ng-repeat="y in studentsList" value="{{y.id}}">{{y.firstName}}-{{y.lastName}}</option>
-                   
                     </select > 
+                    <br>
+                    <button ng-click="show()" class="btn btn-success uppercase mbtm">Show Fee</button>
+                    
                 </div>
 
-                <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12 mbtm">
-                    <select class="form-control" required ng-change="showPayment()" ng-model="formData.feesetUpId"   >
-                      <option value="">Fee Type</option>
-                      <option data-ng-repeat="z in feeSetupList" value="{{z.id}}">{{z.feeType}}<option>
-                   
-                    </select > 
-                </div>
                        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"  style="height:260px;overflow-y:auto;"> 
                               <table class="table table-bordered table-striped table-condensed flip-content">
                             <thead flip-content>
                             <tr>
-                               <th><a ng-click="sortType = 'occurance'; sortReverse = !sortReverse">Ocuurance</a></th>
-                              <th><a ng-click="sortType = 'feeType'; sortReverse = !sortReverse">Fee Type</a></th>
-                              <th><a ng-click="sortType = 'amount'; sortReverse = !sortReverse">Amount</a></th>
-                              <th><a ng-click="sortType = 'className'; sortReverse = !sortReverse">Class</a></th>
-                              <th ng-show="Admin">Option</th>
+                              
+                                <th>Fee Type</th>
+                                <th>Month</th>
+                                <th>Amount</th>
+                                <th>AmountPaid</th>
+                                <th>Due</th>
+                                <th>Paid</th>
                             </tr>
                             </thead>
 
                             <tbody>
-                            <tr data-ng-repeat="x in feePayList | filter:search |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
+                            <tr data-ng-repeat="x in list">
                               <div data-ng-bind-html="x.id">
 
-                                <td>{{x.feeType}}</td>
-                                <td data-ng-repeat="(key,value) in x.monthsList" >
-                                  {{x.amount}}({{key}})
-                                  <input type="checkbox" ng-model="flag"/>
-                                  </td>
-
+                                <td> {{x.feeSetup.feeType}}</td>
+                                <td> {{x.feeSetup.month}}</td>
+                                <td> {{x.feeSetup.amount}}</td>
+                                                                   
+                              
+                                    <td>{{x.amountPaid}}</td>
+                                    <td>{{x.feeSetup.amount - x.amountPaid}}</td>
+                                    <td ng-show="x.paid == false"><input type="button"  class="btn btn-default" ng-click="payFee(x)" value="Pay Fee"/></td>
+                                    <td ng-show="x.paid == true">Yes</td>
+                            
+                   
                               </div>
                             </tr>
                             </tbody>
                           </table>
+                          
                           <div>
 
                     </div>
