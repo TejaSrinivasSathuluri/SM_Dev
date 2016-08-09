@@ -1,10 +1,6 @@
 angular.module('app').
 controller('FeeController',
-<<<<<<< HEAD
-function($scope,$rootScope,$state,$window,$filter,ngDialog,FeeSetup,Class,Student) 
-=======
 function($scope,$rootScope,$state,$window,$filter,ngDialog,FeeSetup,Class,Student,FeePayment) 
->>>>>>> 944ccfdc9907b6ff0208a85b6a61268a00f548ea
   {
              
              
@@ -37,11 +33,7 @@ function($scope,$rootScope,$state,$window,$filter,ngDialog,FeeSetup,Class,Studen
 
 
 
-<<<<<<< HEAD
-              //**************************************FEE TYPE STARTS************************************
-=======
               //**************************************FEE  STARTS************************************
->>>>>>> 944ccfdc9907b6ff0208a85b6a61268a00f548ea
 
               //-----------------------------------------------------
               //   CLEAR RESPONSE
@@ -54,8 +46,6 @@ function($scope,$rootScope,$state,$window,$filter,ngDialog,FeeSetup,Class,Studen
               }
 
 
-<<<<<<< HEAD
-=======
               //-----------------------------------------------------
               //   CLASS LIST
               //-----------------------------------------------------
@@ -64,7 +54,6 @@ function($scope,$rootScope,$state,$window,$filter,ngDialog,FeeSetup,Class,Studen
 
 
 
->>>>>>> 944ccfdc9907b6ff0208a85b6a61268a00f548ea
               
 
                 // ----------------------------------------------------
@@ -83,17 +72,6 @@ function($scope,$rootScope,$state,$window,$filter,ngDialog,FeeSetup,Class,Studen
 
                 }
 
-<<<<<<< HEAD
-            
-
-                // -----------------------------------------------------
-                //   ADD FEE TYPE
-                //-----------------------------------------------------
-                $scope.addFeeType = function()
-                {
-
-                  $scope.chkFee = FeeSetup.findOne({
-=======
 
                 // -----------------------------------------------------
                 //   SET STUDENT LIST
@@ -177,16 +155,12 @@ function($scope,$rootScope,$state,$window,$filter,ngDialog,FeeSetup,Class,Studen
 
 
                    FeeSetup.findOne({
->>>>>>> 944ccfdc9907b6ff0208a85b6a61268a00f548ea
                     filter:
                     {
                       where:{
                               occurance : $scope.formData.occurance,
                               feeType  : $scope.formData.feeType,
-<<<<<<< HEAD
-=======
                               classId  : $scope.formData.classId,
->>>>>>> 944ccfdc9907b6ff0208a85b6a61268a00f548ea
                               schoolId : $scope.schoolId
                           }
                         }
@@ -197,29 +171,11 @@ function($scope,$rootScope,$state,$window,$filter,ngDialog,FeeSetup,Class,Studen
                     }, 
                     function () 
                     {
-<<<<<<< HEAD
-                              FeeSetup.create(
-                                {
-                                 occurance : $scope.formData.occurance,
-                                 feeType   : $scope.formData.feeType,
-                                 schoolId  : $scope.schoolId
-                                },
-                                function(){
-                                $scope.responseFee = 'Fee Type Added Successfully';
-                                $scope.successCallFeeType();
-                              },function(response){
-                                console.log(response.data.error.message);
-                              });
-
-=======
                              $scope.showMonthsFlag = true;
->>>>>>> 944ccfdc9907b6ff0208a85b6a61268a00f548ea
                   });
 
                 }
 
-<<<<<<< HEAD
-=======
                 $scope.saveFee = function(){
                   var keys = Object.keys($scope.month);
                   for (var i=0;i< keys.length;i++){
@@ -242,53 +198,11 @@ function($scope,$rootScope,$state,$window,$filter,ngDialog,FeeSetup,Class,Studen
 
                 
 
->>>>>>> 944ccfdc9907b6ff0208a85b6a61268a00f548ea
                 // -----------------------------------------------------
                 //   DELETE FEE TYPE
                 //-----------------------------------------------------
                 $scope.deleteFee = function(x)
                 {
-<<<<<<< HEAD
-                  var dialog = ngDialog.open({template: 'deleteFeeType'});
-                  dialog.closePromise.then(function (data) {
-                    if (data.value && data.value != '$document' && data.value != '$closeButton')
-
-                      FeeSetup.deleteById({id: x.id},function(){
-                        $scope.responseFee = 'Fee Type Removed Successfully';
-                        $scope.successCallFeeType();
-
-                      });
-
-                    return true;
-                  });
-
-                      }
-              // ----------------------------------------------------
-              //                         EDIT FEE TYPE
-              //-----------------------------------------------------
-              $scope.editFeeType = function(x)
-              {
-                $scope.editData = x;
-                ngDialog.openConfirm({template: 'editFeeType',
-                  scope: $scope
-                }).then(
-                  function(editData) {
-
-                    FeeType.upsert({id: x.id,category:editData.category,fee:editData.fee},
-                      function(){
-                        $scope.responseAddFeeType = 'Fee Type Updated Successfully';
-                        $scope.successCallFeeType();
-                      });
-                  },
-                  function() {
-                    $scope.responseAddFeeType = "Fee Type Details Were Not Edited.Please Check Required Fields";
-                    $scope.successCallFeeType();
-                  }
-                );
-
-              }
-
-=======
                       var dialog = ngDialog.open({template: 'deleteFee'});
                       dialog.closePromise.then(function (data) {
                         if (data.value && data.value != '$document' && data.value != '$closeButton' && data.value != '$escape')
@@ -304,23 +218,10 @@ function($scope,$rootScope,$state,$window,$filter,ngDialog,FeeSetup,Class,Studen
 
                 }
               
->>>>>>> 944ccfdc9907b6ff0208a85b6a61268a00f548ea
 
 
         
 
-<<<<<<< HEAD
-        // ----------------------------------------------------
-        //   SHOW FEE TYPE
-        //-----------------------------------------------------
-        $scope.showFee= function(){
-          $scope.feeList = FeeSetup.find({filter:{
-            where:{schoolId:$scope.schoolId}
-          }});
-
-        }
-        $scope.showFee();
-=======
                 // ----------------------------------------------------
                 //   SHOW FEE TYPE
                 //-----------------------------------------------------
@@ -333,7 +234,6 @@ function($scope,$rootScope,$state,$window,$filter,ngDialog,FeeSetup,Class,Studen
                 $scope.showFee();
 
 
->>>>>>> 944ccfdc9907b6ff0208a85b6a61268a00f548ea
 
         // --------------------------------------------------------
         //                 SORT TABLE TECHNIQUE
@@ -356,9 +256,5 @@ function($scope,$rootScope,$state,$window,$filter,ngDialog,FeeSetup,Class,Studen
        
       })
 
-<<<<<<< HEAD
-  .filter('startFrom', function() { return function(input, start) { start = +start; return input.slice(start); }})
-=======
->>>>>>> 944ccfdc9907b6ff0208a85b6a61268a00f548ea
 
 ;

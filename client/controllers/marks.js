@@ -44,18 +44,13 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
                 $scope.formData      = null;
                 $scope.error         = false;
                 $scope.success       = false;
-<<<<<<< HEAD
-=======
                 
->>>>>>> 944ccfdc9907b6ff0208a85b6a61268a00f548ea
              }
 
              //----------------------------------------------
              //                 SUCCESS CALL 
              //----------------------------------------------
 
-<<<<<<< HEAD
-=======
              successCall = function(message)
              { 
                 $scope.responseMarks = message;
@@ -65,7 +60,6 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
              }
 
 
->>>>>>> 944ccfdc9907b6ff0208a85b6a61268a00f548ea
              //----------------------------------------------
              //                 SHOW MARKS
              //----------------------------------------------
@@ -80,10 +74,6 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
                            var p = element.toJSON();
                            $scope.checkMarks(p,i);
                            i++;
-<<<<<<< HEAD
-
-=======
->>>>>>> 944ccfdc9907b6ff0208a85b6a61268a00f548ea
                     });
                 
                 });
@@ -94,15 +84,8 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
              //                 SET MAX MARKS
              //----------------------------------------------
              $scope.setMaxMarks = function(){
-<<<<<<< HEAD
-                 if (!$scope.formData.examId || $scope.formData.subjectId ){
-                          $scope.responseMarks = 'Please Select Class,Subject,Exam';
-                          $scope.error = true;
-                          $scope.success = false;
-=======
                  if (!$scope.formData.examId || !$scope.formData.subjectId ){
                         
->>>>>>> 944ccfdc9907b6ff0208a85b6a61268a00f548ea
                  } 
                  else {
 
@@ -113,18 +96,6 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
                      }
                  }},function (response) {
                       response.forEach(function (marks) {
-<<<<<<< HEAD
-                          var m = marks.toJSON();
-                         Marks.upsert({ id: m.id,maxMarks :$scope.formData.maxMarks },function(){
-                         
-                         },function(){
-                          $scope.responseMarks = 'Max Marks Not Saved';
-                          $scope.error = true;
-                          $scope.success = false;
-                   });
-                      });
-                          $scope.responseMarks = 'MAx Marks Saved Successfully';
-=======
                                     var m = marks.toJSON();
                                     Marks.upsert({ id: m.id,maxMarks :$scope.formData.maxMarks },function(){
                                     $scope.responseMarks = 'Max Marks Not Saved';
@@ -133,16 +104,11 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
                                     });
                       });
                           $scope.responseMarks = 'Max Marks Saved Successfully';
->>>>>>> 944ccfdc9907b6ff0208a85b6a61268a00f548ea
                 $scope.error = false;
                 $scope.success = true;
                 setTimeout(function() {
                     $scope.clearResponseExam();
-<<<<<<< HEAD
-             $scope.list =[];
-=======
             //  $scope.list =[];
->>>>>>> 944ccfdc9907b6ff0208a85b6a61268a00f548ea
                     
                 }, 1000);
                  });
@@ -168,10 +134,6 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
                  },function(response)
                  {
                      $scope.list[i] = response.toJSON();
-<<<<<<< HEAD
-                     console.log($scope.list[i].marksObtained);
-=======
->>>>>>> 944ccfdc9907b6ff0208a85b6a61268a00f548ea
                  },function()
                  {
                      Marks.create({
@@ -204,19 +166,8 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
                         
 
                 }
-<<<<<<< HEAD
-                $scope.responseMarks = 'Marks Saved Successfully';
-                $scope.error = false;
-                $scope.success = true;
-                setTimeout(function() {
-                    $scope.clearResponseExam();
-             $scope.list =[];
-                    
-                }, 1000);
-=======
                 successCall('Marks Saved Successfully');
                 
->>>>>>> 944ccfdc9907b6ff0208a85b6a61268a00f548ea
             }
                 
 
