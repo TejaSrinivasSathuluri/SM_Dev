@@ -9,27 +9,18 @@
   "validations": [],
   "relations": {
     "class": {
-<<<<<<< HEAD
-=======
       "type": "belongsTo",
       "model": "Class",
       "foreignKey": ""
     },
     "school": {
->>>>>>> 944ccfdc9907b6ff0208a85b6a61268a00f548ea
       "type": "belongsTo",
       "model": "School",
       "foreignKey": ""
     },
-<<<<<<< HEAD
-    "school": {
-      "type": "belongsTo",
-      "model": "School",
-=======
     "feePayments": {
       "type": "hasMany",
       "model": "FeePayment",
->>>>>>> 944ccfdc9907b6ff0208a85b6a61268a00f548ea
       "foreignKey": ""
     }
   },
