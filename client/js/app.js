@@ -34,6 +34,10 @@ angular
     .state('grades',                { url: '/grades',            templateUrl: 'views/grades.html',             controller: 'GradeController',  authenticate: true})
     .state('marks',                 { url: '/marks',             templateUrl: 'views/marks.html',              controller: 'MarksController',  authenticate: true})
     .state('bulk',                  { url: '/bulkuploads',       templateUrl: 'views/bulk.html',               controller: 'BulkController',  authenticate: true})
+    .state('bulkremove',            { url: '/bulkremovals',       templateUrl: 'views/bulkremovals.html',               controller: 'BulkDeleteController',  authenticate: true})
+
+
+
 
       //--------------Auth Services
       .state('index',        { url: '/index',      controller: 'LandingPageController'})
