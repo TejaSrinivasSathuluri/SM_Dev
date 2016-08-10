@@ -1,20 +1,12 @@
-// Copyright IBM Corp. 2015. All Rights Reserved.
-// Node module: loopback-getting-started-intermediate
-// This file is licensed under the MIT License.
-// License text available at https://opensource.org/licenses/MIT
+// Copyright Cylus Creators. 2016. All Rights Reserved.
+// Node module: Study Monitor-Routing JS File
 
 angular
-  .module('app', [ 
-    'ui.router',
-    'lbServices',
-    'ngDialog',
-    'mgo-angular-wizard',
-    'ngScrollbar',
-    'ui.rCalendar',
-    'calendarDemoApp'
-  ])
+  .module('app', [ 'ui.router','lbServices','ngDialog','mgo-angular-wizard','ngScrollbar','ui.rCalendar','calendarDemoApp'])
   .config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $stateProvider
+
+    // Functional Routes
     .state('dashboard',             { url: '/dashboard',         templateUrl: 'views/dashboard.html',          controller: 'LandingPageController', authenticate: true})
     .state('directory',             { url: '/directory',         templateUrl: 'views/directory.html',          controller: 'DirectoryController',   authenticate: true})
     .state('class',                 { url: '/class',             templateUrl: 'views/class.html',              controller: 'ClassController',       authenticate: true})
@@ -26,35 +18,44 @@ angular
     .state('noticeboard',           { url: '/noticeboard',       templateUrl: 'views/noticeboard.html',        controller: 'NoticeboardController', authenticate: true})
     .state('library',               { url: '/library',           templateUrl: 'views/library.html',            controller: 'LibraryController',     authenticate: true})
     .state('assignment',            { url: '/assignment',        templateUrl: 'views/assignment.html',         controller: 'AssignmentController',  authenticate: true})
-    .state('holiday',               { url: '/schoolcalendar',    templateUrl: 'views/holiday.html',            controller: 'HolidayController',  authenticate: true})
-    .state('profile',               { url: '/profile',           templateUrl: 'views/profile.html',            controller: 'ProfileController',  authenticate: true})
-    .state('expensemanagement',     { url: '/expensemanagement', templateUrl: 'views/expensemanagement.html',  controller: 'ExpenseController',  authenticate: true})
-    .state('fees',                  { url: '/feepayments',       templateUrl: 'views/fee.html',                controller: 'FeeController',  authenticate: true})
-    .state('exams',                 { url: '/exams',             templateUrl: 'views/exams.html',              controller: 'ExamController',  authenticate: true})
-    .state('grades',                { url: '/grades',            templateUrl: 'views/grades.html',             controller: 'GradeController',  authenticate: true})
-    .state('marks',                 { url: '/marks',             templateUrl: 'views/marks.html',              controller: 'MarksController',  authenticate: true})
-    .state('bulk',                  { url: '/bulkuploads',       templateUrl: 'views/bulk.html',               controller: 'BulkController',  authenticate: true})
-    .state('bulkremove',            { url: '/bulkremovals',       templateUrl: 'views/bulkremovals.html',               controller: 'BulkDeleteController',  authenticate: true})
+    .state('holiday',               { url: '/schoolcalendar',    templateUrl: 'views/holiday.html',            controller: 'HolidayController',     authenticate: true})
+    .state('profile',               { url: '/profile',           templateUrl: 'views/profile.html',            controller: 'ProfileController',     authenticate: true})
+    .state('expensemanagement',     { url: '/expensemanagement', templateUrl: 'views/expensemanagement.html',  controller: 'ExpenseController',     authenticate: true})
+    .state('fees',                  { url: '/feepayments',       templateUrl: 'views/fee.html',                controller: 'FeeController',         authenticate: true})
+    .state('exams',                 { url: '/exams',             templateUrl: 'views/exams.html',              controller: 'ExamController',        authenticate: true})
+    .state('grades',                { url: '/grades',            templateUrl: 'views/grades.html',             controller: 'GradeController',       authenticate: true})
+    .state('marks',                 { url: '/marks',             templateUrl: 'views/marks.html',              controller: 'MarksController',       authenticate: true})
+    .state('bulk',                  { url: '/bulkuploads',       templateUrl: 'views/bulk.html',               controller: 'BulkController',        authenticate: true})
+    .state('bulkremove',            { url: '/bulkremovals',      templateUrl: 'views/bulkremovals.html',       controller: 'BulkDeleteController',  authenticate: true})
+    // Functional Routes
 
 
 
 
       //--------------Auth Services
-      .state('index',        { url: '/index',      controller: 'LandingPageController'})
-      .state('email',         { url: '/email',  templateUrl: 'views/email.html',   controller: 'EmailController'     })
-      .state('login',         { url: '/login',  templateUrl: 'views/login.html',   controller: 'AuthLoginController' })
-      .state('login.admin',   { url: '/admin',  templateUrl: 'views/admin.html',   controller: 'AuthLoginController' })
-      .state('login.staff',   { url: '/staff',  templateUrl: 'views/staff.html',   controller: 'AuthLoginController' })
-      .state('login.parent',  { url: '/parent', templateUrl: 'views/parent.html',  controller: 'AuthLoginController' })
-      .state('login.student', { url: '/student',templateUrl: 'views/student.html', controller: 'AuthLoginController' })
-      //.state('signup',        { url: '/signup', templateUrl: 'views/signup.html',  controller: 'SignUpController  ' })
+      .state('index',         { url: '/index',                                     controller: 'LandingPageController'})
+      .state('email',         { url: '/email',  templateUrl: 'views/email.html',   controller: 'EmailController'      })
+      .state('login',         { url: '/login',  templateUrl: 'views/login.html',   controller: 'AuthLoginController'  })
+      .state('login.admin',   { url: '/admin',  templateUrl: 'views/admin.html',   controller: 'AuthLoginController'  })
+      .state('login.staff',   { url: '/staff',  templateUrl: 'views/staff.html',   controller: 'AuthLoginController'  })
+      .state('login.parent',  { url: '/parent', templateUrl: 'views/parent.html',  controller: 'AuthLoginController'  })
+      .state('login.student', { url: '/student',templateUrl: 'views/student.html', controller: 'AuthLoginController'  })
       .state('logout',        { url: '/login',                                     controller: 'AuthLogoutController'})
+      //--------------Auth Services
+
+
+
+
+      //.state('signup',        { url: '/signup', templateUrl: 'views/signup.html',  controller: 'SignUpController  ' })
 
      $urlRouterProvider.otherwise('login/admin');
     //  $locationProvider.html5Mode({ enabled: true, requireBase: false});
      
   })
 
+
+
+// Authentication Part For Page Reload and Redirect
   .run(function($rootScope, $state,$window) {
     $rootScope.$on('$stateChangeStart', function(event, next) {
       // redirect to login page if not logged in
@@ -71,3 +72,5 @@ angular
       $rootScope.currentUser = $window.localStorage.getItem('user');
     });
   });
+// Authentication Part For Page Reload and Redirect
+  

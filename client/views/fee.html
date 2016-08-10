@@ -138,7 +138,7 @@
                             </thead>
 
                             <tbody>
-                            <tr data-ng-repeat="x in feeList | filter:search |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
+                            <tr data-ng-repeat="x in feeList | filter:search |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize ">
                               <div data-ng-bind-html="x.id">
 
                                 <td>{{x.occurance }}</td>

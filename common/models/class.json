@@ -47,6 +47,11 @@
       "type": "hasMany",
       "model": "Marks",
       "foreignKey": ""
+    },
+    "feePayments": {
+      "type": "hasMany",
+      "model": "FeePayment",
+      "foreignKey": ""
     }
   },
   "acls": [

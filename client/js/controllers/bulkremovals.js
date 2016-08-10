@@ -24,17 +24,17 @@ angular
         
         $scope.classList = Class.find({filter:{where:{schoolId:$scope.schoolId}}});
 
-    $scope.deleteAll = function(){
-      Class.students.destroyById({
-        id : $scope.classId
-      },function(response){
+        $scope.deleteAll = function(){
+        Class.students.destroyById({
+          id : $scope.classId
+        },function(response){
         console.log(response);
         $scope.response = 'Students Deleted Successfully'
         $scope.error = true;
         setTimeout(function() {
           $scope.error = false;
         }, 1000);
-      });
+        });
 
     }
         

@@ -35,6 +35,7 @@ angular.module('app')
       // ----------------------------------------------------
       //   SUCCESS CALL
       //-----------------------------------------------------
+      
       $scope.successCallBus = function(){
         setTimeout( function()
         {
