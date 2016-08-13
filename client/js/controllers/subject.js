@@ -174,7 +174,18 @@ angular.module('app')
         }
         else if ($scope.Student){
           $scope.subjectList = Subject.find({filter: {where:{classId:$scope.userData.classId},include: ['staff', 'class']}});
+          Class.findOne({
+            filter:{
+              where:{
+                id : $scope.userData.classId 
+              },
+              include:'staff'
+            }
+          },function(response){
+            $scope.firstName = response.staff.firstName;
+            $scope.lastName = response.staff.lastName;
 
+          });
         }
 		// --------------------------------------------------------
         //                 SORT TABLE TECHNIQUE

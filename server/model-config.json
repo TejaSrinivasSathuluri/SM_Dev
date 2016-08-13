@@ -96,18 +96,6 @@
     "dataSource": "Study_Monitor_Data",
     "public": true
   },
-  "ChatUser": {
-    "dataSource": "Study_Monitor_Data",
-    "public": true
-  },
-  "Room": {
-    "dataSource": "Study_Monitor_Data",
-    "public": true
-  },
-  "Message": {
-    "dataSource": "Study_Monitor_Data",
-    "public": true
-  },
   "BusService": {
     "dataSource": "Study_Monitor_Data",
     "public": true

@@ -11,6 +11,7 @@ angular
           $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
 
 
+
           //-----------------------------------
         // TABS CODE
         //------------------------------------

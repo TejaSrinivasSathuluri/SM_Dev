@@ -1,3 +1,22 @@
+
+
+
+<!-------------------------------------------Delete Form Templates------------------------------------------------------------------------------------->
+
+<script type="text/ng-template" id="parentSubscription">
+  <div class="ngdialog-message">
+    <form ng-submit="closeThisDialog(formData)">
+  <div class="form-group">
+    <label for="exampleInputEmail1">Please Enter Parent Email Id To Subscribe</label>
+    <input type="email" class="form-control" ng-model="formData.parentEmail" aria-describedby="emailHelp" placeholder="Enter Parent Email" required>
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+  </div>
+</script>
+
+
 <!-------------------------------------------Delete Form Templates------------------------------------------------------------------------------------->
 
 <script type="text/ng-template" id="deleteUser">
@@ -18,7 +37,7 @@
     <form>
     <input  type="text"     class="form-control" placeholder="FirstName"   		   ng-model="formData.firstName"     		                      ng-mouseover="tag32=true" ng-mouseleave="tag32=false" style="width:50%" ><div class="tag32" ng-show="tag32">Enter  FirstName</div><br>
 		<input  type="text"     class="form-control" placeholder="LastName"      	   ng-model="formData.lastName"      	                        ng-mouseover="tag33=true" ng-mouseleave="tag33=false" style="width:50%" ><div class="tag33" ng-show="tag33">Enter  LastName</div><br>
-		<input  type="email"    class="form-control" placeholder="Email"     		     ng-model="formData.email"   	   		                        ng-mouseover="tag34=true" ng-mouseleave="tag34=false" style="width:50%" ><div class="tag34" ng-show="tag34">Enter  Email</div><br>
+		<input  type="email"   style="text-transform: lowercase;" class="form-control" placeholder="Email"     		     ng-model="formData.email"   	   		                        ng-mouseover="tag34=true" ng-mouseleave="tag34=false" style="width:50%" ><div class="tag34" ng-show="tag34">Enter  Email</div><br>
 		<input  type="password" class="form-control" placeholder="Password"   	     ng-model="formData.password"      		                      ng-mouseover="tag35=true" ng-mouseleave="tag35=false" style="width:50%" ><div class="tag35" ng-show="tag35">Enter Password</div><br>
 		<input  type="number"   class="form-control" placeholder="Contact Number"    ng-model="formData.contact"      min="0"  max="9999999999"  ng-mouseover="tag36=true" ng-mouseleave="tag36=false" style="width:50%" ><div class="tag36" ng-show="tag36">Enter  Contact Number</div><br>
 
@@ -52,7 +71,7 @@
       </div>
       <div class="col-sm-12">
         <div class="col-sm-6">
-          <input  type="email"  class="form-control"       placeholder="Email*"         ng-model="editData.email"         ng-mouseup="tag44=true" ng-mouseleave="tag44=false"    required><div class="tag44" ng-show="tag44">Enter Staff Email</div><br>
+          <input  type="email"  style="text-transform: lowercase;" class="form-control"       placeholder="Email*"         ng-model="editData.email"         ng-mouseup="tag44=true" ng-mouseleave="tag44=false"    required><div class="tag44" ng-show="tag44">Enter Staff Email</div><br>
         </div>
 
         <div class="col-sm-6">
@@ -201,7 +220,7 @@
         <div class="col-sm-6"><input  type="text" class="form-control" placeholder="Last Name*"   ng-model="formData.lastName"   ng-mouseover="tag2=true" ng-mouseleave="tag2=false"   required ><div class="tag2" ng-show="tag2">Enter Last  Name</div><br></div>
       </div>
       <div class="col-sm-12">
-        <div class="col-sm-6"><input  type="email" class="form-control" placeholder="Email*"    ng-change="checkEmail('ST')"   ng-model="formData.email"      ng-mouseover="tag3=true" ng-mouseleave="tag3=false"   required>
+        <div class="col-sm-6"><input style="text-transform: lowercase;" type="email" class="form-control" placeholder="Email*"    ng-change="checkEmail('ST')"   ng-model="formData.email"      ng-mouseover="tag3=true" ng-mouseleave="tag3=false"   required>
 
           <div class="tag3" ng-show="tag3">Enter Email   </div><br>
         </div>
@@ -326,7 +345,7 @@
         <div class="col-sm-6"><input  type="text" class="form-control" placeholder="Last Name*"   ng-model="formData.lastName"   minlength="1" maxlength="25" ng-mouseover="tag2=true" ng-mouseleave="tag2=false"   required> <div class="tag2" ng-show="tag2">Enter Last  Name</div><br></div>
       </div>
       <div class="col-sm-12">
-        <div class="col-sm-6"><input  type="email"    class="form-control" placeholder="Email*"    ng-model="formData.email"      ng-mouseover="tag3=true" ng-mouseleave="tag3=false"   required><div class="tag3" ng-show="tag3">Enter Email   </div><br></div>
+        <div class="col-sm-6"><input style="text-transform: lowercase;" type="email"    class="form-control" placeholder="Email*"    ng-model="formData.email"      ng-mouseover="tag3=true" ng-mouseleave="tag3=false"   required><div class="tag3" ng-show="tag3">Enter Email   </div><br></div>
         <div class="col-sm-6"><input  type="password" class="form-control" placeholder="Password*" ng-model="formData.password"   minlength="6" maxlength="20" ng-mouseover="tag4=true" ng-mouseleave="tag4=false"   required><div class="tag4" ng-show="tag4">Enter Password</div><br></div>
       </div>
       <div class="col-sm-12">
@@ -416,11 +435,11 @@
       </div>
     </div>
     <div class="col-sm-12">
-      <div class="col-sm-6"><input  type="email" class="form-control" placeholder="Father Contact"      ng-model="formData.fatherContact"      ng-mouseover="tag32=true" ng-mouseleave="tag32=false"  >
+      <div class="col-sm-6"><input style="text-transform: lowercase;"  type="email" class="form-control" placeholder="Father Contact"      ng-model="formData.fatherContact"      ng-mouseover="tag32=true" ng-mouseleave="tag32=false"  >
 
         <div class="tag3" ng-show="tag32">Enter Father Contact  </div><br>
       </div>
-      <div class="col-sm-6"><input  type="email" class="form-control" placeholder="Mother Contact"      ng-model="formData.motherContact"      ng-mouseover="tag33=true" ng-mouseleave="tag33=false"   >
+      <div class="col-sm-6"><input style="text-transform: lowercase;"  type="email" class="form-control" placeholder="Mother Contact"      ng-model="formData.motherContact"      ng-mouseover="tag33=true" ng-mouseleave="tag33=false"   >
 
         <div class="tag3" ng-show="tag33">Enter Mother Contact   </div><br>
       </div>
@@ -458,7 +477,7 @@
       <br>
       <div class="col-sm-12">
         <div class="col-sm-6">
-          <input  type="email" class="form-control" placeholder="Email*"       ng-model="editData.email"  required ng-mouseover="tag102=true" ng-mouseleave="tag102=false"   ><div class="tag102" ng-show="tag102">Enter Email </div><br>
+          <input  type="email"  style="text-transform: lowercase;" class="form-control" placeholder="Email*"       ng-model="editData.email"  required ng-mouseover="tag102=true" ng-mouseleave="tag102=false"   ><div class="tag102" ng-show="tag102">Enter Email </div><br>
         </div>
 
         <div class="col-sm-6">
@@ -575,11 +594,11 @@
         </div>
       </div>
       <div class="col-sm-12">
-        <div class="col-sm-6"><input  type="email" class="form-control" placeholder="Father Conatct"      ng-model="editData.fatherEmail"      ng-mouseover="tag32=true" ng-mouseleave="tag32=false"  >
+        <div class="col-sm-6"><input    style="text-transform: lowercase;" type="email" class="form-control" placeholder="Father Conatct"      ng-model="editData.fatherEmail"      ng-mouseover="tag32=true" ng-mouseleave="tag32=false"  >
 
           <div class="tag3" ng-show="tag32">Enter Father Contact   </div><br><br>
         </div>
-        <div class="col-sm-6"><input  type="email" class="form-control" placeholder="Mother Contact"      ng-model="editData.motherEmail"      ng-mouseover="tag33=true" ng-mouseleave="tag33=false"   >
+        <div class="col-sm-6"><input  style="text-transform: lowercase;" type="email" class="form-control" placeholder="Mother Contact"      ng-model="editData.motherEmail"      ng-mouseover="tag33=true" ng-mouseleave="tag33=false"   >
 
           <div class="tag3" ng-show="tag33">Enter Mother Contact   </div><br><br>
         </div>
@@ -831,6 +850,7 @@
                                                                 <th><a ng-click="sortType = 'className'; sortReverse = !sortReverse">Class/Section</a></th>
                                                                 <th><a ng-click="sortType = 'contact'; sortReverse = !sortReverse">  Contact      </a></th>
                                                                 <th ng-show="Admin">Action</th>
+                                                                <th ng-show="Admin">Subscription</th>
                                                             </tr>
                                                    </thead>
                                                    <tbody>
@@ -848,6 +868,7 @@
                                                                                   <i class="glyphicon glyphicon-edit" id="package1" class="accordion-toggle" data-toggle="collapse" data-parent="#Directory" data-target=".packageDetails1" ng-click="editUser(x)"></i>
                                                                                   <i class="glyphicon glyphicon-remove"  ng-click="deleteUser(x)"></i>
                                                                   </td>
+                                                                  <td><button class="btn btn-circle" ng-click="addParentSubscription(x)">Subscribe</button></td>
 
                                                           </tr>
                                                      </tbody>
@@ -873,10 +894,6 @@
 		  <br><br><br><br><br><br><br>
         </div>
 		</div>
-
-
-
-
       </div>
     </div>
   </div>

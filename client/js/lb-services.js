@@ -8921,6 +8921,33 @@ module.factory(
           method: "PUT"
         },
 
+        // INTERNAL. Use Class.feePayments.findById() instead.
+        "prototype$__findById__feePayments": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/feePayments/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Class.feePayments.destroyById() instead.
+        "prototype$__destroyById__feePayments": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/feePayments/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Class.feePayments.updateById() instead.
+        "prototype$__updateById__feePayments": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/feePayments/:fk",
+          method: "PUT"
+        },
+
         // INTERNAL. Use Class.students() instead.
         "prototype$__get__students": {
           isArray: true,
@@ -9068,6 +9095,31 @@ module.factory(
         // INTERNAL. Use Class.marks.count() instead.
         "prototype$__count__marks": {
           url: urlBase + "/Classes/:id/marks/count",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Class.feePayments() instead.
+        "prototype$__get__feePayments": {
+          isArray: true,
+          url: urlBase + "/Classes/:id/feePayments",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Class.feePayments.create() instead.
+        "prototype$__create__feePayments": {
+          url: urlBase + "/Classes/:id/feePayments",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Class.feePayments.destroyAll() instead.
+        "prototype$__delete__feePayments": {
+          url: urlBase + "/Classes/:id/feePayments",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Class.feePayments.count() instead.
+        "prototype$__count__feePayments": {
+          url: urlBase + "/Classes/:id/feePayments/count",
           method: "GET"
         },
 
@@ -11611,6 +11663,307 @@ module.factory(
         R.marks.updateById = function() {
           var TargetResource = $injector.get("Marks");
           var action = TargetResource["::updateById::Class::marks"];
+          return action.apply(R, arguments);
+        };
+    /**
+     * @ngdoc object
+     * @name lbServices.Class.feePayments
+     * @header lbServices.Class.feePayments
+     * @object
+     * @description
+     *
+     * The object `Class.feePayments` groups methods
+     * manipulating `FeePayment` instances related to `Class`.
+     *
+     * Call {@link lbServices.Class#feePayments Class.feePayments()}
+     * to query all related instances.
+     */
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class#feePayments
+         * @methodOf lbServices.Class
+         *
+         * @description
+         *
+         * Queries feePayments of Class.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `FeePayment` object.)
+         * </em>
+         */
+        R.feePayments = function() {
+          var TargetResource = $injector.get("FeePayment");
+          var action = TargetResource["::get::Class::feePayments"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.feePayments#count
+         * @methodOf lbServices.Class.feePayments
+         *
+         * @description
+         *
+         * Counts feePayments of Class.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        R.feePayments.count = function() {
+          var TargetResource = $injector.get("FeePayment");
+          var action = TargetResource["::count::Class::feePayments"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.feePayments#create
+         * @methodOf lbServices.Class.feePayments
+         *
+         * @description
+         *
+         * Creates a new instance in feePayments of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `FeePayment` object.)
+         * </em>
+         */
+        R.feePayments.create = function() {
+          var TargetResource = $injector.get("FeePayment");
+          var action = TargetResource["::create::Class::feePayments"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.feePayments#createMany
+         * @methodOf lbServices.Class.feePayments
+         *
+         * @description
+         *
+         * Creates a new instance in feePayments of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `FeePayment` object.)
+         * </em>
+         */
+        R.feePayments.createMany = function() {
+          var TargetResource = $injector.get("FeePayment");
+          var action = TargetResource["::createMany::Class::feePayments"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.feePayments#destroyAll
+         * @methodOf lbServices.Class.feePayments
+         *
+         * @description
+         *
+         * Deletes all feePayments of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.feePayments.destroyAll = function() {
+          var TargetResource = $injector.get("FeePayment");
+          var action = TargetResource["::delete::Class::feePayments"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.feePayments#destroyById
+         * @methodOf lbServices.Class.feePayments
+         *
+         * @description
+         *
+         * Delete a related item by id for feePayments.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for feePayments
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.feePayments.destroyById = function() {
+          var TargetResource = $injector.get("FeePayment");
+          var action = TargetResource["::destroyById::Class::feePayments"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.feePayments#findById
+         * @methodOf lbServices.Class.feePayments
+         *
+         * @description
+         *
+         * Find a related item by id for feePayments.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for feePayments
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `FeePayment` object.)
+         * </em>
+         */
+        R.feePayments.findById = function() {
+          var TargetResource = $injector.get("FeePayment");
+          var action = TargetResource["::findById::Class::feePayments"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.feePayments#updateById
+         * @methodOf lbServices.Class.feePayments
+         *
+         * @description
+         *
+         * Update a related item by id for feePayments.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for feePayments
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `FeePayment` object.)
+         * </em>
+         */
+        R.feePayments.updateById = function() {
+          var TargetResource = $injector.get("FeePayment");
+          var action = TargetResource["::updateById::Class::feePayments"];
           return action.apply(R, arguments);
         };
 
@@ -20789,7 +21142,7 @@ module.factory(
   "ChatUser",
   ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
     var R = Resource(
-      urlBase + "/ChatUsers/:id",
+      urlBase + "/chatusers/:id",
       { 'id': '@id' },
       {
 
@@ -20827,7 +21180,7 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/ChatUsers/:id/accessTokens/:fk",
+          url: urlBase + "/chatusers/:id/accessTokens/:fk",
           method: "GET"
         },
 
@@ -20862,7 +21215,7 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/ChatUsers/:id/accessTokens/:fk",
+          url: urlBase + "/chatusers/:id/accessTokens/:fk",
           method: "DELETE"
         },
 
@@ -20904,7 +21257,7 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/ChatUsers/:id/accessTokens/:fk",
+          url: urlBase + "/chatusers/:id/accessTokens/:fk",
           method: "PUT"
         },
 
@@ -20913,7 +21266,7 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/ChatUsers/:id/joinedrooms/:fk",
+          url: urlBase + "/chatusers/:id/joinedrooms/:fk",
           method: "GET"
         },
 
@@ -20922,7 +21275,7 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/ChatUsers/:id/joinedrooms/:fk",
+          url: urlBase + "/chatusers/:id/joinedrooms/:fk",
           method: "DELETE"
         },
 
@@ -20931,7 +21284,7 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/ChatUsers/:id/joinedrooms/:fk",
+          url: urlBase + "/chatusers/:id/joinedrooms/:fk",
           method: "PUT"
         },
 
@@ -20940,7 +21293,7 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/ChatUsers/:id/joinedrooms/rel/:fk",
+          url: urlBase + "/chatusers/:id/joinedrooms/rel/:fk",
           method: "PUT"
         },
 
@@ -20949,7 +21302,7 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/ChatUsers/:id/joinedrooms/rel/:fk",
+          url: urlBase + "/chatusers/:id/joinedrooms/rel/:fk",
           method: "DELETE"
         },
 
@@ -20958,7 +21311,7 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/ChatUsers/:id/joinedrooms/rel/:fk",
+          url: urlBase + "/chatusers/:id/joinedrooms/rel/:fk",
           method: "HEAD"
         },
 
@@ -20994,7 +21347,7 @@ module.factory(
          */
         "prototype$__get__accessTokens": {
           isArray: true,
-          url: urlBase + "/ChatUsers/:id/accessTokens",
+          url: urlBase + "/chatusers/:id/accessTokens",
           method: "GET"
         },
 
@@ -21031,7 +21384,7 @@ module.factory(
          * </em>
          */
         "prototype$__create__accessTokens": {
-          url: urlBase + "/ChatUsers/:id/accessTokens",
+          url: urlBase + "/chatusers/:id/accessTokens",
           method: "POST"
         },
 
@@ -21061,7 +21414,7 @@ module.factory(
          * This method returns no data.
          */
         "prototype$__delete__accessTokens": {
-          url: urlBase + "/ChatUsers/:id/accessTokens",
+          url: urlBase + "/chatusers/:id/accessTokens",
           method: "DELETE"
         },
 
@@ -21095,32 +21448,32 @@ module.factory(
          *  - `count` – `{number=}` - 
          */
         "prototype$__count__accessTokens": {
-          url: urlBase + "/ChatUsers/:id/accessTokens/count",
+          url: urlBase + "/chatusers/:id/accessTokens/count",
           method: "GET"
         },
 
         // INTERNAL. Use ChatUser.joinedrooms() instead.
         "prototype$__get__joinedrooms": {
           isArray: true,
-          url: urlBase + "/ChatUsers/:id/joinedrooms",
+          url: urlBase + "/chatusers/:id/joinedrooms",
           method: "GET"
         },
 
         // INTERNAL. Use ChatUser.joinedrooms.create() instead.
         "prototype$__create__joinedrooms": {
-          url: urlBase + "/ChatUsers/:id/joinedrooms",
+          url: urlBase + "/chatusers/:id/joinedrooms",
           method: "POST"
         },
 
         // INTERNAL. Use ChatUser.joinedrooms.destroyAll() instead.
         "prototype$__delete__joinedrooms": {
-          url: urlBase + "/ChatUsers/:id/joinedrooms",
+          url: urlBase + "/chatusers/:id/joinedrooms",
           method: "DELETE"
         },
 
         // INTERNAL. Use ChatUser.joinedrooms.count() instead.
         "prototype$__count__joinedrooms": {
-          url: urlBase + "/ChatUsers/:id/joinedrooms/count",
+          url: urlBase + "/chatusers/:id/joinedrooms/count",
           method: "GET"
         },
 
@@ -21158,7 +21511,7 @@ module.factory(
          * </em>
          */
         "create": {
-          url: urlBase + "/ChatUsers",
+          url: urlBase + "/chatusers",
           method: "POST"
         },
 
@@ -21197,7 +21550,7 @@ module.factory(
          */
         "createMany": {
           isArray: true,
-          url: urlBase + "/ChatUsers",
+          url: urlBase + "/chatusers",
           method: "POST"
         },
 
@@ -21235,7 +21588,7 @@ module.factory(
          * </em>
          */
         "upsert": {
-          url: urlBase + "/ChatUsers",
+          url: urlBase + "/chatusers",
           method: "PUT"
         },
 
@@ -21267,7 +21620,7 @@ module.factory(
          *  - `exists` – `{boolean=}` - 
          */
         "exists": {
-          url: urlBase + "/ChatUsers/:id/exists",
+          url: urlBase + "/chatusers/:id/exists",
           method: "GET"
         },
 
@@ -21302,7 +21655,7 @@ module.factory(
          * </em>
          */
         "findById": {
-          url: urlBase + "/ChatUsers/:id",
+          url: urlBase + "/chatusers/:id",
           method: "GET"
         },
 
@@ -21336,7 +21689,7 @@ module.factory(
          */
         "find": {
           isArray: true,
-          url: urlBase + "/ChatUsers",
+          url: urlBase + "/chatusers",
           method: "GET"
         },
 
@@ -21369,7 +21722,7 @@ module.factory(
          * </em>
          */
         "findOne": {
-          url: urlBase + "/ChatUsers/findOne",
+          url: urlBase + "/chatusers/findOne",
           method: "GET"
         },
 
@@ -21403,7 +21756,7 @@ module.factory(
          * The number of instances updated
          */
         "updateAll": {
-          url: urlBase + "/ChatUsers/update",
+          url: urlBase + "/chatusers/update",
           method: "POST"
         },
 
@@ -21436,7 +21789,7 @@ module.factory(
          * </em>
          */
         "deleteById": {
-          url: urlBase + "/ChatUsers/:id",
+          url: urlBase + "/chatusers/:id",
           method: "DELETE"
         },
 
@@ -21468,7 +21821,7 @@ module.factory(
          *  - `count` – `{number=}` - 
          */
         "count": {
-          url: urlBase + "/ChatUsers/count",
+          url: urlBase + "/chatusers/count",
           method: "GET"
         },
 
@@ -21505,7 +21858,7 @@ module.factory(
          * </em>
          */
         "prototype$updateAttributes": {
-          url: urlBase + "/ChatUsers/:id",
+          url: urlBase + "/chatusers/:id",
           method: "PUT"
         },
 
@@ -21542,7 +21895,7 @@ module.factory(
          *  - `changes` – `{ReadableStream=}` - 
          */
         "createChangeStream": {
-          url: urlBase + "/ChatUsers/change-stream",
+          url: urlBase + "/chatusers/change-stream",
           method: "POST"
         },
 
@@ -21598,7 +21951,7 @@ module.factory(
               return response.resource;
             }
           },
-          url: urlBase + "/ChatUsers/login",
+          url: urlBase + "/chatusers/login",
           method: "POST"
         },
 
@@ -21640,7 +21993,7 @@ module.factory(
               return response.resource;
             }
           },
-          url: urlBase + "/ChatUsers/logout",
+          url: urlBase + "/chatusers/logout",
           method: "POST"
         },
 
@@ -21674,7 +22027,7 @@ module.factory(
          * This method returns no data.
          */
         "confirm": {
-          url: urlBase + "/ChatUsers/confirm",
+          url: urlBase + "/chatusers/confirm",
           method: "GET"
         },
 
@@ -21709,7 +22062,48 @@ module.factory(
          * This method returns no data.
          */
         "resetPassword": {
-          url: urlBase + "/ChatUsers/reset",
+          url: urlBase + "/chatusers/reset",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.ChatUser#joinroom
+         * @methodOf lbServices.ChatUser
+         *
+         * @description
+         *
+         * <em>
+         * (The remote method definition does not provide any description.)
+         * </em>
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         *  - `room_id` – `{string=}` - 
+         *
+         *  - `user_id` – `{string=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `success` – `{boolean=}` - 
+         */
+        "joinroom": {
+          url: urlBase + "/chatusers/joinroom",
           method: "POST"
         },
 
@@ -21718,7 +22112,7 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/Rooms/:id/users/:fk",
+          url: urlBase + "/rooms/:id/users/:fk",
           method: "GET"
         },
 
@@ -21727,7 +22121,7 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/Rooms/:id/users/:fk",
+          url: urlBase + "/rooms/:id/users/:fk",
           method: "DELETE"
         },
 
@@ -21736,7 +22130,7 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/Rooms/:id/users/:fk",
+          url: urlBase + "/rooms/:id/users/:fk",
           method: "PUT"
         },
 
@@ -21745,7 +22139,7 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/Rooms/:id/users/rel/:fk",
+          url: urlBase + "/rooms/:id/users/rel/:fk",
           method: "PUT"
         },
 
@@ -21754,7 +22148,7 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/Rooms/:id/users/rel/:fk",
+          url: urlBase + "/rooms/:id/users/rel/:fk",
           method: "DELETE"
         },
 
@@ -21763,45 +22157,45 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/Rooms/:id/users/rel/:fk",
+          url: urlBase + "/rooms/:id/users/rel/:fk",
           method: "HEAD"
         },
 
         // INTERNAL. Use Room.users() instead.
         "::get::Room::users": {
           isArray: true,
-          url: urlBase + "/Rooms/:id/users",
+          url: urlBase + "/rooms/:id/users",
           method: "GET"
         },
 
         // INTERNAL. Use Room.users.create() instead.
         "::create::Room::users": {
-          url: urlBase + "/Rooms/:id/users",
+          url: urlBase + "/rooms/:id/users",
           method: "POST"
         },
 
         // INTERNAL. Use Room.users.createMany() instead.
         "::createMany::Room::users": {
           isArray: true,
-          url: urlBase + "/Rooms/:id/users",
+          url: urlBase + "/rooms/:id/users",
           method: "POST"
         },
 
         // INTERNAL. Use Room.users.destroyAll() instead.
         "::delete::Room::users": {
-          url: urlBase + "/Rooms/:id/users",
+          url: urlBase + "/rooms/:id/users",
           method: "DELETE"
         },
 
         // INTERNAL. Use Room.users.count() instead.
         "::count::Room::users": {
-          url: urlBase + "/Rooms/:id/users/count",
+          url: urlBase + "/rooms/:id/users/count",
           method: "GET"
         },
 
         // INTERNAL. Use Message.user() instead.
         "::get::Message::user": {
-          url: urlBase + "/Messages/:id/user",
+          url: urlBase + "/messages/:id/user",
           method: "GET"
         },
 
@@ -21826,7 +22220,7 @@ module.factory(
          *   from the server.
          */
         "getCurrent": {
-           url: urlBase + "/ChatUsers" + "/:id",
+           url: urlBase + "/chatusers" + "/:id",
            method: "GET",
            params: {
              id: function() {
@@ -22461,7 +22855,7 @@ module.factory(
   "Room",
   ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
     var R = Resource(
-      urlBase + "/Rooms/:id",
+      urlBase + "/rooms/:id",
       { 'id': '@id' },
       {
 
@@ -22470,7 +22864,7 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/Rooms/:id/users/:fk",
+          url: urlBase + "/rooms/:id/users/:fk",
           method: "GET"
         },
 
@@ -22479,7 +22873,7 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/Rooms/:id/users/:fk",
+          url: urlBase + "/rooms/:id/users/:fk",
           method: "DELETE"
         },
 
@@ -22488,7 +22882,7 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/Rooms/:id/users/:fk",
+          url: urlBase + "/rooms/:id/users/:fk",
           method: "PUT"
         },
 
@@ -22497,7 +22891,7 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/Rooms/:id/users/rel/:fk",
+          url: urlBase + "/rooms/:id/users/rel/:fk",
           method: "PUT"
         },
 
@@ -22506,7 +22900,7 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/Rooms/:id/users/rel/:fk",
+          url: urlBase + "/rooms/:id/users/rel/:fk",
           method: "DELETE"
         },
 
@@ -22515,7 +22909,7 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/Rooms/:id/users/rel/:fk",
+          url: urlBase + "/rooms/:id/users/rel/:fk",
           method: "HEAD"
         },
 
@@ -22524,7 +22918,7 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/Rooms/:id/messages/:fk",
+          url: urlBase + "/rooms/:id/messages/:fk",
           method: "GET"
         },
 
@@ -22533,7 +22927,7 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/Rooms/:id/messages/:fk",
+          url: urlBase + "/rooms/:id/messages/:fk",
           method: "DELETE"
         },
 
@@ -22542,57 +22936,57 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/Rooms/:id/messages/:fk",
+          url: urlBase + "/rooms/:id/messages/:fk",
           method: "PUT"
         },
 
         // INTERNAL. Use Room.users() instead.
         "prototype$__get__users": {
           isArray: true,
-          url: urlBase + "/Rooms/:id/users",
+          url: urlBase + "/rooms/:id/users",
           method: "GET"
         },
 
         // INTERNAL. Use Room.users.create() instead.
         "prototype$__create__users": {
-          url: urlBase + "/Rooms/:id/users",
+          url: urlBase + "/rooms/:id/users",
           method: "POST"
         },
 
         // INTERNAL. Use Room.users.destroyAll() instead.
         "prototype$__delete__users": {
-          url: urlBase + "/Rooms/:id/users",
+          url: urlBase + "/rooms/:id/users",
           method: "DELETE"
         },
 
         // INTERNAL. Use Room.users.count() instead.
         "prototype$__count__users": {
-          url: urlBase + "/Rooms/:id/users/count",
+          url: urlBase + "/rooms/:id/users/count",
           method: "GET"
         },
 
         // INTERNAL. Use Room.messages() instead.
         "prototype$__get__messages": {
           isArray: true,
-          url: urlBase + "/Rooms/:id/messages",
+          url: urlBase + "/rooms/:id/messages",
           method: "GET"
         },
 
         // INTERNAL. Use Room.messages.create() instead.
         "prototype$__create__messages": {
-          url: urlBase + "/Rooms/:id/messages",
+          url: urlBase + "/rooms/:id/messages",
           method: "POST"
         },
 
         // INTERNAL. Use Room.messages.destroyAll() instead.
         "prototype$__delete__messages": {
-          url: urlBase + "/Rooms/:id/messages",
+          url: urlBase + "/rooms/:id/messages",
           method: "DELETE"
         },
 
         // INTERNAL. Use Room.messages.count() instead.
         "prototype$__count__messages": {
-          url: urlBase + "/Rooms/:id/messages/count",
+          url: urlBase + "/rooms/:id/messages/count",
           method: "GET"
         },
 
@@ -22630,7 +23024,7 @@ module.factory(
          * </em>
          */
         "create": {
-          url: urlBase + "/Rooms",
+          url: urlBase + "/rooms",
           method: "POST"
         },
 
@@ -22669,7 +23063,7 @@ module.factory(
          */
         "createMany": {
           isArray: true,
-          url: urlBase + "/Rooms",
+          url: urlBase + "/rooms",
           method: "POST"
         },
 
@@ -22707,7 +23101,7 @@ module.factory(
          * </em>
          */
         "upsert": {
-          url: urlBase + "/Rooms",
+          url: urlBase + "/rooms",
           method: "PUT"
         },
 
@@ -22739,7 +23133,7 @@ module.factory(
          *  - `exists` – `{boolean=}` - 
          */
         "exists": {
-          url: urlBase + "/Rooms/:id/exists",
+          url: urlBase + "/rooms/:id/exists",
           method: "GET"
         },
 
@@ -22774,7 +23168,7 @@ module.factory(
          * </em>
          */
         "findById": {
-          url: urlBase + "/Rooms/:id",
+          url: urlBase + "/rooms/:id",
           method: "GET"
         },
 
@@ -22808,7 +23202,7 @@ module.factory(
          */
         "find": {
           isArray: true,
-          url: urlBase + "/Rooms",
+          url: urlBase + "/rooms",
           method: "GET"
         },
 
@@ -22841,7 +23235,7 @@ module.factory(
          * </em>
          */
         "findOne": {
-          url: urlBase + "/Rooms/findOne",
+          url: urlBase + "/rooms/findOne",
           method: "GET"
         },
 
@@ -22875,7 +23269,7 @@ module.factory(
          * The number of instances updated
          */
         "updateAll": {
-          url: urlBase + "/Rooms/update",
+          url: urlBase + "/rooms/update",
           method: "POST"
         },
 
@@ -22908,7 +23302,7 @@ module.factory(
          * </em>
          */
         "deleteById": {
-          url: urlBase + "/Rooms/:id",
+          url: urlBase + "/rooms/:id",
           method: "DELETE"
         },
 
@@ -22940,7 +23334,7 @@ module.factory(
          *  - `count` – `{number=}` - 
          */
         "count": {
-          url: urlBase + "/Rooms/count",
+          url: urlBase + "/rooms/count",
           method: "GET"
         },
 
@@ -22977,7 +23371,7 @@ module.factory(
          * </em>
          */
         "prototype$updateAttributes": {
-          url: urlBase + "/Rooms/:id",
+          url: urlBase + "/rooms/:id",
           method: "PUT"
         },
 
@@ -23014,7 +23408,7 @@ module.factory(
          *  - `changes` – `{ReadableStream=}` - 
          */
         "createChangeStream": {
-          url: urlBase + "/Rooms/change-stream",
+          url: urlBase + "/rooms/change-stream",
           method: "POST"
         },
 
@@ -23023,7 +23417,7 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/ChatUsers/:id/joinedrooms/:fk",
+          url: urlBase + "/chatusers/:id/joinedrooms/:fk",
           method: "GET"
         },
 
@@ -23032,7 +23426,7 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/ChatUsers/:id/joinedrooms/:fk",
+          url: urlBase + "/chatusers/:id/joinedrooms/:fk",
           method: "DELETE"
         },
 
@@ -23041,7 +23435,7 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/ChatUsers/:id/joinedrooms/:fk",
+          url: urlBase + "/chatusers/:id/joinedrooms/:fk",
           method: "PUT"
         },
 
@@ -23050,7 +23444,7 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/ChatUsers/:id/joinedrooms/rel/:fk",
+          url: urlBase + "/chatusers/:id/joinedrooms/rel/:fk",
           method: "PUT"
         },
 
@@ -23059,7 +23453,7 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/ChatUsers/:id/joinedrooms/rel/:fk",
+          url: urlBase + "/chatusers/:id/joinedrooms/rel/:fk",
           method: "DELETE"
         },
 
@@ -23068,45 +23462,45 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/ChatUsers/:id/joinedrooms/rel/:fk",
+          url: urlBase + "/chatusers/:id/joinedrooms/rel/:fk",
           method: "HEAD"
         },
 
         // INTERNAL. Use ChatUser.joinedrooms() instead.
         "::get::ChatUser::joinedrooms": {
           isArray: true,
-          url: urlBase + "/ChatUsers/:id/joinedrooms",
+          url: urlBase + "/chatusers/:id/joinedrooms",
           method: "GET"
         },
 
         // INTERNAL. Use ChatUser.joinedrooms.create() instead.
         "::create::ChatUser::joinedrooms": {
-          url: urlBase + "/ChatUsers/:id/joinedrooms",
+          url: urlBase + "/chatusers/:id/joinedrooms",
           method: "POST"
         },
 
         // INTERNAL. Use ChatUser.joinedrooms.createMany() instead.
         "::createMany::ChatUser::joinedrooms": {
           isArray: true,
-          url: urlBase + "/ChatUsers/:id/joinedrooms",
+          url: urlBase + "/chatusers/:id/joinedrooms",
           method: "POST"
         },
 
         // INTERNAL. Use ChatUser.joinedrooms.destroyAll() instead.
         "::delete::ChatUser::joinedrooms": {
-          url: urlBase + "/ChatUsers/:id/joinedrooms",
+          url: urlBase + "/chatusers/:id/joinedrooms",
           method: "DELETE"
         },
 
         // INTERNAL. Use ChatUser.joinedrooms.count() instead.
         "::count::ChatUser::joinedrooms": {
-          url: urlBase + "/ChatUsers/:id/joinedrooms/count",
+          url: urlBase + "/chatusers/:id/joinedrooms/count",
           method: "GET"
         },
 
         // INTERNAL. Use Message.room() instead.
         "::get::Message::room": {
-          url: urlBase + "/Messages/:id/room",
+          url: urlBase + "/messages/:id/room",
           method: "GET"
         },
       }
@@ -23987,19 +24381,19 @@ module.factory(
   "Message",
   ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
     var R = Resource(
-      urlBase + "/Messages/:id",
+      urlBase + "/messages/:id",
       { 'id': '@id' },
       {
 
-        // INTERNAL. Use Message.user() instead.
-        "prototype$__get__user": {
-          url: urlBase + "/Messages/:id/user",
+        // INTERNAL. Use Message.room() instead.
+        "prototype$__get__room": {
+          url: urlBase + "/messages/:id/room",
           method: "GET"
         },
 
-        // INTERNAL. Use Message.room() instead.
-        "prototype$__get__room": {
-          url: urlBase + "/Messages/:id/room",
+        // INTERNAL. Use Message.user() instead.
+        "prototype$__get__user": {
+          url: urlBase + "/messages/:id/user",
           method: "GET"
         },
 
@@ -24037,7 +24431,7 @@ module.factory(
          * </em>
          */
         "create": {
-          url: urlBase + "/Messages",
+          url: urlBase + "/messages",
           method: "POST"
         },
 
@@ -24076,7 +24470,7 @@ module.factory(
          */
         "createMany": {
           isArray: true,
-          url: urlBase + "/Messages",
+          url: urlBase + "/messages",
           method: "POST"
         },
 
@@ -24114,7 +24508,7 @@ module.factory(
          * </em>
          */
         "upsert": {
-          url: urlBase + "/Messages",
+          url: urlBase + "/messages",
           method: "PUT"
         },
 
@@ -24146,7 +24540,7 @@ module.factory(
          *  - `exists` – `{boolean=}` - 
          */
         "exists": {
-          url: urlBase + "/Messages/:id/exists",
+          url: urlBase + "/messages/:id/exists",
           method: "GET"
         },
 
@@ -24181,7 +24575,7 @@ module.factory(
          * </em>
          */
         "findById": {
-          url: urlBase + "/Messages/:id",
+          url: urlBase + "/messages/:id",
           method: "GET"
         },
 
@@ -24215,7 +24609,7 @@ module.factory(
          */
         "find": {
           isArray: true,
-          url: urlBase + "/Messages",
+          url: urlBase + "/messages",
           method: "GET"
         },
 
@@ -24248,7 +24642,7 @@ module.factory(
          * </em>
          */
         "findOne": {
-          url: urlBase + "/Messages/findOne",
+          url: urlBase + "/messages/findOne",
           method: "GET"
         },
 
@@ -24282,7 +24676,7 @@ module.factory(
          * The number of instances updated
          */
         "updateAll": {
-          url: urlBase + "/Messages/update",
+          url: urlBase + "/messages/update",
           method: "POST"
         },
 
@@ -24315,7 +24709,7 @@ module.factory(
          * </em>
          */
         "deleteById": {
-          url: urlBase + "/Messages/:id",
+          url: urlBase + "/messages/:id",
           method: "DELETE"
         },
 
@@ -24347,7 +24741,7 @@ module.factory(
          *  - `count` – `{number=}` - 
          */
         "count": {
-          url: urlBase + "/Messages/count",
+          url: urlBase + "/messages/count",
           method: "GET"
         },
 
@@ -24384,7 +24778,7 @@ module.factory(
          * </em>
          */
         "prototype$updateAttributes": {
-          url: urlBase + "/Messages/:id",
+          url: urlBase + "/messages/:id",
           method: "PUT"
         },
 
@@ -24421,7 +24815,46 @@ module.factory(
          *  - `changes` – `{ReadableStream=}` - 
          */
         "createChangeStream": {
-          url: urlBase + "/Messages/change-stream",
+          url: urlBase + "/messages/change-stream",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Message#sendmessagenew
+         * @methodOf lbServices.Message
+         *
+         * @description
+         *
+         * <em>
+         * (The remote method definition does not provide any description.)
+         * </em>
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `success` – `{boolean=}` - 
+         */
+        "sendmessagenew": {
+          url: urlBase + "/messages/sendmessagenew",
           method: "POST"
         },
 
@@ -24430,7 +24863,7 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/Rooms/:id/messages/:fk",
+          url: urlBase + "/rooms/:id/messages/:fk",
           method: "GET"
         },
 
@@ -24439,7 +24872,7 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/Rooms/:id/messages/:fk",
+          url: urlBase + "/rooms/:id/messages/:fk",
           method: "DELETE"
         },
 
@@ -24448,39 +24881,39 @@ module.factory(
           params: {
           'fk': '@fk'
           },
-          url: urlBase + "/Rooms/:id/messages/:fk",
+          url: urlBase + "/rooms/:id/messages/:fk",
           method: "PUT"
         },
 
         // INTERNAL. Use Room.messages() instead.
         "::get::Room::messages": {
           isArray: true,
-          url: urlBase + "/Rooms/:id/messages",
+          url: urlBase + "/rooms/:id/messages",
           method: "GET"
         },
 
         // INTERNAL. Use Room.messages.create() instead.
         "::create::Room::messages": {
-          url: urlBase + "/Rooms/:id/messages",
+          url: urlBase + "/rooms/:id/messages",
           method: "POST"
         },
 
         // INTERNAL. Use Room.messages.createMany() instead.
         "::createMany::Room::messages": {
           isArray: true,
-          url: urlBase + "/Rooms/:id/messages",
+          url: urlBase + "/rooms/:id/messages",
           method: "POST"
         },
 
         // INTERNAL. Use Room.messages.destroyAll() instead.
         "::delete::Room::messages": {
-          url: urlBase + "/Rooms/:id/messages",
+          url: urlBase + "/rooms/:id/messages",
           method: "DELETE"
         },
 
         // INTERNAL. Use Room.messages.count() instead.
         "::count::Room::messages": {
-          url: urlBase + "/Rooms/:id/messages/count",
+          url: urlBase + "/rooms/:id/messages/count",
           method: "GET"
         },
       }
@@ -24628,42 +25061,6 @@ module.factory(
 
         /**
          * @ngdoc method
-         * @name lbServices.Message#user
-         * @methodOf lbServices.Message
-         *
-         * @description
-         *
-         * Fetches belongsTo relation user.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `refresh` – `{boolean=}` - 
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `ChatUser` object.)
-         * </em>
-         */
-        R.user = function() {
-          var TargetResource = $injector.get("ChatUser");
-          var action = TargetResource["::get::Message::user"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
          * @name lbServices.Message#room
          * @methodOf lbServices.Message
          *
@@ -24695,6 +25092,42 @@ module.factory(
         R.room = function() {
           var TargetResource = $injector.get("Room");
           var action = TargetResource["::get::Message::room"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Message#user
+         * @methodOf lbServices.Message
+         *
+         * @description
+         *
+         * Fetches belongsTo relation user.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `ChatUser` object.)
+         * </em>
+         */
+        R.user = function() {
+          var TargetResource = $injector.get("ChatUser");
+          var action = TargetResource["::get::Message::user"];
           return action.apply(R, arguments);
         };
 
@@ -32045,6 +32478,65 @@ module.factory(
           method: "POST"
         },
 
+        // INTERNAL. Use Class.feePayments.findById() instead.
+        "::findById::Class::feePayments": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/feePayments/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Class.feePayments.destroyById() instead.
+        "::destroyById::Class::feePayments": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/feePayments/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Class.feePayments.updateById() instead.
+        "::updateById::Class::feePayments": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Classes/:id/feePayments/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Class.feePayments() instead.
+        "::get::Class::feePayments": {
+          isArray: true,
+          url: urlBase + "/Classes/:id/feePayments",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Class.feePayments.create() instead.
+        "::create::Class::feePayments": {
+          url: urlBase + "/Classes/:id/feePayments",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Class.feePayments.createMany() instead.
+        "::createMany::Class::feePayments": {
+          isArray: true,
+          url: urlBase + "/Classes/:id/feePayments",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Class.feePayments.destroyAll() instead.
+        "::delete::Class::feePayments": {
+          url: urlBase + "/Classes/:id/feePayments",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Class.feePayments.count() instead.
+        "::count::Class::feePayments": {
+          url: urlBase + "/Classes/:id/feePayments/count",
+          method: "GET"
+        },
+
         // INTERNAL. Use FeeSetup.feePayments.findById() instead.
         "::findById::FeeSetup::feePayments": {
           params: {
@@ -32323,13 +32815,13 @@ module.factory(
 
 /**
  * @ngdoc object
- * @name lbServices.EmailN
- * @header lbServices.EmailN
+ * @name lbServices.Mail
+ * @header lbServices.Mail
  * @object
  *
  * @description
  *
- * A $resource object for interacting with the `EmailN` model.
+ * A $resource object for interacting with the `Mail` model.
  *
  * ## Example
  *
@@ -32339,27 +32831,575 @@ module.factory(
  *
  */
 module.factory(
-  "EmailN",
+  "Mail",
   ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
     var R = Resource(
-      urlBase + "/EmailNs/:id",
+      urlBase + "/Mails/:id",
       { 'id': '@id' },
       {
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Mail#create
+         * @methodOf lbServices.Mail
+         *
+         * @description
+         *
+         * Create a new instance of the model and persist it into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Mail` object.)
+         * </em>
+         */
+        "create": {
+          url: urlBase + "/Mails",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Mail#createMany
+         * @methodOf lbServices.Mail
+         *
+         * @description
+         *
+         * Create a new instance of the model and persist it into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Mail` object.)
+         * </em>
+         */
+        "createMany": {
+          isArray: true,
+          url: urlBase + "/Mails",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Mail#upsert
+         * @methodOf lbServices.Mail
+         *
+         * @description
+         *
+         * Update an existing model instance or insert a new one into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Mail` object.)
+         * </em>
+         */
+        "upsert": {
+          url: urlBase + "/Mails",
+          method: "PUT"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Mail#exists
+         * @methodOf lbServices.Mail
+         *
+         * @description
+         *
+         * Check whether a model instance exists in the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `exists` – `{boolean=}` - 
+         */
+        "exists": {
+          url: urlBase + "/Mails/:id/exists",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Mail#findById
+         * @methodOf lbServices.Mail
+         *
+         * @description
+         *
+         * Find a model instance by id from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         *  - `filter` – `{object=}` - Filter defining fields and include
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Mail` object.)
+         * </em>
+         */
+        "findById": {
+          url: urlBase + "/Mails/:id",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Mail#find
+         * @methodOf lbServices.Mail
+         *
+         * @description
+         *
+         * Find all instances of the model matched by filter from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `filter` – `{object=}` - Filter defining fields, where, include, order, offset, and limit
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Mail` object.)
+         * </em>
+         */
+        "find": {
+          isArray: true,
+          url: urlBase + "/Mails",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Mail#findOne
+         * @methodOf lbServices.Mail
+         *
+         * @description
+         *
+         * Find first instance of the model matched by filter from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `filter` – `{object=}` - Filter defining fields, where, include, order, offset, and limit
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Mail` object.)
+         * </em>
+         */
+        "findOne": {
+          url: urlBase + "/Mails/findOne",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Mail#updateAll
+         * @methodOf lbServices.Mail
+         *
+         * @description
+         *
+         * Update instances of the model matched by where from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * The number of instances updated
+         */
+        "updateAll": {
+          url: urlBase + "/Mails/update",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Mail#deleteById
+         * @methodOf lbServices.Mail
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Mail` object.)
+         * </em>
+         */
+        "deleteById": {
+          url: urlBase + "/Mails/:id",
+          method: "DELETE"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Mail#count
+         * @methodOf lbServices.Mail
+         *
+         * @description
+         *
+         * Count instances of the model matched by where from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        "count": {
+          url: urlBase + "/Mails/count",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Mail#prototype$updateAttributes
+         * @methodOf lbServices.Mail
+         *
+         * @description
+         *
+         * Update attributes for a model instance and persist it into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Mail` object.)
+         * </em>
+         */
+        "prototype$updateAttributes": {
+          url: urlBase + "/Mails/:id",
+          method: "PUT"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Mail#createChangeStream
+         * @methodOf lbServices.Mail
+         *
+         * @description
+         *
+         * Create a change stream.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         *  - `options` – `{object=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `changes` – `{ReadableStream=}` - 
+         */
+        "createChangeStream": {
+          url: urlBase + "/Mails/change-stream",
+          method: "POST"
+        },
       }
     );
 
 
 
+        /**
+         * @ngdoc method
+         * @name lbServices.Mail#updateOrCreate
+         * @methodOf lbServices.Mail
+         *
+         * @description
+         *
+         * Update an existing model instance or insert a new one into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Mail` object.)
+         * </em>
+         */
+        R["updateOrCreate"] = R["upsert"];
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Mail#update
+         * @methodOf lbServices.Mail
+         *
+         * @description
+         *
+         * Update instances of the model matched by where from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * The number of instances updated
+         */
+        R["update"] = R["updateAll"];
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Mail#destroyById
+         * @methodOf lbServices.Mail
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Mail` object.)
+         * </em>
+         */
+        R["destroyById"] = R["deleteById"];
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Mail#removeById
+         * @methodOf lbServices.Mail
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Mail` object.)
+         * </em>
+         */
+        R["removeById"] = R["deleteById"];
+
 
     /**
     * @ngdoc property
-    * @name lbServices.EmailN#modelName
-    * @propertyOf lbServices.EmailN
+    * @name lbServices.Mail#modelName
+    * @propertyOf lbServices.Mail
     * @description
     * The name of the model represented by this $resource,
-    * i.e. `EmailN`.
+    * i.e. `Mail`.
     */
-    R.modelName = "EmailN";
+    R.modelName = "Mail";
 
 
     return R;

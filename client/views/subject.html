@@ -78,9 +78,12 @@
               <br>
                 <input type="text" ng-model="search.subjectName" placeholder="Search By Subject" class="form-control"> </input>
               </div>
-              <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-                <div>
+              <div  class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                <div ng-hide="Student">
                   Total Results : {{subjectList.length}} | Filtered Results : {{filtered.length}}
+                </div> 
+                               <div ng-show="Student" class="pull-right">
+                Class Teacher : {{firstName}} {{lastName}}
                 </div>
               <!--<div class="portlet-body-morris-fit morris-chart flip-scroll" style="height: max">-->
               <table class="table table-bordered table-striped table-condensed flip-content" >
@@ -114,7 +117,7 @@
                 </tbody>
               </table>
                 </div>
-                <div class="pull-right">
+                <div class="pull-right" ng-hide="Student">
                   <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">Previous</button>
                   {{currentPage+1}}/{{numberOfPages()}}
                   <button ng-disabled="currentPage >= filtered.length/pageSize-1"   ng-click="currentPage=currentPage+1">Next</button>

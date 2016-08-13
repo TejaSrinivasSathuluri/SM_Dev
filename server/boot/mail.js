@@ -21,6 +21,7 @@ module.exports = function(server) {
          message = JSON.parse(ctx.req.query.filter.toString()).where.message;
          subject = JSON.parse(ctx.req.query.filter.toString()).where.subject;
          schoolId =JSON.parse(ctx.req.query.filter.toString()).where.schoolId;
+         console.log(subject);
          School.findOne({ "where":{ "id" : schoolId}},function(err,response)
          {
             if (err) next(err);

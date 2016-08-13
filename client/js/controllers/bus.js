@@ -13,11 +13,14 @@ angular.module('app')
 
 
 
+
+
       //-----------------------------------
       // TABS CODE
       //------------------------------------
 
       $scope.tab = 1;
+      if($scope.Student) $scope.tab = 2;
       $scope.setTab = function(newTab){  $scope.tab = newTab;};
       $scope.isSet = function(tabNum){  return $scope.tab === tabNum; };
 

@@ -1,9 +1,6 @@
 module.exports = function(server) {
   var router = server.loopback.Router(); 
 
-// Mail Ends
-
-
   //----------------Modify Response
   //Add status=true element with every success response
   var remotes = server.remotes();

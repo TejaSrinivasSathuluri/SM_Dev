@@ -22,7 +22,7 @@ angular
         });
     }
 
-    function logout() {
+     function logout() {
       return User
         .logout()
         .$promise
@@ -35,21 +35,9 @@ angular
           $window.localStorage.clear();
           console.log('Admin ' + response.data.error.message);
         });
-    }
-
-    function register(email, password) {
-      return User
-        .create({
-          email: email,
-          password: password
-        })
-        .$promise;
-    }
-
-    return {
+    }    return {
       login: login,
-      logout: logout,
-      register: register
+      logout:logout    
     };
   }])
   .factory('AuthServiceStudent', ['Student','$q', '$rootScope', '$window','School',function(User, $q,$rootScope,$window,School) {
@@ -59,40 +47,19 @@ angular
       .$promise
       .then(function(response) {
         $window.localStorage.setItem('user',JSON.stringify(response.user));
-        var school = School.findById({id:response.user.schoolId},function(){
+        var school = School.findById({id:response.user.schoolId},function(response){
+         
           $window.localStorage.setItem('school',JSON.stringify(response));
 
         });
       });
   }
 
-  function logout() {
-    return User
-      .logout()
-      .$promise
-      .then(function() {
-        $rootScope.currentUser = null;
-        $rootScope.schoolName = null;
-        $window.localStorage.clear();
-      });
-  }
-
-  function register(email, password) {
-    return User
-      .create({
-        email: email,
-        password: password
-      })
-      .$promise;
-  }
-
   return {
-    login: login,
-    logout: logout,
-    register: register
+    login: login
   };
 }])
-  .factory('AuthServiceStaff',   ['Staff',  '$q', '$rootScope', '$window','School',function(Staff,   $q,$rootScope,$window,School) {
+  .factory('AuthServiceStaff',   ['Staff',  '$q', '$rootScope', '$window','School',function(User,   $q,$rootScope,$window,School) {
   function login(email, password) {
     return User
       .login({email: email, password: password})
@@ -109,33 +76,11 @@ angular
       });
   }
 
-  function logout() {
-    return User
-      .logout()
-      .$promise
-      .then(function() {
-        $rootScope.currentUser = null;
-        $rootScope.schoolName = null;
-        $window.localStorage.clear();
-      });
-  }
-
-  function register(email, password) {
-    return User
-      .create({
-        email: email,
-        password: password
-      })
-      .$promise;
-  }
-
   return {
-    login: login,
-    logout: logout,
-    register: register
+    login: login
   };
 }])
-  .factory('AuthServiceParent',  ['Parent', '$q', '$rootScope', '$window','School',function(Parent,  $q,$rootScope,$window,School) {
+  .factory('AuthServiceParent',  ['Parent', '$q', '$rootScope', '$window','School',function(User,  $q,$rootScope,$window,School) {
   function login(email, password) {
     return User
       .login({email: email, password: password})
@@ -150,29 +95,7 @@ angular
       });
   }
 
-  function logout() {
-    return User
-      .logout()
-      .$promise
-      .then(function() {
-        $rootScope.currentUser = null;
-        $rootScope.schoolName = null;
-        $window.localStorage.clear();
-      });
-  }
-
-  function register(email, password) {
-    return User
-      .create({
-        email: email,
-        password: password
-      })
-      .$promise;
-  }
-
   return {
-    login: login,
-    logout: logout,
-    register: register
+    login: login
   };
 }]);

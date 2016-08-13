@@ -4,8 +4,11 @@ angular
 
   .controller('AuthLoginController', ['$scope', 'AuthServiceAdmin','AuthServiceStudent','AuthServiceStaff','AuthServiceParent', '$state',
       function($scope, AuthServiceAdmin,AuthServiceStudent,AuthServiceStaff,AuthServiceParent, $state) {
-    $scope.login = function(T) {
-      if (T == 'A') {
+    $scope.loginUser = 'Admin';
+    $scope.login = function() 
+    {
+      $scope.user.email = $scope.user.email.toLowerCase();
+      if ($scope.loginUser == 'Admin') {
         AuthServiceAdmin.login($scope.user.email, $scope.user.password)
           .then(function () {
             $state.go('dashboard');
@@ -14,7 +17,7 @@ angular
 		  }
 		  );
       }
-      else if (T == 'S')
+      else if ($scope.loginUser == 'Student')
       {
         AuthServiceStudent.login($scope.user.email, $scope.user.password)
           .then(function () {
@@ -23,7 +26,7 @@ angular
 			  $scope.invalidLogin = true;
 		  });
       }
-      else if (T == 'ST')
+      else if ($scope.loginUser == 'Staff')
       {
         AuthServiceStaff.login($scope.user.email, $scope.user.password)
           .then(function () {
@@ -32,7 +35,7 @@ angular
 			  $scope.invalidLogin = true;
 		  });
       }
-      else if (T == 'P')
+      else if ($scope.loginUser == 'Parent')
       {
         AuthServiceParent.login($scope.user.email, $scope.user.password)
           .then(function () {
@@ -52,22 +55,15 @@ angular
       );
   })
 
-  //.controller('SignUpController', ['$scope', 'AuthServiceParent', '$state',
-  //  function($scope, AuthService, $state) {
-  //    $scope.user = {
-  //      email: 'baz@qux.com',
-  //      password: 'bazqux'
-  //    };
-  //
-  //    $scope.register = function() {
-  //      AuthService.register($scope.user.email, $scope.user.password)
-  //        .then(function(response) {
-  //          AuthService.link($scope.user.email, response.id);
-  //
-  //          $state.transitionTo('login');
-  //        },function(response){
-  //          console.log(response.data.error.message);
-  //        });
-  //    };
-  //  }])
+
+
+
+  .controller('SignUpController', function($scope,$state) {
+    
+     $scope.register = function() {
+       
+       console.log($scope.user);
+
+     };
+   })
 ;

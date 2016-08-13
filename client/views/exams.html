@@ -74,7 +74,7 @@
                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-success" ng-show="success"> {{responseExam}}</div>
                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-danger" ng-show="error"> {{responseExam}}</div>
                         
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-hide="Student">
                         <form ng-submit="addExam()">
                                         <div class="col-sm-12 col-xs-12 col-lg-2 col-md-4 mbtm">
                                           <select ng-model="formData.classId"  required ng-change="setSubjectList()" class="form-control">
@@ -121,11 +121,7 @@
                                 <tr data-ng-repeat="x in examList | filter:search |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
                                   <div data-ng-bind-html="x.id">
 
-<<<<<<< HEAD
-                                    <td><a ng-click="addExamSubject(x)">{{x.examName}}</a></text></td>
-=======
                                     <td>{{x.examName}}</td>
->>>>>>> 944ccfdc9907b6ff0208a85b6a61268a00f548ea
                                     <td>{{x.fromDate | date:'MMM dd yyyy'}}</td>
                                     <td>{{x.toDate | date:'MMM dd yyyy'}}</td>
                                     

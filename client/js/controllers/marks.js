@@ -28,9 +28,17 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
              $scope.classList = Class.find({filter: {where: {schoolId: $scope.schoolId}}});
 
              $scope.setSubjectList = function()
-             {
-                $scope.examList    = Exam.find({filter: {where: {classId: $scope.formData.classId}}});
+             { 
+                 if ($scope.formData.classId != null){
+               $scope.examList    = Exam.find({filter: {where: {classId: $scope.formData.classId}}});
                 $scope.subjectList = Subject.find({filter: {where: {classId: $scope.formData.classId,examFlag:true}}});
+ 
+                 }
+                 else{
+               $scope.examList    = [];
+                $scope.subjectList = [];
+        
+                 }
              }
         
 
@@ -65,8 +73,8 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
              //----------------------------------------------
              $scope.list =[];
              $scope.showMarks = function() {
-                
-                $scope.students = Student.find({filter:{ where:{  classId : $scope.formData.classId },}},
+
+                $scope.students = Student.find({filter:{ where:{  classId : $scope.formData.classId }}},
                 function(response)
                 { 
                     var i=0;
@@ -77,6 +85,7 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
                     });
                 
                 });
+
              }
 
 
@@ -94,7 +103,9 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
                          examId    : $scope.formData.examId,
                          subjectId : $scope.formData.subjectId
                      }
-                 }},function (response) {
+                 }},
+                 function (response) 
+                 {
                       response.forEach(function (marks) {
                                     var m = marks.toJSON();
                                     Marks.upsert({ id: m.id,maxMarks :$scope.formData.maxMarks },function(){
@@ -103,15 +114,14 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
                                     $scope.success = false;
                                     });
                       });
-                          $scope.responseMarks = 'Max Marks Saved Successfully';
-                $scope.error = false;
-                $scope.success = true;
-                setTimeout(function() {
-                    $scope.clearResponseExam();
-            //  $scope.list =[];
-                    
-                }, 1000);
-                 });
+
+                        $scope.responseMarks = 'Max Marks Saved Successfully';
+                        $scope.error = false;
+                        $scope.success = true;
+                        setTimeout(function() {
+                        $scope.clearResponseExam();
+                        }, 1000);
+                    });
                  }
 
              }
@@ -143,7 +153,8 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
                             studentId        : student.id,       
                             examId           : $scope.formData.examId,
                             maxMarks          : 100
-                        },function(response){
+                        },function(response)
+                        {
                     //  $scope.list[i] = response.toJSON();
                     $scope.showMarks(); 
 

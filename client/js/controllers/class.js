@@ -16,16 +16,6 @@ angular
         $scope.formData = [];
         $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
 
-
-
-          if($scope.Student)
-        {
-          $scope.classList = Class.find  ({filter: {where: {id:$scope.userData.classId}, include: 'staff'}},function(){},
-            function(response) {                $scope.accessCheck(response); });
-        }
-
-        if ($scope.Admin)
-        {
            $scope.staffList = Staff.find({filter: {where: {schoolId: $scope.schoolId}}},function(){},function(response){if (response.status =401) $state.go('logout', {}, {reload: true}) ;});
            $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}, include: 'staff'}},function(){},function(response){if (response.status =401) $state.go('logout', {}, {reload: true}) ;});
 
@@ -129,7 +119,7 @@ angular
 
 
 
-        }
+        
       // --------------------------------------------------------
         //                 SORT TABLE TECHNIQUE
         //--------------------------------------------------------
@@ -143,8 +133,4 @@ angular
 
 	  }
     ])
-
-  
- 
-     
 ;

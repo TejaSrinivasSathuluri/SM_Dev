@@ -18,7 +18,8 @@
                                                'monthview-secondary-with-event': dt.secondary&&dt.hasEvent,
                                                'monthview-primary-with-event':!dt.secondary&&dt.hasEvent&&!dt.selected,
                                                'monthview-selected': dt.selected}">
-                <div ng-controller="LandingPageController" ng-class="{'text-muted':dt.secondary}">
+                <!--<div ng-controller="LandingPageController" ng-class="{'text-muted':dt.secondary}">-->
+                <div ng-class="{'text-muted':dt.secondary}">
                     {{dt.label}}<span ng-show="getBday(dt)">*</span>
                 </div>
 

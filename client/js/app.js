@@ -33,22 +33,19 @@ angular
 
 
       //--------------Auth Services
-      .state('index',         { url: '/index',                                     controller: 'LandingPageController'})
+      .state('index',         { url: '/index',                                     controller: 'IndexController'})
+      .state('/',         {                                      controller: 'IndexController'})
       .state('email',         { url: '/email',  templateUrl: 'views/email.html',   controller: 'EmailController'      })
       .state('login',         { url: '/login',  templateUrl: 'views/login.html',   controller: 'AuthLoginController'  })
-      .state('login.admin',   { url: '/admin',  templateUrl: 'views/admin.html',   controller: 'AuthLoginController'  })
-      .state('login.staff',   { url: '/staff',  templateUrl: 'views/staff.html',   controller: 'AuthLoginController'  })
-      .state('login.parent',  { url: '/parent', templateUrl: 'views/parent.html',  controller: 'AuthLoginController'  })
-      .state('login.student', { url: '/student',templateUrl: 'views/student.html', controller: 'AuthLoginController'  })
       .state('logout',        { url: '/login',                                     controller: 'AuthLogoutController'})
       //--------------Auth Services
 
 
 
 
-      //.state('signup',        { url: '/signup', templateUrl: 'views/signup.html',  controller: 'SignUpController  ' })
+      .state('signup',        { url: '/signup', templateUrl: 'views/signup.html',  controller: 'SignUpController' })
 
-     $urlRouterProvider.otherwise('login/admin');
+     $urlRouterProvider.otherwise('/');
     //  $locationProvider.html5Mode({ enabled: true, requireBase: false});
      
   })
@@ -56,20 +53,34 @@ angular
 
 
 // Authentication Part For Page Reload and Redirect
-  .run(function($rootScope, $state,$window) {
-    $rootScope.$on('$stateChangeStart', function(event, next) {
+  .run(function($rootScope, $state,$window,$timeout) 
+  {
+    $rootScope.$on('$stateChangeStart', function(event, next) 
+    {
       // redirect to login page if not logged in
 
-      if (!$window.localStorage.getItem('user')) {
-        if (next.authenticate && !$rootScope.currentUser) {
-          event.preventDefault(); //prevent current page from loading
-          $rootScope.currentUser = null;
-          $rootScope.schoolName = null;
-          $window.localStorage.clear();
-          $state.go('login');
-        }
+      if (!$window.localStorage.getItem('user')) 
+      {
+            if (next.authenticate && !$rootScope.currentUser) {
+              event.preventDefault(); //prevent current page from loading
+              $rootScope.currentUser = null;
+              $rootScope.schoolName = null;
+              $window.localStorage.clear();
+              $state.go('login');
+            }
       }
-      $rootScope.currentUser = $window.localStorage.getItem('user');
+      else
+      {
+            $rootScope.currentUser = $window.localStorage.getItem('user');
+            var user = JSON.parse($rootScope.currentUser);
+            if (user.type == 'Student'){
+            $timeout(function () 
+            { 
+              if ($state.current.name == 'expensemanagement') $state.go('logout');
+               
+            }, 100); 
+            }
+      }
     });
   });
 // Authentication Part For Page Reload and Redirect

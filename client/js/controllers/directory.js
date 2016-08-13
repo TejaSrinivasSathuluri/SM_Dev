@@ -1,6 +1,6 @@
 angular
   .module('app')
-  .controller('DirectoryController',function ($scope,ngDialog, Admin, $state, School, Class, Student, Parent, StudentParent, Staff, $rootScope, $window,$filter,Timetable,Schedule,$http) {
+  .controller('DirectoryController',function (Mail,$scope,ngDialog, Admin, $state, School, Class, Student, Parent, StudentParent, Staff, $rootScope, $window,$filter,Timetable,Schedule,$http) {
 
 
         //--------------------------------------------------------
@@ -22,7 +22,7 @@ angular
         $scope.date = new Date();
         $rootScope.image = $scope.school.image;
 
-        $scope.accessCheck = function(response){ if (response.status =401) $state.go('logout', {}, {reload: true}) ;}
+        $scope.accessCheck = function(response){ if (response.status =401) $state.go('logout', {}, {reload: true});}
 
 
 
@@ -215,9 +215,9 @@ angular
 
 
           // --------------------------------------------------------
-          //                  ADD STUDENT  STARTS
+          //                  UPDATE IMAGE
           // --------------------------------------------------------
-
+          
           var schoolCode= $scope.school.code;
           var url = 'http://studymonitor.net/appimages';
           $scope.updateImage = function(){
@@ -232,7 +232,7 @@ angular
             });
           }
           //$scope.updateImage();
-   console.log(schoolCode);
+   
 
 
           $scope.addStudentForm = function () {
@@ -254,7 +254,7 @@ angular
                       schoolId        : $scope.schoolId,
                       firstName       : formData.firstName,
                       lastName        : formData.lastName,
-                      email           : formData.email,
+                      email           : formData.email.toLowerCase(),
                       password        : formData.password,
                       gender          : formData.gender,
                       dateofBirth     : formData.dateofBirth,
@@ -362,6 +362,7 @@ angular
 
                     Student.prototype$updateAttributes({id: x.id}, {
                         firstName            : editData.firstName,
+                        password             : editData.password,
                         lastName             : editData.lastName,
                         email                : editData.email,
                         gender               : editData.gender,
@@ -426,6 +427,7 @@ angular
                       function () {
                         Student.prototype$updateAttributes({id: x.id}, {
                             firstName            : editData.firstName,
+                            password             : editData.password,
                             lastName             : editData.lastName,
                             email                : editData.email,
                             gender               : editData.gender,
@@ -764,7 +766,55 @@ angular
         }
 
 
+        //--------------------------------------------------------
+        //                 PARENT SUBSCRIPTION
+        //--------------------------------------------------------
+        $scope.addParentSubscription = function (x) {
+           var dialog = ngDialog.open({template: 'parentSubscription'});
+            dialog.closePromise.then(function (data) 
+            {
+              parentEmail = data.value.parentEmail;
+              if (data.value && data.value != '$document' && data.value != '$closeButton'&& data.value != '$escape') {
+                           
+                Parent.create({
+                  email :parentEmail,password :"parent"
+                },function(){
+                  sendSubscriptionEmail(parentEmail,x);
 
+                },function(){
+                  sendSubscriptionEmail(parentEmail,x);
+                })
+                
+              }
+
+              return true;
+            });
+        }
+
+
+        //--------------------------------------------------------
+        //                 SEND PARENT SUBSCRIPTION EMAIL
+        //--------------------------------------------------------
+
+
+          sendSubscriptionEmail = function(email,x){
+            message = "Please subscribe to you child " + x.firstName + ' ' + x.lastName + " @ www.studymonitor.in using the following Key : " + x.id ;
+            subject = 'Student Subscription From ' + $scope.school.schoolName;
+                  Mail.find({
+                    filter:{
+                      where:{
+                        email : email,
+                        message : message,
+                        subject:subject,
+                        schoolId : x.schoolId
+                      }
+                    }
+                  },function(){},function(response){
+                    console.log(response.data.error.message);
+                  });
+             
+            
+          }
 
 
         // --------------------------------------------------------

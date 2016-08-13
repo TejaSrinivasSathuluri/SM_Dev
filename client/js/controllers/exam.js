@@ -33,7 +33,13 @@ angular.module('app')
          //--------------------------------------------
       
           $scope.examList =[];
-          $scope.showExamList = function() { $scope.examList = Exam.find({filter: {where: {schoolId: $scope.schoolId},include:'class'}}); }
+        
+          $scope.showExamList = function() 
+          {
+            if($scope.Student)  $scope.examList =  Exam.find({filter: {where: {schoolId: $scope.schoolId,classId: $scope.user.classId},include:'class'}});
+            else  $scope.examList =  Exam.find({filter: {where: {schoolId: $scope.schoolId},include:'class'}});
+          }
+
           $scope.showExamList();
 
 

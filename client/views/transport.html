@@ -63,9 +63,9 @@
           <div class="caption caption-md pull-left">Transport</div>
           <div class="caption caption-md pull-right">
             <!--Tab Buttons-->
-            <button class="btn btn-default" ng-class="{ active: isSet(1) }" href ng-click="setTab(1)">Add Bus</button>
-            <button class="btn btn-default" ng-class="{ active: isSet(2) }" href ng-click="setTab(2)">Add Service</button>
-            <button class="btn btn-default mtbtm" ng-class="{ active: isSet(3) }" href ng-click="setTab(3)">Subscription</button>
+            <button class="btn btn-default" ng-hide="Student" ng-class="{ active: isSet(1) }" href ng-click="setTab(1)">Add Bus</button>
+            <button class="btn btn-default" ng-hide="Student" ng-class="{ active: isSet(2) }" href ng-click="setTab(2)">Add Service</button>
+            <button class="btn btn-default mtbtm" ng-hide="Student" ng-class="{ active: isSet(3) }" href ng-click="setTab(3)">Subscription</button>
             <!--Tab Buttons-->
           </div>
 
@@ -157,7 +157,7 @@
                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <form ng-submit="addService()">
                   <div class="col-sm-12">
-                    <div class="col-sm-6">
+                    <div ng-hide='Student' class="col-sm-6">
                    <select ng-model="formData.busId" class="form-control" required>
                       <option value="">Buses </option>
                       <option ng-repeat="y in busList" value="{{y.id}}" >{{y.busNo}}-{{y.busType}}</option>
@@ -166,7 +166,7 @@
                     <button type="submit" class="btn btn-success uppercase mbtm">Add Routes</button>
 
                     </div>
-               <div class="col-sm-6">
+               <div ng-hide='Student' class="col-sm-6">
                     <input  type="number" class="form-control" placeholder="Service No"    ng-model="formData.serviceNo"         required><br>
                    <span class="text-center">Start Time:</span>
                     <input  type="time"   class="form-control"    ng-model="formData.serviceStartTime1"  required><br>
@@ -222,7 +222,7 @@
                 </table>
               </div>
                </div>
- <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+ <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" ng-hide='Student'>
 
 
                 <table class="table table-bordered table-striped table-condensed flip-content">
