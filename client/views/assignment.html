@@ -123,8 +123,8 @@
                       <td>{{x.fromDate | date:'MMM dd yyyy'}}</td>
                       <td>{{x.toDate | date:'MMM dd yyyy'}}</td>
                       <!--<td><a href="{{x.downloadFile}}" target="_blank"/>Download</td>-->
-                      <td ng-show="Admin || Staff"><i class="glyphicon glyphicon-edit" ng-model="collapsed1" ng-click="editAssignment(x)"></i>
-                        <i class="glyphicon glyphicon-remove"  ng-click="deleteAssignment(x)"></i>
+                      <td ng-show="Admin || Staff"><i class="fa fa-pencil-square-o" ng-model="collapsed1" ng-click="editAssignment(x)"></i>
+                        <i class="fa fa-trash-o"  ng-click="deleteAssignment(x)"></i>
                       </td>
                     </div>
                   </tr>

@@ -8,9 +8,9 @@
   "properties": {},
   "validations": [],
   "relations": {
-    "expenseType": {
+    "school": {
       "type": "belongsTo",
-      "model": "ExpenseType",
+      "model": "School",
       "foreignKey": ""
     }
   },

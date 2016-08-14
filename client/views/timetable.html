@@ -37,8 +37,8 @@
                 </thead>
 
                 <tr ng-repeat = "receiver in receivers">
-                  <td ng-show="Admin"><a ng-click="addRecipient(receiver)"><i class="glyphicon glyphicon-edit"></i></a>
-                      <a ng-click="deleteRecipient(receiver)"><i class="glyphicon glyphicon-minus"></i></a>
+                  <td ng-show="Admin"><a ng-click="addRecipient(receiver)"><i class="fa fa-pencil-square-o"></i></a>
+                      <a ng-click="deleteRecipient(receiver)"><i class="fa fa-minus-circle"></i></a>
                     {{$index+1}}
                   </td>
                   <td><input type="text"   ng-disabled="Staff || Student || Parent" class="form-control" ng-model="receiver.title"></td>

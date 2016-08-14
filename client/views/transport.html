@@ -124,8 +124,8 @@
                       <td>{{x.busType}}</td>
                       <td>{{x.busCapacity}}</td>
                       <td ng-show="Admin">
-                        <i class="glyphicon glyphicon-edit"    ng-click="editBus(x)"></i>
-                        <i class="glyphicon glyphicon-remove"  ng-click="deleteBus(x)"></i>
+                        <i class="fa fa-pencil-square-o"    ng-click="editBus(x)"></i>
+                        <i class="fa fa-trash-o"  ng-click="deleteBus(x)"></i>
                       </td>
                     </div>
                   </tr>
@@ -196,8 +196,8 @@
               <td>{{x.serviceName}}</td>
               <td>{{x.bus.busNo}}</td>
               <td ng-show="Admin"><div>
-              <i class="glyphicon glyphicon-edit" ng-model="collapsed1" ></i>
-              <i class="glyphicon glyphicon-remove" ng-click="deleteBusService(x)"></i>
+              <i class="fa fa-pencil-square-o" ng-model="collapsed1" ></i>
+              <i class="fa fa-trash-o" ng-click="deleteBusService(x)"></i>
               </div>
               </td>
               </div>
@@ -236,8 +236,8 @@
                   </tr>
                   </thead>
                   <tr ng-repeat = "receiver in receivers">
-                    <td ng-show="Admin"><a ng-click="addRecipient(receiver)"><i class="glyphicon glyphicon-edit"></i></a>
-                      <a ng-click="deleteRecipient(receiver)"><i class="glyphicon glyphicon-minus"></i></a>
+                    <td ng-show="Admin"><a ng-click="addRecipient(receiver)"><i class="fa fa-pencil-square-o"></i></a>
+                      <a ng-click="deleteRecipient(receiver)"><i class="fa fa-minus "></i></a>
                       {{$index+1}}
                     </td>
                     <td><input type="text"     class="form-control" ng-model="receiver.location"></td>

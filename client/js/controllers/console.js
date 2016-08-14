@@ -27,7 +27,6 @@ angular
         if ($scope.userData.type == 'Student') { $scope.Student = true;}
         if ($scope.userData.type == 'Parent')  { $scope.Parent  = true;}
         if ($scope.userData.type == 'Staff')   { $scope.Staff   = true;}
-
         $scope.schoolId = $scope.school.id;
         $scope.date = new Date();
         $rootScope.image = $scope.school.image;

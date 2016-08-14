@@ -20,13 +20,7 @@
   <script src="template/rcalendar/calendarDemoCtrl.js">      </script>
   <!----------------------------------------------------------------->
   
-
-  <!---------------------SERVICE CONTROLLERS---------------------->
-  <script src="js/services/fee.js">        </script>
-  
-  
-  <!---------------------SERVICE CONTROLLERS---------------------->
-
+ 
 
   <!---------------------FUNCTIONAL CONTROLLERS---------------------->
   <script src="js/controllers/exam.js">       </script>
@@ -49,6 +43,7 @@
   <script src="js/controllers/holiday.js">  </script>
   <script src="js/controllers/bulkremovals.js">  </script>
   <script src="js/controllers/index.js">  </script>
+  <script src="js/controllers/profile.js">  </script>
   
   <!----------------------------------------------------------------->
   
@@ -69,11 +64,13 @@
   <link rel="stylesheet" href="js/calendar/calendar.css"/>
   <script src="/js/calendar/calendar.js"></script>
   <!------------------------------------------------------>
+
   <!------------------------------------------------------------------------------------------------>
-  <!--<link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css">-->
+  <link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="styles/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="styles/fonts.css" rel="stylesheet" type="text/css">
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
+  <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>-->
+
   <script src="styles/ui-bootstrap.js">    </script>
   <script src="styles/ui-bootstrap-tpls.js"></script>
   <!------------------------------------------------------------------------------------------------->
@@ -150,23 +147,18 @@
               <li class="dropdown dropdown-user dropdown-dark">
                 
                 <button ng-hide="currentUser" ui-sref="login" class="btn btn-circle">Login</buttom>
-                <button ng-hide="currentUser" ui-sref="signup" class="btn btn-circle">Signup</button>
+                <!--<button ng-hide="currentUser" ui-sref="signup" class="btn btn-circle">Signup</button>-->
               </li>
               <li class="dropdown dropdown-user dropdown-dark">
-                <a ng-show="currentUser" ui-sref="noticeboard" class="glyphicon glyphicon-bell" ng-mouseover="showNotices=true" ng-mouseleave="showNotices=false">
-                
-                </a>
+                <!--<a ng-show="currentUser" ui-sref="noticeboard" class="glyphicon glyphicon-bell" ng-mouseover="showNotices=true" ng-mouseleave="showNotices=false">
+                </a>-->
                 <a ng-show="currentUser"   href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                   <img alt="" class="img-circle" src="http://studymonitor.net/appimages/admin.png">
-                  <span class="username username-hide-mobile" ng-show="currentUser">{{currentUser.user.firstName}}</span>
+                  <!--<span class="username username-hide-mobile" ng-show="currentUser">{{currentUser.user.firstName}}</span>-->
                 </a>
                 <ul class="dropdown-menu dropdown-menu-default">
-                  <li ng-show="currentUser">
-                    <a ui-sref="profile">My Profile</a>
-                  </li>
-                  <li ng-show="currentUser">
-                    <a ui-sref="logout" ui-sref-active="active">Log out</a>
-                  </li>
+                  <li> <a ui-sref="profile">My Profile</a> </li>
+                  <li> <a ui-sref="logout">Log out</a></li>
                 </ul>
               </li>
               
@@ -198,10 +190,10 @@
       
       
       <!-- BEGIN MEGA MENU -->
-      <div class="hor-menu" ng-show="currentUser" data-ng-controller="LandingPageController">
+      <div class="hor-menu" ng-show="currentUser">
       <!--<div class="hor-menu" ng-show="currentUser" data-ng-controller="LandingPageController">-->
         <ul class="nav navbar-nav">
-          <li class="active">
+          <li>
             <a ui-sref=".dashboard">Console</a>
           </li>
           <li class="menu-dropdown classic-menu-dropdown ">
@@ -291,25 +283,10 @@
     <div ng-hide="currentUser" class="container">
       <div class="portlet light ">
         <div class="portlet-title">
-          <span class="caption caption-md">THE 'C' s  of STUDY MONITOR</span>
+          <div class="caption-md caption">
+          WHAT WE DO</div>
         </div>
-        <div class="portlet-body">
-          <!--<wizard>
-            <i type="submit"  wz-next  class="pull-right glyphicon glyphicon-forward" value="NEXT"></i>
-            <wz-step wz-title="COLLABORATE">
-              <h5>COLLABORATE</h5>
-              <p>This advanced module believes in generating tangible services for all people involved in an effective and easy way. Bridging the gap into one single stream, parents and teachers can have a one on one personalized conversation about students’ performance and progress. That apart, few other features are attendance log, reports, curriculum or syllabus schedules, assignment submission, school calendar or events can be conveyed day to day providing a stress-free access for both parent and teacher/ school admin.</p>
-            </wz-step>
-            <wz-step wz-title="COMMUTE" >
-              <h5>COMMUTE</h5>
-              <p> STUDY Monitor takes comprehensive measures to ensure student security and safety by monitoring and tracking school vehicles real-time. Parents can have an anxiety free day keeping track of their children by knowing details of bus routes and their current location via GPS mapping. The track detection rooted for school vehicles also gives details about vehicle speed providing alerts in case of emergency or immediate aid. The other features include automatic attendance via SMART ID cards , live CCTV monitoring on buses. </p>
-            </wz-step>
-            <wz-step wz-title="COMPETE" >
-              <h5>COMPETE</h5>
-              <p>A systematic coordination of books in a school’s library has always been a tussle in any traditional school management system. Here our product inspires students to learn and collaborate well with educational resources be it in a classroom or a library. It allows to maintain a centralized access of book keeping and enriched study material that help librarians, teachers and students locate and share resources effectively. The automated tool keeps track of books that are due and also sends reminders when required.</p>
-            </wz-step>
-          </wizard>-->
-        
+        <div class="portlet-body">        
 	<div class="row">
 		<!-- Carousel -->
     	<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -346,10 +323,10 @@
 			</div>
 			<!-- Controls -->
 			<a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-		    	<span class="glyphicon glyphicon-chevron-left"></span>
+		    	<span class="fa fa-left"></span>
 			</a>
 			<a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-		    	<span class="glyphicon glyphicon-chevron-right"></span>
+		    	<span class="fa fa-right"></span>
 			</a>
 		</div><!-- /carousel -->
 	</div>
@@ -369,9 +346,9 @@
   </div>-->
 
 
-  <div class="panel-footer text-center" link="black" style="background: #428bca;font-weight: bold">
-    2016 &copy; <a style="color: black;" href="http://studymonitor.net/" target="_blank">Study Monitor.</a>
-    Developed By<a style="color: black; href="http://cyluscreators.com"  target="_blank"> Cylus Creators</a>
+  <div class="panel-footer text-center" link="black" style="font-weight: bold">
+    2016 &copy; <a href="http://studymonitor.net/" target="_blank">Study Monitor.</a>
+    Developed By<a href="http://cyluscreators.com"  target="_blank"> Cylus Creators</a>
   </div>
 
  

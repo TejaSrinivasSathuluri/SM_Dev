@@ -1,0 +1,23 @@
+table.scroll {
+    border-spacing: 0;
+    border: 0.5px solid black;
+}
+
+table.scroll tbody  { display: block; }
+
+
+table.scroll tbody {
+    height: 100px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+tbody { border-top: 0.5px solid black; }
+
+tbody td {
+    border-right: 0.5px solid black;
+}
+
+tbody td:last-child{
+    border-right: none;
+}

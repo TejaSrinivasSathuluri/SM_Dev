@@ -76,8 +76,4 @@ angular.module('app')
           }, 1000 );
 
         }
-
-
-
-
       })

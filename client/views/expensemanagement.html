@@ -1,41 +1,15 @@
 <!--------------------------------------------------EDIT SECTION---------------------------------------------->
-<!--------------------------------------------------EDIT EXPENSE TYPE---------------------------------------------->
-<script type="text/ng-template" id="editExpenseType">
-  <div class="ngdialog-message">
-    <h3>Edit Expense Type</h3>
-    <form ng-submit=confirm(editData) >
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <input type="text" class="form-control" ng-disabled="false" placeholder="Expense Type*"  ng-model="editData.name" required><br>
-
-        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">  <button type="submit" class="btn btn-success uppercase">Save Expense Type</button></div>
-      </div>
-
-
-
-    </form>
-    <div class="ngdialog-buttons">
-    </div>
-  </div>
-</script>
-<!-------------------------------EDIT EXPENSE  TYPE--------------------------------->
-
- 
-
-
-
-
 <!-----------------------------------EDIT EXPENSE PAYMENT TYPE-------------------------->
 <script type="text/ng-template" id="editExpensePayment">
   <div class="ngdialog-message">
     <h3>Edit Expense Payment</h3>
-    <form ng-submit=confirm(editData) >
+    <form ng-submit=closeThisDialog(editData) >
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <select ng-model="editData.expenseTypeId" class="form-control Expense" required>
-          <option value="">EXPENSE TYPE</option>
-          <option ng-repeat="x in ExpenseTypeList" value="{{x.id}}">{{x.name}}</option>
-        </select><br>
+        <input ng-model="editData.expenseType" placeholder="Expense Type*" class="form-control" type="text" required/>
+        <br>
+        <input ng-model="editData.description" class="form-control"  placeholder="Description*" type="text" required/><br>
 
-        <input type="date"  max="9999-12-31" max="0001-01-01"  class="form-control" ng-disabled="false"  ng-model="editData.date" ng-value="feeDate" required><br>
+        <input type="date"  max="9999-12-31" max="0001-01-01"  class="form-control"  ng-model="editData.date" ng-value="feeDate" required><br>
         <input type="number" class="form-control" ng-disabled="false" ng-model="editData.amount" required><br>
 
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">  <button type="submit" class="btn btn-success uppercase">Save Expense Payment</button></div>
@@ -55,20 +29,6 @@
 
 
 <!---------------------------------------------------------------------DELETE SECTION---------------------------------------------->
-<!-----------------------------------DELETE EXPENSE TYPE-------------------------->
-<script type="text/ng-template" id="deleteExpenseType">
-  <div class="ngdialog-message">
-    <h1>Confirm Delete</h1>
-    <div class="ngdialog-buttons">
-      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog('Yes')">Yes</button>
-      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog()">No</button>
-    </div>
-  </div>
-</script>
-<!-----------------------------------DELETE EXPENSE TYPE-------------------------->
-
-
-
 <!-----------------------------------DELETE EXPENSE PAYMENT-------------------------->
 <script type="text/ng-template" id="deleteExpensePayment">
   <div class="ngdialog-message">
@@ -88,166 +48,111 @@
 <div class="container">
   <div class="row margin-top-10">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <div class="portlet light ">
+      <div class="portlet light" style="height: 450px">
         <div class="portlet-title">
-          <div class="caption caption-md pull-left">EXPENSE MANAGEMENT</div>
-          <div class="caption caption-md pull-right">
-          <!--Tab Buttons-->
-
-          <button class="btn btn-default mbtm" ng-class="{ active: isSet(1) }" href ng-click="setTab(1)">EXPENSE TYPE </button>
-          <button class="btn btn-default" ng-class="{ active: isSet(2) }" href ng-click="setTab(2)">EXPENSE PAYMENT</button>
-           
-          <!--Tab Buttons-->
-          </div>
-
+          <div class="caption caption-md pull-left">EXPENSES</div>
         </div>
-        <!-- ------------------------------Main Block---------------------------------->
+ 
         <div class="row list-separated">
 
           <div class="row">
-        <!-----------TAB 1 BEGINS HERE---------------------------->
-
-          <!--Tab 1-->
-          <div ng-show="isSet(1)">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-              <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-
-              </div>
-                <form ng-submit="addExpenseType()" >
-                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                      {{responseAddExpenseType}}<br>
-                    <input  type="text"   class="form-control" placeholder="Expense Type*"  ng-model="formData.name" required><br>
-                    <textarea rows="4" cols="50" class="form-control" placeholder="Description" ng-model="formData.description"></textarea><br>
-                    <button type="submit" class="btn btn-success uppercase mbtm">Add</button>
-                    </div>
-
-                </form>
-              <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-
-                <input  type="text" class="form-control" placeholder="Expense Type" ng-model="search.name"><br>
-                <table class="table table-bordered table-striped table-condensed flip-content">
-                  <thead flip-content>
-                  <tr>
-                    <th><a ng-click="sortType = 'name'; sortReverse = !sortReverse">Expense Type</a></th>
-
-                    <th ng-show="Admin">Action</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr data-ng-repeat="x in  filtered = (ExpenseTypeList | filter:search) |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
-                    <div data-ng-bind-html="x.id">
-                      <td>{{x.name}}</td>
-                      <td ng-show="Admin">
-                        <i class="glyphicon glyphicon-edit"  ng-click="editExpenseType(x)"></i>
-                        <i class="glyphicon glyphicon-remove"  ng-click="deleteExpenseType(x)"></i>
-                      </td>
-
-                    </div>
-                  </tr>
-                  </tbody>
-                </table>
-
-              <div class="pull-">
-                Total Results :{{ ExpenseTypeList.length}} |  Filtered Results :{{ filtered.length}}
-              </div>
-              <div class="pull-right">
-                <button ng-disabled="currentPage == 0"               ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
-                <button ng-disabled="currentPage >= filtered.length/pageSize-1" ng-click="currentPage=currentPage+1">Next</button>
-              </div>
-              </div>
-            </div>
-
-
-            </div>
-
-            <!-----------TAB 2 BEGINS HERE---------------------------->
-
-          <!--Tab 2-->
-            <div ng-show="isSet(2)">
-              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
-                {{responseAddExpenseType}}
-                <form ng-submit="addExpensePayment()">
-                  <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                    <select ng-model="formData.expenseSelected" class="form-control Expense" required>
-                      <option value="">EXPENSE TYPE</option>
-                      <option ng-repeat="x in ExpenseTypeList" value="{{x.id}}">{{x.name}}</option>
-                    </select><br>
-                    <input   max="9999-12-31" max="0001-01-01" type="date"   class="form-control" placeholder="Expense Date*"  ng-model="formData.date" ng-value="date" required><br>
-                    <input  type="number"   class="form-control" placeholder="Expense Amount*"  ng-model="formData.amount" required><br>
-                    <textarea rows="4" cols="50" class="form-control" placeholder="Description" ng-model="formData.description"></textarea><br>
-                    <button type="submit" class="btn btn-success uppercase mbtm">Add</button>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    
+                    <div ng-show="false"  class="alert alert-danger">{{response}}</div>
+                    <div ng-show="success" class="alert alert-success">{{response}}</div>
                   </div>
-                </form>
-                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-                  <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 mbtm"><input  type="text" class="form-control" placeholder="Expense Type" ng-model="search1.expenseType.name"></div>
-                  <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 mbtm"><input  type="amount" class="form-control" placeholder="Expense Amount" ng-model="search1.amount"></div>
-                </div><br><br><br>
-
-                <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                   <table class="table table-bordered table-striped table-condensed flip-content">
-                    <thead flip-content>
-                    <tr>
-                      <th><a ng-click="sortType = 'expenseType.name'; sortReverse = !sortReverse">Expense Payment</a></th>
-                      <th><a ng-click="sortType = 'date'; sortReverse = !sortReverse">Expense Date</a></th>
-                      <th><a ng-click="sortType = 'amount'; sortReverse = !sortReverse">Expense Amount</a></th>
-                      <th ng-show="Admin">Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr data-ng-repeat="x in  filtered = (ExpensePaymentList | filter:search1) |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
-                      <div data-ng-bind-html="x.id">
-                        <td>{{x.expenseType.name}}</td>
-                        <td>{{x.date | date:'MMM dd yyyy'}} </td>
-                        <td>{{x.amount}}</td>
-                        <td ng-show="Admin">
-                          <i class="glyphicon glyphicon-edit"  ng-click="editExpensePayment(x)"></i>
-                          <i class="glyphicon glyphicon-remove"  ng-click="deleteExpensePayment(x)"></i>
-
-                        </td>
-
-                      </div>
-                    </tr>
-                    </tbody>
-                  </table>
-
-                <div class="pull-left">
-                  Total Results :{{ ExpensePaymentList.length}} |  Filtered Results :{{ filtered.length}}
-
-
-
+                          <form ng-submit="addExpensePayment()">
+                                    <div class="form-group col">
+                                      <div class="col-sm-2">
+                                        <input type="text" ng-model="formData.expenseType" class="form-control" required placeholder="Expense Type">
+                                      </div>
+                                    </div>
+                                    <div class="form-group col">
+                                      <div class="col-sm-2">
+                                        <input type="date" class="form-control" max="9999-12-31" min="0001-01-01" ng-model="formData.date" required>
+                                      </div>
+                                    </div>
+                                      <div class="form-group col">
+                                        <div class="col-sm-2">
+                                          <input type="description" class="form-control" placeholder="Description" ng-model="formData.description" required>
+                                        </div>
+                                      </div>
+                                    <div class="form-group col">
+                                      <div class="col-sm-2">
+                                        <input type="number" class="form-control" max="100000" min="1" placeholder="Expense Amount*"  ng-model="formData.amount" required >
+                                      </div>
+                                    </div>
+                                    <div class="form-group col">
+                                      <div class="offset-sm-2 col-sm-2">
+                                        <button type="submit" class="btn btn-primary">Add</button>
+                                      </div>
+                                    </div>
+                            </form>
+                            
                 </div>
-                <div class="pull-right">
-                  <button ng-disabled="currentPage == 0"               ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
-                  <button ng-disabled="currentPage >= filtered.length/pageSize-1" ng-click="currentPage=currentPage+1">Next</button>
+           </div>
+            
+            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">Search By</label>
 
-                </div>
-                </div>
+            <div class="form-group col-sm-2 col"> <input  type="text" class="form-control" placeholder="Expense Type" ng-model="search1.expenseType"></div>
+            <div class="form-group col-sm-2 col"> <input  type="text" class="form-control" placeholder="Description" ng-model="search1.description"></div>           
+              </div>      
+      
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="height: 150px; overflow-y: scroll;">
+                    
+                <table class="table table-bordered table-striped table-condensed flip-content">
+                <thead flip-content>
+                <tr>
+                  <th><a ng-click="sortType = 'expenseType'; sortReverse = !sortReverse">Expense Payment</a></th>
+                  <th><a ng-click="sortType = 'description'; sortReverse = !sortReverse">Description</a></th>
+                  <th><a ng-click="sortType = 'date'; sortReverse = !sortReverse">Expense Date</a></th>
+                  <th><a ng-click="sortType = 'amount'; sortReverse = !sortReverse">Expense Amount</a></th>
+                  <th ng-show="Admin">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-ng-repeat="x in  filtered = (ExpensePaymentList | filter:search1) |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
+                  <div data-ng-bind-html="x.id">
+                    <td>{{x.expenseType}}</td>
+                    <td>{{x.description}}</td>
+                    <td>{{x.date | date:'MMM dd yyyy'}} </td>
+                    <td>{{x.amount}}</td>
+                    <td ng-show="Admin">
+                      <i class="fa fa-pencil-square-o" aria-hidden="true" ng-click="editExpensePayment(x)"></i>
+                      <i class="fa fa-trash-o" aria-hidden="true"  ng-click="deleteExpensePayment(x)"></i>
+
+                    </td>
+
+                  </div>
+                </tr>
+                </tbody>
+              </table>
+            
+
+            </div>
+            <hr/>
+              <div class="pull-left">
+              Total Results :{{ ExpensePaymentList.length}} |  Filtered Results :{{ filtered.length}}
 
 
-              </div>
 
-              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <p></p>
-                <p></p>
-              </div>
+            </div>
+            <div class="pull-right">
+              <button ng-disabled="currentPage == 0"               ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
+              <button ng-disabled="currentPage >= filtered.length/pageSize-1" ng-click="currentPage=currentPage+1">Next</button>
 
             </div>
 
-            <!-----------TAB 2 ENDS HERE---------------------------->
-
-
-             
-
-
-            <!-- -----------------------------------------------------------------------------Admission Form-------------------------------------------------->
+              </div>
 
 
 
-
+        </div>
       </div>
     </div>
   </div>
 </div>
-</div>
-</div>
+
