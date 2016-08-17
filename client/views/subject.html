@@ -59,8 +59,8 @@
                     <!--<div class="col-sm-2"> <button class="btn btn-success" ng-click = "uploadFile()">upload me</button></div>-->
                 <!--</div>-->
                 <div class="col-sm-12">
-                  <div style="color: red;" ng-show="error" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">{{responseAddSubject}}</div>
-                  <div style="color: green;" ng-show="success" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">{{responseAddSubject}}</div>
+                  <div ng-show="error"   class="alert alert-danger  col-lg-12 col-md-12 col-sm-12 col-xs-12">{{responseAddSubject}}</div>
+                  <div ng-show="success" class="alert alert-success col-lg-12 col-md-12 col-sm-12 col-xs-12">{{responseAddSubject}}</div>
                 </div>
 
 
@@ -110,8 +110,8 @@
 							</select>
 				  </td>  <td ng-show="Admin"> <input type="checkbox" ng-model="a.examFlag" ng-click="addExamEligibility(a)"</td>
                   <td ng-show="Admin">
-                      <i class="fa fa-pencil-square-o" ng-click="clearResponse();editsubject=true"></i>
-                      <i class="fa fa-floppy-o" ng-show="editsubject" ng-click="updateSubject(a)"></i>
+                      <i class="fa fa-pencil-square-o" ng-hide="editsubject" ng-click="clearResponse();editsubject=true"></i>
+                      <i class="fa fa-floppy-o"       ng-show="editsubject" ng-click="updateSubject(a)"></i>
                       <i class="fa fa-trash-o"  ng-click="deleteSubject(a)"></i>
                    </td>
                 </tbody>

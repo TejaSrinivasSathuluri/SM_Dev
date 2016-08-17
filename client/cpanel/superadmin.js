@@ -6,8 +6,7 @@
     // create an admin application
     var admin = nga.application('Study Monitor Admin')
 
-    //.baseApiUrl('http://smtest9.cloudapp.net:3000/api/'); // main API endpoint
-    .baseApiUrl('http://localhost:3000/api/'); 
+    .baseApiUrl(window.location.origin + '/api/' ); // main API endpoint
 
 
 // School Corner
@@ -28,6 +27,8 @@
     nga.field('address'),
     nga.field('city'),
     nga.field('state'),
+    nga.field('schoolEmail'),
+    nga.field('schoolPassword'),
     nga.field('startDate','date'),
     nga.field('endDate','date')
   ]);

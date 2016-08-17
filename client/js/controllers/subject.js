@@ -47,7 +47,7 @@ angular.module('app')
           $scope.formData = [];
         if($scope.Admin) {
 
-		  //--------------------------------------------------------
+	    	  //--------------------------------------------------------
           //                  CLEAR RESPONSE
           // --------------------------------------------------------
 		   $scope.clearResponse = function (){
@@ -71,8 +71,24 @@ angular.module('app')
 
           }
           $scope.showSubject();
-          $scope.successCallSubject = function() {$scope.error = false;$scope.success = true;}
-          $scope.failureCallSubject = function() {$scope.error = true;$scope.success = false;}
+          $scope.successCallSubject = function(message) {
+            $scope.responseAddSubject = message;
+            $scope.error = false;
+            $scope.success = true;
+            setTimeout(function() {
+            $scope.success = false;
+            $scope.showSubject();
+            }, 1000);
+          }
+          $scope.failureCallSubject = function() {
+            $scope.error = true;
+            $scope.success = false;
+            setTimeout(function() 
+            {
+            $scope.error = false;
+            $scope.showSubject();
+            }, 1000);  
+        }
 
 
           $scope.addSubject = function () {
@@ -80,42 +96,34 @@ angular.module('app')
               scope: $scope //Pass the scope object if you need to access in the template
             }).then(
               function(formData) {
-                $scope.checkSub = Subject.findOne({
+                Subject.findOne({
                     filter: {
                       where: {
                           schoolId:$scope.schoolId,classId: formData.classSelected,subjectName: formData.subjectName
                       }
                     }
                   },
-                  function () {
+                function () {
                     $scope.responseAddSubject = 'Subject ' + formData.subjectName + ' Already Exists For The Class.' ;
                     $scope.failureCallSubject();
                   },
-                  function () {
-                    Subject.create({
-                        subjectName: formData.subjectName,
-                        classId: formData.classSelected,
-                        staffId: formData.staffSelected,
-                        schoolId:$scope.schoolId
-                      },
-                      function () {
+                function () {
+                              Subject.create({
+                                  subjectName: formData.subjectName,
+                                  classId: formData.classSelected,
+                                  staffId: formData.staffSelected,
+                                  schoolId:$scope.schoolId
+                                },
+                                function () {
+                                  $scope.successCallSubject("Subject "+ formData.subjectName + " created Successfully");
+                                  $scope.showSubject();
+                                },
+                                function () {
+                                      
 
-                        $scope.responseAddSubject ="Subject "+ formData.subjectName + " created Successfully in Class";
-                        $scope.successCallSubject();
-
-                        setTimeout( function()
-                        {
-                          $scope.showSubject();
-                          $scope.clearResponse();
-
-                        }, 1000 );
-                      },
-                      function () {
-
-
-                      }
-                    );
-                  });
+                                }
+                                );
+                 });
 
               },
               function (value) { }
@@ -126,13 +134,8 @@ angular.module('app')
           $scope.updateSubject = function (a) {
 						Subject.upsert({id: a.id, staffId: a.staff.id},
 						  function () {
-                $scope.successCallSubject();
-                $scope.responseAddSubject ="Subject Edited Successfully";
-                setTimeout( function()
-                {
-                  $scope.showSubject();
-                  $scope.clearResponse();
-                }, 1000 );
+                $scope.successCallSubject("Subject Edited Successfully");
+                
 						  },
 						  function (response) {
 							console.log(response.data.error.message);
@@ -147,14 +150,7 @@ angular.module('app')
 
               if (data.value && data.value != '$document' && data.value != '$closeButton') {
                 Subject.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")},function(){
-                  $scope.responseAddSubject ="Subject deleted Successfully";
-
-                  setTimeout( function()
-                  {
-                    $scope.successCallSubject();
-                    $scope.showSubject();
-                    $scope.clearResponse();
-                  }, 1000 );
+                  $scope.successCallSubject("Subject deleted Successfully");
                 });
               }
               return true;
