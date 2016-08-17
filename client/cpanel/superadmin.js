@@ -18,6 +18,8 @@
     nga.field('address'),
     nga.field('city'),
     nga.field('state'),
+    nga.field('schoolEmail'),
+    nga.field('schoolPassword'),
     nga.field('startDate','date'),
     nga.field('endDate','date')
   ]);
@@ -39,6 +41,8 @@
     nga.field('address'),
     nga.field('city'),
     nga.field('state'),
+    nga.field('schoolEmail'),
+    nga.field('schoolPassword'),
     nga.field('startDate','date'),
     nga.field('endDate','date')
   ]);
@@ -48,6 +52,8 @@
     nga.field('address'),
     nga.field('city'),
     nga.field('state'),
+    nga.field('schoolEmail'),
+    nga.field('schoolPassword'),
     nga.field('startDate','date'),
     nga.field('endDate','date')
   ]);
@@ -57,6 +63,8 @@
     nga.field('address'),
     nga.field('city'),
     nga.field('state'),
+    nga.field('schoolEmail'),
+    nga.field('schoolPassword'),
     nga.field('startDate','date'),
     nga.field('endDate','date')
   ]);

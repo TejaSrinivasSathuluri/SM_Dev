@@ -31,7 +31,10 @@ module.exports = function(server) {
                                                                             pass: response.schoolPassword }
                                                                             });
             
-
+             console.log(schoolEmail);
+             console.log(schoolPassword);
+             console.log(schoolName);
+             console.log(schoolCode);
                                                 var mailOptions = {
                                                     from: response.schoolEmail, 
                                                     to: email, 
