@@ -12,14 +12,17 @@
 <script type="text/ng-template" id="editAssignment">
   <div class="ngdialog-message">
     <h3>Edit Assignment</h3>
-
+   
     <form>
 
       <input  type="text" class="form-control" placeholder="Title" ng-value="title" ng-model="formData.title"><br>
-      <select ng-model="formData.classSelected" id="repeatSelect1" ng-value="classSelected" class="form-control" required>
-        <option value="">Class-Section</option>
-        <option ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
+      <select ng-model="formData.classId" class="form-control" required>
+        <option>{{formData.classId}}</option>
+        <option ng-repeat="x in classList" ng-selected="formData.classId" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
       </select>
+ 
+
+
       <br>
       <textarea rows="4" cols="50" class="form-control" placeholder="Description"  ng-model="formData.description"></textarea><br>
       <input  type="date" class="form-control" max="9999-12-31" max="0001-01-01" ng-value="fromDate" ng-model="formData.fromDate"><br>

@@ -7,7 +7,7 @@
     </div>
   </div>
 </script>
-<script type="text/ng-template" id="editExam">
+<!--<script type="text/ng-template" id="editExam">
   <div class="ngdialog-message">
     <h2>Edit Exam</h2>
     <form ng-submit="confirm(formData)">
@@ -23,7 +23,27 @@
       <button type="button" class="btn btn-success uppercase" ng-click=closeThisDialog("Cancel")>Cancel</button>
     </form>
       </div>
+</script>-->
+<script type="text/ng-template" id="editExam">
+  <div class="ngdialog-message">
+    <h3>Edit Exam Record</h3>
+
+    <form>
+
+      <select ng-model="formData.classId"  ng-value="classId" class="form-control">
+        <option value="">Class </option>
+        <option ng-repeat="y in classList"  value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>
+      </select><br>
+      <input  type="text" class="form-control" placeholder="ExamName" ng-value="examName" ng-model="formData.examName"  required><br>
+      <input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control"  ng-value="fromDate" ng-model="formData.fromDate"  required><br>
+      <input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control"  ng-value="toDate" ng-model="formData.toDate"  required><br>
+      <button type="submit" class="btn btn-success uppercase" ng-click=confirm(formData)>Save</button>
+      <button type="button" class="btn btn-success uppercase" ng-click=closeThisDialog("Cancel")>Cancel</button>
+
+    </form>
+  </div>
 </script>
+
 <script type="text/ng-template" id="addExamSubject">
   <div class="ngdialog-message">
     <h2>Add Exam Subjects</h2>
@@ -105,7 +125,7 @@
                                                   
                           <div class="col-sm-12"  style="height:260px;overflow-y:auto;">
               
-                              <table class="table table-bordered table-striped table-condensed flip-content">
+                              <table class="table table-bordered table-striped table-condensed flip-content"><br>
                                 <thead flip-content>
                                 <tr>
                                   <!--<th>#</th>-->

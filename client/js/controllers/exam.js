@@ -144,6 +144,42 @@ angular.module('app')
          });
 
         }  
+        //----------------------.; --------------------------
+      //            EDIT Exam List
+      //------------------------------------------------
+
+      $scope.editExam = function (x) {
+		    console.log(x.classId);
+        $scope.examName = x.examName;
+		   $scope.formData.classId=x.classId;
+		    $scope.fromDate = $filter('date')(new Date(x.fromDate), 'yyyy-MM-dd');
+          $scope.toDate = $filter('date')(new Date(x.toDate), 'yyyy-MM-dd');
+		   ngDialog.openConfirm({template: 'editExam',
+          scope: $scope //Pass the scope object if you need to access in the template
+        }).then(
+          function(formData) {
+            Exam.upsert({id:x.id,classId:formData.classId, examName:formData.examName,fromDate: formData.fromDate,toDate:formData.toDate},
+              function () {
+                $scope.responseExam = "Exam Record Updated Successfully";
+                setTimeout( function()
+                {
+                  $state.go($state.current, {}, {reload: true});
+                  $scope.$apply();
+                }, 1000 );
+              });
+          },
+          function(value) {
+            $scope.responseExam = "Exam Record Was Not Edited.Please Fill All Required Fields";
+            setTimeout( function()
+            {
+              $state.go($state.current, {}, {reload: true});
+              $scope.$apply();
+            }, 1000 );
+
+          }
+        );
+      } 
+
 
         //----------------------------------------------
         //               SORT TABLE TECHNIQUE

@@ -47,8 +47,6 @@ angular.module('app')
           response.forEach(function(list){
 
             var student = list.toJSON();
-
-
             if (student.RFID){
                     //-----------
                     Attendance.find(

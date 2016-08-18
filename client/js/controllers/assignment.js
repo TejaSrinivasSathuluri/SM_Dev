@@ -52,8 +52,8 @@ angular
                 $scope.responseAddAssignment = "Assignment  Record Added Successfully";
                 setTimeout( function()
                 {
-                  $state.go($state.current, {}, {reload: true});
-                  $scope.$apply();
+                    $scope.showAssignments(); 
+                   
                 }, 1000 );
 
               },function(response){
@@ -73,9 +73,13 @@ angular
         //--------------------------------------------------------
         //                 SHOW ASSIGNMENT LIST
         //--------------------------------------------------------
+       
         $scope.assignmentlist = [];
-        $scope.assignmentlist = Assignment.find({filter: {where: {schoolId: $scope.schoolId}, include: 'class'}});
-
+        $scope.showAssignments  = function()
+        {
+          $scope.assignmentlist = Assignment.find({filter: {where: {schoolId: $scope.schoolId}, include: 'class'}});
+        }
+        $scope.showAssignments(); 
 
         //--------------------------------------------------------
         //                 DELETE ASSIGNMENT LIST
@@ -89,8 +93,8 @@ angular
               $scope.responseAddAssignment = "Assignment Record Deleted Successfully";
               setTimeout( function()
               {
-                $state.go($state.current, {}, {reload: true});
-                $scope.$apply();
+                
+                $scope.showAssignments();
               }, 1000 );
 
             });
@@ -117,18 +121,19 @@ angular
         //                 EDIT ASSIGNMENT LIST
         //--------------------------------------------------------
         $scope.editAssignment = function (x) {
+          $scope.formData = x;
+          $scope.formData.classId = x.classId;
           $scope.title = x.title;
-          $scope.classSelected = x.classSelected;
+          // $scope.formData.classId = x.classId;
           $scope.fromDate = $filter('date')(new Date(x.fromDate), 'yyyy-MM-dd');
           $scope.toDate = $filter('date')(new Date(x.toDate), 'yyyy-MM-dd');
-          $scope.formData = {description: x.description};
+          
 
           ngDialog.openConfirm({
             template: 'editAssignment',
             scope: $scope //Pass the scope object if you need to access in the template
           }).then(
             function (formData) {
-              console.log(x.id);
               Assignment.upsert({
                   id: x.id, title: formData.title, classId: formData.classSelected,
                   description: formData.description, toDate: formData.toDate, fromDate: formData.fromDate,
@@ -138,8 +143,8 @@ angular
                 $scope.responseAddAssignment = "Assignment Record Updated Successfully";
                 setTimeout( function()
                 {
-                  $state.go($state.current, {}, {reload: true});
-                  $scope.$apply();
+                    $scope.showAssignments(); 
+                   
                 }, 1000 );
               });
           },
@@ -147,8 +152,8 @@ angular
             $scope.responseAddAssignment = "Assignment Record Was Not Edited.Please Fill All Required Fields";
             setTimeout( function()
             {
-              $state.go($state.current, {}, {reload: true});
-              $scope.$apply();
+                    $scope.showAssignments(); 
+              
             }, 1000 );
 
           }
