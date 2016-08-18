@@ -14,6 +14,44 @@ angular
       if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
         $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
 
+
+    // ----------------------------------------------------
+         //   SUCCESS CALL
+         //-----------------------------------------------------
+         $scope.successCall = function(message){
+           $scope.responseAddLibrary = message;
+           $scope.error = false;
+           $scope.success = true;
+          setTimeout( function()
+          {
+           $scope.responseAddLibrary = null;
+           $scope.success = false;
+            $scope.formData = {};
+            $scope.showBooks();
+          }, 1000 );
+
+         }
+
+
+         
+
+         // ----------------------------------------------------
+         //   SUCCESS CALL
+         //-----------------------------------------------------
+         $scope.failureCall = function(message){
+           $scope.responseAddLibrary = message;
+           $scope.error = true;
+           $scope.success = false;
+          setTimeout( function()
+          {
+           $scope.responseAddLibrary = null;
+           $scope.error = false;
+            $scope.formData = {};
+            $scope.showBooks();
+          }, 1000 );
+
+         }
+
         $scope.addLibrary = function () {
 
 
@@ -32,7 +70,8 @@ $scope.clearResponse();
 
                   Library.findOne({filter:{where:{schoolId: $scope.schoolId, name: formData.name, author: formData.author}}},function(){
 
-                    $scope.responseAddLibrary = "Book & Author Combination Already Exists";
+                    // $scope.responseAddLibrary = "";
+                    $scope.successCall('Book & Author Combination Already Exists');
                     setTimeout( function()
 						{
                      $scope.error= true;
@@ -47,7 +86,7 @@ $scope.clearResponse();
                       schoolId: $scope.schoolId, name: formData.name, author: formData.author,
                       description: formData.description, price: formData.price, available: formData.available
                     }, function () {
-                      $scope.responseAddLibrary="Book Added Successfully.";
+                      $scope.successCall('Book Added Succesfully');
                       $scope.error= false;
                       $scope.success = true;
                       setTimeout( function(){ 
@@ -90,13 +129,13 @@ $scope.clearResponse();
           if (data.value && data.value != '$document' && data.value != '$closeButton') {
             Library.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")},function(){
 
-				  $scope.responseAddLibrary = "Book Deleted Successfully";
+				   $scope.successCall('Book Deleted Successfully');
           $scope.error= false;
                       $scope.success = true;
 				   setTimeout( function()
 						{
                      
-                                              $scope.showBooks();
+                        $scope.showBooks();
                         $scope.clearResponse();
 
 						}, 1000 );
@@ -117,15 +156,14 @@ $scope.clearResponse();
         (
              function(data) 
              {   
-                    console.log(data.value);
-                    if (data.value != '$document' && data.value != '$closeButton')
+                    if (data.value != 'Cancel' && data.value != '$document' && data.value != '$closeButton' && data.value != '$escape')
                     {
                       
                           formData = data.value;
                           Library.upsert({id:x.id, name : formData.name,author : formData.author,description: formData.description,price: formData.price,available:formData.available},
                           function () 
                           {
-                          $scope.responseAddLibrary = "Book Edited Successfully";
+                          $scope.successCall('Book Edited Successfully');
                           $scope.error= false;$scope.success = true;
                           setTimeout( function() {$scope.showBooks();$scope.clearResponse();},1000 );
                           },function(response){
@@ -133,9 +171,8 @@ $scope.clearResponse();
                           });
                       }
                       else{
-                          $scope.responseAddLibrary = "Book Not Edited";
-                          $scope.error= true;$scope.success = false;
-                          setTimeout( function() {$scope.showBooks();$scope.clearResponse();},1000 );
+                          $scope.successCall('Book Not Edited');
+                         
                       }
               }     
           );

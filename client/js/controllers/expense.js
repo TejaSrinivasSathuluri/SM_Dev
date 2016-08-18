@@ -145,15 +145,20 @@ angular
                                           amount:editData.amount},
                                           function(){
                                                       $scope.successCall('Expense Payment Saved Successfully');
-                                            
                                           });
-                        else
-                        {
-                              $scope.showExpense();
-                        }      
+
+                       
+                      else 
+                      {       
+                       
+                              $scope.successCall('Expense Payment Not Edited');
+                           
+
+                      }      
 
                         return true;
                       });
+                      
 
 
          }

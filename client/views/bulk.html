@@ -22,6 +22,7 @@
 										<option ng-repeat="y in classList" value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>
 									</div>
 								</select>
+
 								<div class="col-sm-12">
 									<table class="table table-bordered table-striped table-condensed flip-content">
 										<thead flip-content>
@@ -34,6 +35,10 @@
 										</tbody>
 									</table>
 								</div>
+									<div class="col-sm-12">	
+								<button class="btn-circle" ng-click="generate()"></button>
+</div>
+
 							</div>
 						</div>
 					</div>

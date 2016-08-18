@@ -131,5 +131,9 @@
   "Mail": {
     "dataSource": "Study_Monitor_Data",
     "public": true
+  },
+  "Test": {
+    "dataSource": "Study_Monitor_Data",
+    "public": true
   }
 }

@@ -16,7 +16,7 @@
         <input  type="text" class="form-control"   placeholder="Author" maxlength="30" minlength="1"  ng-value="author"      required        ng-model="formData.author" ng-mouseover="tag2=true" ng-mouseleave="tag2=false"><div class="tag2" ng-show="tag2">Author</div><br>
         <textarea rows="4" cols="50" class="form-control" placeholder="Description"  required ng-model="formData.description" ng-mouseover="tag3=true" ng-mouseleave="tag3=false"></textarea><div class="tag3" ng-show="tag3">Description</div><br>
         <input  type="number" step="0.01" class="form-control" placeholder="Price"      ng-value="price" minlength="1" maxlength="4" min="1" max="9999"    required     ng-model="formData.price" ng-mouseover="tag4=true" ng-mouseleave="tag4=false"><div class="tag4" ng-show="tag4">Price</div><br>
-        <input  type="number" class="form-control" placeholder="No.of Books Available" ng-value="available" required ng-model="formData.available" ng-mouseover="tag5=true" ng-mouseleave="tag5=false"><div class="tag5" ng-show="tag5">No.Of Books Available</div><br>
+        <input  type="number" class="form-control" placeholder="No.of Books Available" ng-value="available" required ng-model="formData.available" minlength="1" maxlength="4" min="1" max="9999" ng-mouseover="tag5=true" ng-mouseleave="tag5=false"><div class="tag5" ng-show="tag5">No.Of Books Available</div><br>
         <button type="submit" class="btn btn-success uppercase">Save</button>
         <button type="button" class="btn btn-success uppercase" ng-click=closeThisDialog("Cancel")>Cancel</button>
 
@@ -35,9 +35,9 @@
         <textarea rows="4" cols="50" class="form-control" placeholder="Description"  required ng-model="formData.description" ng-mouseover="tag3=true" ng-mouseleave="tag3=false"></textarea><div class="tag3" ng-show="tag3">Description</div><br>
 
         <input  type="number" step="0.01" class="form-control" placeholder="Price"      ng-value="price"   minlength="1" maxlength="4" min="1" max="9999"   required     ng-model="formData.price" ng-mouseover="tag4=true" ng-mouseleave="tag4=false"><div class="tag4" ng-show="tag4">Price</div><br>
-        <input  type="number" class="form-control" placeholder="No.of Books Available" ng-value="available" required ng-model="formData.available" ng-mouseover="tag5=true" ng-mouseleave="tag5=false"><div class="tag5" ng-show="tag5">No.Of Books Available</div><br>
+        <input  type="number" class="form-control" placeholder="No.of Books Available" ng-value="available" required ng-model="formData.available" minlength="1" maxlength="4" min="1" max="9999" ng-mouseover="tag5=true" ng-mouseleave="tag5=false"><div class="tag5" ng-show="tag5">No.Of Books Available</div><br>
         <button type="submit" class="btn btn-success uppercase">Save</button>
-        <button type="button" class="btn btn-success uppercase" ng-click=closeThisDialog("Cancel")>Cancel</button>
+        <button type="button" class="btn btn-success uppercase">Cancel</button>
 
 
     </form>
@@ -65,6 +65,10 @@
 
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="alert alert-success"  ng-show ="success"   >{{responseAddLibrary}} </div>
+			               <div  class="alert alert-error" ng-show ="error" >{{responseAddLibrary}} </div>
+                </div>
 
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12"style="min-height:50px">
                   <input  type="text"   class="form-control" placeholder="Name" 				 ng-model="search.name"        required><br>
@@ -76,8 +80,7 @@
 
 
               <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12"  style="height:260px;overflow-y:auto;" >
-			               <div class="alert alert-success"  ng-show ="success"   >{{responseAddLibrary}} </div>
-			               <div  class="alert alert-error" ng-show ="error" >{{responseAddLibrary}} </div>
+			               
                      
                 <table class="table table-bordered table-striped table-condensed flip-content">
                   <thead flip-content>
@@ -86,14 +89,14 @@
                     <th><a ng-click="sortType = 'name'; sortReverse = !sortReverse">BookName</a></th>
                     <th><a ng-click="sortType = 'author'; sortReverse = !sortReverse">Author</a></th>
                     <th><a ng-click="sortType = 'description'; sortReverse = !sortReverse">Description</a></th>
-                    <th><a ng-click="sortType = 'price'; sortReverse = !sortReverse">Price</a></th>
+                    <th><a ng-click="sortType = 'price'; sortReverse = !sortReverse">Price (Rs)</a></th>
                     <th><a ng-click="sortType = 'available'; sortReverse = !sortReverse">No.Of Books Available</a></th>
                     <th ng-show="Admin">Option</th>
                   </tr>
                   </thead>
 
                   <tbody>
-                  <tr data-ng-repeat="x in libraryList |filter:search | orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
+                  <tr data-ng-repeat="x in filtered=(libraryList |filter:search) | orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
                     <div data-ng-bind-html="x.id">
                       <td>{{$index+1}}</td>
                       <td>{{x.name}}</td>
@@ -110,8 +113,15 @@
                   </tr>
                   </tbody>
                 </table>
-				  <button ng-disabled="currentPage == 0"               ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
-              <button ng-disabled="currentPage >= libraryList.length/pageSize-1"   ng-click="currentPage=currentPage+1">Next</button></div>
+                
+				      <div class="pull-left">
+              Total Results :{{ libraryList.length}} |  Filtered Results :{{ filtered.length}}
+            </div>
+            <div class="pull-right">
+              <button ng-disabled="currentPage == 0"               ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
+              <button ng-disabled="currentPage >= filtered.length/pageSize-1" ng-click="currentPage=currentPage+1">Next</button>
+
+            </div>
 
             </div>
           </div>

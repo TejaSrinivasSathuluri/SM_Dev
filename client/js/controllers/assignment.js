@@ -122,9 +122,6 @@ angular
         //--------------------------------------------------------
         $scope.editAssignment = function (x) {
           $scope.formData = x;
-          $scope.formData.classId = x.classId;
-          $scope.title = x.title;
-          // $scope.formData.classId = x.classId;
           $scope.fromDate = $filter('date')(new Date(x.fromDate), 'yyyy-MM-dd');
           $scope.toDate = $filter('date')(new Date(x.toDate), 'yyyy-MM-dd');
           

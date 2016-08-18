@@ -1,6 +1,6 @@
 angular
   .module('app')
- .controller('BulkController', function ($scope,Admin,Class,Student,School,$window,$rootScope,$filter,$state) {
+ .controller('BulkController', function (Test,$scope,Admin,Class,Student,School,$window,$rootScope,$filter,$state) {
       
       
       //--------------------------------------------------------
@@ -20,8 +20,43 @@ angular
         // console.clear();
         $scope.date = new Date();
         var url = 'http://studymonitor.net/appimages';
-        
+        $scope.generate = function(){
+        Test.find(function(response){
+              response.forEach(function(post){
+                var p = post.toJSON();
+                Test.deleteById({id:p.id});
+                console.log('deleted Successfully');
+              });
+        });  
+
         $scope.classList = Class.find({filter:{where:{schoolId:$scope.schoolId}}});
+        $scope.slist = School.students({id:$scope.schoolId},function(response){
+          response.forEach(function(students){
+            var student  = students.toJSON();
+            Test.upsert({
+              id : student.id,
+              firstName : student.firstName,
+              lastName : student.lastName,
+              email : student.email,
+              RFID : student.RFID,
+              bloodGroup : student.bloodGroup,
+              gender :student.gender, 
+              dateofBirth: student.dateofBirth,
+              rollNo : student.rollNo,
+              classId : student.classId,
+              contact : student.contact,
+              regId :student.regId,
+              password :'12345'
+            },function(){
+              console.log('Added Successfully');
+            },function(response){
+              console.log(response.data.error.details);
+            })
+
+          });
+
+        });
+        }
 
 
         var data;

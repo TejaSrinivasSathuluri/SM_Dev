@@ -149,9 +149,7 @@ angular.module('app')
       //------------------------------------------------
 
       $scope.editExam = function (x) {
-		    console.log(x.classId);
-        $scope.examName = x.examName;
-		   $scope.formData.classId=x.classId;
+        $scope.formData = x;
 		    $scope.fromDate = $filter('date')(new Date(x.fromDate), 'yyyy-MM-dd');
           $scope.toDate = $filter('date')(new Date(x.toDate), 'yyyy-MM-dd');
 		   ngDialog.openConfirm({template: 'editExam',

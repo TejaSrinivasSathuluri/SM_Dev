@@ -9,6 +9,19 @@
     .baseApiUrl(window.location.origin + '/api/' ); // main API endpoint
 
 
+
+
+
+var test = nga.entity('Tests');
+test.listView().fields([
+  nga.field('id'),
+  nga.field('firstName'),
+  nga.field('lastName'),
+  nga.field('email'),
+  nga.field('RFID'),
+  nga.field('rollNo'),
+
+]);
 // School Corner
   var school = nga.entity('Schools');
     school.listView().fields([
@@ -111,6 +124,7 @@ nga.field('schoolId','reference').label('School')
 
   admin.addEntity(school);
   admin.addEntity(admins);
+  admin.addEntity(test);
   nga.configure(admin);
 
 }]);
