@@ -163,7 +163,7 @@
               </div>
 
                     <div ng-show="isSet(2)">
-                  <!--<div class="col-md-2 col-sm-2 col-lg-2 col-xs-12 mbtm">
+                  <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12 mbtm">
                     <select class="form-control" required  ng-change="setStudents()" ng-model="formData.classId"   >
                       <option value="">Class</option>
                       <option data-ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
@@ -174,15 +174,14 @@
                 </div>
 
                 <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12 mbtm">
-                    <!--<select class="form-control" required ng-change="show()" ng-model="formData.studentId"   >-->
-                   <!-- <select class="form-control" required ng-model="formData.studentId"   >
+                    <select class="form-control" required ng-model="formData.studentId"   >
                       <option value="">Students</option>
                       <option data-ng-repeat="y in studentsList" value="{{y.id}}">{{y.firstName}}-{{y.lastName}}</option>
                     </select > 
                     <br>
                     <button ng-click="show()" class="btn btn-success uppercase mbtm">Show Fee</button>
                     
-                </div>-->
+                </div>
 
                        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"  style="height:260px;overflow-y:auto;"> 
                               <table class="table table-bordered table-striped table-condensed flip-content">
@@ -209,7 +208,7 @@
                               
                                     <td>{{x.amountPaid}}</td>
                                     <td>{{x.feeSetup.amount - x.amountPaid}}</td>
-                                    <td ng-show="x.paid == false" ng-hide="Student"><input type="button"  class="btn btn-default" ng-click="payFee(x)" value="Pay Fee"/></td>
+                                    <td ng-show="x.paid != true"><input type="button"  class="btn btn-default" ng-click="payFee(x)" value="Pay Fee"/></td>
                                     <td ng-show="x.paid == true">Yes</td>
                             
                    

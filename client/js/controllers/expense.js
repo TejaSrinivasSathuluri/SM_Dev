@@ -41,6 +41,9 @@ angular
 
          }
 
+
+         
+
          // ----------------------------------------------------
          //   SUCCESS CALL
          //-----------------------------------------------------
@@ -68,7 +71,7 @@ angular
          {
           ExpensePayment.findOne({filter:{where:{
             expenseType:$scope.formData.expenseType,
-            date:$scope.formData.date,
+            description:$scope.formData.description,
             schoolId:$scope.schoolId
           }}},
           function(){
@@ -94,18 +97,18 @@ angular
 
          }
 
+
+
         // -----------------------------------------------------
         //   DELETE EXPENSE PAYMENT TYPE
         //-----------------------------------------------------
          $scope.deleteExpensePayment = function(x)
          {
-
           var dialog = ngDialog.open({template: 'deleteExpensePayment'});
           dialog.closePromise.then(function (data) {
             if (data.value && data.value != '$document' && data.value != '$closeButton')
 
               ExpensePayment.deleteById({id: x.id},function(){
-               
                 $scope.successCall('Expense Payment Removed Successfully');
               });
 
@@ -113,6 +116,8 @@ angular
           });
 
          }
+
+
 
          // ----------------------------------------------------
          //                         EDIT EXPENSE PAYMENT
@@ -132,17 +137,20 @@ angular
                         editData = data.value;
                         if (data.value && data.value != '$document' && data.value != '$escape' && data.value != '$closeButton')
 
-              ExpensePayment.upsert({
-                id :x.id,
-                expenseType:editData.expenseType,
-                date:editData.date,
-                description:editData.description,
-                amount:editData.amount},
-                function(){
-                            $scope.successCall('Expense Payment Saved Successfully');
-                  
-                });
-                          
+                                        ExpensePayment.upsert({
+                                          id :x.id,
+                                          expenseType:editData.expenseType,
+                                          date:editData.date,
+                                          description:editData.description,
+                                          amount:editData.amount},
+                                          function(){
+                                                      $scope.successCall('Expense Payment Saved Successfully');
+                                            
+                                          });
+                        else
+                        {
+                              $scope.showExpense();
+                        }      
 
                         return true;
                       });

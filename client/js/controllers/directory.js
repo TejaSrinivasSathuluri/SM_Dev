@@ -633,17 +633,19 @@ angular
                         console.log(response.data.error.message);
                       }
                     );
-
-
-
               },
               function (value) {         }
             );
-
-
-
           }
 
+
+          //  var list =[];
+          //  School.students({ id :$scope.schoolId},function(){
+
+          //  }); 
+
+          //   var csv = Papa.unparse(response);
+          //   console.dir(csv);
 
 
 
@@ -764,7 +766,6 @@ angular
           else if (x.type =='Staff')     ngDialog.openConfirm({template: 'showStaff',   scope: $scope});
 
         }
-
 
         //--------------------------------------------------------
         //                 PARENT SUBSCRIPTION

@@ -55,15 +55,40 @@ angular
       );
   })
 
-
-
-
-  .controller('SignUpController', function($scope,$state) {
+  .controller('SignUpController', function($scope,$state,Parent,Student,StudentParent) {
     
-     $scope.register = function() {
-       
-       console.log($scope.user);
 
+    failureCall = function(message)
+    {
+       $scope.error = true;
+       $scope.response = message;
+    }
+
+     $scope.register = function() {
+
+            $scope.parentExists = Parent.login({
+              filter:{
+                where:{
+                  email : $scope.user.email,
+                  password : $scope.user.password
+                }
+              }
+            },function(){
+                          console.log($scope.parentExists);
+                          Student.findById({ id : $scope.user.key},
+                          function(response)
+                          {
+                                StudentParent.create({
+                                    studentId : response.id,
+                                    schoolId  : response.schoolId,
+                                    parentId  : $scope.parentExists.userId 
+                                });            
+                          })   ;
+            },function(){
+
+               failureCall('You Have Not Subscribed Yet.Please Contact Your School Admin');
+            })       
+        console.log($scope.user);
      };
    })
 ;

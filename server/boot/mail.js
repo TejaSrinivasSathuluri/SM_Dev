@@ -8,11 +8,8 @@ module.exports = function(server) {
    
  
         //******** model declarations**********//    
-        var Email = server.models.Mail;
         var School = server.models.School;
         //******** model declarations**********//    
-
-
 
     remotes.after('**', function (ctx, next)  {  
     if (ctx.req.originalUrl.toString().indexOf('/api/Mails') > -1){
@@ -34,7 +31,7 @@ module.exports = function(server) {
              console.log(response.schoolEmail);
              console.log(response.schoolPassword);
              console.log(response.schoolName);
-             console.log(response.schoolCode);
+            
                                                 var mailOptions = {
                                                     from: response.schoolEmail, 
                                                     to: email, 
@@ -49,10 +46,6 @@ module.exports = function(server) {
 
 
          });
-
-       
-        
-
         }
             next();
     });

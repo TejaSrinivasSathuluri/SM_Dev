@@ -34,13 +34,11 @@ angular.module('app')
       }
       // $scope.delete();
 
-
       $scope.monthView = function() {
+
         $scope.monthList =[];
         var getDays = new Date($scope.yearSelected,parseInt($scope.monthSelected)+1,0).getDate();
-        $scope.monthDays = function(){
-          return new Array(getDays);
-        }
+        $scope.monthDays = function(){   return new Array(getDays);    }
         $scope.list = Student.find({filter: {where: {classId: $scope.classSelectedMonth}}}, function (response) {
           var i=0;
           $scope.status=[];
