@@ -1,6 +1,6 @@
 angular
   .module('app')
-  .controller('ExpenseController',function($scope,$rootScope,$state,$window,$filter,ngDialog,ExpenseType,ExpensePayment,Class,Student,School) {
+  .controller('ExpenseController',function($scope,$rootScope,$state,$window,$filter,ngDialog,ExpensePayment,Class,Student,School) {
         $scope.user = $window.localStorage.getItem('user');
         $scope.userData = JSON.parse($scope.user);
         $scope.schoolId = $scope.userData.schoolId;
@@ -45,7 +45,7 @@ angular
          
 
          // ----------------------------------------------------
-         //   SUCCESS CALL
+         //   FAILURE CALL
          //-----------------------------------------------------
          $scope.failureCall = function(message){
            $scope.response = message;

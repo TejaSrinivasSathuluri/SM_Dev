@@ -28,7 +28,42 @@ angular
 			           $scope.responseAddClass = null;
                  $scope.formData=null;
 		       }
+          // ----------------------------------------------------
+         //   SUCCESS CALL
+         //-----------------------------------------------------
+         $scope.successCall = function(message){
+           $scope.response = message;
+           $scope.error = false;
+           $scope.success = true;
+          setTimeout( function()
+          {
+           $scope.response = null;
+           $scope.success = false;
+            $scope.formData = {};
+           // $scope.showExpense();
+          }, 1000 );
 
+         }
+
+
+         
+
+         // ----------------------------------------------------
+         //   FAILURE CALL
+         //-----------------------------------------------------
+         $scope.failureCall = function(message){
+           $scope.response = message;
+           $scope.error = true;
+           $scope.success = false;
+          setTimeout( function()
+          {
+           $scope.response = null;
+           $scope.error = false;
+            $scope.formData = {};
+            //$scope.showExpense();
+          }, 1000 );
+
+         }
 
 
 
@@ -53,7 +88,7 @@ angular
                     $scope.error = true;
                     $scope.success = false;
 
-                    $scope.responseAddClass = 'Class Already Exists';
+                    $scope.failureCall('Class Already Exists');
                   },
                   function () {
                     Class.create({schoolId: $scope.schoolId,className: formData.className,sectionName:formData.sectionName,staffId:formData.staffSelected},
@@ -61,7 +96,7 @@ angular
                         $scope.error = false;
                         $scope.success = true;
 
-                        $scope.responseAddClass = "Class "+ formData.className + "-" + formData.sectionName + " Created Successfully";
+                        $scope.successCall("Class "+ formData.className + "-" + formData.sectionName + " Created Successfully");
                         console.log($scope.responseAddClass);
 
                         setTimeout( function()
@@ -86,7 +121,7 @@ angular
           // --------------------------------------------------------
           $scope.updateClass = function (x) {
             Class.upsert({id: x.id, staffId: x.staff.id}, function () {
-      				$scope.response="Class " + x.className + "-" + x.sectionName +" Updated Successfully With " + x.staff.firstName;
+      				$scope.successCall( "Class " + x.className + "-" + x.sectionName +" Updated Successfully With " + x.staff.firstName +x.staff.lastName);
               setTimeout( function()
               {
                 $state.go($state.current, {}, {reload: true});
@@ -105,7 +140,7 @@ angular
               if (data.value && data.value != '$document' && data.value != '$closeButton')
               {
                 Class.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")});
-                $scope.response="Class Deleted Successfully";
+                $scope.successCall('Class Deleted Successfully');
                 setTimeout( function()
                 {
                   $state.go($state.current, {}, {reload: true});

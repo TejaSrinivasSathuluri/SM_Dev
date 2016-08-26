@@ -34,7 +34,42 @@ angular.module('app')
       //-----------------------------------------------------
       $scope.clearResponse  = function() {  $scope.responseAddBus = null; }
 
+      //------------------------------------------------
+        //              FAILURE CALL
+        //------------------------------------------------
+        failureCall = function(message)
+        {
+                $scope.responseAddBus = message;
+                $scope.error = true;
+                $scope.success=false;
+                setTimeout( function()
+                            {         
+                              $scope.error=false;
+                              $scope.responseAddBus = null;
+                              // $scope.formData = null;
+                              $scope.showBus();
+                            }, 2000 );
+                          
+        }
 
+
+        //------------------------------------------------
+        //              SUCCESS CALL
+        //------------------------------------------------
+        successCall = function(message)
+        {
+                $scope.responseAddBus = message;
+                $scope.error = false;
+                $scope.success=true;
+                setTimeout( function()
+                            {         
+                              $scope.success=false;
+                              $scope.responseAddBus = null;
+                              $scope.formData = null;
+                              $scope.showBus();
+                            }, 1000 );
+                          
+        }
       // ----------------------------------------------------
       //   SUCCESS CALL
       //-----------------------------------------------------
@@ -74,6 +109,7 @@ angular.module('app')
                      },
                      function()
                      {
+                        successCall('Bus Added Successfully');                       
                         $scope.responseAddBus = 'Bus Added Successfully';
                         $scope.successCallBus();
                      },
@@ -87,44 +123,46 @@ angular.module('app')
           );
 
       }
-
+      
+      
       // ----------------------------------------------------
       //                         EDIT BUS
       //-----------------------------------------------------
-      $scope.editBus = function(x)
-      {
-          $scope.editData = x;
-          ngDialog.openConfirm({template: 'editBus',
-            scope: $scope
-          }).then(
-            function(editData) {
-                Bus.prototype$updateAttributes(
-                    {
-                       id         : x.id,
+      
+       $scope.editBus = function (x) {
+		    //$scope.examName = x.examName;
+		   $scope.editData=x;
+		    
+		   ngDialog.openConfirm({template: 'editBus',
+          scope: $scope //Pass the scope object if you need to access in the template
+        }).then(
+          function(editData) {
+            Bus.upsert({id         : x.id,
                        busNo      :editData.busNo,
                        busType    :editData.busType,
-                       busCapacity:editData.busCapacity
-                    },
-                    function()
-                    {
-                        $scope.responseAddBus = 'Bus Details Updated Successfully';
-                        $scope.successCallBus();
-                    },
-                    function(response)
-                    {
-                        if (response.status == 422) $scope.responseAddBus = response.data.error.details.messages.busNo[0];
+                       busCapacity:editData.busCapacity},
+            function () {
+              successCall(' Bus Updated Successfully');
+                // $scope.responseExam = "Exam Record Updated Successfully";
+                setTimeout( function()
+                {
+                  $state.go($state.current, {}, {reload: true});
+                  $scope.$apply();
+                }, 1000 );
+              });
+          },
+          function(value) {
+            failureCall(' Bus Not Edited');
+            // $scope.responseExam = "Exam Record Was Not Edited.Please Fill All Required Fields";
+            setTimeout( function()
+            {
+              $state.go($state.current, {}, {reload: true});
+              $scope.$apply();
+            }, 1000 );
 
-                    }
-                );
-            },
-            function(response) {
-
-
-            }
-          );
-
-      }
-
+          }
+        );
+      } 
 
       // -----------------------------------------------------
       //   DELETE BUS
@@ -137,6 +175,7 @@ angular.module('app')
           if (data.value && data.value != '$document' && data.value != '$closeButton')
 
             Bus.deleteById({id: x.id},function(){
+              failureCall('Bus Removed Successfully');
               $scope.responseAddBus = 'Bus Removed Successfully';
               $scope.successCallBus();
             });

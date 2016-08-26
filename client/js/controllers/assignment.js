@@ -23,7 +23,38 @@ angular
         //--------------------------------------------------------
         $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}}});
 
-       
+        // ----------------------------------------------------
+         //   SUCCESS CALL
+         //-----------------------------------------------------
+         $scope.successCall = function(message){
+           $scope.responseAddAssignment = message;
+           $scope.error = false;
+           $scope.success = true;
+          setTimeout( function()
+          {
+           $scope.responseAddAssignment = null;
+           $scope.success = false;
+            $scope.formData = {};
+            $scope.showAssignments(); 
+          }, 1000 );
+
+         }
+         // ----------------------------------------------------
+         //   failure CALL
+         //-----------------------------------------------------
+         $scope.failureCall = function(message){
+           $scope.responseAddAssignment = message;
+           $scope.error = true;
+           $scope.success = false;
+          setTimeout( function()
+          {
+           $scope.responseAddAssignment = null;
+           $scope.error = false;
+            $scope.formData = {};
+            $scope.showAssignments();
+          }, 1000 );
+
+         }
 
 
         //--------------------------------------------------------
@@ -49,6 +80,7 @@ angular
                   // downloadFile: $scope.downloadFile
                 }, function ()
               {
+               $scope.successCall('Assignment  Record Added Successfully');
                 $scope.responseAddAssignment = "Assignment  Record Added Successfully";
                 setTimeout( function()
                 {
@@ -90,6 +122,8 @@ angular
             if (data.value && data.value != '$document' && data.value != '$closeButton') 
 
                Assignment.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")},function(){
+              
+              $scope.successCall('Assignment  Record Deleted Successfully');  
               $scope.responseAddAssignment = "Assignment Record Deleted Successfully";
               setTimeout( function()
               {
@@ -132,11 +166,12 @@ angular
           }).then(
             function (formData) {
               Assignment.upsert({
-                  id: x.id, title: formData.title, classId: formData.classSelected,
+                  id: x.id, title: formData.title, classId: formData.classId,
                   description: formData.description, toDate: formData.toDate, fromDate: formData.fromDate,
                   uploadFile: formData.uploadFile
                 },
                 function () {
+               $scope.successCall('Assignment  Record Updated Successfully');  
                 $scope.responseAddAssignment = "Assignment Record Updated Successfully";
                 setTimeout( function()
                 {
@@ -146,7 +181,8 @@ angular
               });
           },
           function(value) {
-            $scope.responseAddAssignment = "Assignment Record Was Not Edited.Please Fill All Required Fields";
+            $scope.failureCall('Assignment Record Was Not Edited.') ;  
+            //$scope.responseAddAssignment = "Assignment Record Was Not Edited.Please Fill All Required Fields";
             setTimeout( function()
             {
                     $scope.showAssignments(); 

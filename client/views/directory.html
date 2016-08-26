@@ -435,11 +435,11 @@
       </div>
     </div>
     <div class="col-sm-12">
-      <div class="col-sm-6"><input style="text-transform: lowercase;"  type="email" class="form-control" placeholder="Father Contact"      ng-model="formData.fatherContact"      ng-mouseover="tag32=true" ng-mouseleave="tag32=false"  >
+      <div class="col-sm-6"><input style="text-transform: lowercase;" minlength="10" min="0000000001"  maxlength="10" type="number" class="form-control" placeholder="Father Contact"      ng-model="formData.fatherContact"      ng-mouseover="tag32=true" ng-mouseleave="tag32=false"  >
 
         <div class="tag3" ng-show="tag32">Enter Father Contact  </div><br>
       </div>
-      <div class="col-sm-6"><input style="text-transform: lowercase;"  type="email" class="form-control" placeholder="Mother Contact"      ng-model="formData.motherContact"      ng-mouseover="tag33=true" ng-mouseleave="tag33=false"   >
+      <div class="col-sm-6"><input style="text-transform: lowercase;"  type="number"  minlength="10" min="0000000001"  maxlength="10" class="form-control" placeholder="Mother Contact"      ng-model="formData.motherContact"      ng-mouseover="tag33=true" ng-mouseleave="tag33=false"   >
 
         <div class="tag3" ng-show="tag33">Enter Mother Contact   </div><br>
       </div>
@@ -594,11 +594,11 @@
         </div>
       </div>
       <div class="col-sm-12">
-        <div class="col-sm-6"><input    style="text-transform: lowercase;" type="email" class="form-control" placeholder="Father Conatct"      ng-model="editData.fatherEmail"      ng-mouseover="tag32=true" ng-mouseleave="tag32=false"  >
+        <div class="col-sm-6"><input    style="text-transform: lowercase;" type="number" minlength="10" min="0000000001"  maxlength="10" class="form-control" placeholder="Father Conatct"      ng-model="editData.fatherEmail"      ng-mouseover="tag32=true" ng-mouseleave="tag32=false"  >
 
           <div class="tag3" ng-show="tag32">Enter Father Contact   </div><br><br>
         </div>
-        <div class="col-sm-6"><input  style="text-transform: lowercase;" type="email" class="form-control" placeholder="Mother Contact"      ng-model="editData.motherEmail"      ng-mouseover="tag33=true" ng-mouseleave="tag33=false"   >
+        <div class="col-sm-6"><input  style="text-transform: lowercase;" type="number" minlength="10" min="0000000001"  maxlength="10" class="form-control" placeholder="Mother Contact"      ng-model="editData.motherEmail"      ng-mouseover="tag33=true" ng-mouseleave="tag33=false"   >
 
           <div class="tag3" ng-show="tag33">Enter Mother Contact   </div><br><br>
         </div>

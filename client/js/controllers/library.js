@@ -36,7 +36,7 @@ angular
          
 
          // ----------------------------------------------------
-         //   SUCCESS CALL
+         //   failure CALL
          //-----------------------------------------------------
          $scope.failureCall = function(message){
            $scope.responseAddLibrary = message;
@@ -171,7 +171,7 @@ $scope.clearResponse();
                           });
                       }
                       else{
-                          $scope.successCall('Book Not Edited');
+                          $scope.failureCall('Book Not Edited');
                          
                       }
               }     

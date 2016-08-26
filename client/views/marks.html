@@ -12,40 +12,40 @@
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-success" ng-show="success"> {{responseMarks}}</div>
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-danger" ng-show="error"> {{responseMarks}}</div>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mbtm">
 							<form ng-submit="showMarks()">
-								<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 mbtm">
+								<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 mbtm">
 									<select class="form-control" ng-model="formData.classId" ng-change="setSubjectList()" required>
 										<option value="">Class-Section</option>
 										<option ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
-									</select>
-								</div>
-								<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 mbtm">
+									</select><br>
 									<select class="form-control" ng-model="formData.subjectId" required>
 										<option value="">Subjects</option>
 										<option ng-repeat="x in subjectList" value="{{x.id}}">{{x.subjectName}}</option>
-									</select>
-								</div>
-								<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 mbtm">
+									</select><br>
 									<select class="form-control" ng-model="formData.examId" required>
 										<option value="">Exams</option>
 										<option ng-repeat="x in examList" value="{{x.id}}">{{x.examName}}</option>
-									</select>
+									</select><br>
+									<button type="submit" class="btn btn-success uppercase">Manage Marks</button><br>
 								</div>
+								</form>
+								
 
 
-    								<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 mbtm">
-									<button type="submit" class="btn btn-success uppercase">Manage Marks</button>
-									</div>
+    								
+									
 									<!--<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 mbtm">
 									<button class="btn btn-success uppercase" ng-click="setMaxMarks()">Set Max Marks</button>
 									</div>-->
 																		<!--<div class="mbtm col-lg-2 col-md-2 col-sm-12 col-xs-12">
 							<input type="number" required class="form-control" ng-model="formData.maxMarks"/>		</div>
 								-->
-									<br>
-									<br> </div>
+									<!--<br>
+									<br> </div>-->
 
-							</form>
+							
 							<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12" style="height:260px;overflow-y:auto;">
 								<table class="table table-bordered table-striped table-condensed flip-content">
 									<thead flip-content>
@@ -55,27 +55,28 @@
 											<th><a ng-click="sortType = 'marksObtained'; sortReverse = !sortReverse">Marks</a> </th>
 											<th><a ng-click="sortType = 'Percentage'; sortReverse = !sortReverse">Percentage</a> </th>
                       
-                    </tr>
+                   						</tr>
 									</thead>
 									<tbody>
 										<tr data-ng-repeat="x in list track by $index">
 											<div data-ng-bind-html="x.id">
 												<td>{{x.student.firstName}} {{x.student.lastName}}</td>
 												<td>{{x.student.rollNo}}</td>
+		                						<td><input type="number" ng-model="x.marksObtained" class="form-control" min="0" max="100" minlength="1" maxlength="3"> </td>
+						  						<td>{{x.marksObtained}}/{{x.maxMarks}}  </td>
+												<!--<td><button ng-click ="saveMarks(x)" ng-show="saveMarksFlag" class="btn btn-success uppercase">Save Marks</button></td>-->
+												<td><i class="fa fa-floppy-o" ng-click ="saveMarks(x)" ng-show="saveMarksFlag"></i>
+</td>
 												
-                          <td>
-													<input type="number" ng-model="x.marksObtained" class="form-control" min="0" max="100" minlength="1" maxlength="3"> 
-                          </td>
-						  <td>{{x.marksObtained}}/{{x.maxMarks}}  </td>
 											</div>
 										</tr>
                     
 									
                   
-                  </tbody>
+                  					</tbody>
                   
 								</table>
-								<button ng-click ="saveMarks(x)" ng-show="saveMarksFlag" class="btn btn-success uppercase">Save Marks</button>
+								
 
 								<div class="pull-left"> Total Results: {{examList.length}} </div>
 								<div class="pull-right">
@@ -83,8 +84,8 @@
 									<button ng-disabled="currentPage >= list.length/pageSize-1" ng-click="currentPage=currentPage+1">Next</button>
 								</div>
 							</div>
-							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							</div>
+							<!--<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							</div>-->
 						</div>
 					</div>
 				</div>

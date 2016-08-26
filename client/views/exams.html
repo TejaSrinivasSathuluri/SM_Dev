@@ -24,6 +24,30 @@
     </form>
       </div>
 </script>-->
+
+
+<!--<script type="text/ng-template" id="editExam">
+  <div class="ngdialog-message">
+    <h3>Edit Exam Record</h3>
+    <div class="ngdialog-contents">
+      <form ng-submit="closeThisDialog(formData)">
+         <select ng-model="formData.classId"  ng-value="classId" class="form-control">
+        <option value="">Class </option>
+        <option ng-repeat="y in classList"  value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>
+      </select><br>
+      <input  type="text" class="form-control" placeholder="ExamName" ng-value="examName" ng-model="formData.examName"  required><br>
+      <input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control"  ng-value="fromDate" ng-model="formData.fromDate"  required><br>
+      <input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control"  ng-value="toDate" ng-model="formData.toDate"  required><br>
+        <button type="submit" class="btn btn-success uppercase" ng-click=confirm(formData)>Save</button>
+        <button type="button" class="btn btn-success uppercase" ng-click=closeThisDialog("Cancel")>Cancel</button>
+
+      </form>
+    </div>
+    </div>
+</script>
+-->
+
+
 <script type="text/ng-template" id="editExam">
   <div class="ngdialog-message">
     <h3>Edit Exam Record</h3>
@@ -43,7 +67,6 @@
     </form>
   </div>
 </script>
-
 <script type="text/ng-template" id="addExamSubject">
   <div class="ngdialog-message">
     <h2>Add Exam Subjects</h2>
@@ -93,39 +116,34 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-success" ng-show="success"> {{responseExam}}</div>
                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-danger" ng-show="error"> {{responseExam}}</div>
+            </div>
                         
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-hide="Student">
                         <form ng-submit="addExam()">
-                                        <div class="col-sm-12 col-xs-12 col-lg-2 col-md-4 mbtm">
+                                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 mbtm">
                                           <select ng-model="formData.classId"  required ng-change="setSubjectList()" class="form-control">
                                             <option value="">Class </option>
                                             <option ng-repeat="y in classList"  value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>
-                                          </select>
-                                        </div>
-                                        <div class="col-sm-12 col-xs-12 col-lg-2 col-md-4 mbtm">
-                                          
-                                          <input  type="text" class="form-control" placeholder="ExamName" ng-model="formData.examName"  required>
-                                        </div>
-                                          
-                                        <div class="col-sm-12 col-xs-12 col-lg-2 col-md-4 mbtm">
-                                          <input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control"  ng-model="formData.fromDate"  required>
-                                        </div>
-                                        <div class="col-sm-12 col-xs-12 col-lg-2 col-md-4 mbtm">
-                                        <input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control"  ng-model="formData.toDate"  required>
-                                        </div>
-                                        <div class="col-sm-12 col-xs-12 col-lg-2 col-md-4 mbtm">
-                                        
-                                      <button type="submit"  class="btn btn-success uppercase">Add Exam</button><br><br>
-                                      </div>
-                          </form>
-                          </div>
+                                          </select><br>
+                                          <input  type="text" class="form-control" placeholder="ExamName" ng-model="formData.examName"  required   ng-mouseover="tag1=true" ng-mouseleave="tag1=false"  ><div class="tag1" ng-show="tag1">Enter Exam Name</div><br>
+                                          <input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control"  ng-model="formData.fromDate"  required   ng-mouseover="tag2=true" ng-mouseleave="tag2=false"  ><div class="tag2" ng-show="tag2">Enter Exam From Date</div><br>
+                                          <input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control"  ng-model="formData.toDate"  required     ng-mouseover="tag3=true" ng-mouseleave="tag3=false"  ><div class="tag3" ng-show="tag3">Enter Exam To Date</div><br>
+                                          <button type="submit"  class="btn btn-success uppercase">Add Exam</button><br><br>
+                                        </div>     
+                        </form>
+                         <div class="form-group col-lg-9 col-md-9 col-sm-12 col-xs-12">
+          
+                           <label for="inputEmail3" class="col-sm-3 col-form-label">Search By</label>
+                           <div class="form-group col-sm-3 col"> <input  type="text" class="form-control" placeholder="ExamName" ng-model="search.examName"></div>
+                          <!--<div class="form-group col-sm-3 col"> <input  type="text" class="form-control" placeholder="Grade Point" ng-model="search.gradePoint"></div>           -->
+                        </div>   
                
 
 <!--Exam Table Starts-->
                                                   
-                          <div class="col-sm-12"  style="height:260px;overflow-y:auto;">
+                          <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12"  style="height: 150px; overflow-y: scroll;">
               
-                              <table class="table table-bordered table-striped table-condensed flip-content"><br>
+                              <table class="table table-bordered table-striped table-condensed flip-content">
                                 <thead flip-content>
                                 <tr>
                                   <!--<th>#</th>-->
@@ -138,7 +156,7 @@
                                 </thead>
 
                                 <tbody>
-                                <tr data-ng-repeat="x in examList | filter:search |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
+                                <tr data-ng-repeat="x in filtered=(examList | filter:search) |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
                                   <div data-ng-bind-html="x.id">
 
                                     <td>{{x.examName}}</td>
@@ -157,20 +175,24 @@
                                 </tr>
                                 </tbody>
                               </table>
+                          </div>
+                          <hr\>
                               <div class="pull-left">
-                                Total Results: {{examList.length}}
+                                Total Results: {{examList.length}}|Filtered Results :{{ filtered.length}} 
                               </div>
                               <div class="pull-right">
                                 <button  ng-disabled="currentPage == 0"                        ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
-                                <button  ng-disabled="currentPage >= examList.length/pageSize-1" ng-click="currentPage=currentPage+1">Next</button>
+                                <button  ng-disabled="currentPage >= filtered.length/pageSize-1" ng-click="currentPage=currentPage+1">Next</button>
                               </div>
-                            </div>
+                          </div>
+                          </div>
+                            
 <!--Exam Table Ends-->
               
              
 
 
-            </div>
+            
           </div>
         </div>
       </div>

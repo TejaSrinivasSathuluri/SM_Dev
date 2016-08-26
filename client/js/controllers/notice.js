@@ -39,7 +39,8 @@ angular
               uploadFile:formData.uploadFile},
               function ()
               {
-                $scope.responseNotice = "Notice Added Successfully";
+                $scope.successCall('Notice Added Successfully')
+                //$scope.responseNotice = "Notice Added Successfully";
                 setTimeout( function()
                 {
                   $state.go($state.current, {}, {reload: true});
@@ -66,7 +67,10 @@ angular
       //------------------------------------------------
 
       $scope.noticeList = [];
+      $scope.showNotice  = function(){
       $scope.noticeList = Noticeboard.find({filter: {where: {schoolId: $scope.schoolId}}});
+      }
+      $scope.showNotice();
 
       //------------------------------------------------
       //            DELETE NOTICE BOARD
@@ -77,7 +81,8 @@ angular
         dialog.closePromise.then(function (data) {
           if (data.value && data.value != '$document' && data.value != '$closeButton')
             Noticeboard.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")},function(){
-              $scope.responseNotice = "Notice Deleted Successfully";
+              $scope.successCall('Notice Deleted Successfully');
+              //$scope.responseNotice = "Notice Deleted Successfully";
               setTimeout( function()
               {
                 $state.go($state.current, {}, {reload: true});
@@ -105,7 +110,8 @@ angular
           function(formData) {
             Noticeboard.upsert({id:x.id, title : formData.title,description: formData.description,date1: formData.date1,date2:formData.date2,uploadFile:formData.uploadFile},
               function () {
-                $scope.responseNotice = "Notice Saved Successfully";
+                $scope.successCall('Notice Saved Successfully');
+                //$scope.responseNotice = "Notice Saved Successfully";
                 setTimeout( function()
                 {
                   $state.go($state.current, {}, {reload: true});
@@ -114,7 +120,8 @@ angular
               });
           },
           function(value) {
-            $scope.responseNotice = "Notice Was Not Edited.Please Fill All Required Fields";
+            $scope.failureCall('Notice Was Not Edited');
+            //$scope.responseNotice = "Notice Was Not Edited.Please Fill All Required Fields";
             setTimeout( function()
             {
               $state.go($state.current, {}, {reload: true});
@@ -124,6 +131,42 @@ angular
           }
         );
       }
+      // ----------------------------------------------------
+         //   SUCCESS CALL
+         //-----------------------------------------------------
+         $scope.successCall = function(message){
+           $scope.responseNotice = message;
+           $scope.error = false;
+           $scope.success = true;
+          setTimeout( function()
+          {
+           $scope.responseNotice = null;
+           $scope.success = false;
+            $scope.formData = {};
+            $scope.showNotice();
+          }, 1000 );
+
+         }
+
+
+         
+
+         // ----------------------------------------------------
+         //   failure CALL
+         //-----------------------------------------------------
+         $scope.failureCall = function(message){
+           $scope.responseNotice = message;
+           $scope.error = true;
+           $scope.success = false;
+          setTimeout( function()
+          {
+           $scope.responseNotice = null;
+           $scope.error = false;
+            $scope.formData = {};
+            $scope.showNotice();
+          }, 1000 );
+
+         }
 
         // --------------------------------------------------------
         //                 SORT TABLE TECHNIQUE

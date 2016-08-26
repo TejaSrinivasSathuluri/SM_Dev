@@ -5,42 +5,34 @@ angular.module('app')
   function ($scope, $state, School, Exam,Class,$rootScope, $window,ngDialog,$filter,Subject) 
   {
 
-        //------------------------------------------------
+       //------------------------------------------------
         //            BASIC USER DATA
         //------------------------------------------------
 
-        $scope.userData   = $window.localStorage.getItem('user');
-        $scope.schoolData = $window.localStorage.getItem('school');
-        
-        $scope.user = JSON.parse($scope.userData);
-        $scope.school = JSON.parse($scope.schoolData);
-        
-        $scope.schoolId = $scope.school.id;
-
-        if ($scope.user.type == 'Admin')   { $scope.Admin = true;  }
-        if ($scope.user.type == 'Student') { $scope.Student = true;}
-        if ($scope.user.type == 'Parent')  { $scope.Parent = true; }
-        if ($scope.user.type == 'Staff')   { $scope.Staff = true;  }
-
-
+        $scope.user = $window.localStorage.getItem('user');
+        $scope.userData = JSON.parse($scope.user);
+        $scope.schoolId = $scope.userData.schoolId;
+        if ($scope.userData.type == 'Admin') { $scope.Admin = true;}
+        if ($scope.userData.type == 'Student') { $scope.Student = true;}
+        if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
+        if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
+        $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
          //--------------------------------------------
          //          GET CLASS LIST
          //--------------------------------------------
          $scope.classList = Class.find({filter: {where: {schoolId: $scope.schoolId}}});
 
          //--------------------------------------------
-         //          SHOW EXAM
+         //          SHOW NOTICE
          //--------------------------------------------
       
           $scope.examList =[];
-        
-          $scope.showExamList = function() 
+          $scope.showExamList = function()
           {
-            if($scope.Student)  $scope.examList =  Exam.find({filter: {where: {schoolId: $scope.schoolId,classId: $scope.user.classId},include:'class'}});
-            else  $scope.examList =  Exam.find({filter: {where: {schoolId: $scope.schoolId},include:'class'}});
-          }
+          $scope.examList = Exam.find({filter: {where: {schoolId: $scope.schoolId},include:'class'}});
 
-          $scope.showExamList();
+         }
+         $scope.showExamList();
 
 
 
@@ -48,12 +40,43 @@ angular.module('app')
          //                 CLEAR RESPONSE
          //----------------------------------------------
 
-         $scope.clearResponseExam = function(){ 
-             $scope.responseExam = null;
-             $scope.error = $scope.success = false;
-             $scope.formData = null;
-            }
+         $scope.clearResponseExam = function(){ $scope.responseExam = null;}
 
+
+        //------------------------------------------------
+        //              SUCCESS CALL
+        //------------------------------------------------
+        successCall = function(message)
+        {
+                $scope.responseExam = message;
+                $scope.error = false;
+                $scope.success=true;
+                setTimeout( function()
+                            {         
+                              $scope.success=false;
+                              $scope.responseExam = null;
+                              $scope.formData = null;
+                              $scope.showExamList();
+                            }, 1000 );
+                          
+        }
+        //------------------------------------------------
+        //              FAILURE CALL
+        //------------------------------------------------
+        failureCall = function(message)
+        {
+                $scope.responseExam = message;
+                $scope.error = true;
+                $scope.success=false;
+                setTimeout( function()
+                            {         
+                              $scope.error=false;
+                              $scope.responseExam = null;
+                              // $scope.formData = null;
+                              $scope.showExamList();
+                            }, 2000 );
+                          
+        }
 
 
        //----------------------------------------------
@@ -77,28 +100,25 @@ angular.module('app')
             },
           function(response){
             $scope.responseExam = 'Exam Already Exists For This Class';
-            $scope.error = true;
-            $scope.success = false;
-            setTimeout(function() {
-                $scope.clearResponseExam();
-            }, 1000);
 
           },function(){
 
 
       Exam.create({
-                  fromDate   : fromDate,
-                  toDate     : toDate,
+                  fromDate   : $scope.formData.fromDate,
+                  toDate     : $scope.formData.toDate,
                   examName   : $scope.formData.examName,
                   classId    : $scope.formData.classId,
                   schoolId   : $scope.schoolId,
                   subjectList: $scope.subjectList
-                },
+                },function()
+                                                                        {
+                                                                          successCall(' Exam Record Added Successfully');
+                                                                        },
+                                                                       
                 function ()
                 {
                   $scope.responseExam = "Exam Added Successfully";
-                    $scope.error = false;
-                    $scope.success =true ;
                   setTimeout( function()
                   {
                     $scope.showExamList();
@@ -114,9 +134,7 @@ angular.module('app')
 
           });
 
-               }    
-      
-     
+      }      
        //----------------------------------------------
        //                 DELETE EXAM
        //----------------------------------------------
@@ -126,7 +144,10 @@ angular.module('app')
          dialog.closePromise.then(function (data) {
            if (data.value && data.value != '$document' && data.value != '$closeButton')
            {
-             Exam.deleteById({id: x.id},
+             Exam.deleteById({id: x.id},function()
+                                                                        {
+                                                                          failureCall(' Exam Record Deleted Successfully');
+                                                                        },
                function ()
                {
                  $scope.responseExam = "Exam Deleted Successfully";
@@ -143,13 +164,14 @@ angular.module('app')
            }
          });
 
-        }  
-        //----------------------.; --------------------------
+        } 
+         //----------------------.; --------------------------
       //            EDIT Exam List
       //------------------------------------------------
 
       $scope.editExam = function (x) {
-        $scope.formData = x;
+		    //$scope.examName = x.examName;
+		   $scope.formData=x;
 		    $scope.fromDate = $filter('date')(new Date(x.fromDate), 'yyyy-MM-dd');
           $scope.toDate = $filter('date')(new Date(x.toDate), 'yyyy-MM-dd');
 		   ngDialog.openConfirm({template: 'editExam',
@@ -157,7 +179,8 @@ angular.module('app')
         }).then(
           function(formData) {
             Exam.upsert({id:x.id,classId:formData.classId, examName:formData.examName,fromDate: formData.fromDate,toDate:formData.toDate},
-              function () {
+            function () {
+              successCall(' Exam Record Updated Successfully');
                 $scope.responseExam = "Exam Record Updated Successfully";
                 setTimeout( function()
                 {
@@ -167,6 +190,7 @@ angular.module('app')
               });
           },
           function(value) {
+            failureCall(' Exam Record Was Not Edited.Please Fill All Required Fields');
             $scope.responseExam = "Exam Record Was Not Edited.Please Fill All Required Fields";
             setTimeout( function()
             {
@@ -177,6 +201,10 @@ angular.module('app')
           }
         );
       } 
+
+  
+      
+       
 
 
         //----------------------------------------------

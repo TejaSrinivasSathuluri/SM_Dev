@@ -488,10 +488,8 @@ angular
                 function (value) {
                             $scope.response = 'Student Not Updated.Please Check All The Fields';
                             $scope.error =true ;   
-                            setTimeout( function()
-                            {
-                              $scope.error = false;
-                            }, 1000 );                         
+                              $scope.processSearch('s');
+                          
                 }
               );
             }

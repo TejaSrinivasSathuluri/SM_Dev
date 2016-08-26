@@ -9,6 +9,15 @@
   </div>
 </script>
 <!--Delete Fee Script-->
+<script type="text/ng-template" id="deleteFeePayment">
+  <div class="ngdialog-message">
+    Confirm Delete
+    <div class="ngdialog-buttons">
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog('Yes')">Yes</button>
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog()">No</button>
+    </div>
+  </div>
+</script>
 
 
 
@@ -45,13 +54,13 @@
       <div class="portlet light ">
 
         <div class="portlet-title">
-          <div class="caption caption-md col-sm-2">  <span class="caption-subject uppercase">Fee Payment</span></div>
-          <div class="col-sm-6"></div>
+          <div class="caption caption-md col-sm-3">  <span class="caption-subject uppercase">Fee Payment</span></div>
+          <div class="col-sm-5"></div>
           <div class="col-sm-4">
             <button class="btn btn-default" ng-hide="Student" ng-class="{ active: isSet(1) }" href ng-click="setTab(1)">FEE SETUP</button>
             <button class="btn btn-default" ng-hide="Student" ng-class="{ active: isSet(2) }" href ng-click="setTab(2)">FEE PAYMENT</button>   
           </div>
-
+        </div>
         <div class="portlet-body">
           <div class="row list-separated">
             <div class="row">
@@ -68,7 +77,7 @@
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         
                 <form ng-submit="addFeeType()">
-                  <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12 mbtm">
+                  <div class="col-md-3 col-sm-12 col-lg-3 col-xs-12 mbtm">
                     <select class="form-control" required  ng-model="formData.occurance"   >
                       <option value="">Fee Occurance</option>
                       <option>Monthly</option>
@@ -76,32 +85,22 @@
                       <option>Halfyearly</option>
                       <option>Yearly</option>
                       <option>OnlyOnce</option>
-                    </select > 
-                </div>
-                <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12 mbtm">
+                    </select > <br>
                     <select class="form-control" required  ng-model="formData.classId"   >
                       <option value="">Class</option>
                       <option data-ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
                    
-                    </select > 
-                </div>
-                  <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12 mbtm">
-                    <input  type="text"   class="form-control" placeholder="Fee Type*"  ng-model="formData.feeType" required>
-                    </div>
-
-                     <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12 mbtm">
-                    <input  type="number" min=0 minlength="1" class="form-control" placeholder="Amount"  ng-model="formData.amount" required>
-                    </div>
-                  <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
-                    
-                    <button type="submit" class="btn btn-success uppercase mbtm">Select Months</button>
-                    
+                    </select ><br>
+                    <input  type="text"   class="form-control" placeholder="Fee Type*"  ng-model="formData.feeType" required><br>
+                    <input  type="number" min="1" minlength="1" maxlength="5" max="100000" class="form-control" placeholder="Amount"  ng-model="formData.amount" required><br>
+                     <button type="submit" class="btn btn-success uppercase mbtm">Select Months</button>
                   </div>
+                
                 </form>
 
-              </div>
+              
 
-              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-show="showMonthsFlag">
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" ng-show="showMonthsFlag">
 
                       <form ng-submit ="saveFee()">
                             <input type="checkbox" ng-model="month.January" >Jan</input>  
@@ -118,13 +117,13 @@
                             <input type="checkbox" ng-model="month.December"> Dec </input>
                             <input type="submit"  value="save"> 
                       </form>
-
-              </div>              
+              </div>
+                           
                 
                <!--Form Submit Division-->              
                 
 
-                 <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"  style="height:260px;overflow-y:auto;"> 
+                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"  style="height:260px;overflow-y:auto;"> 
                               <table class="table table-bordered table-striped table-condensed flip-content">
                             <thead flip-content>
                             <tr>
@@ -157,33 +156,35 @@
                           <div>
             </div>
                       </div>
+              
 
                     
                 </div>
               </div>
 
                     <div ng-show="isSet(2)">
-                  <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12 mbtm">
+                      <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 mbtm">
+                      <div class="col-md-3 col-sm-12 col-lg-3 col-xs-12 mbtm">
                     <select class="form-control" required  ng-change="setStudents()" ng-model="formData.classId"   >
                       <option value="">Class</option>
                       <option data-ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
                    
-                    </select > <br>
-                    <button ng-click="addInitialPayment()" class="btn btn-success uppercase mbtm">Generate</button>
-                    
-                </div>
-
-                <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12 mbtm">
+                    </select > <br><br>
                     <select class="form-control" required ng-model="formData.studentId"   >
                       <option value="">Students</option>
                       <option data-ng-repeat="y in studentsList" value="{{y.id}}">{{y.firstName}}-{{y.lastName}}</option>
                     </select > 
                     <br>
+                    <button ng-click="addInitialPayment()" class="btn btn-success uppercase mbtm">Generate</button>
+                    </div>
+                    <div class="col-md-2 col-sm-12 col-lg-2 col-xs-12 mbtm">
+                    
                     <button ng-click="show()" class="btn btn-success uppercase mbtm">Show Fee</button>
                     
-                </div>
+                    </div>
+                
 
-                       <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"  style="height:260px;overflow-y:auto;"> 
+                       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"  style="height:260px;overflow-y:auto;"> 
                               <table class="table table-bordered table-striped table-condensed flip-content">
                             <thead flip-content>
                             <tr>
@@ -194,6 +195,7 @@
                                 <th>AmountPaid</th>
                                 <th>Due</th>
                                 <th ng-hide="Student">Paid</th>
+                                 
                             </tr>
                             </thead>
 
@@ -210,6 +212,7 @@
                                     <td>{{x.feeSetup.amount - x.amountPaid}}</td>
                                     <td ng-show="x.paid != true"><input type="button"  class="btn btn-default" ng-click="payFee(x)" value="Pay Fee"/></td>
                                     <td ng-show="x.paid == true">Yes</td>
+                                    
                             
                    
                               </div>
@@ -229,7 +232,11 @@
   </div>
 </div>
 
-
+</div>
+      </div>
+      </div>
+  </div>
+</div>
 
 
 

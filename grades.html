@@ -1,28 +1,24 @@
 
 <script type="text/ng-template" id="editGrade">
   <div class="ngdialog-message">
-    <h3>Edit Grade</h3>
+    <h3>Edit Grade </h3>
     <form ng-submit=confirm(editData) >
       <div class="col-sm-12">
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
           <input  type="text" class="form-control" maxlength ="15" placeholder="GradeName" ng-model="editData.gradeName"  required>
-              
-                       
+                    
         </div>
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 
-          <input  type="number" class="form-control" placeholder="GradePonit" minlength ="1" maxlength="2"  min="1" max="10" ng-model="editData.gradePoint"  required>
+           <input  type="number" class="form-control" placeholder="GradePoint" minlength ="1" maxlength="2"  min="1" max="10" ng-model="editData.gradePoint"  required>
         </div>
-        
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
           <input  type="number" class="form-control" min="1" max="100" minlength="1" maxlength="3" placeholder="From %" ng-model="editData.percentageRangeFrom"  required>
           <!--<input type="number" class="form-control" placeholder="No Of Persons" min="1" max="100" maxlength="3" ng-model="editData.busCapacity" required><br>-->
         </div>
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-         <input  type="number" class="form-control" max="100"  placeholder="To %" ng-model="editData.percentageRangeTo" min="{{editData.percentageRangeFrom}}" required>
-          
-        </div>
-
+              <input  type="number" class="form-control" max="100" minlength="1" maxlength="3" placeholder="To %" ng-model="editData.percentageRangeTo" min="{{editData.percentageRangeFrom}}" required>
+          </div>
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">  <button type="submit" class="btn btn-success uppercase">Update Grade</button></div>
       </div>
 
@@ -66,17 +62,23 @@
               <form ng-submit="addGrade()" ng-hide='Student'>
               <div class="col-sm-12 col-xs-12 col-lg-3 col-md-3 mbtm">
               <input  type="text" class="form-control" maxlength ="15" placeholder="GradeName" ng-model="formData.gradeName"  required><br>
-              <input  type="number" class="form-control" placeholder="GradePonit" minlength ="1" maxlength="2"  min="1" max="10" ng-model="formData.gradePoint"  required><br>
+              <input  type="number" class="form-control" placeholder="GradePoint" minlength ="1" maxlength="2"  min="1" max="10" ng-model="formData.gradePoint"  required><br>
               <input  type="number" class="form-control" min="1" max="100" minlength="1" maxlength="3" placeholder="From %" ng-model="formData.percentageRangeFrom"  required><br>
-              <input  type="number" class="form-control" max="100"  placeholder="To %" ng-model="formData.percentageRangeTo" min="{{formData.percentageRangeFrom}}" required><br>        
+              <input  type="number" class="form-control" max="100" minlength="1" maxlength="3" placeholder="To %" ng-model="formData.percentageRangeTo" min="{{formData.percentageRangeFrom}}" required><br>        
               <button type="submit"  class="btn btn-success uppercase">Add Grade</button> <br> <br>
               </div> 
               </form>
-           
+              <div class="form-group col-lg-9 col-md-9 col-sm-12 col-xs-12">
+          
+                  <label for="inputEmail3" class="col-sm-3 col-form-label">Search By</label>
+
+            <div class="form-group col-sm-3 col"> <input  type="text" class="form-control" placeholder="GradeName" ng-model="search.gradeName"></div>
+            <div class="form-group col-sm-3 col"> <input  type="text" class="form-control" placeholder="Grade Point" ng-model="search.gradePoint"></div>           
+              </div>  
                
 
 <!--Exam Table Starts-->
-              <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12" style="height: 150px; overflow-y: scroll;">
+              <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12"  style="height: 150px; overflow-y: scroll;">
                                     
                 <table class="table table-bordered table-striped table-condensed flip-content">
                   <thead flip-content>
