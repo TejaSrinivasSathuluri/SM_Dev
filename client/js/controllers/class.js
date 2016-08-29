@@ -121,7 +121,7 @@ angular
           // --------------------------------------------------------
           $scope.updateClass = function (x) {
             Class.upsert({id: x.id, staffId: x.staff.id}, function () {
-      				$scope.successCall( "Class " + x.className + "-" + x.sectionName +" Updated Successfully With " + x.staff.firstName +x.staff.lastName);
+      				$scope.successCall( "Class " + x.className + "-" + x.sectionName +" Updated Successfully With " + x.staff.firstName);
               setTimeout( function()
               {
                 $state.go($state.current, {}, {reload: true});

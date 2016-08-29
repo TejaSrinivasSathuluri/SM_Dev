@@ -17,6 +17,9 @@ angular.module('app')
         if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
         if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
         $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
+          
+        
+
          //--------------------------------------------
          //          GET CLASS LIST
          //--------------------------------------------
@@ -29,7 +32,7 @@ angular.module('app')
           $scope.examList =[];
           $scope.showExamList = function()
           {
-          $scope.examList = Exam.find({filter: {where: {schoolId: $scope.schoolId},include:'class'}});
+          $scope.examList = Exam.find({filter: {where: {schoolId: $scope.schoolId,classId:$scope.userData.classId},include:'class'}});
 
          }
          $scope.showExamList();
@@ -220,5 +223,6 @@ angular.module('app')
 
 
       })
+  
 
 ;
