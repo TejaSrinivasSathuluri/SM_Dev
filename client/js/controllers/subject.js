@@ -187,7 +187,7 @@ angular.module('app')
         //                 SORT TABLE TECHNIQUE
         //--------------------------------------------------------
 
-        $scope.sortType     = 'className';
+        $scope.sortType     = 'subjectName';
         $scope.sortReverse  = false;
         $scope.searchFish   = '';
         $scope.currentPage = 0;

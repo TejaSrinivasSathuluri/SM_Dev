@@ -38,15 +38,15 @@ angular
                             {         
                               $scope.error=false;
                               $scope.responseGrade = null;
-                              // $scope.formData = null;
+                              $scope.formData = null;
                               $scope.showGrades();
-                            }, 2000 );
+                            }, 1000 );
                           
         }
 
 
         //------------------------------------------------
-        //              FAILURE CALL
+        //              SUCCESS  CALL
         //------------------------------------------------
         successCall = function(message)
         {
@@ -97,6 +97,11 @@ angular
                                                                         },function()
                                                                         {
                                                                           successCall('Grade Added Successfully');
+                                                                          setTimeout( function()
+                {
+                  $state.go($state.current, {}, {reload: true});
+                  $scope.$apply();
+                }, 1000 );
                                                                         }
                                                                         );
                                                                                                               
@@ -123,8 +128,7 @@ angular
         // ----------------------------------------------------
       //                         EDIT GRADE
       //-----------------------------------------------------
-      
-       $scope.editGrade = function (x) {
+      $scope.editGrade = function (x) {
 		    //$scope.examName = x.examName;
 		   $scope.editData=x;
 		    
@@ -132,46 +136,35 @@ angular
           scope: $scope //Pass the scope object if you need to access in the template
         }).then(
           function(editData) {
-            // *********GRADE NAME VALIDATION************
-
-              Grade.findOne({ filter:{ where:{ gradeName:editData.gradeName }}},function(){ failureCall('Grade Name Already Exists'); }
-              ,function(){
-                        // *********GRADE POINT VALIDATION************
-                          Grade.findOne({ filter:{ where:{ gradePoint:editData.gradePoint }}},function(){ failureCall('Grade Point Already Exists');}
-                          ,function(){
-                                    
-                                      // *********GRADE PERCENTAGE VALIDATION************
-                                      Grade.findOne({ filter:{ where:{ percentageRangeFrom:editData.percentageRangeFrom }}},function(){ failureCall('Grade Percentage Start Limit Already Exists');}
-                                      ,function(){
-                                                
-                                                  // *********GRADE PERCENTAGE VALIDATION************
-                                                    Grade.findOne({ filter:{ where:{ percentageRangeTo:editData.percentageRangeTo }}},function(){failureCall('Grade Percentage End Limit Already Exists');}
-                                                    ,function(){
-                                                              
-                                                                Grade.upsert({id         : x.id,
-                                                                              gradeName      :editData.gradeName,
-                                                                              gradePoint    :editData.gradePoint,
-                                                                              percentageRangeFrom:editData.percentageRangeFrom,
-                                                                              percentageRangeTo:editData.percentageRangeTo},function()
-                                                                        {
-                                                                          successCall('Grade Updated Successfully');
-                                                                        },
-                                                                        function(value)
-                                                                        {
-                                                                          failureCall('Grade Not Edited');
-                                                                        }
-                                                                        );
-                                                                                                              
-                                                      });      
-                                    
-                                        });      
-                            });
-
+            Grade.upsert({id         : x.id,
+                       gradeName      :editData.gradeName,
+                       gradePoint    :editData.gradePoint,
+                       percentageRangeFrom:editData.percentageRangeFrom,
+                      percentageRangeTo:editData.percentageRangeTo},
+            function () {
+              successCall(' Grade Updated Successfully');
+                // $scope.responseExam = "Exam Record Updated Successfully";
+                setTimeout( function()
+                {
+                  $state.go($state.current, {}, {reload: true});
+                  $scope.$apply();
+                }, 1000 );
               });
+          },
+          function(value) {
+            failureCall(' grade Not Edited');
+            // $scope.responseExam = "Exam Record Was Not Edited.Please Fill All Required Fields";
+            setTimeout( function()
+            {
+              $state.go($state.current, {}, {reload: true});
+              $scope.$apply();
+            }, 1000 );
 
-            
-          });
-       }
+          }
+          );
+      } 
+
+      
        
       //       Grade.upsert({id         : x.id,
       //                  gradeName      :editData.gradeName,

@@ -10,7 +10,7 @@
         <input ng-model="editData.description" class="form-control"  placeholder="Description*" type="text" required/><br>
 
         <input type="date"  max="9999-12-31" max="0001-01-01"  class="form-control"  ng-model="editData.date" ng-value="feeDate" required><br>
-        <input type="number" class="form-control" ng-disabled="false" ng-model="editData.amount" required><br>
+        <input type="number" class="form-control" ng-disabled="false" max="100000" min="1" ng-model="editData.amount" required><br>
 
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">  <button type="submit" class="btn btn-success uppercase">Save Expense Payment</button></div>
       </div>

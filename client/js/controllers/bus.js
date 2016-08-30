@@ -100,7 +100,21 @@ angular.module('app')
       //-----------------------------------------------------
       $scope.addBus = function()
       {
-          Bus.create(
+         Bus.findOne
+          (
+            {
+              filter:{
+                  where:{
+                        schoolId:$scope.schoolId,
+                          busNo      :$scope.formData.busNo
+                       
+                  }
+              }
+            },
+          function(){
+           successCall('Bus Number Already exist'); 
+          },function(){
+              Bus.create(
                      {
                          busNo      :$scope.formData.busNo,
                          busType    :$scope.formData.busType,
@@ -122,6 +136,7 @@ angular.module('app')
                      }
           );
 
+      });
       }
       
       
@@ -137,6 +152,21 @@ angular.module('app')
           scope: $scope //Pass the scope object if you need to access in the template
         }).then(
           function(editData) {
+            Bus.findOne
+          (
+            {
+              filter:{
+                  where:{
+                        busNo      :editData.busNo
+                       
+                   
+                       
+                  }
+              }
+            },
+          function(){
+           successCall('Bus Number Already exist'); 
+          },function(){
             Bus.upsert({id         : x.id,
                        busNo      :editData.busNo,
                        busType    :editData.busType,
@@ -161,8 +191,9 @@ angular.module('app')
             }, 1000 );
 
           }
-        );
-      } 
+          );
+          });
+      }
 
       // -----------------------------------------------------
       //   DELETE BUS

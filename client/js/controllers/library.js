@@ -63,7 +63,7 @@ $scope.clearResponse();
               library.closePromise.then(
                 function(data) { 
          
-         if (data.value != '$document' && data.value != '$closeButton'){
+         if (data.value != '$document' && data.value != '$closeButton'  && data.value != '$escape'){
 
                   
                   formData = data.value;
@@ -156,24 +156,60 @@ $scope.clearResponse();
         (
              function(data) 
              {   
-                    if (data.value != 'Cancel' && data.value != '$document' && data.value != '$closeButton' && data.value != '$escape')
-                    {
+                     if (data.value != '$document' && data.value != '$closeButton'  && data.value != '$escape'){
+
+                  
+                  formData = data.value;
+
+                  Library.findOne({filter:{where:{name: formData.name, author: formData.author}}},function(){
+
+                    // $scope.responseAddLibrary = "";
+                    $scope.successCall('Book & Author Combination Already Exists');
+                    setTimeout( function()
+						{
+                     $scope.error= true;
+                      $scope.success = false;
+                                              $scope.showBooks();
+                        $scope.clearResponse();
+
+						}, 1000 );
+
+                  }, function () {
+                    Library.upsert({
+                      id:x.id, name: formData.name, author: formData.author,
+                      description: formData.description, price: formData.price, available: formData.available
+                    }, function () {
+                      $scope.successCall('Book Updated Succesfully');
+                      $scope.error= false;
+                      $scope.success = true;
+                      setTimeout( function(){ 
+                        $scope.showBooks();
+                        $scope.clearResponse();
+                      }, 1000 );
+                    },function(){$scope.successCall('Book Not Edited');});
+
+                  });
+         }
+                    // if (data.value != 'Cancel' && data.value != '$document' && data.value != '$closeButton' && data.value != '$escape')
+                    // {
                       
-                          formData = data.value;
-                          Library.upsert({id:x.id, name : formData.name,author : formData.author,description: formData.description,price: formData.price,available:formData.available},
-                          function () 
-                          {
-                          $scope.successCall('Book Edited Successfully');
-                          $scope.error= false;$scope.success = true;
-                          setTimeout( function() {$scope.showBooks();$scope.clearResponse();},1000 );
-                          },function(response){
+                    //       formData = data.value;
+                          
+                          
+                    //       Library.upsert({id:x.id, name : formData.name,author : formData.author,description: formData.description,price: formData.price,available:formData.available},
+                    //       function () 
+                    //       {
+                    //       $scope.successCall('Book Edited Successfully');
+                    //       $scope.error= false;$scope.success = true;
+                    //       setTimeout( function() {$scope.showBooks();$scope.clearResponse();},1000 );
+                    //       },function(response){
                             
-                          });
-                      }
-                      else{
-                          $scope.failureCall('Book Not Edited');
+                    //       });
+                    //   }
+                    //   else{
+                    //       $scope.failureCall('Book Not Edited');
                          
-                      }
+                    //   }
               }     
           );
       }

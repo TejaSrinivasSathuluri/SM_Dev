@@ -118,30 +118,31 @@
                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-danger" ng-show="error"> {{responseExam}}</div>
             </div>
                         
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-                        <form ng-submit="addExam()" ng-hide="Student">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-hide="Student">
+                        <form ng-submit="addExam()">
                                         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 mbtm">
                                           <select ng-model="formData.classId"  required ng-change="setSubjectList()" class="form-control">
                                             <option value="">Class </option>
                                             <option ng-repeat="y in classList"  value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>
                                           </select><br>
                                           <input  type="text" class="form-control" placeholder="ExamName" ng-model="formData.examName"  required   ng-mouseover="tag1=true" ng-mouseleave="tag1=false"  ><div class="tag1" ng-show="tag1">Enter Exam Name</div><br>
-                                          <input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control"  ng-model="formData.fromDate"  required   ng-mouseover="tag2=true" ng-mouseleave="tag2=false"  ><div class="tag2" ng-show="tag2">Enter Exam From Date</div><br>
-                                          <input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control"  ng-model="formData.toDate"  required     ng-mouseover="tag3=true" ng-mouseleave="tag3=false"  ><div class="tag3" ng-show="tag3">Enter Exam To Date</div><br>
+                                          <input  type="date"  max="9999-12-31" min="0001-01-01" class="form-control"  ng-model="formData.fromDate"  required   ng-mouseover="tag2=true" ng-mouseleave="tag2=false"  ><div class="tag2" ng-show="tag2">Enter Exam From Date</div><br>
+                                          <input  type="date"  max="9999-12-31" min="{{formData.fromDate}}" class="form-control"  ng-model="formData.toDate"  required     ng-mouseover="tag3=true" ng-mouseleave="tag3=false"  ><div class="tag3" ng-show="tag3">Enter Exam To Date</div><br>
                                           <button type="submit"  class="btn btn-success uppercase">Add Exam</button><br><br>
                                         </div>     
                         </form>
-                         <div class="form-group col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                          <div class="form-group col-lg-9 col-md-9 col-sm-12 col-xs-12">
           
-                           <label for="inputEmail3" class="col-sm-3 col-form-label">Search By</label>
-                           <div class="form-group col-sm-3 col"> <input  type="text" class="form-control" placeholder="ExamName" ng-model="search.examName"></div>
-                          <!--<div class="form-group col-sm-3 col"> <input  type="text" class="form-control" placeholder="Grade Point" ng-model="search.gradePoint"></div>           -->
-                        </div>   
+                  <label for="inputEmail3" class="col-sm-3 col-form-label">Search By</label>
+
+            <div class="form-group col-sm-3 col"> <input  type="text" class="form-control" placeholder="ExamName" ng-model="search.examName"></div>
+            <!--<div class="form-group col-sm-3 col"> <input  type="text" class="form-control" placeholder="Grade Point" ng-model="search.gradePoint"></div>           -->
+              </div>  
                
 
 <!--Exam Table Starts-->
                                                   
-                          <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12"  >
+                          <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12"  style="height:260px;overflow-y:auto;">
               
                               <table class="table table-bordered table-striped table-condensed flip-content">
                                 <thead flip-content>
@@ -175,18 +176,15 @@
                                 </tr>
                                 </tbody>
                               </table>
-                          
                               <div class="pull-left">
-                                Total Results: {{examList.length}}|Filtered Results :{{ filtered.length}} 
+                                Total Results: {{examList.length}}| Filtered Results :{{ filtered.length}}
                               </div>
                               <div class="pull-right">
                                 <button  ng-disabled="currentPage == 0"                        ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
                                 <button  ng-disabled="currentPage >= filtered.length/pageSize-1" ng-click="currentPage=currentPage+1">Next</button>
                               </div>
-                          </div>
-                          </div>
-                          </div>
-                            
+                            </div>
+                            </div>
 <!--Exam Table Ends-->
               
              

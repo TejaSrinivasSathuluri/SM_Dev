@@ -70,6 +70,23 @@ angular
             function(formData) {
               formData.fromDate = $filter('date')(new Date(formData.fromDate), 'yyyy-MM-dd');
               formData.toDate   = $filter('date')(new Date(formData.toDate), 'yyyy-MM-dd');
+              Assignment.findOne
+          (
+            {
+              filter:{
+                  where:{
+                        schoolId:$scope.schoolId,
+                         title       : formData.title,
+                       classId     : formData.classSelected,
+                         description : formData.description,
+                  fromDate    : formData.fromDate,
+                  toDate      : formData.toDate
+                  }
+              }
+            },
+          function(){
+            $scope.failureCall('Assignment  Record Already exist');
+          },function(){
               Assignment.create({
                   schoolId    : $scope.schoolId,
                   title       : formData.title,
@@ -99,6 +116,7 @@ angular
               }
           );
 
+        });
         }
 
         
@@ -165,6 +183,21 @@ angular
             scope: $scope //Pass the scope object if you need to access in the template
           }).then(
             function (formData) {
+              Assignment.findOne
+          (
+            {
+              filter:{
+                  where:{
+                        
+                         title       : formData.title,
+                       classId     : formData.classId
+                         
+                  }
+              }
+            },
+          function(){
+            $scope.failureCall('Assignment  Record Already exist');
+          },function(){
               Assignment.upsert({
                   id: x.id, title: formData.title, classId: formData.classId,
                   description: formData.description, toDate: formData.toDate, fromDate: formData.fromDate,
@@ -191,6 +224,7 @@ angular
 
           }
           );
+        });
         }
       }
        else if ($scope.Student){

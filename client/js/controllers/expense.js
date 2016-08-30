@@ -136,7 +136,17 @@ angular
                       dialog.closePromise.then(function (data) {
                         editData = data.value;
                         if (data.value && data.value != '$document' && data.value != '$escape' && data.value != '$closeButton')
+                                        ExpensePayment.findOne({filter:{where:{
+                                        expenseType:editData.expenseType,
+                                          date:editData.date,
+                                          description:editData.description,
+                                          amount:editData.amount            
+          }}},
+          function(){
+                    $scope.failureCall('Expense Already Exists');
 
+              }, 
+              function () {
                                         ExpensePayment.upsert({
                                           id :x.id,
                                           expenseType:editData.expenseType,
@@ -146,7 +156,8 @@ angular
                                           function(){
                                                       $scope.successCall('Expense Payment Saved Successfully');
                                           });
-
+              });
+                      
                        
                       else 
                       {       

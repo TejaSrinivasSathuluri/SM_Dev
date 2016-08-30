@@ -17,9 +17,6 @@ angular.module('app')
         if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
         if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
         $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
-          
-        
-
          //--------------------------------------------
          //          GET CLASS LIST
          //--------------------------------------------
@@ -32,7 +29,7 @@ angular.module('app')
           $scope.examList =[];
           $scope.showExamList = function()
           {
-          $scope.examList = Exam.find({filter: {where: {schoolId: $scope.schoolId,classId:$scope.userData.classId},include:'class'}});
+          $scope.examList = Exam.find({filter: {where: {schoolId: $scope.schoolId},include:'class'}});
 
          }
          $scope.showExamList();
@@ -101,7 +98,8 @@ angular.module('app')
                   }
               }
             },
-          function(response){
+          function(){
+            successCall(' Exam Record Already Exists');
             $scope.responseExam = 'Exam Already Exists For This Class';
 
           },function(){
@@ -128,8 +126,9 @@ angular.module('app')
                     $scope.clearResponseExam();
                   }, 1000 );
 
-                },function(response){
-                  console.log(response.data.error.message);
+                },function(){
+                 // failureCall('Start Date Must Be Lessthan End Date');
+                 alert('Start Time Should Be Lessthan End Time ');
                 });
       
 
@@ -181,6 +180,22 @@ angular.module('app')
           scope: $scope //Pass the scope object if you need to access in the template
         }).then(
           function(formData) {
+             Exam.findOne
+          (
+            {
+              filter:{
+                  where:{
+                        
+                        examName:formData.examName,
+                        classId:formData.classId
+                  }
+              }
+            },
+          function(){
+            successCall(' Exam Record Already Exists');
+            $scope.responseExam = 'Exam Already Exists For This Class';
+
+          },function(){
             Exam.upsert({id:x.id,classId:formData.classId, examName:formData.examName,fromDate: formData.fromDate,toDate:formData.toDate},
             function () {
               successCall(' Exam Record Updated Successfully');
@@ -203,7 +218,8 @@ angular.module('app')
 
           }
         );
-      } 
+      } );
+      }
 
   
       
@@ -223,6 +239,5 @@ angular.module('app')
 
 
       })
-  
 
 ;
