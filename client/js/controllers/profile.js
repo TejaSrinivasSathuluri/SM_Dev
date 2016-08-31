@@ -1,17 +1,33 @@
 angular.module('app')
 
   .controller('ProfileController', function ($scope,$rootScope,$state,$window,School,Student,Admin,Parent,Staff) {
-        $scope.user = $window.localStorage.getItem('user');
+      
+      
+      
+        $scope.user       = $window.localStorage.getItem('user');
+        $scope.parentData = $window.localStorage.getItem('parent');
+       
         $scope.userData = JSON.parse($scope.user);
+        $scope.parent = JSON.parse($scope.parentData);
+       
         $scope.schoolId = $scope.userData.schoolId;
 
         if ($scope.userData.type == 'Admin'  ) { $scope.Admin   = true;}
         if ($scope.userData.type == 'Student') { $scope.Student = true;}
         if ($scope.userData.type == 'Parent' ) { $scope.Parent  = true;}
         if ($scope.userData.type == 'Staff'  ) { $scope.Staff   = true;}
-          $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
+         $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
 
+          if ($scope.parent){
+          $scope.editData = $scope.parent;
+          $scope.Parent = true;
+          $scope.Student = false;
+
+          }
+          else{
           $scope.editData = $scope.userData;
+
+          }
        $scope.saveProfile = function()
        {
          if ($scope.Student)

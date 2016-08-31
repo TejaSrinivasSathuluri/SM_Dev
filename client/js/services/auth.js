@@ -80,18 +80,37 @@ angular
     login: login
   };
 }])
-  .factory('AuthServiceParent',  ['Parent', '$q', '$rootScope', '$window','School',function(User,  $q,$rootScope,$window,School) {
+  .factory('AuthServiceParent',  ['Parent', '$q', '$rootScope', '$window','School','StudentParent','Student','$state',
+  function(User,  $q,$rootScope,$window,School,StudentParent,Student,$state) {
   function login(email, password) {
     return User
       .login({email: email, password: password})
       .$promise
       .then(function(response) {
-        $rootScope.currentUser = {
+       
+
+       $rootScope.currentUser = {
           id: response.user.id,
           tokenId: response.id,
           user : response.user
         };
-        $window.localStorage.setItem('user',JSON.stringify(response.user));
+
+         StudentParent.find({filter:{
+            where :{
+              parentId: response.user.id
+            },include :['student','school','parent']
+          }},function(response){
+        $window.localStorage.setItem('parent',JSON.stringify(response[0].parent));
+        $window.localStorage.setItem('user',JSON.stringify(response[0].student));
+        $window.localStorage.setItem('school',JSON.stringify(response[0].school));
+                      $state.go('dashboard');
+  
+          });
+
+
+           
+      
+
       });
   }
 

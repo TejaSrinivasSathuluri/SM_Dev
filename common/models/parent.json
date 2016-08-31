@@ -3,8 +3,7 @@
   "base": "User",
   "idInjection": true,
   "options": {
-    "validateUpsert": true,
-    "emailVerificationRequired": true
+    "validateUpsert": true
   },
   "properties": {},
   "validations": [],

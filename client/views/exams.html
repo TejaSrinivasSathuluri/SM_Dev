@@ -52,18 +52,16 @@
   <div class="ngdialog-message">
     <h3>Edit Exam Record</h3>
 
-    <form>
-
+    <form ng-submit=closeThisDialog(formData)>
       <select ng-model="formData.classId"  ng-value="classId" class="form-control">
         <option value="">Class </option>
         <option ng-repeat="y in classList"  value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>
       </select><br>
-      <input  type="text" class="form-control" placeholder="ExamName" ng-value="examName" ng-model="formData.examName"  required><br>
+      <input  type="text" class="form-control" placeholder="ExamName"  ng-model="formData.examName"  required><br>
       <input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control"  ng-value="fromDate" ng-model="formData.fromDate"  required><br>
       <input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control"  ng-value="toDate" ng-model="formData.toDate"  required><br>
-      <button type="submit" class="btn btn-success uppercase" ng-click=confirm(formData)>Save</button>
+      <button type="submit" class="btn btn-success uppercase">Save</button>
       <button type="button" class="btn btn-success uppercase" ng-click=closeThisDialog("Cancel")>Cancel</button>
-
     </form>
   </div>
 </script>
@@ -127,7 +125,7 @@
                                           </select><br>
                                           <input  type="text" class="form-control" placeholder="ExamName" ng-model="formData.examName"  required   ng-mouseover="tag1=true" ng-mouseleave="tag1=false"  ><div class="tag1" ng-show="tag1">Enter Exam Name</div><br>
                                           <input  type="date"  max="9999-12-31" min="0001-01-01" class="form-control"  ng-model="formData.fromDate"  required   ng-mouseover="tag2=true" ng-mouseleave="tag2=false"  ><div class="tag2" ng-show="tag2">Enter Exam From Date</div><br>
-                                          <input  type="date"  max="9999-12-31" min="{{formData.fromDate}}" class="form-control"  ng-model="formData.toDate"  required     ng-mouseover="tag3=true" ng-mouseleave="tag3=false"  ><div class="tag3" ng-show="tag3">Enter Exam To Date</div><br>
+                                          <input  type="date"  max="9999-12-31" min="0001-01-01" class="form-control"  ng-model="formData.toDate"  required     ng-mouseover="tag3=true" ng-mouseleave="tag3=false"  ><div class="tag3" ng-show="tag3">Enter Exam To Date</div><br>
                                           <button type="submit"  class="btn btn-success uppercase">Add Exam</button><br><br>
                                         </div>     
                         </form>

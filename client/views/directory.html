@@ -111,7 +111,7 @@
 
       <div class="col-sm-12">
         <div class="col-sm-6">
-          <input  type="text"   class="form-control"   name="RFID"           placeholder="RFID"          ng-model="editData.RFID"          ng-mouseup="tag50=true" ng-mouseleave="tag50=false"   ><div class="tag50" ng-show="tag50">Enter RFID</div>
+          <input  type="text"   class="form-control"   name="RFID"       required    placeholder="RFID"          ng-model="editData.RFID"          ng-mouseup="tag50=true" ng-mouseleave="tag50=false"   ><div class="tag50" ng-show="tag50"> Enter RFID</div>
         </div>
         <div class="col-sm-6"><select class="form-control"   ng-model="editData.isDisable"  >
           <option value="">Disability</option>
@@ -247,7 +247,7 @@
         <div class="col-sm-6"><input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control" ng-model="formData.dateofJoin"   ng-mouseover="tag8=true" ng-mouseleave="tag8=false"   required> <div class="tag8" ng-show="tag8">Joining Date</div><br></div>
       </div>
       <div class="col-sm-12">
-        <div class="col-sm-6"><input type="text"  class="form-control" placeholder="RFID"  ng-model="formData.RFID"  ng-mouseover="tag9=true" ng-mouseleave="tag9=false"	 ><div class="tag9" ng-show="tag9">RFID</div><br></div>
+        <div class="col-sm-6"><input type="text"  class="form-control" placeholder="RFID"  required ng-model="formData.RFID"  ng-mouseover="tag9=true" ng-mouseleave="tag9=false"	 ><div class="tag9" ng-show="tag9">RFID</div><br></div>
         <div class="col-sm-6"><input type = "file" file-model = "formData.studentImg" class="form-control" placeholder="Image" ng-mouseover="tag10=true" ng-mouseleave="tag10=false"	 ><div class="tag10" ng-show="tag10">Profile Image</div><br></div>
       </div>
 
@@ -375,7 +375,7 @@
         <div class="col-sm-6"><input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control" ng-model="formData.dateofJoin"   ng-mouseover="tag8=true" ng-mouseleave="tag8=false"   required> <div class="tag8" ng-show="tag8">Joining Date</div><br></div>
       </div>
       <div class="col-sm-12">
-        <div class="col-sm-6"><input type="text"  class="form-control" placeholder="RFID"  ng-model="formData.RFID"  ng-mouseover="tag9=true" ng-mouseleave="tag9=false"	 ><div class="tag9" ng-show="tag9">RFID</div><br></div>
+        <div class="col-sm-6"><input type="text" required class="form-control" placeholder="RFID"  ng-model="formData.RFID"  ng-mouseover="tag9=true" ng-mouseleave="tag9=false"	 ><div class="tag9" ng-show="tag9">RFID</div><br></div>
         <div class="col-sm-6"><input type = "file" file-model = "formData.image" class="form-control" placeholder="Image" ng-mouseover="tag10=true" ng-mouseleave="tag10=false"	 ><div class="tag10" ng-show="tag10">Profile Image</div><br></div>
       </div>
       <div class="col-sm-12">
@@ -523,7 +523,7 @@
 
       <div class="col-sm-12">
         <div class="col-sm-6">
-          <input type="text"  class="form-control" placeholder="RFID"  ng-model="editData.RFID"  ng-mouseover="tag110=true" ng-mouseleave="tag110=false"   ><div class="tag110" ng-show="tag110">Enter RFID</div><br>
+          <input type="text"  class="form-control" placeholder="RFID"  ng-model="editData.RFID"  ng-mouseover="tag110=true" ng-mouseleave="tag110=false" required  ><div class="tag110" ng-show="tag110">Enter RFID</div><br>
         </div>
 
         <div class="col-sm-6">
@@ -594,11 +594,11 @@
         </div>
       </div>
       <div class="col-sm-12">
-        <div class="col-sm-6"><input    style="text-transform: lowercase;" type="number" minlength="10" min="0000000001"  maxlength="10" class="form-control" placeholder="Father Conatct"      ng-model="editData.fatherEmail"      ng-mouseover="tag32=true" ng-mouseleave="tag32=false"  >
+        <div class="col-sm-6"><input  type="number" minlength="10" min="1"  maxlength="10" class="form-control" placeholder="Father Conatct"      ng-model="editData.fatherContact"      ng-mouseover="tag32=true" ng-mouseleave="tag32=false"  >
 
           <div class="tag3" ng-show="tag32">Enter Father Contact   </div><br><br>
         </div>
-        <div class="col-sm-6"><input  style="text-transform: lowercase;" type="number" minlength="10" min="0000000001"  maxlength="10" class="form-control" placeholder="Mother Contact"      ng-model="editData.motherEmail"      ng-mouseover="tag33=true" ng-mouseleave="tag33=false"   >
+        <div class="col-sm-6"><input  type="number" minlength="10" min="1"  maxlength="10" class="form-control" placeholder="Mother Contact"      ng-model="editData.motherContact"      ng-mouseover="tag33=true" ng-mouseleave="tag33=false"   >
 
           <div class="tag3" ng-show="tag33">Enter Mother Contact   </div><br><br>
         </div>

@@ -79,9 +79,9 @@ angular.module('app')
         }
 
 
-       //----------------------------------------------
+       //------------------------------------------------------------------------
        //                 ADD EXAM
-       //----------------------------------------------
+       //-------------------------------------------------------------------------
        $scope.addExam = function () 
        {
      
@@ -105,122 +105,125 @@ angular.module('app')
           },function(){
 
 
-      Exam.create({
-                  fromDate   : $scope.formData.fromDate,
-                  toDate     : $scope.formData.toDate,
-                  examName   : $scope.formData.examName,
-                  classId    : $scope.formData.classId,
-                  schoolId   : $scope.schoolId,
-                  subjectList: $scope.subjectList
-                },function()
-                                                                        {
-                                                                          successCall(' Exam Record Added Successfully');
-                                                                        },
-                                                                       
-                function ()
-                {
-                  $scope.responseExam = "Exam Added Successfully";
-                  setTimeout( function()
-                  {
-                    $scope.showExamList();
-                    $scope.clearResponseExam();
-                  }, 1000 );
+                        if ($scope.formData.toDate - $scope.formData.fromDate >= 0)
+                        {
 
-                },function(){
-                 // failureCall('Start Date Must Be Lessthan End Date');
-                 alert('Start Time Should Be Lessthan End Time ');
-                });
+                          // Exam Create Process Starts
+                            Exam.create(
+                                {
+                                    fromDate   : $scope.formData.fromDate,
+                                    toDate     : $scope.formData.toDate,
+                                    examName   : $scope.formData.examName,
+                                    classId    : $scope.formData.classId,
+                                    schoolId   : $scope.schoolId,
+                                    subjectList: $scope.subjectList
+                              },function()          {    successCall(' Exam Record Added Successfully'); },
+                                function ()
+                          {
+                            $scope.responseExam = "Exam Added Successfully";
+                            setTimeout( function()
+                            {
+                              $scope.showExamList();
+                              $scope.clearResponseExam();
+                            }, 1000 );
+
+                          });
+                          // Exam Create Process Ends
+
+
+
+
+
+                        }
+                        else 
+                        {
+                          failureCall('Exam To Date Should Be Greater Than From Date');
+                        }
       
-
-             
-
           });
 
       }      
+
+
+
        //----------------------------------------------
        //                 DELETE EXAM
        //----------------------------------------------
-       $scope.deleteExam = function (x) {
-
+       $scope.deleteExam = function (x) 
+       {
          var dialog = ngDialog.open({template: 'deleteExam'});
-         dialog.closePromise.then(function (data) {
+         dialog.closePromise.then(function (data) 
+         {
            if (data.value && data.value != '$document' && data.value != '$closeButton')
            {
-             Exam.deleteById({id: x.id},function()
-                                                                        {
-                                                                          failureCall(' Exam Record Deleted Successfully');
-                                                                        },
-               function ()
-               {
-                 $scope.responseExam = "Exam Deleted Successfully";
-                 setTimeout( function()
-                 {
-                   $scope.showExamList();
-                   $scope.clearResponseExam();
-                 }, 1000 );
-
-               },function(response){
+             Exam.deleteById({id: x.id}, function() { failureCall(' Exam Record Deleted Successfully');},
+               function(response){
                  console.log(response.data.error.message);
                });
              return true;
            }
          });
-
         } 
-         //----------------------.; --------------------------
+      
+      
+    
+      //------------------------------------------------
       //            EDIT Exam List
       //------------------------------------------------
 
-      $scope.editExam = function (x) {
-		    //$scope.examName = x.examName;
-		   $scope.formData=x;
-		    $scope.fromDate = $filter('date')(new Date(x.fromDate), 'yyyy-MM-dd');
-          $scope.toDate = $filter('date')(new Date(x.toDate), 'yyyy-MM-dd');
-		   ngDialog.openConfirm({template: 'editExam',
-          scope: $scope //Pass the scope object if you need to access in the template
-        }).then(
-          function(formData) {
-             Exam.findOne
-          (
-            {
-              filter:{
-                  where:{
-                        
-                        examName:formData.examName,
-                        classId:formData.classId
+      $scope.editExam = function (x) 
+      {
+		    		   $scope.formData=x;
+		    		   $scope.formData.classId =x.classId;
+               
+		           $scope.fromDate = $filter('date')(new Date(x.fromDate), 'yyyy-MM-dd');
+               $scope.toDate = $filter('date')(new Date(x.toDate), 'yyyy-MM-dd');
+               var dialog = ngDialog.open({template: 'editExam',scope: $scope});
+               dialog.closePromise.then(function (data) 
+               {
+                if (data.value && data.value != '$document' && data.value != '$closeButton' && data.value != '$escape')
+                  {
+                          formData = data.value;
+                          console.log(data.value);
+
+                          if (x.examName == formData.examName  && x.classId == formData.classId){
+
+                                              Exam.upsert({id:x.id,classId:formData.classId, examName:formData.examName,fromDate: formData.fromDate,toDate:formData.toDate},
+                                                                          function () 
+                                                                          {
+                                                                                successCall('Exam Record Updated Successfully');
+                                                                          });
+
+                                            
+                          } 
+
+                          else{
+                                   
+                                    Exam.findOne({ filter:{ where : { examName : formData.examName,classId:formData.classId}}},
+                                                              function(){
+                                                                
+                                                                                failureCall('Exam Record Already Exists');
+                                                                        },
+                                                              function(){
+
+                                                                                if ($scope.formData.toDate - $scope.formData.fromDate >= 0){
+                                                                                      Exam.upsert({id:x.id,classId:formData.classId, examName:formData.examName,fromDate: formData.fromDate,toDate:formData.toDate},
+                                                                                      function () {
+                                                                                            successCall('Exam Record Updated Successfully');
+                                                                
+                                                                                      });
+                                                                                  }
+                                                                        });
+                          }
+                         
                   }
-              }
-            },
-          function(){
-            successCall(' Exam Record Already Exists');
-            $scope.responseExam = 'Exam Already Exists For This Class';
-
-          },function(){
-            Exam.upsert({id:x.id,classId:formData.classId, examName:formData.examName,fromDate: formData.fromDate,toDate:formData.toDate},
-            function () {
-              successCall(' Exam Record Updated Successfully');
-                $scope.responseExam = "Exam Record Updated Successfully";
-                setTimeout( function()
-                {
-                  $state.go($state.current, {}, {reload: true});
-                  $scope.$apply();
-                }, 1000 );
               });
-          },
-          function(value) {
-            failureCall(' Exam Record Was Not Edited.Please Fill All Required Fields');
-            $scope.responseExam = "Exam Record Was Not Edited.Please Fill All Required Fields";
-            setTimeout( function()
-            {
-              $state.go($state.current, {}, {reload: true});
-              $scope.$apply();
-            }, 1000 );
 
-          }
-        );
-      } );
       }
 
+
+ 
+         
   
       
        

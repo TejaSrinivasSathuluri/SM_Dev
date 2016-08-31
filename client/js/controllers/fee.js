@@ -70,7 +70,7 @@ controller('FeeController',function($scope,$rootScope,$state,$window,$filter,ngD
                 //   SET STUDENT LIST
                 //-----------------------------------------------------
                   $scope.setStudents = function(){
-                    
+                    console.log($scope.formData.classId);
                       $scope.studentsList = Student.find({filter:{where:{ classId :$scope.formData.classId}}});
                   }
 
@@ -125,8 +125,9 @@ controller('FeeController',function($scope,$rootScope,$state,$window,$filter,ngD
                 //   SHOW STUDENT FEE
                 //-----------------------------------------------------
                 $scope.show = function(){
-                $scope.list = FeePayment.find({filter:{
-                  where:{ studentId : $scope.formData.studentId },include :[{ relation :'student' },{ relation : 'feeSetup' } ] } });
+                 
+                    $scope.list = FeePayment.find({filter:{
+                    where:{ studentId : $scope.formData.studentId },include :[{ relation :'student' },{ relation : 'feeSetup' } ] } });
                  }
                  
                  

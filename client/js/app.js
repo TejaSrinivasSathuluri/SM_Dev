@@ -68,10 +68,12 @@ angular
               $window.localStorage.clear();
               $state.go('login');
             }
+            
       }
       else
       {
             $rootScope.currentUser = $window.localStorage.getItem('user');
+            console.log('User Logged In');
             var user = JSON.parse($rootScope.currentUser);
             if (user.type == 'Student'){
             $timeout(function () 

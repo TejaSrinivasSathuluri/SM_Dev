@@ -148,6 +148,8 @@ $scope.clearResponse();
         });
 
       }
+
+      
       $scope.editLibrary = function (x) {
 		   
 		    $scope.formData = x;

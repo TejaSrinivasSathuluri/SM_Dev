@@ -6,13 +6,7 @@ angular
 
       if (!$window.localStorage.getItem('user'))
         {
-         console.log('Not Logged In');
-        for (var prop in $rootScope) {
-             if (prop.substring(0,1) !== '$') {
-              delete $rootScope[prop];
-       }   
-          }
-      
+        for (var prop in $rootScope)        if (prop.substring(0,1) !== '$')        delete $rootScope[prop];
       }
       else{
 

@@ -39,7 +39,6 @@ angular
       {
         AuthServiceParent.login($scope.user.email, $scope.user.password)
           .then(function () {
-            $state.go('dashboard');
           },function(){
 			  $scope.invalidLogin = true;
 		  });
@@ -65,30 +64,40 @@ angular
     }
 
      $scope.register = function() {
+        console.log($scope.user.email);
+        console.log($scope.user.password);
 
-            $scope.parentExists = Parent.login({
-              filter:{
-                where:{
-                  email : $scope.user.email,
-                  password : $scope.user.password
-                }
-              }
+            $scope.parentExists = Parent.login({  email : $scope.user.email,password : $scope.user.password
             },function(){
                           console.log($scope.parentExists);
                           Student.findById({ id : $scope.user.key},
                           function(response)
                           {
-                                StudentParent.create({
-                                    studentId : response.id,
-                                    schoolId  : response.schoolId,
-                                    parentId  : $scope.parentExists.userId 
-                                });            
+                           
+                                StudentParent.findOne({filter:{ where:{    
+                                  studentId : response.id,
+                                  parentId  : $scope.parentExists.userId 
+                                   }}},function(){
+                                                   failureCall('You Have Already Subscribed To This Student.Please Contact Your School Admin For Any Issues');    
+                                                                 
+                                   },function(){
+                                                 StudentParent.create({
+                                                          studentId : response.id,
+                                                          schoolId  : response.schoolId,
+                                                          parentId  : $scope.parentExists.userId 
+                                                      },function(){
+                                                              console.log('Parent Student Relation Created');  
+                                                      },function(response){
+                                                              console.log(response.data.error.message);
+                                                      }); 
+                                   }); 
+                           
+                                     
                           })   ;
-            },function(){
-
+            },function(response){
+                 console.log(response);
                failureCall('You Have Not Subscribed Yet.Please Contact Your School Admin');
             })       
-        console.log($scope.user);
      };
    })
 ;

@@ -248,7 +248,8 @@ angular
                     formData.dateofJoin  = new Date(date2.setDate(formData.dateofBirth.getDate()+1));
 
                     $scope.image =  url + '/' + schoolCode + '/' +formData.classId+ '/' + formData.rollNo + '.png';
-
+                    console.log(formData.fatherContact);
+                    console.log(formData.motherContact);
 
                     $scope.newStudent = Student.create({
                       schoolId        : $scope.schoolId,
@@ -360,6 +361,8 @@ angular
 
                   if ($scope.classId == editData.classId && $scope.rollNo == editData.rollNo){
 
+console.log(editData.fatherContact);
+console.log(editData.motherContact);
                     Student.prototype$updateAttributes({id: x.id}, {
                         firstName            : editData.firstName,
                         password             : editData.password,
@@ -403,9 +406,12 @@ angular
                         $scope.error = true;
                         setTimeout( function()
                         {
+                          $state.go($state.current, {}, {reload: true});
+                          $state.reload
                         }, 1000 );
                       },
                       function (response) {
+                        
                         alert('Student Is Not Saved.Please Check The Fields');
                         $scope.error =true ;
                         console.log(response.data.error.message);

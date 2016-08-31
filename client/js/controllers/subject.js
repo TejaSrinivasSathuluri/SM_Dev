@@ -169,7 +169,11 @@ angular.module('app')
           }
         }
         else if ($scope.Student){
-          $scope.subjectList = Subject.find({filter: {where:{classId:$scope.userData.classId},include: ['staff', 'class']}});
+
+          $scope.subjectList = Subject.find({filter: {where:{classId:$scope.userData.classId,schoolId:$scope.schoolId},include: ['staff', 'class']}});
+           
+         
+         
           Class.findOne({
             filter:{
               where:{

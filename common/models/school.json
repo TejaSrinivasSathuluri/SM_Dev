@@ -37,6 +37,11 @@
       "type": "hasMany",
       "model": "FeeSetup",
       "foreignKey": ""
+    },
+    "studentParents": {
+      "type": "hasMany",
+      "model": "StudentParent",
+      "foreignKey": ""
     }
   },
   "acls": [

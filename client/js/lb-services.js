@@ -6225,6 +6225,33 @@ module.factory(
           method: "PUT"
         },
 
+        // INTERNAL. Use School.studentParents.findById() instead.
+        "prototype$__findById__studentParents": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Schools/:id/studentParents/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use School.studentParents.destroyById() instead.
+        "prototype$__destroyById__studentParents": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Schools/:id/studentParents/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use School.studentParents.updateById() instead.
+        "prototype$__updateById__studentParents": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Schools/:id/studentParents/:fk",
+          method: "PUT"
+        },
+
         // INTERNAL. Use School.feeSetups.findById() instead.
         "prototype$__findById__feeSetups": {
           params: {
@@ -6349,6 +6376,31 @@ module.factory(
         // INTERNAL. Use School.libraries.count() instead.
         "prototype$__count__libraries": {
           url: urlBase + "/Schools/:id/libraries/count",
+          method: "GET"
+        },
+
+        // INTERNAL. Use School.studentParents() instead.
+        "prototype$__get__studentParents": {
+          isArray: true,
+          url: urlBase + "/Schools/:id/studentParents",
+          method: "GET"
+        },
+
+        // INTERNAL. Use School.studentParents.create() instead.
+        "prototype$__create__studentParents": {
+          url: urlBase + "/Schools/:id/studentParents",
+          method: "POST"
+        },
+
+        // INTERNAL. Use School.studentParents.destroyAll() instead.
+        "prototype$__delete__studentParents": {
+          url: urlBase + "/Schools/:id/studentParents",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use School.studentParents.count() instead.
+        "prototype$__count__studentParents": {
+          url: urlBase + "/Schools/:id/studentParents/count",
           method: "GET"
         },
 
@@ -8427,6 +8479,307 @@ module.factory(
         R.libraries.updateById = function() {
           var TargetResource = $injector.get("Library");
           var action = TargetResource["::updateById::School::libraries"];
+          return action.apply(R, arguments);
+        };
+    /**
+     * @ngdoc object
+     * @name lbServices.School.studentParents
+     * @header lbServices.School.studentParents
+     * @object
+     * @description
+     *
+     * The object `School.studentParents` groups methods
+     * manipulating `StudentParent` instances related to `School`.
+     *
+     * Call {@link lbServices.School#studentParents School.studentParents()}
+     * to query all related instances.
+     */
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School#studentParents
+         * @methodOf lbServices.School
+         *
+         * @description
+         *
+         * Queries studentParents of School.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `StudentParent` object.)
+         * </em>
+         */
+        R.studentParents = function() {
+          var TargetResource = $injector.get("StudentParent");
+          var action = TargetResource["::get::School::studentParents"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School.studentParents#count
+         * @methodOf lbServices.School.studentParents
+         *
+         * @description
+         *
+         * Counts studentParents of School.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        R.studentParents.count = function() {
+          var TargetResource = $injector.get("StudentParent");
+          var action = TargetResource["::count::School::studentParents"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School.studentParents#create
+         * @methodOf lbServices.School.studentParents
+         *
+         * @description
+         *
+         * Creates a new instance in studentParents of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `StudentParent` object.)
+         * </em>
+         */
+        R.studentParents.create = function() {
+          var TargetResource = $injector.get("StudentParent");
+          var action = TargetResource["::create::School::studentParents"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School.studentParents#createMany
+         * @methodOf lbServices.School.studentParents
+         *
+         * @description
+         *
+         * Creates a new instance in studentParents of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `StudentParent` object.)
+         * </em>
+         */
+        R.studentParents.createMany = function() {
+          var TargetResource = $injector.get("StudentParent");
+          var action = TargetResource["::createMany::School::studentParents"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School.studentParents#destroyAll
+         * @methodOf lbServices.School.studentParents
+         *
+         * @description
+         *
+         * Deletes all studentParents of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.studentParents.destroyAll = function() {
+          var TargetResource = $injector.get("StudentParent");
+          var action = TargetResource["::delete::School::studentParents"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School.studentParents#destroyById
+         * @methodOf lbServices.School.studentParents
+         *
+         * @description
+         *
+         * Delete a related item by id for studentParents.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for studentParents
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.studentParents.destroyById = function() {
+          var TargetResource = $injector.get("StudentParent");
+          var action = TargetResource["::destroyById::School::studentParents"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School.studentParents#findById
+         * @methodOf lbServices.School.studentParents
+         *
+         * @description
+         *
+         * Find a related item by id for studentParents.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for studentParents
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `StudentParent` object.)
+         * </em>
+         */
+        R.studentParents.findById = function() {
+          var TargetResource = $injector.get("StudentParent");
+          var action = TargetResource["::findById::School::studentParents"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School.studentParents#updateById
+         * @methodOf lbServices.School.studentParents
+         *
+         * @description
+         *
+         * Update a related item by id for studentParents.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for studentParents
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `StudentParent` object.)
+         * </em>
+         */
+        R.studentParents.updateById = function() {
+          var TargetResource = $injector.get("StudentParent");
+          var action = TargetResource["::updateById::School::studentParents"];
           return action.apply(R, arguments);
         };
     /**
@@ -20165,6 +20518,65 @@ module.factory(
         // INTERNAL. Use Parent.studentParents.count() instead.
         "::count::Parent::studentParents": {
           url: urlBase + "/Parents/:id/studentParents/count",
+          method: "GET"
+        },
+
+        // INTERNAL. Use School.studentParents.findById() instead.
+        "::findById::School::studentParents": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Schools/:id/studentParents/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use School.studentParents.destroyById() instead.
+        "::destroyById::School::studentParents": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Schools/:id/studentParents/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use School.studentParents.updateById() instead.
+        "::updateById::School::studentParents": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Schools/:id/studentParents/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use School.studentParents() instead.
+        "::get::School::studentParents": {
+          isArray: true,
+          url: urlBase + "/Schools/:id/studentParents",
+          method: "GET"
+        },
+
+        // INTERNAL. Use School.studentParents.create() instead.
+        "::create::School::studentParents": {
+          url: urlBase + "/Schools/:id/studentParents",
+          method: "POST"
+        },
+
+        // INTERNAL. Use School.studentParents.createMany() instead.
+        "::createMany::School::studentParents": {
+          isArray: true,
+          url: urlBase + "/Schools/:id/studentParents",
+          method: "POST"
+        },
+
+        // INTERNAL. Use School.studentParents.destroyAll() instead.
+        "::delete::School::studentParents": {
+          url: urlBase + "/Schools/:id/studentParents",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use School.studentParents.count() instead.
+        "::count::School::studentParents": {
+          url: urlBase + "/Schools/:id/studentParents/count",
           method: "GET"
         },
 
