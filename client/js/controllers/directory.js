@@ -104,6 +104,7 @@ angular
         //                  PROCESS SEARCH FORM
         // --------------------------------------------------------
         $scope.processSearch = function (searchUser) {
+         $scope.error = false;
           $scope.searchList = [];
 
                   if      (searchUser   == 't') {
@@ -360,9 +361,7 @@ angular
                 function (editData) {
 
                   if ($scope.classId == editData.classId && $scope.rollNo == editData.rollNo){
-
-console.log(editData.fatherContact);
-console.log(editData.motherContact);
+ 
                     Student.prototype$updateAttributes({id: x.id}, {
                         firstName            : editData.firstName,
                         password             : editData.password,
@@ -395,8 +394,8 @@ console.log(editData.motherContact);
                         nationalIdType       : editData.nationalIdType,
                         subCaste             : editData.subCaste,
                         contact              : editData.contact,
-                        fatherContact          : editData.fatherContact,
-                        motherContact          : editData.motherContact,
+                        fatherContact        : editData.fatherContact,
+                        motherContact        : editData.motherContact,
                         fatherName           : editData.fatherName,
                         motherName           : editData.motherName
 
@@ -556,15 +555,29 @@ console.log(editData.motherContact);
 
                     },
                     function () {
-                      $state.go($state.current, {}, {reload: true});
+                       $scope.response = 'Staff Updated Successfully';
+                            $scope.error =true ;   
+                      setTimeout(function() {
+                      $scope.processSearch('t'); 
+                        
+                      }, 1000);                                
                     },
                     function (response) {
                       console.log(response.data.error.message);
                     });
                 },
                 function (value) {
-                  $scope.studentList = [];
-                  $scope.studentList = Student.find({filter: {where: {schoolId: $scope.schoolId}, include: 'class'}});
+
+                          $scope.response = 'Staff Not Updated';
+                            $scope.error =true ;   
+                      setTimeout(function() {
+                      $scope.processSearch('t'); 
+                        
+                      }, 1000);        
+                
+                  
+                  // $scope.studentList = [];
+                  // $scope.studentList = Student.find({filter: {where: {schoolId: $scope.schoolId}, include: 'class'}});
 
                 }
               );
@@ -736,7 +749,12 @@ console.log(editData.motherContact);
                 }
                 else if (x.type == "Staff") {
                   Staff.delete({id: x.id}, function () {
-                    $state.go($state.current, {}, {reload: true});
+                     $scope.response = 'Staff Deleted Successfully';
+                            $scope.error =true ;   
+                      setTimeout(function() {
+                      $scope.processSearch('t'); 
+                        
+                      }, 1000);   
                   });
                 }
               }
@@ -784,6 +802,8 @@ console.log(editData.motherContact);
                 Parent.create({
                   email :parentEmail,password :"parent"
                 },function(){
+                    message = "Please subscribe to you child " + x.firstName + ' ' + x.lastName + " @ www.studymonitor.in/#/signup using the following Key : " + x.id ;
+                  
                   sendSubscriptionEmail(parentEmail,x);
 
                 },function(){
@@ -802,8 +822,7 @@ console.log(editData.motherContact);
         //--------------------------------------------------------
 
 
-          sendSubscriptionEmail = function(email,x){
-            message = "Please subscribe to you child " + x.firstName + ' ' + x.lastName + " @ www.studymonitor.in using the following Key : " + x.id ;
+          sendSubscriptionEmail = function(email,x,message) {
             subject = 'Student Subscription From ' + $scope.school.schoolName;
                   Mail.find({
                     filter:{

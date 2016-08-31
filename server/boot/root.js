@@ -11,8 +11,24 @@
            var Staff = server.models.Staff;
           //  var Staff = server.models.Staff;
 
-  //  var list = Admin.find();
-  //  console.log(list);
+  //  Student.find(function(err,data){
+  //     data.forEach(function(record){
+        
+  //       Student.findOne({"where":{ "email":record.email
+          
+  //       }},function(err,data1){
+  //         console.log(data1.email);
+  //              Student.upsert({
+  //                "id" : data1.id,
+  //                "email" : data1.email.toLowerCase()
+  //              },function(err,data){
+  //                if (err) console.log(err);
+  //              })  
+  //       });
+
+  //     })
+     
+  //  });
   //  for (var i=0;i<list.length-1;i++){
                  
   //              console.log(list[i].email);               

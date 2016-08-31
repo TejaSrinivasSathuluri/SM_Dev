@@ -144,75 +144,52 @@ angular.module('app')
       //                         EDIT BUS
       //-----------------------------------------------------
       
-       $scope.editBus = function (x) {
-		    //$scope.examName = x.examName;
-		   $scope.editData=x;
-		    
-		   ngDialog.openConfirm({template: 'editBus',
-          scope: $scope //Pass the scope object if you need to access in the template
-        }).then(
-          function(editData) {
-            Bus.findOne
-          (
-            {
-              filter:{
-                  where:{
-                        busNo      :editData.busNo
-                       
-                   
-                       
-                  }
-              }
-            },
-          function(){
-           successCall('Bus Number Already exist'); 
-          },function(){
-            Bus.upsert({id         : x.id,
-                       busNo      :editData.busNo,
-                       busType    :editData.busType,
-                       busCapacity:editData.busCapacity},
-            function () {
-              successCall(' Bus Updated Successfully');
-                // $scope.responseExam = "Exam Record Updated Successfully";
-                setTimeout( function()
-                {
-                  $state.go($state.current, {}, {reload: true});
-                  $scope.$apply();
-                }, 1000 );
+       $scope.editBus = function (x) 
+       {
+		  
+                      $scope.editData=x;
+                      ngDialog.openConfirm({template: 'editBus',scope: $scope }).then(
+                                    function(editData) {
+                                                         Bus.upsert({id         : x.id,
+                                                                    busNo      :editData.busNo,
+                                                                    busType    :editData.busType,
+                                                                    busCapacity:editData.busCapacity},
+                                                             function () {
+                                                                        successCall(' Bus Updated Successfully');
+                                                          
+                                                                 },function(response){
+                                                                        failureCall('Bus Number Alread Exists');
+                                                                 });
+                                    },
+                                    function(value) {
+                                                  failureCall(' Bus Not Edited');
+                                                  setTimeout( function()
+                                                  {
+                                                    $state.go($state.current, {}, {reload: true});
+                                                    $scope.$apply();
+                                                  }, 1000 );
+
+                                    });
+        }
+
+        // -----------------------------------------------------
+        //   DELETE BUS
+        //-----------------------------------------------------
+        $scope.deleteBus = function(x)
+        {
+
+          var dialog = ngDialog.open({template: 'deleteBus'});
+          dialog.closePromise.then(function (data) {
+            if (data.value && data.value != '$document' && data.value != '$closeButton')
+
+              Bus.deleteById({id: x.id},function(){
+                failureCall('Bus Removed Successfully');
+                $scope.responseAddBus = 'Bus Removed Successfully';
+                $scope.successCallBus();
               });
-          },
-          function(value) {
-            failureCall(' Bus Not Edited');
-            // $scope.responseExam = "Exam Record Was Not Edited.Please Fill All Required Fields";
-            setTimeout( function()
-            {
-              $state.go($state.current, {}, {reload: true});
-              $scope.$apply();
-            }, 1000 );
 
-          }
-          );
+            return true;
           });
-      }
-
-      // -----------------------------------------------------
-      //   DELETE BUS
-      //-----------------------------------------------------
-      $scope.deleteBus = function(x)
-      {
-
-        var dialog = ngDialog.open({template: 'deleteBus'});
-        dialog.closePromise.then(function (data) {
-          if (data.value && data.value != '$document' && data.value != '$closeButton')
-
-            Bus.deleteById({id: x.id},function(){
-              failureCall('Bus Removed Successfully');
-              $scope.responseAddBus = 'Bus Removed Successfully';
-              $scope.successCallBus();
-            });
-
-          return true;
-        });
 
 
 
