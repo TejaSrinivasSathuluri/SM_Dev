@@ -64,39 +64,27 @@ $scope.clearResponse();
                 function(data) { 
          
          if (data.value != '$document' && data.value != '$closeButton'  && data.value != '$escape'){
-
-                  
                   formData = data.value;
+                  Library.findOne({filter:{where:{schoolId: $scope.schoolId, name: formData.name, author: formData.author}}},
+                  function()
+                  {
+                         $scope.successCall('Book & Author Combination Already Exists');
+                  }, 
+                  function () {
+                                    Library.create({
+                                          schoolId: $scope.schoolId, name: formData.name, author: formData.author,
+                                          description: formData.description, price: formData.price, available: formData.available
+                                    }, 
+                                    function () {
+                                          $scope.successCall('Book Added Succesfully');
+                                    
+                                    },
+                                    function(response)
+                                    { console.log(response.data.error.message);
+                                      });
 
-                  Library.findOne({filter:{where:{schoolId: $scope.schoolId, name: formData.name, author: formData.author}}},function(){
-
-                    // $scope.responseAddLibrary = "";
-                    $scope.successCall('Book & Author Combination Already Exists');
-                    setTimeout( function()
-						{
-                     $scope.error= true;
-                      $scope.success = false;
-                                              $scope.showBooks();
-                        $scope.clearResponse();
-
-						}, 1000 );
-
-                  }, function () {
-                    Library.create({
-                      schoolId: $scope.schoolId, name: formData.name, author: formData.author,
-                      description: formData.description, price: formData.price, available: formData.available
-                    }, function () {
-                      $scope.successCall('Book Added Succesfully');
-                      $scope.error= false;
-                      $scope.success = true;
-                      setTimeout( function(){ 
-                        $scope.showBooks();
-                        $scope.clearResponse();
-                      }, 1000 );
-                    },function(response){ console.log(response.data.error.message);});
-
-                  });
-         }
+                                });
+                    }
                   
 
                 });
@@ -104,117 +92,107 @@ $scope.clearResponse();
 
 	}
   
-  $scope.clearResponse = function(){
-                      $scope.responseAddLibrary= null;
-                       $scope.error= false;
-                      $scope.success = false;
-                      $scope.formData = null;
-    
-  }
-  
+      $scope.clearResponse = function(){
+                          $scope.responseAddLibrary= null;
+                          $scope.error= false;
+                          $scope.success = false;
+                          $scope.formData = null;
+        
+      }
+      
       $scope.libraryList = [];
   
-  $scope.showBooks  = function(){
-      $scope.libraryList = Library.find({filter: {where: {schoolId: $scope.schoolId}}});
-
-  }
-  $scope.showBooks();
+      $scope.showBooks  = function()
+      {
+        $scope.libraryList = Library.find({filter: {where: {schoolId: $scope.schoolId}}});
+      }
+      $scope.showBooks();
   
 
-      $scope.deleteLibrary = function (x) {
+      $scope.deleteLibrary = function (x) 
+      {
          var dialog = ngDialog.open({template: 'deleteLibrary'});
-
-        dialog.closePromise.then(function (data) {
-
+         dialog.closePromise.then(function (data) {
           if (data.value && data.value != '$document' && data.value != '$closeButton') {
-            Library.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")},function(){
-
+            Library.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")},function()
+            {
 				   $scope.successCall('Book Deleted Successfully');
-          $scope.error= false;
-                      $scope.success = true;
-				   setTimeout( function()
-						{
-                     
-                        $scope.showBooks();
-                        $scope.clearResponse();
-
-						}, 1000 );
-			});
-
-
-
-          }
+      			});
+           }
           return true;
-        });
-
+          });
       }
 
       
+
+      // -------------------------------------------------------------------------------------
+      // ADD LIBRARY
+      // --------------------------------------------------------------------------------------
+
       $scope.editLibrary = function (x) {
 		   
-		    $scope.formData = x;
+		    // var y = x;
+		    $scope.formData = {};
+		    $scope.formData.name= x.name;
+		    $scope.formData.author= x.author;
+		    $scope.formData.description= x.description;
+		    $scope.formData.price= x.price;
+		    $scope.formData.available= x.available;
 		   var library = ngDialog.open({template: 'editLibrary',scope: $scope });
         library.closePromise.then
         (
              function(data) 
              {   
-                     if (data.value != '$document' && data.value != '$closeButton'  && data.value != '$escape'){
+                     if (data.value != '$document' && data.value != '$closeButton'  && data.value != '$escape' && data.value != 'Cancel'){
+                                  
+                                  formData = data.value;
+                                  if (x.author == formData.author && x.name == formData.name)
+                                  { 
+                                            
+                                              Library.upsert({
+                                                id:x.id, name: formData.name, author: formData.author,
+                                                description: formData.description, price: formData.price, available: formData.available
+                                              }, function () {
+                                                      console.log('Updating Book Not Author And Name');
+                                                      $scope.successCall('Book Updated Succesfully');
+                                              },function(){
+                                                      $scope.failureCall('Book Not Edited');
+                                              });
+ 
+                                  }
+                                  else
+                                  {
+                                            Library.findOne({filter:{where:{name: formData.name, author: formData.author}}},
+                                            function()
+                                            {
+                                                         console.log('Book and Author Combination Already Exists');
+                                                         $scope.successCall('Book & Author Combination Already Exists');
+                                            }, 
+                                            function () {
+                                                        console.log('Adding A Book With Author And Name Changed');
+                                                        Library.upsert({
+                                                          id:x.id, name: formData.name, author: formData.author,
+                                                          description: formData.description, price: formData.price, available: formData.available
+                                                        }, function () {
+                                                          console.log('Updating Author Or Book Name');
+                                                          $scope.successCall('Book Updated Succesfully');
+                                                        },function(){});
 
-                  
-                  formData = data.value;
+                                            });
 
-                  Library.findOne({filter:{where:{name: formData.name, author: formData.author}}},function(){
 
-                    // $scope.responseAddLibrary = "";
-                    $scope.successCall('Book & Author Combination Already Exists');
-                    setTimeout( function()
-						{
-                     $scope.error= true;
-                      $scope.success = false;
-                                              $scope.showBooks();
-                        $scope.clearResponse();
 
-						}, 1000 );
+                                  }
+                     }
+                     else{
+                                  
+                          $scope.successCall('Book Not Edited');
+                     }
+      
+              });
 
-                  }, function () {
-                    Library.upsert({
-                      id:x.id, name: formData.name, author: formData.author,
-                      description: formData.description, price: formData.price, available: formData.available
-                    }, function () {
-                      $scope.successCall('Book Updated Succesfully');
-                      $scope.error= false;
-                      $scope.success = true;
-                      setTimeout( function(){ 
-                        $scope.showBooks();
-                        $scope.clearResponse();
-                      }, 1000 );
-                    },function(){$scope.successCall('Book Not Edited');});
-
-                  });
-         }
-                    // if (data.value != 'Cancel' && data.value != '$document' && data.value != '$closeButton' && data.value != '$escape')
-                    // {
-                      
-                    //       formData = data.value;
-                          
-                          
-                    //       Library.upsert({id:x.id, name : formData.name,author : formData.author,description: formData.description,price: formData.price,available:formData.available},
-                    //       function () 
-                    //       {
-                    //       $scope.successCall('Book Edited Successfully');
-                    //       $scope.error= false;$scope.success = true;
-                    //       setTimeout( function() {$scope.showBooks();$scope.clearResponse();},1000 );
-                    //       },function(response){
-                            
-                    //       });
-                    //   }
-                    //   else{
-                    //       $scope.failureCall('Book Not Edited');
-                         
-                    //   }
-              }     
-          );
       }
+      // ----------------------------ADD LIBRARY ENDS---------------------------------
 
         $scope.sortType     = 'className';
         $scope.sortReverse  = false;

@@ -184,7 +184,7 @@ angular.module('app')
                 if (data.value && data.value != '$document' && data.value != '$closeButton' && data.value != '$escape')
                   {
                           formData = data.value;
-                          console.log(data.value);
+                          console.log(x.examName + "-" + formData.examName);
 
                           if (x.examName == formData.examName  && x.classId == formData.classId){
 
