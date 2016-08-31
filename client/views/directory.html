@@ -63,7 +63,7 @@
       <div class="col-sm-12"><div class="col-sm-4"></div><div class="col-sm-4"><h4><b>Staff Information</b></h4></div><div class="col-sm-4"></div></div><br><br>
       <div class="col-sm-12">
         <div class="col-sm-6">
-          <input  type="text"   class="form-control"   name="First Name"     placeholder="First Name*"    ng-model="editData.firstName"     ng-mouseup="tag42=true" ng-mouseleave="tag42=false"    required><div class="tag42" ng-show="tag42">Enter First Name</div><br>
+          <input  type="text"   class="form-control"  style="text-transform: capitalize;" name="First Name"     placeholder="First Name*"    ng-model="editData.firstName"     ng-mouseup="tag42=true" ng-mouseleave="tag42=false"    required><div class="tag42" ng-show="tag42">Enter First Name</div><br>
         </div>
         <div class="col-sm-6">
           <input  type="text"     class="form-control"     name="Last Name"  placeholder="Last Name*"      ng-model="editData.lastName"     ng-mouseup="tag43=true"  ng-mouseleave="tag43=false"     required><div class="tag43" ng-show="tag43">Enter Last Name</div>
@@ -216,7 +216,7 @@
         <div class="col-sm-4"></div>
       </div>
       <div class="col-sm-12">
-        <div class="col-sm-6"><input  type="text" class="form-control" placeholder="First Name*"  ng-model="formData.firstName" ng-mouseover="tag1=true" ng-mouseleave="tag1=false"   required><div class="tag1" ng-show="tag1">Enter First Name</div><br></div>
+        <div class="col-sm-6"><input style="text-transform: capitalize;" type="text" class="form-control" placeholder="First Name*"  ng-model="formData.firstName" ng-mouseover="tag1=true" ng-mouseleave="tag1=false"   required><div class="tag1" ng-show="tag1">Enter First Name</div><br></div>
         <div class="col-sm-6"><input  type="text" class="form-control" placeholder="Last Name*"   ng-model="formData.lastName"   ng-mouseover="tag2=true" ng-mouseleave="tag2=false"   required ><div class="tag2" ng-show="tag2">Enter Last  Name</div><br></div>
       </div>
       <div class="col-sm-12">
@@ -603,10 +603,10 @@
           <div class="tag3" ng-show="tag33">Enter Mother Contact   </div><br><br>
         </div>
       </div>
-
+      <div class="col-sm-12">
       <button type="submit" class="btn btn-success uppercase" ng-click=confirm(editData)>Save</button>
       <button type="button" class="btn btn-success uppercase pull-right" ng-click=closeThisDialog("Cancel")>Cancel</button>
-
+      </div>
     </form>
   </div>
 </script>
@@ -846,8 +846,8 @@
                                                                 <th><a ng-click="sortType = 'firstName'; sortReverse = !sortReverse">Name         </a></th>
                                                                 <th><a ng-click="sortType = 'type'; sortReverse = !sortReverse">     Type         </a></th>
                                                                 <th><a ng-click="sortType = 'email'; sortReverse = !sortReverse">    Email        </a></th>
-                                                                <th><a ng-click="sortType = 'rollNo'; sortReverse = !sortReverse">   Roll No      </a></th>
-                                                                <th><a ng-click="sortType = 'className'; sortReverse = !sortReverse">Class/Section</a></th>
+                                                                <th ng-hide="Staff"><a ng-click="sortType = 'rollNo'; sortReverse = !sortReverse">   Roll No      </a></th>
+                                                                <th ng-hide="Staff"><a ng-click="sortType = 'className'; sortReverse = !sortReverse">Class/Section</a></th>
                                                                 <th><a ng-click="sortType = 'contact'; sortReverse = !sortReverse">  Contact      </a></th>
                                                                 <th ng-show="Admin">Action</th>
                                                                 <th ng-show="Admin">Subscription</th>
@@ -861,8 +861,8 @@
                                                                   <td>{{x.type}}                                   </td>
                                                                   <td style="width:25%">{{x.email}}                                  </td>
 
-                                                                  <td style="width:15%">{{x.rollNo  }}                                 </td>
-                                                                  <td>{{x.class.className}}-{{x.class.sectionName}}</td>
+                                                                  <td style="width:15%" ng-hide="Staff">{{x.rollNo  }}                                 </td>
+                                                                  <td ng-hide="Staff">{{x.class.className}}-{{x.class.sectionName}}</td>
                                                                   <td style="width:20%">{{x.contact}}                                </td>
                                                                   <td ng-show="Admin" style="width: 10%">
                                                                                   <i class="fa fa-pencil-square-o" ng-click="editUser(x)"></i>

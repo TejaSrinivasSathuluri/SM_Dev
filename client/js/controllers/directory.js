@@ -104,6 +104,7 @@ angular
         //                  PROCESS SEARCH FORM
         // --------------------------------------------------------
         $scope.processSearch = function (searchUser) {
+         console.log(searchUser); 
          $scope.error = false;
           $scope.searchList = [];
 
@@ -207,7 +208,9 @@ angular
               $scope.checkRoll = Student.findOne({filter:{where:{classId :$scope.editData.classId,rollNo:$scope.editData.rollNo}}},
                 function(){
                   $scope.RollnoExists =true;
+                  console.log('Roll No Exists')
                 },function(){
+                  console.log('Roll No Doesnt Exists')
                   $scope.RollnoExists =false;
                 });
             }
@@ -352,16 +355,18 @@ angular
               var date2 = new Date(d);
               $scope.editData.dateofJoin = new Date(date2.setDate(d.getDate()));
               $scope.editData.dateofJoin = new Date($scope.editData.dateofJoin);
-
+                     console.log('Editing Student Details'); 
+              
 
               ngDialog.openConfirm({
                 template: 'editStudent',
                 scope: $scope
               }).then(
                 function (editData) {
-
+                   
                   if ($scope.classId == editData.classId && $scope.rollNo == editData.rollNo){
  
+                     console.log('Updating Student Details'); 
                     Student.prototype$updateAttributes({id: x.id}, {
                         firstName            : editData.firstName,
                         password             : editData.password,
@@ -406,7 +411,6 @@ angular
                         setTimeout( function()
                         {
                           $state.go($state.current, {}, {reload: true});
-                          $state.reload
                         }, 1000 );
                       },
                       function (response) {
@@ -490,11 +494,17 @@ angular
 
 
                 },
-                function (value) {
-                            $scope.response = 'Student Not Updated.Please Check All The Fields';
-                            $scope.error =true ;   
-                              $scope.processSearch('s');
-                          
+                function (value) 
+                {
+                            // $scope.response = 'Student Not Updated.Please Check All The Fields';
+                            // $scope.error =true ;   
+                              $state.go($state.current, {}, {reload: true});
+                  
+                            // $scope.response = 'Student Not Updated.Please Check All The Fields';
+                            // $scope.error =true ;   
+                            // $scope.editData = null;
+                            // $scope.processSearch('s'); 
+                            // console.log('Mansoor');
                 }
               );
             }
@@ -556,11 +566,11 @@ angular
                     },
                     function () {
                        $scope.response = 'Staff Updated Successfully';
-                            $scope.error =true ;   
-                      setTimeout(function() {
-                      $scope.processSearch('t'); 
-                        
-                      }, 1000);                                
+                       $scope.error =true ;   
+                       setTimeout(function() {
+                          //  $scope.processSearch('t'); 
+                          
+                        }, 1000);                                
                     },
                     function (response) {
                       console.log(response.data.error.message);
@@ -638,13 +648,12 @@ angular
 
                       },
                       function () {
-                        setTimeout( function()
-                        {
-                          formData.response = 'Staff Added Successfully';
-
-                          $state.go($state.current, {}, {reload: true});
-                          $scope.$apply();
-                        }, 1000 );
+                        $scope.response = 'Staff Added Successfully';
+                       $scope.error =true ;   
+                       setTimeout(function() {
+                            $state.go($state.current, {}, {reload: true});
+                           $scope.processSearch('t'); 
+                       }, 1000); 
                       },
                       function (response) {
                         console.log(response.data.error.message);
@@ -655,19 +664,6 @@ angular
             );
           }
 
-
-          //  var list =[];
-          //  School.students({ id :$scope.schoolId},function(){
-
-          //  }); 
-
-          //   var csv = Papa.unparse(response);
-          //   console.dir(csv);
-
-
-
-
-
           //--------------------------------------------------------
           //                 DELETE STUDENT/PARENT/STAFF STARTS
           //--------------------------------------------------------
@@ -675,20 +671,17 @@ angular
           $scope.deleteUser = function (x) {
             var dialog = ngDialog.open({template: 'deleteUser'});
             dialog.closePromise.then(function (data) {
-              console.log(data.value);
+            
               if (data.value && data.value != '$document' && data.value != '$closeButton'&& data.value != '$escape') {
 							   if (x.type == "Student")    {
 										Student.delete({id: x.id}, function ()
                     {
-                                           $scope.error = true;
-                      
                        $scope.response = 'Student Deleted Successfully';
-                        setTimeout(function() {
-                          $scope.response = null;
-                          $scope.error = false;
-                          $scope.processSearch();
-                          
-                        }, 1000);                                           
+                       $scope.error =true ;   
+                       setTimeout(function() {
+                            $state.go($state.current, {}, {reload: true});
+                           $scope.processSearch('s'); 
+                       }, 1000);                                             
                               // $scope.resultStudentParent = StudentParent.find({
                               //   filter: {
                               //     where: {
@@ -752,6 +745,7 @@ angular
                      $scope.response = 'Staff Deleted Successfully';
                             $scope.error =true ;   
                       setTimeout(function() {
+                            $state.go($state.current, {}, {reload: true});
                       $scope.processSearch('t'); 
                         
                       }, 1000);   
@@ -773,10 +767,7 @@ angular
 
         }
 
-
-$scope.chkUser = function(x){
-console.log(x);
-}
+ 
         //--------------------------------------------------------
         //                 SHOW USER
         //--------------------------------------------------------
