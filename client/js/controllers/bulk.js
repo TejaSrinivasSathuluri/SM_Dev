@@ -17,52 +17,22 @@ angular
         var schoolCode = $scope.school.code;
  
         
-        // console.clear();
-        $scope.date = new Date();
-        var url = 'http://studymonitor.net/appimages';
-        $scope.generate = function(){
-        Test.find(function(response){
-              response.forEach(function(post){
-                var p = post.toJSON();
-                Test.deleteById({id:p.id});
-                console.log('deleted Successfully');
-              });
-        });  
 
         $scope.classList = Class.find({filter:{where:{schoolId:$scope.schoolId}}});
-        $scope.slist = School.students({id:$scope.schoolId},function(response){
-          response.forEach(function(students){
-            var student  = students.toJSON();
-            Test.upsert({
-              id : student.id,
-              firstName : student.firstName,
-              lastName : student.lastName,
-              email : student.email,
-              RFID : student.RFID,
-              bloodGroup : student.bloodGroup,
-              gender :student.gender, 
-              dateofBirth: student.dateofBirth,
-              rollNo : student.rollNo,
-              classId : student.classId,
-              contact : student.contact,
-              regId :student.regId,
-              password :'12345'
-            },function(){
-              console.log('Added Successfully');
-            },function(response){
-              console.log(response.data.error.details);
-            })
 
-          });
 
-        });
-        }
 
+       
+    
 
         var data;
         var count =0;
         $scope.uploadFile= function(){
-
+                   
+				  
+				  
+				  
+		
             // *****Function Starts
               Papa.parse($scope.myFile, {
                   header: true,
@@ -83,7 +53,7 @@ angular
                                                                 }
                                                       }},function(){},
                                                       function(){
-                                                              Student.create({
+                                                                                   Student.create({
                                                                                   schoolId        : $scope.schoolId,
                                                                                   firstName       : $scope.list[i].firstName,
                                                                                   lastName        : $scope.list[i].lastName,
@@ -142,14 +112,12 @@ angular
                   }
                       
                  });
-            // *****Function Ends
+            // *****Function Ends	
+
+
 
 
         }
       
         
-   })
-
-
-
-;
+   });
