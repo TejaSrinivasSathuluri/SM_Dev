@@ -139,8 +139,7 @@
       "length": 2
     },
     "BED": {
-      "type": "String",
-      "length": 1
+      "type": "Boolean"
     }
   },
   "validations": [],
