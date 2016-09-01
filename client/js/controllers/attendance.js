@@ -20,17 +20,21 @@ angular.module('app')
       $scope.isSet = function(tabNum){   return $scope.tab === tabNum; };
 
 
-      //-----------------------------------
-      // DELETE CODE
-      //-----------------------------------
+      //-----------------------------------------------------------
+      //                    DELETE CODE
+      //-----------------------------------------------------------
 
       $scope.delete= function(){
+        var count =0;
         $scope.test =Attendance.find(function(response){
             response.forEach(function(tests){
               var p = tests.toJSON();
-              console.log(p.id);
-              Attendance.destroyById({id: p.id});
-
+              console.log(count);
+              Attendance.destroyById({id: p.id},function(){
+              },function(response){
+                  console.log(response);
+              });
+              count++;  
             });
           });
       }
@@ -105,7 +109,7 @@ angular.module('app')
 
 
       //-----------------------------------
-      // MONTH VIEW
+      // DAY VIEW
       //------------------------------------
 
 
@@ -123,8 +127,6 @@ angular.module('app')
                                 $scope.list = Student.find({filter: {where: {classId: $scope.classSelected},include:'school'}}, function () {
                                     for (var i = 0; i < $scope.list.length; i++) {
                                     if ( $scope.list[i].RFID.length != 0){
-                                      // console.log($scope.list[i].school.code);
-
                                         $scope.chk($scope.list[i].id, $scope.list[i].firstName,i,$scope.list[i].RFID,$scope.list[i].rollNo,$scope.list[i].school.code);
                                       }
                                     else{

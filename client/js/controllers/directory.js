@@ -791,16 +791,18 @@ angular
             {
               parentEmail = data.value.parentEmail;
               if (data.value && data.value != '$document' && data.value != '$closeButton'&& data.value != '$escape') {
-                           
+                 var message = null;          
                 Parent.create({
                   email :parentEmail,password :"parent"
                 },function(){
-                    message = "Please subscribe to you child " + x.firstName + ' ' + x.lastName + " @ www.studymonitor.in/#/signup using the following Key : " + x.id ;
+                    message = "Please subscribe to your child " + x.firstName + ' ' + x.lastName + " @ www.studymonitor.in/#/signup using the following Key : " + x.id ;
                   
-                  sendSubscriptionEmail(parentEmail,x);
+                  sendSubscriptionEmail(parentEmail,x,message);
 
                 },function(){
-                  sendSubscriptionEmail(parentEmail,x);
+                    message = "Please subscribe to your child " + x.firstName + ' ' + x.lastName + " @ www.studymonitor.in/#/signup using the following Key : " + x.id ;
+                  
+                  sendSubscriptionEmail(parentEmail,x,message);
                 })
                 
               }

@@ -30,14 +30,13 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
              $scope.setSubjectList = function()
              { 
                  if ($scope.formData.classId != null){
-               $scope.examList    = Exam.find({filter: {where: {classId: $scope.formData.classId}}});
-                $scope.subjectList = Subject.find({filter: {where: {classId: $scope.formData.classId,examFlag:true}}});
- 
-                 }
-                 else{
-               $scope.examList    = [];
-                $scope.subjectList = [];
-        
+                            $scope.examList    = Exam.find({filter: {where: {classId: $scope.formData.classId}}});
+                            $scope.subjectList = Subject.find({filter: {where: {classId: $scope.formData.classId,examFlag:true}}});
+                }
+                else
+                {
+                            $scope.examList    = [];
+                            $scope.subjectList = [];
                  }
              }
         
@@ -49,7 +48,7 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
              $scope.clearResponseExam = function()
              { 
                 $scope.responseMarks = null;
-                $scope.formData      = null;
+                // $scope.formData      = null;
                 $scope.error         = false;
                 $scope.success       = false;
                 
@@ -64,7 +63,10 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
                 $scope.responseMarks = message;
                 $scope.error         = false;
                 $scope.success       = true;
-                setTimeout(function() {  $scope.clearResponseExam();}, 1000);
+                setTimeout(function() {  
+                             $scope.clearResponseExam();
+                             $scope.showMarks();
+                    }, 1000);
              }
 
 
@@ -89,46 +91,12 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
              }
 
 
+
+
              //----------------------------------------------
-             //                 SET MAX MARKS
+             //                 CHECK  MARKS
              //----------------------------------------------
-             $scope.setMaxMarks = function(){
-                 if (!$scope.formData.examId || !$scope.formData.subjectId ){
-                        
-                 } 
-                 else {
-
-                 Marks.find({ filter:{
-                     where:{
-                         examId    : $scope.formData.examId,
-                         subjectId : $scope.formData.subjectId
-                     }
-                 }},
-                 function (response) 
-                 {
-                      response.forEach(function (marks) {
-                                    var m = marks.toJSON();
-                                    Marks.upsert({ id: m.id,maxMarks :$scope.formData.maxMarks },function(){
-                                    $scope.responseMarks = 'Max Marks Not Saved';
-                                    $scope.error = true;
-                                    $scope.success = false;
-                                    });
-                      });
-
-                        $scope.responseMarks = 'Max Marks Saved Successfully';
-                        $scope.error = false;
-                        $scope.success = true;
-                        setTimeout(function() {
-                        $scope.clearResponseExam();
-                        }, 1000);
-                    });
-                 }
-
-             }
-
-
-
-             $scope.checkMarks = function(student,i)
+            $scope.checkMarks = function(student,i)
              {
                  $scope.saveMarksFlag = true;
                  Marks.findOne
@@ -152,32 +120,78 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
                             subjectId        : $scope.formData.subjectId,
                             studentId        : student.id,       
                             examId           : $scope.formData.examId,
-                            maxMarks          : 100
                         },function(response)
                         {
-                    //  $scope.list[i] = response.toJSON();
-                    $scope.showMarks(); 
-
+                             $scope.showMarks(); 
                         });
                      
                  });
 
              }
 
-             $scope.saveMarks = function () 
-             {
-                
-                for(var i=0;i<$scope.list.length;i++){
-                     
-                   Marks.upsert({ id: $scope.list[i].id,marksObtained :$scope.list[i].marksObtained},function(){},function(){
-                          $scope.responseMarks = 'Marks Not Saved';
-                          $scope.error = true;
-                          $scope.success = false;
-                   });
-                        
 
+             //----------------------------------------------
+             //                 SET MAX MARKS
+             //----------------------------------------------
+             $scope.setMaxMarks = function(){
+                 if (!$scope.formData.examId || !$scope.formData.subjectId ){
+                        
+                 } 
+                 else 
+                 {
+
+                        Marks.find({ filter:{
+                            where:{
+                                examId    : $scope.formData.examId,
+                                subjectId : $scope.formData.subjectId
+                            }
+                        }},
+                        function (response) 
+                        {
+                            response.forEach(function (marks) 
+                            {
+                                            var m = marks.toJSON();
+                                            Marks.upsert({ id: m.id,maxMarks :$scope.formData.maxMarks });
+                                            $scope.responseMarks = 'Max Marks Saved Successfully';
+                                            $scope.error = false;
+                                            $scope.success = true;
+                                            setTimeout(function() {
+                                            $scope.clearResponseExam();
+                                            }, 1000);
+                            });
+                       });
+                 }
+             }
+
+
+
+             
+
+             $scope.saveMarks = function (x) 
+             {
+                if (x.marksObtained > x.maxMarks)
+                {
+                        successCall('Marks Can Not Be More Than Max Marks');
+                        $scope.showMarks();
                 }
-                successCall('Marks Saved Successfully');
+                else
+                {
+
+                        Marks.upsert({ id: x.id,marksObtained :x.marksObtained},
+                        function()
+                        {
+                            successCall('Marks Saved Successfully');
+                        },
+                        function()
+                        {
+                            $scope.responseMarks = 'Marks Not Saved';
+                            $scope.error = true;
+                            $scope.success = false;
+                        });
+
+                            
+                
+                }
                 
             }
                 

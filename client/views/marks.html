@@ -35,44 +35,38 @@
 
 
     								
-									
-									<!--<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 mbtm">
+                                   									
+									<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 mbtm">
 									<button class="btn btn-success uppercase" ng-click="setMaxMarks()">Set Max Marks</button>
-									</div>-->
-																		<!--<div class="mbtm col-lg-2 col-md-2 col-sm-12 col-xs-12">
-							<input type="number" required class="form-control" ng-model="formData.maxMarks"/>		</div>
-								-->
-									<!--<br>
-									<br> </div>-->
+									</div>
+								  <div class="mbtm col-lg-2 col-md-2 col-sm-12 col-xs-12">
+										<input type="number" required class="form-control" ng-model="formData.maxMarks"/>		</div>
+									<br>
+									<br> </div>
 
 							
-							<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12" style="height:260px;overflow-y:auto;">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> Max Marks : </div>
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="height:260px;overflow-y:auto;">
 								<table class="table table-bordered table-striped table-condensed flip-content">
 									<thead flip-content>
 										<tr>
-											<th><a ng-click="sortType = 'firstName'; sortReverse = !sortReverse">Student Name</a> </th>
-											<th><a ng-click="sortType = 'rollNo'; sortReverse = !sortReverse">Roll No</a> </th>
+											<th><a ng-click="sortType = 'student.firstName'; sortReverse = !sortReverse">Student Name</a> </th>
+											<th><a ng-click="sortType = 'student.rollNo'; sortReverse = !sortReverse">Roll No</a> </th>
 											<th><a ng-click="sortType = 'marksObtained'; sortReverse = !sortReverse">Marks</a> </th>
-											<th><a ng-click="sortType = 'Percentage'; sortReverse = !sortReverse">Percentage</a> </th>
-                      
+											<th><a ng-click="sortType = 'percentage'; sortReverse = !sortReverse">Percentage</a> </th>
+											<th>Save Marks</th>
                    						</tr>
 									</thead>
 									<tbody>
 										<tr data-ng-repeat="x in list track by $index">
 											<div data-ng-bind-html="x.id">
-												<td>{{x.student.firstName}} {{x.student.lastName}}</td>
-												<td>{{x.student.rollNo}}</td>
-		                						<td><input type="number" ng-model="x.marksObtained" class="form-control" min="0" max="100" minlength="1" maxlength="3"> </td>
-						  						<td>{{x.marksObtained}}/{{x.maxMarks}}  </td>
-												<!--<td><button ng-click ="saveMarks(x)" ng-show="saveMarksFlag" class="btn btn-success uppercase">Save Marks</button></td>-->
-												<td><i class="fa fa-floppy-o" ng-click ="saveMarks(x)" ng-show="saveMarksFlag"></i>
-</td>
-												
+												<td>{{x.student.firstName}} {{x.student.lastName}}                                 </td>
+												<td>{{x.student.rollNo}}                                                           </td>
+		                						<td><input type="number" ng-model="x.marksObtained" class="form-control">          </td>
+						  						<td>{{ x.marksObtained * 100 / x.maxMarks}}     </td>
+												<td><i class="fa fa-floppy-o" ng-click ="saveMarks(x)" ng-show="saveMarksFlag"></i></td>
 											</div>
 										</tr>
-                    
-									
-                  
                   					</tbody>
                   
 								</table>

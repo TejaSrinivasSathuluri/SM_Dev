@@ -34,10 +34,15 @@ test.listView().fields([
     nga.field('schoolEmail'),
     nga.field('schoolPassword'),
     nga.field('startDate','date'),
-    nga.field('endDate','date')
+    nga.field('endDate','date'),
+    nga.field('attendance','choice').label('Attendance')
+    .choices([
+        { value: 'Y', label: 'Yes' },
+        { value: 'N', label: 'No' },
+      ])
   ]);
     school.creationView().fields([
-    nga.field('schoolName'),
+    nga.field('schoolName').validation({ required: true, pattern: '[A-Za-z0-9\.\-_]{5,20}' }),
     nga.field('code','number').label('School Code'),
     nga.field('address'),
     nga.field('city'),
@@ -45,7 +50,12 @@ test.listView().fields([
     nga.field('schoolEmail'),
     nga.field('schoolPassword'),
     nga.field('startDate','date'),
-    nga.field('endDate','date')
+    nga.field('endDate','date'),
+    nga.field('attendance','choice').label('Attendance')
+    .choices([
+        { value: 'Y', label: 'Yes' },
+        { value: 'N', label: 'No' },
+      ])
   ]);
     school.deletionView().fields([
     nga.field('schoolName'),
@@ -57,7 +67,12 @@ test.listView().fields([
     nga.field('schoolEmail'),
     nga.field('schoolPassword'),
     nga.field('startDate','date'),
-    nga.field('endDate','date')
+    nga.field('endDate','date'),
+    nga.field('attendance','choice').label('Attendance')
+    .choices([
+        { value: 'Y', label: 'Yes' },
+        { value: 'N', label: 'No' },
+      ])
   ]);
     school.editionView().fields([
     nga.field('schoolName'),
@@ -68,7 +83,12 @@ test.listView().fields([
     nga.field('schoolEmail'),
     nga.field('schoolPassword'),
     nga.field('startDate','date'),
-    nga.field('endDate','date')
+    nga.field('endDate','date'),
+    nga.field('attendance','choice').label('Attendance')
+    .choices([
+        { value: 'Y', label: 'Yes' },
+        { value: 'N', label: 'No' },
+      ])
   ]);
     school.showView().fields([
     nga.field('schoolName'),
@@ -79,7 +99,12 @@ test.listView().fields([
     nga.field('schoolEmail'),
     nga.field('schoolPassword'),
     nga.field('startDate','date'),
-    nga.field('endDate','date')
+    nga.field('endDate','date'),
+    nga.field('attendance','choice').label('Attendance')
+    .choices([
+        { value: 'Y', label: 'Yes' },
+        { value: 'N', label: 'No' },
+      ])
   ]);
 
 var admins = nga.entity('Admins');
