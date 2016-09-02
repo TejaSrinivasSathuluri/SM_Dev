@@ -13,7 +13,7 @@ module.exports = function(server)
             //  -NODE SCHEDULER DECLARATIONS
             var schedule  = require('node-schedule');
             var rule = new schedule.RecurrenceRule();
-            rule.minute = 1;
+            rule.minute = 35;
 
             //  -MODEL DECLARATIONS
             var Attendance = server.models.Attendance;
