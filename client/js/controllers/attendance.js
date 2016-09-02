@@ -39,7 +39,7 @@ angular.module('app')
             });
           });
       }
-      // $scope.delete();
+      $scope.delete();
 
 
       //-----------------------------------
