@@ -30,7 +30,8 @@ angular.module('app')
             response.forEach(function(tests){
               var p = tests.toJSON();
               console.log(count);
-              Attendance.destroyById({id: p.id},function(){
+              Attendance.destroyById({id: p.id},function()
+              {
               },function(response){
                   console.log(response);
               });
@@ -121,21 +122,22 @@ angular.module('app')
                               $scope.studentList = [];
                               $scope.presentCount=0;
                               $scope.absentCount=0;
-                              $scope.blockedCount=0;
-
       
-                                $scope.list = Student.find({filter: {where: {classId: $scope.classSelected},include:'school'}}, function () {
-                                    for (var i = 0; i < $scope.list.length; i++) {
-                                    if ( $scope.list[i].RFID.length != 0){
-                                        $scope.chk($scope.list[i].id, $scope.list[i].firstName,i,$scope.list[i].RFID,$scope.list[i].rollNo,$scope.list[i].school.code);
-                                      }
-                                    else{
-                                  $scope.blockedCount++;
-                                  $scope.studentList[i] ={id:$scope.list[i].id,firstName : $scope.list[i].firstName,rollNo:$scope.list[i].rollNo,status:"Blocked"};
+                              $scope.list = Student.find({filter: {where: {classId: $scope.classSelected},include:'school'}}, 
+                              function () 
+                              {
+                                  for (var i = 0; i < $scope.list.length; i++) {
+                                  if ( $scope.list[i].RFID.length != 0)
+                                    {
+                                      $scope.chk($scope.list[i].id, $scope.list[i].firstName,i,$scope.list[i].RFID,$scope.list[i].rollNo,$scope.list[i].school.code);
                                     }
+                                  else{
+                                $scope.blockedCount++;
+                                $scope.studentList[i] ={id:$scope.list[i].id,firstName : $scope.list[i].firstName,rollNo:$scope.list[i].rollNo,status:"Blocked"};
+                                  }
 
-                                    }
-                                  });
+                                  }
+                              });
                        
 			  }
         else{
@@ -157,35 +159,25 @@ angular.module('app')
                                     var month = parseInt($scope.dateSelected.getMonth());
                                     var year = parseInt($scope.dateSelected.getFullYear());
                                     var schoolCode = parseInt(schoolCode);
-                                    $scope.attendanceRecord = Attendance.findOne(
-                                        {
-                                          filter:
-                                            {
-                                              where:
-                                                {
-                                                  RFID:RFID,
-                                                  day        : day,
-                                                  month      : month,
-                                                  year       : year,
-                                                  schoolCode : schoolCode
-                                                }
-                                            }
-                                        },
+                                    var key = RFID+schoolCode+year+month+day;
+                                    $scope.attendanceRecord = Attendance.findById({id: key},
                                         function(response)
                                         {
-                                            $scope.presentCount++;
-
-                                            $scope.studentList[i] ={id:studentId ,firstName :firstName,RFID:RFID,rollNo :rollNo,attendanceId :response.id,status:true,schoolCode:schoolCode};
+                                             $scope.presentCount++;
+                                             $scope.studentList[i] ={     id :response.id,studentId:studentId ,firstName :firstName,
+                                                                          RFID:response.RFID,rollNo :rollNo,status:true,
+                                                                          schoolCode:schoolCode
+                                                                    };
 
                                         },
                                         function()
                                         {
-                                          $scope.absentCount++;
-                                                console.log('RFID:'+ RFID + ' Is Absent');
-                                          $scope.studentList[i] ={id:studentId,firstName : firstName,RFID:RFID,rollNo:rollNo,status:false,schoolCode:schoolCode};
+                                             $scope.absentCount++;
+                                             console.log('RFID:'+ RFID + ' Is Absent');
+                                             $scope.studentList[i] ={ 
+                                                                      id:null,firstName : firstName,RFID:RFID,rollNo:rollNo,
+                                                                      status:false,schoolCode:schoolCode,key:null,studentId:studentId};
                                         });
-
-
 
                                   }
 
@@ -193,30 +185,37 @@ angular.module('app')
     //-------------------------------- 
     //  ADD ATTENDANCE
     // ------------------------------
-      $scope.addAttendance = function(x){
-                          if (x.status == true) {
-                            Attendance.findOne({filter:{where:{RFID:x.RFID,"day":$scope.dateSelected.getDate(),"month":$scope.dateSelected.getMonth(),"year":$scope.dateSelected.getFullYear()}}},function(){
+      $scope.addAttendance = function(x)
+      {
+      
+                          if (x.status == true) 
+                          {
+                            
+                              Attendance.create(
+                                { 
+                                      id :x.RFID + x.schoolCode + $scope.dateSelected.getFullYear()  +$scope.dateSelected.getMonth()+$scope.dateSelected.getDate(),   
+                                      RFID:x.RFID,
+                                     "day":$scope.dateSelected.getDate(),
+                                     "month":$scope.dateSelected.getMonth(),
+                                     "year":$scope.dateSelected.getFullYear(),
 
-                            },function(){
-                              Attendance.create({RFID:x.RFID,"day":$scope.dateSelected.getDate(),"month":$scope.dateSelected.getMonth(),"year":$scope.dateSelected.getFullYear()});
+                                });
                               $scope.studentList=[];
                               $scope.loadDates();
                               console.log('Attendance Added');
 
-                            });
 
                           }
                           else {
-                            console.log(x.attendanceId);
-                            if (x.attendanceId != null) {
-                              Attendance.delete({id:JSON.stringify(x.attendanceId).replace(/["']/g, "")},function(){
-                                console.log('Attendance Deleted');
-                                $scope.loadDates();
+                            console.log(x);
+                        
+                                    Attendance.deleteById({id:x.id},function(){
+                                      console.log('Attendance Deleted');
+                                      $scope.loadDates();
+                                    });
 
-                              },function(response){ console.log(response.data.error.message);});
-                            }
                           }
-                        }
+      }
 
 
  })

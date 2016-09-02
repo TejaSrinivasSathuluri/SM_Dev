@@ -173,9 +173,12 @@ angular.module('app')
 
       $scope.editExam = function (x) 
       {
-		    		   $scope.formData=x;
+		    		   $scope.formData={};
 		    		   $scope.formData.classId =x.classId;
-               
+               $scope.formData.examName = x.examName;
+               $scope.formData.fromDate = x.fromDate;
+               $scope.formData.toDate = x.toDate;
+
 		           $scope.fromDate = $filter('date')(new Date(x.fromDate), 'yyyy-MM-dd');
                $scope.toDate = $filter('date')(new Date(x.toDate), 'yyyy-MM-dd');
                var dialog = ngDialog.open({template: 'editExam',scope: $scope});
@@ -184,20 +187,35 @@ angular.module('app')
                 if (data.value && data.value != '$document' && data.value != '$closeButton' && data.value != '$escape')
                   {
                           formData = data.value;
-                          console.log(x.examName + "-" + formData.examName);
+                          console.log(formData);
+                          console.log(formData.fromDate + "-" + formData.toDate);
 
-                          if (x.examName == formData.examName  && x.classId == formData.classId){
+                          if (x.examName == formData.examName  && x.classId == formData.classId)
+                          {
+                                             if (Date(formData.fromDate) <= Date(formData.toDate))
+                                             {
 
-                                              Exam.upsert({id:x.id,classId:formData.classId, examName:formData.examName,fromDate: formData.fromDate,toDate:formData.toDate},
+                                                                         Exam.upsert({id:x.id,classId:formData.classId, examName:formData.examName,fromDate: formData.fromDate,toDate:formData.toDate},
                                                                           function () 
                                                                           {
                                                                                 successCall('Exam Record Updated Successfully');
+                                                                          },function(response){
+                                                                                console.log(response.data.error.message);
                                                                           });
+                                             }
+                                             else
+                                             {
+                                                                          failureCall('From Date Must Be Less Than To Date');
+                                                                          $scope.formData = null;
+                                                                          
+                                             }
+                                                                          
 
                                             
                           } 
 
-                          else{
+                          else
+                          {
                                    
                                     Exam.findOne({ filter:{ where : { examName : formData.examName,classId:formData.classId}}},
                                                               function(){
