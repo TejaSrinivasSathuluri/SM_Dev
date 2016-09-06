@@ -114,7 +114,7 @@
                   <tr>
                     <th>#</th>
                     <th><a ng-click="sortType = 'title'; sortReverse = !sortReverse">Title</a></th>
-					          <th><a ng-click="sortType = 'className'; sortReverse = !sortReverse">Class</a></th>
+					          <th><a ng-click="sortType = 'class.className'; sortReverse = !sortReverse">Class</a></th>
                     <th><a ng-click="sortType = 'description'; sortReverse = !sortReverse">Description</a></th>
                     <th><a ng-click="sortType = 'fromDate'; sortReverse = !sortReverse">From  Date</a></th>
                     <th><a ng-click="sortType = 'toDate'; sortReverse = !sortReverse">To  Date</a></th>
@@ -132,7 +132,6 @@
                       <td>{{x.description}}</td>
                       <td>{{x.fromDate | date:'MMM dd yyyy'}}</td>
                       <td>{{x.toDate | date:'MMM dd yyyy'}}</td>
-                      <!--<td><a href="{{x.downloadFile}}" target="_blank"/>Download</td>-->
                       <td ng-show="Admin || Staff"><i class="fa fa-pencil-square-o" ng-model="collapsed1" ng-click="editAssignment(x)"></i>
                         <i class="fa fa-trash-o"  ng-click="deleteAssignment(x)"></i>
                       </td>

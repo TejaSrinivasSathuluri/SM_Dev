@@ -239,10 +239,11 @@ angular.module('app')
         {
             schoolId          :$scope.schoolId,
             busId             :$scope.formData.busId,
-            serviceNo         :$scope.formData.serviceNo           ,
+            serviceNo         :$scope.formData.serviceNo,
             serviceName       :$scope.formData.serviceName
 
-        }}},function(){
+        }}},function()
+        {
           $scope.responseAddBusService = 'Service Already Exists';
         }, function ()
         {
@@ -251,21 +252,35 @@ angular.module('app')
         });
 
       }
-      $scope.addRecipient = function (receiver) {
-      if (receiver.location.length == 0)  alert('Please Fill All The Fields');
-      else {
-        $scope.receivers.push({location: "", duration: "",fee:"",pickUpTime:""});
-      }
-    }
-      $scope.deleteRecipient = function (receiver) {
-      for (var i = 1; i < $scope.receivers.length; i++) {
-        if ($scope.receivers[i] === receiver) {
 
-          $scope.receivers.splice(i, 1);
-          break;
-        }
+      // -----------------------------------------------------
+      //   ADD ROUTE
+      //-----------------------------------------------------
+      $scope.addRecipient = function (receiver) 
+      {
+            if (receiver.location.length == 0)  alert('Please Fill All The Fields');
+            else 
+            {
+              $scope.receivers.push({location: "", duration: "",fee:"",pickUpTime:""});
+            }
       }
-    }
+
+
+      //-----------------------------------------------------
+      //   DELETE ROUTE
+      //-----------------------------------------------------
+
+      $scope.deleteRecipient = function (receiver) 
+      {
+          for (var i = 1; i < $scope.receivers.length; i++) 
+          {
+            if ($scope.receivers[i] === receiver) 
+            {
+              $scope.receivers.splice(i, 1);
+              break;
+            }
+          }
+      }
 
 
     $scope.setTime =  function(i){

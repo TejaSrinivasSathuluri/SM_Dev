@@ -42,6 +42,11 @@
       "type": "hasMany",
       "model": "StudentParent",
       "foreignKey": ""
+    },
+      "bus": {
+      "type": "hasMany",
+      "model": "Bus",
+      "foreignKey": ""
     }
   },
   "acls": [

@@ -25,7 +25,7 @@ angular
 
 
         $scope.viewTimetable = [];
-      $scope.viewTimetable = School.timetables({"id": $scope.schoolId}, 
+       $scope.viewTimetable = School.timetables({"id": $scope.schoolId}, 
        function () 
        {
               $scope.receivers = [];
@@ -40,11 +40,11 @@ angular
                   duration: $scope.viewTimetable.schedule[i].duration, attendance: $scope.viewTimetable.schedule[i].attendance
                 });
               }
-        },
+       },
        function () 
-        {
+       {
           $scope.receivers = [{title: "", startTime: "", endTime: "", duration: "", attendance: ""}];
-        }
+       }
       );
 
      if ($scope.Admin)
