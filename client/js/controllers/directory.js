@@ -162,7 +162,7 @@ angular
             {
               if ($scope.formData.email)
               {
-                $scope.emailCheck = Student.findOne({filter: {where: {email: $scope.formData.email}}},function(){
+                $scope.emailCheck = Student.findOne({filter: {where: {email: $scope.formData.email.toLowerCase()}}},function(){
                     alert('Email Already Exists');
                   },
                   // Email Is Not Conflicting
@@ -173,7 +173,7 @@ angular
             else if ( type == 'ST')
             {
               if ($scope.formData.email){
-                $scope.emailCheck = Staff.findOne({filter: {where: {email: $scope.formData.email}}},function(){
+                $scope.emailCheck = Staff.findOne({filter: {where: {email: $scope.formData.email.toLowerCase()}}},function(){
                     alert('Email Already Exists');
                   },
                   // Email Is Not Conflicting
@@ -371,7 +371,7 @@ angular
                         firstName            : editData.firstName,
                         password             : editData.password,
                         lastName             : editData.lastName,
-                        email                : editData.email,
+                        email                : editData.email.toLowerCase(),
                         gender               : editData.gender,
                         dateofBirth          : editData.dateofBirth,
                         rollNo               : editData.rollNo,
@@ -438,7 +438,7 @@ angular
                             firstName            : editData.firstName,
                             password             : editData.password,
                             lastName             : editData.lastName,
-                            email                : editData.email,
+                            email                : editData.email.toLowerCase(),
                             gender               : editData.gender,
                             dateofBirth          : editData.dateofBirth,
                             rollNo               : editData.rollNo,
@@ -532,7 +532,7 @@ angular
                   Staff.prototype$updateAttributes({id: x.id}, {
                       firstName          : editData.firstName,
                       lastName           : editData.lastName,
-                      email              : editData.email,
+                      email              : editData.email.toLowerCase(),
                       password           : editData.password,
                       gender             : editData.gender,
                       dateofBirth        : editData.dateofBirth,
@@ -612,7 +612,7 @@ angular
                         schoolId           : $scope.schoolId,
                         firstName          : formData.firstName,
                         lastName           : formData.lastName,
-                        email              : formData.email,
+                        email              : formData.email.toLowerCase(),
                         password           : formData.password,
                         gender             : formData.gender,
                         dateofBirth        : formData.dateofBirth,
@@ -757,14 +757,6 @@ angular
             });
 
           }
-
-
-
-
-
-
-
-
         }
 
  
@@ -789,7 +781,7 @@ angular
            var dialog = ngDialog.open({template: 'parentSubscription'});
             dialog.closePromise.then(function (data) 
             {
-              parentEmail = data.value.parentEmail;
+              parentEmail = data.value.parentEmail.toLowerCase();
               if (data.value && data.value != '$document' && data.value != '$closeButton'&& data.value != '$escape') {
                  var message = null;          
                 Parent.create({
@@ -822,7 +814,7 @@ angular
                   Mail.find({
                     filter:{
                       where:{
-                        email : email,
+                        email : email.toLowerCase(),
                         message : message,
                         subject:subject,
                         schoolId : x.schoolId

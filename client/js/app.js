@@ -7,8 +7,12 @@ angular
     $stateProvider
 
     // Functional Routes
-    .state('dashboard',             { url: '/dashboard',         templateUrl: 'views/dashboard.html',          controller: 'LandingPageController', authenticate: true})
-    .state('directory',             { url: '/directory',         templateUrl: 'views/directory.html',          controller: 'DirectoryController',   authenticate: true})
+    .state('dashboard',             { url: '/dashboard',         templateUrl: 'views/dashboard.html',          controller: 'LandingPageController',       authenticate: true})
+    .state('pdashboard',            { url: 'parent/dashboard',   templateUrl: 'views/parent/dashboard.html',   controller: 'ParentLandingPageController', authenticate: true})
+   
+    .state('directory',             { url: '/directory',         templateUrl: 'views/directory.html',          controller: 'DirectoryController',         authenticate: true})
+    .state('pdirectory',            { url: 'parent/directory',   templateUrl: 'views/parent/directory.html',   controller: 'ParentDirectoryController',   authenticate: true})
+   
     .state('class',                 { url: '/class',             templateUrl: 'views/class.html',              controller: 'ClassController',       authenticate: true})
     .state('subject',               { url: '/subject',           templateUrl: 'views/subject.html',            controller: 'SubjectController',     authenticate: true})
     .state('attendance',            { url: '/attendance',        templateUrl: 'views/attendance.html',         controller: 'AttendanceController',  authenticate: true})
@@ -33,8 +37,8 @@ angular
 
 
       //--------------Auth Services
-      .state('index',         { url: '/index',                                     controller: 'IndexController'})
-      .state('/',         {                                      controller: 'IndexController'})
+      .state('index',         { url: '/index',  templateUrl: 'views/index.html' , controller: 'IndexController'})
+      .state('/',             {                                                    controller: 'IndexController'})
       .state('email',         { url: '/email',  templateUrl: 'views/email.html',   controller: 'EmailController'      })
       .state('login',         { url: '/login',  templateUrl: 'views/login.html',   controller: 'AuthLoginController'  })
       .state('logout',        { url: '/login',                                     controller: 'AuthLogoutController'})
@@ -68,18 +72,22 @@ angular
               $window.localStorage.clear();
               $state.go('login');
             }
-            
       }
       else
       {
+
             $rootScope.currentUser = $window.localStorage.getItem('user');
-            var user = JSON.parse($rootScope.currentUser);
-            if (user.type == 'Student'){
-            $timeout(function () 
-            { 
-              if ($state.current.name == 'expensemanagement') $state.go('logout');
-               
-            }, 100); 
+            $rootScope.user = JSON.parse($rootScope.currentUser);
+            if ($rootScope.user.type == 'Student')
+            {
+                  console.log('Student');
+                  $rootScope.Student = true;
+                  $timeout(function () 
+                  { 
+                    if ($state.current.name == 'expensemanagement') $state.go('logout');
+                    
+                  }, 100); 
+
             }
       }
     });

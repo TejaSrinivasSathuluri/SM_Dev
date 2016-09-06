@@ -25,38 +25,46 @@ angular
 
 
         $scope.viewTimetable = [];
-      $scope.viewTimetable = School.timetables({"id": $scope.schoolId}, function () {
-          $scope.receivers = [];
-          for (var i = 0; i < $scope.viewTimetable.schedule.length; i++) {
-            $scope.viewTimetable.schedule[i].startTime = new Date($scope.viewTimetable.schedule[i].startTime);
-            $scope.viewTimetable.schedule[i].endTime = new Date($scope.viewTimetable.schedule[i].endTime);
-            $scope.viewTimetable.schedule[i].duration = ($scope.viewTimetable.schedule[i].endTime - $scope.viewTimetable.schedule[i].startTime) / 60000;
-            $scope.receivers.push({
-              title: $scope.viewTimetable.schedule[i].title,
-              startTime: $scope.viewTimetable.schedule[i].startTime, endTime: $scope.viewTimetable.schedule[i].endTime,
-              duration: $scope.viewTimetable.schedule[i].duration, attendance: $scope.viewTimetable.schedule[i].attendance
-            });
-          }
+      $scope.viewTimetable = School.timetables({"id": $scope.schoolId}, 
+       function () 
+       {
+              $scope.receivers = [];
+              for (var i = 0; i < $scope.viewTimetable.schedule.length; i++) 
+              {
+                $scope.viewTimetable.schedule[i].startTime = new Date($scope.viewTimetable.schedule[i].startTime);
+                $scope.viewTimetable.schedule[i].endTime = new Date($scope.viewTimetable.schedule[i].endTime);
+                $scope.viewTimetable.schedule[i].duration = ($scope.viewTimetable.schedule[i].endTime - $scope.viewTimetable.schedule[i].startTime) / 60000;
+                $scope.receivers.push({
+                  title: $scope.viewTimetable.schedule[i].title,
+                  startTime: $scope.viewTimetable.schedule[i].startTime, endTime: $scope.viewTimetable.schedule[i].endTime,
+                  duration: $scope.viewTimetable.schedule[i].duration, attendance: $scope.viewTimetable.schedule[i].attendance
+                });
+              }
         },
-        function () {
+       function () 
+        {
           $scope.receivers = [{title: "", startTime: "", endTime: "", duration: "", attendance: ""}];
         }
       );
-     if ($scope.Admin){
-      $scope.addRecipient = function (receiver) {
-        if (receiver.title.length != 0) {
-          if (receiver.startTime < receiver.endTime) {
-            receiver.duration = (receiver.endTime - receiver.startTime) / 60000;
-            $scope.receivers.push({title: "", startTime: "", endTime: "", duration: "", attendance: ""});
-          }
-          else {
-            alert('Start Time Should Be Lessthan End Time ');
-          }
+
+     if ($scope.Admin)
+     {
+        $scope.addRecipient = function (receiver) 
+        {
+              if (receiver.title.length != 0) {
+                if (receiver.startTime < receiver.endTime) {
+                  receiver.duration = (receiver.endTime - receiver.startTime) / 60000;
+                  $scope.receivers.push({title: "", startTime: "", endTime: "", duration: "", attendance: ""});
+                }
+                else {
+                  alert('Start Time Should Be Lessthan End Time ');
+                }
+              }
+              else {
+                alert('Please fill the fields');
+              }
         }
-        else {
-          alert('Please fill the fields');
-        }
-      }
+
       $scope.deleteRecipient = function (receiver) {
         for (var i = 1; i < $scope.receivers.length; i++) {
           if ($scope.receivers[i] === receiver) {
@@ -66,8 +74,11 @@ angular
           }
         }
       }
-      $scope.saveTimetable = function () {
-        $scope.chkTimetable = School.timetables({"id": $scope.schoolId}, function () {
+
+      $scope.saveTimetable = function () 
+      {
+        $scope.chkTimetable = School.timetables({"id": $scope.schoolId}, 
+         function () {
             if ($scope.receivers[$scope.receivers.length - 1].title.length != 0 && $scope.receivers[$scope.receivers.length - 1].startTime != null && $scope.receivers[$scope.receivers.length - 1].endTime != null) 
             {
               if($scope.receivers[$scope.receivers.length - 1].startTime < $scope.receivers[[$scope.receivers.length - 1]].endTime){
@@ -95,7 +106,8 @@ angular
             }
 
           },
-          function () {
+         function () 
+          {
             $scope.newTimetable = Timetable.create({schoolId: $scope.schoolId, schedule: $scope.receivers});
             $scope.response = "Timetable Created Successfully";
             setTimeout( function()
@@ -106,11 +118,4 @@ angular
           });
       }
     }
-    }])
-
-
-  
-  
-  
-
-;
+    }]);

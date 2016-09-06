@@ -11,19 +11,21 @@ angular
         
 
       }
-      else{
-        
+      else
+      {
+         $scope.user = $window.localStorage.getItem('user');
+         $scope.userData = JSON.parse($scope.user);
+        if ($scope.userData.type == 'Admin')   { $scope.Admin   = true;}
+        if ($scope.userData.type == 'Student') { $scope.Student = true;}
+        if ($scope.userData.type == 'Parent')  { $scope.Parent  = true;}
+        if ($scope.userData.type == 'Staff')   { $scope.Staff   = true;}
+        console.log(Student);
 
       }
           
       
 
-        // $scope.user = $window.localStorage.getItem('user');
-        // $scope.userData = JSON.parse($scope.user);
-        // if ($scope.userData.type == 'Admin')   { $scope.Admin   = true;}
-        // if ($scope.userData.type == 'Student') { $scope.Student = true;}
-        // if ($scope.userData.type == 'Parent')  { $scope.Parent  = true;}
-        // if ($scope.userData.type == 'Staff')   { $scope.Staff   = true;}
+     
 
         // $scope.schoolId = $scope.userData.schoolId;
         // $scope.date = new Date();

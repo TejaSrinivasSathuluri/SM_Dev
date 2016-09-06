@@ -11,7 +11,7 @@ angular
       if ($scope.loginUser == 'Admin') {
         AuthServiceAdmin.login($scope.user.email, $scope.user.password)
           .then(function () {
-            $state.go('dashboard');
+     
           },function(){
 			  			  $scope.invalidLogin = true;
 		  }
@@ -21,7 +21,7 @@ angular
       {
         AuthServiceStudent.login($scope.user.email, $scope.user.password)
           .then(function () {
-            $state.go('dashboard');
+        
           },function(){
 			  $scope.invalidLogin = true;
 		  });
@@ -30,7 +30,6 @@ angular
       {
         AuthServiceStaff.login($scope.user.email, $scope.user.password)
           .then(function () {
-            $state.go('dashboard');
           },function(){
 			  $scope.invalidLogin = true;
 		  });

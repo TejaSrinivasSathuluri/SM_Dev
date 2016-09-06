@@ -13,7 +13,7 @@ module.exports = function(server)
             //  -NODE SCHEDULER DECLARATIONS
             var schedule  = require('node-schedule');
             var rule = new schedule.RecurrenceRule();
-            rule.minute = 35;
+            rule.minute = 36;
 
             //  -MODEL DECLARATIONS
             var Attendance = server.models.Attendance;
@@ -67,56 +67,32 @@ module.exports = function(server)
                           {
                                   var RFID  = jsonObj.CardNumber;
                                   var key = RFID + schoolCode +  year + month + day;
-                                  // Attendance.findOne({"where": {"RFID": RFID, "day": day,"month":month,"year":year,"schoolCode":schoolCode}}, 
-                                  // function (err, record)
-                                  // {
-                                  //             countParsed++;
-                                  //             if (err)  
-                                  //             {
-                                  //               console.log(record);
-                                  //               countError++ ;
-                                  //             }
-                                  //             else if (!record)
-                                  //             {
-                                  //             Attendance.create({RFID:RFID , day: day,month:month,year:year,schoolCode:schoolCode});
-                                  //             countAdded++;
-                                  //             }  
-                                  //             else if (record)  countDuplicate++;
-                                  //             console.log('Parsed:' +countParsed + '-'  + 'Added:' +countAdded + '-' +  'Duplicate:' +countDuplicate + '-'+ 'Error:' +countError);
-                                  // });
 
-
+                                  Attendance.create({RFID:RFID,day: day,month:month,year:year,schoolCode:schoolCode,id:key},
+                                  function(err,record)
+                                  {
+                                          countParsed++; 
+                                          if (err) 
+                                          {
+                                            countDuplicate++;
+                                            console.log(err);
+                                          }
+                                          else 
+                                          {
+                                            console.log(record);
+                                            countAdded++;
+                                          }
+                                  });
                                               
-                            Attendance.create({RFID:RFID , day: day,month:month,year:year,schoolCode:schoolCode,id:key},
-                            function(err,record)
-                            {
-                                    countParsed++; 
-                                    if (err) 
-                                    {
-                                      countDuplicate++;
-                                      console.log(err);
-                                    }
-                                    else 
-                                    {
-                                      console.log(record);
-                                      countAdded++;
-                                    }
-                            });
-                                              
-                        console.log('Parsed:' +countParsed + '-'  + 'Added:' +countAdded + '-' +  'Duplicate:' +countDuplicate);
-                                  
-
+                                  console.log('Parsed:' +countParsed + '-'  + 'Added:' +countAdded + '-' +  'Duplicate:' +countDuplicate);
                           });
 
-                        var url ="http://studymonitor.net/prod/" + schoolCode  + "/CardsData" +  dateString + ".csv";
-                        console.log(url);
-                        require("request").get(url).pipe(converter);
+                          var url ="http://studymonitor.net/prod/" + schoolCode  + "/CardsData" +  dateString + ".csv";
+                          console.log(url);
+                          require("request").get(url).pipe(converter);
            }            
           
   
   //----------------Load Attendance
-
-
-
   server.use(router);
 };

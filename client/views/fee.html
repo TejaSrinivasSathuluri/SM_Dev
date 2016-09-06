@@ -164,68 +164,51 @@
 
                     <div ng-show="isSet(2)">
                       <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 mbtm">
-                      <div class="col-md-3 col-sm-12 col-lg-3 col-xs-12 mbtm">
-                        <form ng-submit="show()">
-                    <select class="form-control" required  ng-change="setStudents()" ng-model="formData.classId"   >
-                      <option value="">Class</option>
-                      <option data-ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
-                   
-                    </select > <br><br>
-                    <select class="form-control" required ng-model="formData.studentId" ng-change="addInitialPayment()">
-                      <option value="">Students</option>
-                      <option data-ng-repeat="y in studentsList" value="{{y.id}}">{{y.firstName}}-{{y.lastName}}</option>
-                    </select > 
-                    <br>
-                    <button type="submit" class="btn btn-success uppercase mbtm">Show Fee</button>
-</form>                    
-                    <!--<button ng-click="addInitialPayment()" class="btn btn-success uppercase mbtm">Generate</button>-->
-                    </div>
-                    <div class="col-md-2 col-sm-12 col-lg-2 col-xs-12 mbtm">
-                    
-                    
-                    </div>
-                
+                      <div ng-show="Admin || Staff" class="col-md-3 col-sm-12 col-lg-3 col-xs-12 mbtm">
+                              <form ng-submit="show()">
+                                    <select class="form-control" required  ng-change="setStudents()" ng-model="formData.classId"   >
+                                    <option value="">Class</option>
+                                    <option data-ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
+                                    </select > <br><br>
+                                    <select class="form-control" required ng-model="formData.studentId" ng-change="addInitialPayment()">
+                                    <option value="">Students</option>
+                                    <option data-ng-repeat="y in studentsList" value="{{y.id}}">{{y.firstName}}-{{y.lastName}}</option>
+                                    </select > 
+                                    <br>
+                                    <button type="submit" class="btn btn-success uppercase mbtm">Show Fee</button> 
+                            </form>                    
+                      </div>
 
                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"  style="height:260px;overflow-y:auto;"> 
-                              <table class="table table-bordered table-striped table-condensed flip-content">
+                         <table class="table table-bordered table-striped table-condensed flip-content">
                             <thead flip-content>
-                            <tr>
-                              
-                                <th>Occurance</th>
-                                <th>Fee Type</th>
-                                <th>Month</th>
-                                <th>Amount</th>
-                                <th>AmountPaid</th>
-                                <th>Due</th>
-                                <th ng-hide="Student">Paid</th>
-                                 
-                            </tr>
+                                  <tr>
+                                      <th>Occurance</th>
+                                      <th>Fee Type</th>
+                                      <th>Month</th>
+                                      <th>Amount</th>
+                                      <th>AmountPaid</th>
+                                      <th>Due</th>
+                                      <th ng-show="Admin || Staff">Paid</th>
+                                  </tr>
                             </thead>
 
                             <tbody>
-                            <tr data-ng-repeat="x in list">
-                              <div data-ng-bind-html="x.id">
-
-                                <td> {{x.feeSetup.occurance}}</td>
-                                <td> {{x.feeSetup.feeType}}</td>
-                                <td> {{x.feeSetup.month}}</td>
-                                <td> {{x.feeSetup.amount}}</td>
-                                                                   
-                              
-                                    <td>{{x.amountPaid}}</td>
-                                    <td>{{x.feeSetup.amount - x.amountPaid}}</td>
-                                    <td ng-show="x.paid != true"><input type="button"  class="btn btn-default" ng-click="payFee(x)" value="Pay Fee"/></td>
-                                    <td ng-show="x.paid == true">Yes</td>
-                                    
-                            
-                   
-                              </div>
-                            </tr>
+                                  <tr data-ng-repeat="x in list">
+                                    <div data-ng-bind-html="x.id">
+                                          <td> {{x.feeSetup.occurance}}</td>
+                                          <td> {{x.feeSetup.feeType}}</td>
+                                          <td> {{x.feeSetup.month}}</td>
+                                          <td> {{x.feeSetup.amount}}</td>
+                                          <td>{{x.amountPaid}}</td>
+                                          <td>{{x.feeSetup.amount - x.amountPaid}}</td>
+                                          <td ng-show="x.paid != true && (Admin || Staff)"><input type="button"  class="btn btn-default" ng-click="payFee(x)" value="Pay Fee"/></td>
+                                          <td ng-show="x.paid == true && (Admin || Staff)">Yes</td>
+                                    </div>
+                                  </tr>
                             </tbody>
                           </table>
-                          
                           <div>
-
                     </div>
 
         </div>

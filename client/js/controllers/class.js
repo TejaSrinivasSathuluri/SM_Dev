@@ -15,11 +15,31 @@ angular
         $scope.schoolId = $scope.userData.schoolId;
         $scope.formData = [];
         $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
-
-           $scope.staffList = Staff.find({filter: {where: {schoolId: $scope.schoolId}}},function(){},function(response){if (response.status =401) $state.go('logout', {}, {reload: true}) ;});
-           $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}, include: 'staff'}},function(){},function(response){if (response.status =401) $state.go('logout', {}, {reload: true}) ;});
-
-		  //--------------------------------------------------------
+        $scope.classList =[];
+        School.findOne({
+          filter:{
+            where :{
+                 id : $scope.schoolId
+            },
+            include:
+            [
+                  {
+                      relation: 'classes',scope: 
+                                           { 
+                                             include: 'staff' 
+                                           }
+                  },
+                  {
+                      relation: 'staffs'
+                  }
+            ]
+          }
+        },function(response)
+        {
+             $scope.staffList = response.staffs;
+             $scope.classList = response.classes;
+        })
+		      //--------------------------------------------------------
           //                  CLEAR RESPONSE
           // --------------------------------------------------------
 		       $scope.clearResponse = function ()
@@ -28,9 +48,11 @@ angular
 			           $scope.responseAddClass = null;
                  $scope.formData=null;
 		       }
+
+           
           // ----------------------------------------------------
-         //   SUCCESS CALL
-         //-----------------------------------------------------
+          //   SUCCESS CALL
+          //-----------------------------------------------------
          $scope.successCall = function(message){
            $scope.response = message;
            $scope.error = false;

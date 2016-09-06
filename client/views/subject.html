@@ -82,24 +82,35 @@
                 <div ng-hide="Student">
                   Total Results : {{subjectList.length}} | Filtered Results : {{filtered.length}}
                 </div> 
-                               <div ng-show="Student" class="pull-right">
-                Class Teacher : {{firstName}} {{lastName}}
-                </div>
+                            
+                                 <div ng-show="Student" class="pull-right panel-default">
+  <div class="panel-body"> 
+                Class : {{classData.className}}-{{classData.sectionName}} | Class Teacher : {{classData.staff.firstName}} {{classData.staff.lastName}}
+    
+  </div>
+</div>
+                
               <!--<div class="portlet-body-morris-fit morris-chart flip-scroll" style="height: max">-->
               <table class="table table-bordered table-striped table-condensed flip-content" >
-                <thead flip-content><tr>
+                <thead flip-content>
+                <tr ng-show="Admin || Staff">
         				  <th><a ng-click="sortType = 'subjectName'; sortReverse = !sortReverse">Subject</a></th>
                   <th><a ng-click="sortType = 'class.className'; sortReverse = !sortReverse">Class</a></th>
                   <th><a ng-click="sortType = 'staff.firstName'; sortReverse = !sortReverse">Teacher</a></th>
                   <th ng-show="Admin">Exam Enabled</th>
                   <th ng-show="Admin">Action</th>
                 </tr>
+
+                <tr ng-hide="Admin || Staff">
+        				  <th><a ng-click="sortType = 'subjectName'; sortReverse = !sortReverse">Subject</a></th>
+                  <th><a ng-click="sortType = 'staff.firstName'; sortReverse = !sortReverse">Teacher</a></th>
+                </tr>
                 </thead>
                 <tbody>
 
                 <tr ng-repeat="a in  filtered = (subjectList | filter:search) | orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
                   <td>{{a.subjectName}}</td>
-                  <td>{{a.class.className}}-{{a.class.sectionName}}</td>
+                  <td ng-show="Admin">{{a.class.className}}-{{a.class.sectionName}}</td>
                   <td ng-hide="Admin">{{a.staff.firstName}} {{a.staff.lastName}}</td>
                 
                   <td ng-show="Admin">

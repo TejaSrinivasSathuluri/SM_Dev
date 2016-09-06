@@ -9,14 +9,14 @@ angular.module('app')
         //            BASIC USER DATA
         //------------------------------------------------
 
-        $scope.user = $window.localStorage.getItem('user');
-        $scope.userData = JSON.parse($scope.user);
-        $scope.schoolId = $scope.userData.schoolId;
-        if ($scope.userData.type == 'Admin') { $scope.Admin = true;}
-        if ($scope.userData.type == 'Student') { $scope.Student = true;}
-        if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
-        if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
-        $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
+          $scope.user = $window.localStorage.getItem('user');
+          $scope.userData = JSON.parse($scope.user);
+          $scope.schoolId = $scope.userData.schoolId;
+          if ($scope.userData.type == 'Admin') { $scope.Admin = true;}
+          if ($scope.userData.type == 'Student') { $scope.Student = true;}
+          if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
+          if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
+          $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
          //--------------------------------------------
          //          GET CLASS LIST
          //--------------------------------------------
@@ -28,11 +28,10 @@ angular.module('app')
       
           $scope.examList =[];
           $scope.showExamList = function()
-          {
-          $scope.examList = Exam.find({filter: {where: {schoolId: $scope.schoolId},include:'class'}});
-
-         }
-         $scope.showExamList();
+           {
+            $scope.examList = Exam.find({filter: {where: {schoolId: $scope.schoolId},include:'class'}});
+           }
+          $scope.showExamList();
 
 
 
@@ -46,8 +45,8 @@ angular.module('app')
         //------------------------------------------------
         //              SUCCESS CALL
         //------------------------------------------------
-        successCall = function(message)
-        {
+          successCall = function(message)
+          {
                 $scope.responseExam = message;
                 $scope.error = false;
                 $scope.success=true;
@@ -59,7 +58,8 @@ angular.module('app')
                               $scope.showExamList();
                             }, 1000 );
                           
-        }
+          }
+
         //------------------------------------------------
         //              FAILURE CALL
         //------------------------------------------------
@@ -84,7 +84,6 @@ angular.module('app')
        //-------------------------------------------------------------------------
        $scope.addExam = function () 
        {
-     
           var toDate   = $filter('date')(new Date($scope.formData.toDate), 'yyyy-MM-dd');     
           var fromDate = $filter('date')(new Date($scope.formData.fromDate), 'yyyy-MM-dd');
           Exam.findOne
@@ -129,31 +128,24 @@ angular.module('app')
 
                           });
                           // Exam Create Process Ends
-
-
-
-
-
                         }
                         else 
                         {
                           failureCall('Exam To Date Should Be Greater Than From Date');
                         }
-      
           });
-
-      }      
-
+       }      
 
 
-       //----------------------------------------------
-       //                 DELETE EXAM
-       //----------------------------------------------
-       $scope.deleteExam = function (x) 
-       {
+
+        //----------------------------------------------
+        //                 DELETE EXAM
+        //----------------------------------------------
+        $scope.deleteExam = function (x) 
+        {
          var dialog = ngDialog.open({template: 'deleteExam'});
          dialog.closePromise.then(function (data) 
-         {
+          {
            if (data.value && data.value != '$document' && data.value != '$closeButton')
            {
              Exam.deleteById({id: x.id}, function() { failureCall(' Exam Record Deleted Successfully');},
@@ -162,22 +154,21 @@ angular.module('app')
                });
              return true;
            }
-         });
+          });
         } 
       
       
     
-      //------------------------------------------------
-      //            EDIT Exam List
-      //------------------------------------------------
+        //------------------------------------------------
+        //            EDIT EXAM LIST
+        //------------------------------------------------
 
-      $scope.editExam = function (x) 
-      {
+        $scope.editExam = function (x) 
+        {
 		    		   $scope.formData={};
 		    		   $scope.formData.classId =x.classId;
                $scope.formData.examName = x.examName;
-               $scope.formData.fromDate = x.fromDate;
-               $scope.formData.toDate = x.toDate;
+               
 
 		           $scope.fromDate = $filter('date')(new Date(x.fromDate), 'yyyy-MM-dd');
                $scope.toDate = $filter('date')(new Date(x.toDate), 'yyyy-MM-dd');
@@ -237,16 +228,10 @@ angular.module('app')
                   }
               });
 
-      }
+        }
 
 
  
-         
-  
-      
-       
-
-
         //----------------------------------------------
         //               SORT TABLE TECHNIQUE
         //----------------------------------------------

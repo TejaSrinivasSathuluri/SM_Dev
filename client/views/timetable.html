@@ -37,21 +37,18 @@
                 </thead>
 
                 <tr ng-repeat = "receiver in receivers">
-                  <td ng-show="Admin"><a ng-click="addRecipient(receiver)"><i class="fa fa-pencil-square-o"></i></a>
+                  <td ng-show="Admin"><a ng-click="addRecipient(receiver)"><i class="fa fa-plus"></i></a>
                       <a ng-click="deleteRecipient(receiver)"><i class="fa fa-minus-circle"></i></a>
                     {{$index+1}}
                   </td>
                   <td><input type="text"   ng-disabled="Staff || Student || Parent" class="form-control" ng-model="receiver.title"></td>
                   <td><input type="time"   ng-disabled="Staff || Student || Parent" class="form-control" ng-model="receiver.startTime"></td>
                   <td><input type="time"   ng-disabled="Staff || Student || Parent" class="form-control" ng-model="receiver.endTime"></td>
-                  <td><input type="number" ng-disabled="Staff || Student || Parent" class="form-control" ng-model="receiver.duration" ng-disabled="true"></td>
+                  <td><input type="number" ng-disabled="true" class="form-control" ng-model="receiver.duration" ng-disabled="true"></td>
                   <td><input type="checkbox" ng-disabled="Staff || Student || Parent"      ng-model="receiver.attendance"></td>
-
                 </tr>
-
               </table>
               <button ng-show="Admin" class="text-center" ng-click="saveTimetable()">Save</button>
-
             </div>
 
             </div>

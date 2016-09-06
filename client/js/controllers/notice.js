@@ -184,6 +184,6 @@ angular
   
   
   
-  .filter('startFrom', function() { return function(input, start) { start = +start; return input.slice(start); }})
+  // .filter('startFrom', function() { return function(input, start) { start = +start; return input.slice(start); }})
 
 ;

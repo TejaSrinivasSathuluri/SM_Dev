@@ -95,39 +95,46 @@ angular.module('app')
 
         }
       }
-      else if ($scope.Student){
+      else if ($scope.Student)
+      {
           $scope.subjectList = Subject.find({filter: {where: {classId:$scope.userData.classId}}});
           $scope.viewTimetable = School.timetables({id: $scope.schoolId,classId:$scope.userData.classId}, function () {
-          $scope.chkSchedule = Schedule.findOne({
+       
+          $scope.chkSchedule = Schedule.findOne(
+            {
                 filter: {
                   where: {
                     timetableId: $scope.viewTimetable.id,
                     classId: $scope.userData.classId
                   }
                 }
-              },
-              function () {
+            },
+            function () 
+            {
                 $scope.scheduleList = $scope.chkSchedule.schedule;
+            },
+            function () 
+            {
 
-              },
-              function () {
+                // for (var i = 0; i < $scope.viewTimetable.schedule.length; i++) 
+                // {
 
-                for (var i = 0; i < $scope.viewTimetable.schedule.length; i++) {
+                //   $scope.scheduleList[i] = $scope.viewTimetable.schedule[i];
+                //   $scope.scheduleList[i].startTime = new Date($scope.viewTimetable.schedule[i].startTime);
+                //   $scope.scheduleList[i].endTime = new Date($scope.viewTimetable.schedule[i].endTime);
 
-                  $scope.scheduleList[i] = $scope.viewTimetable.schedule[i];
-                  $scope.scheduleList[i].startTime = new Date($scope.viewTimetable.schedule[i].startTime);
-                  $scope.scheduleList[i].endTime = new Date($scope.viewTimetable.schedule[i].endTime);
-
-                  if ($scope.scheduleList[i].attendance != true) {
-                    $scope.scheduleList[i].attendance == false;
-                    $scope.scheduleList[i].startTime = $scope.viewTimetable.schedule[i].title;
-                    $scope.scheduleList[i].endTime = null;
-                    $scope.scheduleList[i].Monday = null;
-                  }
-                }
+                //   if ($scope.scheduleList[i].attendance != true) {
+                //     $scope.scheduleList[i].attendance == false;
+                //     $scope.scheduleList[i].startTime = $scope.viewTimetable.schedule[i].title;
+                //     $scope.scheduleList[i].endTime = null;
+                //     $scope.scheduleList[i].Monday = null;
+                //   }
+                // }
               })
-          }, function () {
+            }, 
+             function () 
+             {
             $scope.scheduleList = [];
-          });
+            });
       }
 })

@@ -9,11 +9,14 @@ angular.module('app')
       if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
       if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
       $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
+       
 
-
-
-
-
+      //-----------------------------------
+      // TOOL TIP
+      //------------------------------------
+  
+      $(document).ready(function(){  $('[data-toggle="tooltip"]').tooltip(); });
+      
 
       //-----------------------------------
       // TABS CODE
@@ -70,6 +73,8 @@ angular.module('app')
                             }, 1000 );
                           
         }
+
+
       // ----------------------------------------------------
       //   SUCCESS CALL
       //-----------------------------------------------------
@@ -195,26 +200,34 @@ angular.module('app')
 
 
       }
-    //----------------------------------------------
-    //               SORT TABLE TECHNIQUE
-    //----------------------------------------------
+   
+   
+     //----------------------------------------------
+     //               SORT TABLE TECHNIQUE
+     //----------------------------------------------
 
-    $scope.sortType     = 'title';
-    $scope.sortReverse  = false;
-    $scope.searchFish   = '';
-    $scope.currentPage = 0;
-    $scope.pageSize = 10;
-    $scope.numberOfPages=function(){    return Math.ceil($scope.busList.length/$scope.pageSize);}
+      $scope.sortType     = 'title';
+      $scope.sortReverse  = false;
+      $scope.searchFish   = '';
+      $scope.currentPage = 0;
+      $scope.pageSize = 10;
+      $scope.numberOfPages=function(){    return Math.ceil($scope.busList.length/$scope.pageSize);}
 
       //**************************************BUS CORNER************************************
 
 
 
       //**************************************SERVICE CORNER************************************
+
+
+      $scope.addRoutes = false; 
+
       //-----------------------------------------------------
       //   CLEAR RESPONSE
       //-----------------------------------------------------
-      $scope.clearResponseBusService  = function() { $scope.responseAddBusService = null; }
+      $scope.clearResponseBusService  = function() { 
+        $scope.responseAddBusService = null; 
+      }
 
       // -----------------------------------------------------
       //   ADD SERVICE
@@ -233,6 +246,7 @@ angular.module('app')
           $scope.responseAddBusService = 'Service Already Exists';
         }, function ()
         {
+            $scope.addRoutes = true;
             $scope.receivers = [{location: $scope.formData.serviceStartPoint, duration: 0,fee:"",pickUpTime:$scope.formData.serviceStartTime1}];
         });
 
@@ -260,6 +274,7 @@ angular.module('app')
     }
       $scope.saveRoutes = function ()
         {
+            
             if ($scope.receivers[$scope.receivers.length - 1].location == 0){
                 alert('Please Fill All The Fields');
             }
@@ -283,7 +298,7 @@ angular.module('app')
                         serviceDropTime2  :$scope.formData.serviceDropTime2    ,
                         serviceRoutes     : $scope.receivers
                     },function(){
-                        $scope.receivers =[];
+                        $scope.addRoutes = false; 
                         $scope.response = "Bus Service Created Successfully";
                         $scope.successCallBusService();
                     },function(response){
@@ -358,7 +373,8 @@ angular.module('app')
 
       
 
-      $scope.showRoutes = function(x){
+      $scope.showRoutes = function(x)
+      {
           $scope.popoverIsVisible = true;
           $scope.startLocation =  [];
           $scope.startLocationDrop =  [];
@@ -367,26 +383,29 @@ angular.module('app')
           $scope.startTime = [];
           $scope.endTime =[];
           $scope.routeDetails =[];
-        var length = x.serviceRoutes.length;
+          var length = x.serviceRoutes.length;
 
           for(var i=0;i< x.serviceRoutes.length;i++)
           {
-            $scope.startLocation[i] = x.serviceRoutes[i].location;
+            $scope.startLocation[i]     = x.serviceRoutes[i].location;
             $scope.startLocationDrop[i] = x.serviceRoutes[length -1].location;
-            var duration = x.serviceRoutes[length - 1].duration;
-            $scope.startTimeDrop[i] = new Date(new Date(x.serviceStartTime2).getTime() + (duration+330)*60000);
-            $scope.startTime[i] = x.serviceRoutes[i].pickUpTime;
-            $scope.routeDetails[i] = {
-              startLocation :$scope.startLocation[i],
-              startTime : $scope.startTime[i],
-              startLocationDrop :$scope.startLocationDrop[i],
-              startTimeDrop :$scope.startTimeDrop[i]
-          };
+            var duration                = x.serviceRoutes[i].duration;
+            $scope.startTimeDrop[i]     = new Date(new Date(x.serviceStartTime2).getTime() - (330-duration)*60000);
+            $scope.startTime[i]     =     new Date(new Date(x.serviceStartTime1).getTime() - (330-duration)*60000);
+            $scope.routeDetails[i] = 
+                      {
+                        startLocation     : $scope.startLocation[i],
+                        startTime         : $scope.startTime[i],
+                        startLocationDrop : $scope.startLocationDrop[i],
+                        startTimeDrop     : $scope.startTimeDrop[i]
+                      };
             length = length - 1;
           }
-
       }
-      $scope.hideRoutes = function(){
+
+
+      $scope.hideRoutes = function()
+      {
           $scope.popoverIsVisible = false;
       }
 

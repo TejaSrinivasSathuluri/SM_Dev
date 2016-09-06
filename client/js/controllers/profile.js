@@ -32,46 +32,67 @@ angular.module('app')
        {
          if ($scope.Student)
          {
-           console.log('Student Profile Update');
-           Student.prototype$updateAttributes({
-             id:$scope.editData.id,password:$scope.editData.password,firstName:$scope.editData.firstName,lastName:$scope.editData.lastName,
-             email:$scope.editData.email
-           },function(response){
-             console.log(response);
-             $scope.responseSaveProfile();
-           });
+              console.log('Student Profile Update');
+              Student.prototype$updateAttributes(
+                {
+                        id:$scope.editData.id,
+                        password:$scope.editData.password,
+                        firstName:$scope.editData.firstName,
+                        lastName:$scope.editData.lastName,
+                        email:$scope.editData.email.toLowerCase()
+                },
+                function(response)
+                {
+                        console.log(response);
+                        $scope.responseSaveProfile();
+              });
          }
          else if ($scope.Admin)
          {
-           console.log('Admin Profile Update');
-           Admin.prototype$updateAttributes({
-            id:$scope.editData.id,password:$scope.editData.password,firstName:$scope.editData.firstName,lastName:$scope.editData.lastName,
-            email:$scope.editData.email
-          },function(response){
-             $scope.responseSaveProfile();
-             console.log(response);
-          }, function (response) {
-            console.log(response.data.error.message);
-          });
+                console.log('Admin Profile Update');
+                Admin.prototype$updateAttributes(
+                {
+                  id:$scope.editData.id,
+                  password:$scope.editData.password,
+                  firstName:$scope.editData.firstName,
+                  lastName:$scope.editData.lastName,
+                  email:$scope.editData.email.toLowerCase()
+                },function(response){
+                  $scope.responseSaveProfile();
+                  console.log(response);
+                  $window.localStorage.setItem('user',JSON.stringify(response));
+                  
+                }, function (response) {
+                  console.log(response.data.error.message);
+                });
 
 
          }
          else if ($scope.Parent)
          {
-           Parent.prototype$updateAttributes({
-             id:$scope.editData.id,password:$scope.editData.password,firstName:$scope.editData.firstName,lastName:$scope.editData.lastName,
-             email:$scope.editData.email
-           },function(response){
-             $scope.responseSaveProfile();
-             console.log(response);
-           });
+                Parent.prototype$updateAttributes({
+                  id:$scope.editData.id,
+                  password:$scope.editData.password,
+                  firstName:$scope.editData.firstName,
+                  lastName:$scope.editData.lastName,
+                  email:$scope.editData.email.toLowerCase()
+                },function(response)
+                {
+                  $scope.responseSaveProfile();
+                  console.log(response);
+                });
          }
          else if ($scope.Staff)
          {
            Staff.upsert({
-             id:$scope.editData.id,password:$scope.editData.password,firstName:$scope.editData.firstName,lastName:$scope.editData.lastName,
-             email:$scope.editData.email
-           },function(response){
+             id:$scope.editData.id,
+             password:$scope.editData.password,
+             firstName:$scope.editData.firstName,
+             lastName:$scope.editData.lastName,
+             email:$scope.editData.email.toLowerCase()
+          },
+          function(response)
+          {
              $scope.responseSaveProfile();
              console.log(response);
            });
@@ -89,6 +110,7 @@ angular.module('app')
           {
             $state.go($state.current, {}, {reload: true});
             $scope.$apply();
+
           }, 1000 );
 
         }

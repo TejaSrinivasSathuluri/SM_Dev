@@ -2,13 +2,17 @@ angular.module('app')
 .controller('SubjectController',
     ['$scope', 'Admin', '$state', 'School', 'Class', 'Student', 'Staff', 'Subject', '$rootScope', '$window','ngDialog',
       function ($scope, Admin, $state, School, Class, Student, Staff, Subject, $rootScope, $window,ngDialog) {
+       
         $scope.user = $window.localStorage.getItem('user');
         $scope.userData = JSON.parse($scope.user);
+       
         $scope.schoolId = $scope.userData.schoolId;
+       
         if ($scope.userData.type == 'Admin') { $scope.Admin = true;}
         if ($scope.userData.type == 'Student') { $scope.Student = true;}
         if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
         if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
+         
           $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
           var data;
           $scope.array={subjectName:"",classId:"",staffId:""};
@@ -170,21 +174,26 @@ angular.module('app')
         }
         else if ($scope.Student){
 
-          $scope.subjectList = Subject.find({filter: {where:{classId:$scope.userData.classId,schoolId:$scope.schoolId},include: ['staff', 'class']}});
-           
-         
+
+            $scope.subjectList =[];
          
           Class.findOne({
             filter:{
               where:{
                 id : $scope.userData.classId 
               },
-              include:'staff'
+              include:[{relation:'staff'},
+              {
+              relation :'subjects',scope:{
+                include : 'staff'
+              }
+              }
+               ]
             }
-          },function(response){
-            $scope.firstName = response.staff.firstName;
-            $scope.lastName = response.staff.lastName;
-
+          },function(response)
+          {
+            $scope.classData = response;
+            $scope.subjectList = $scope.classData.subjects;
           });
         }
 		// --------------------------------------------------------

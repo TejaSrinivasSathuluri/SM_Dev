@@ -2,17 +2,16 @@ angular
   .module('app')
   .controller('LandingPageController', function ($scope,Admin,Student,Parent,Staff,Noticeboard,School,$window,$rootScope,$filter,$state) {
      
-      
-
-      if (!$window.localStorage.getItem('user'))
-        {
-        for (var prop in $rootScope)        if (prop.substring(0,1) !== '$')        delete $rootScope[prop];
-      }
-      else{
-
-
         $scope.user = $window.localStorage.getItem('user');
         $scope.userData = JSON.parse($scope.user);
+
+
+        
+        School.findById({id : $scope.userData.schoolId},function(response)
+        {
+             $window.localStorage.setItem('school',JSON.stringify(response));
+        });         
+       
 
         $scope.schoolData = $window.localStorage.getItem('school');
         $scope.school = JSON.parse($scope.schoolData);
@@ -21,9 +20,20 @@ angular
         if ($scope.userData.type == 'Student') { $scope.Student = true;}
         if ($scope.userData.type == 'Parent')  { $scope.Parent  = true;}
         if ($scope.userData.type == 'Staff')   { $scope.Staff   = true;}
+
+
         $scope.schoolId = $scope.school.id;
         $scope.date = new Date();
         $rootScope.image = $scope.school.image;
+
+
+          
+
+
+
+        document.getElementById('myIframe').src = $scope.school.video;
+            
+
 
           // --------------------------------------------------------
           //                  GET NOTICE LIST
@@ -189,8 +199,5 @@ angular
           else false;
         }
 
-   
-  
-      }
 
 });

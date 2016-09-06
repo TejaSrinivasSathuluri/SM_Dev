@@ -171,11 +171,9 @@
                     </div>
                     </form>
                </div>
-                   <!--<div ng-hide='Student' class="col-sm-6">
-                   
-                   </div>-->
+                  
                    <br>
-                   <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12" ng-hide='Student'>
+              <div ng-show="addRoutes && Admin" class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
                 <table class="table table-bordered table-striped table-condensed flip-content">
                   <thead flip-content>
                   <tr>
@@ -187,7 +185,7 @@
                   </tr>
                   </thead>
                   <tr ng-repeat = "receiver in receivers">
-                    <td ng-show="Admin"><a ng-click="addRecipient(receiver)"><i class="fa fa-pencil-square-o"></i></a>
+                    <td ng-show="Admin"><a ng-click="addRecipient(receiver)"><i class="fa fa-plus"></i></a>
                       <a ng-click="deleteRecipient(receiver)"><i class="fa fa-minus "></i></a>
                       {{$index+1}}
                     </td>
@@ -221,7 +219,6 @@
                 <span ng-mouseover="showRoutes(x)" ng-mouseleave="hideRoutes()">
                 {{x.serviceNo}}
                 </span>
-
                 </td>
               <td>{{x.serviceName}}</td>
               <td>{{x.bus.busNo}}</td>
@@ -242,7 +239,7 @@
                           <thead>
                             <tr>
                               <th>PickUp</th>
-                              <th>DropUp</th>
+                              <th>Drop</th>
                             </tr>
                           </thead>
                 <tr  ng-repeat="route in routeDetails">

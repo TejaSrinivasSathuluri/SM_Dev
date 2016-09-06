@@ -20,7 +20,7 @@ angular
 
         $scope.classList = Class.find({filter:{where:{schoolId:$scope.schoolId}}});
 
-
+         
 
        
     

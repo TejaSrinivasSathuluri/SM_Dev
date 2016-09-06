@@ -39,7 +39,7 @@ angular.module('app')
             });
           });
       }
-      $scope.delete();
+      // $scope.delete();
 
 
       //-----------------------------------
@@ -50,59 +50,38 @@ angular.module('app')
         $scope.monthList =[];
         var getDays = new Date($scope.yearSelected,parseInt($scope.monthSelected)+1,0).getDate();
         $scope.monthDays = function(){   return new Array(getDays);    }
-        $scope.list = Student.find({filter: {where: {classId: $scope.classSelectedMonth}}}, function (response) {
+        $scope.list = Student.find({filter: {where: {classId: $scope.classSelectedMonth},include:'school'}}, function (response) {
           var i=0;
           $scope.status=[];
-          response.forEach(function(list){
-
-            var student = list.toJSON();
-            if (student.RFID){
+          response.forEach(function(list)
+          {
+             
+                    var student = list.toJSON();
                     //-----------
-                    Attendance.find(
+                    Attendance.find({filter:{where: {RFID:student.RFID,month:parseInt($scope.monthSelected),year:$scope.yearSelected }}},
+                      function(response)
                       {
-                        filter:
-                        {
-                          where: {RFID:student.RFID,month:parseInt($scope.monthSelected),year:$scope.yearSelected,
-                                   day:
-                                   {
-                                         between:[1,getDays]
-                                    }
-                          }
-                        }
-                      },
-                      function(response){
-                        $scope.status=[];
-                        response.forEach(function(data){
-                          var data = data.toJSON();
-                          $scope.status[parseInt(data.day)-1]= true;
-                        });
-                       if($scope.status.length ==0){
-                         for(var s=0;s<getDays;s++) {$scope.status[s] =false;}
+                              $scope.status=[];
+                              for(var s=0;s<getDays;s++)  $scope.status[s] =false;
+                              
+                              response.forEach(function(data)
+                              {
+                                var data = data.toJSON();
+                                $scope.status[parseInt(data.day)-1]= true;
+                              });
+                              
+                              $scope.monthList[i] = {studentId:student.id,firstName:student.firstName,rollNo:student.rollNo,RFID:student.RFID,status:$scope.status};
+                              i++;
 
-                       }
-                        $scope.monthList[i]= {studentId:student.id,firstName:student.firstName,rollNo:student.rollNo,RFID:student.RFID,status:$scope.status};
-
-
-                        i++;
-
-                      },function(){
-
-                         for(var s=0;s<getDays;s++) $scope.status[s] =false;
-                        $scope.monthList[i] = { studentId :student.id,firstName:student.firstName,rollNo:student.rollNo,RFID:student.RFID,status:$scope.status};
-                        i++;
-
+                      },function()
+                      {
+                              for(var s=0;s<getDays;s++) $scope.status[s] =false;
+                              $scope.monthList[i] = { studentId :student.id,firstName:student.firstName,rollNo:student.rollNo,RFID:student.RFID,status:$scope.status};
+                              i++;
                       }
                     );
                     //  -----------
-                  }
-                  else{
-                    for(var s=0;s<getDays;s++) {$scope.status[s] =false;}
-                    $scope.monthList[i] = { studentId :student.id,firstName:student.firstName,rollNo:student.rollNo,status:$scope.status};
-                    i++;
-
-                  }
-
-
+                    
           });
         });
 
@@ -128,12 +107,13 @@ angular.module('app')
                               {
                                   for (var i = 0; i < $scope.list.length; i++) {
                                   if ( $scope.list[i].RFID.length != 0)
-                                    {
+                                  {
                                       $scope.chk($scope.list[i].id, $scope.list[i].firstName,i,$scope.list[i].RFID,$scope.list[i].rollNo,$scope.list[i].school.code);
-                                    }
-                                  else{
-                                $scope.blockedCount++;
-                                $scope.studentList[i] ={id:$scope.list[i].id,firstName : $scope.list[i].firstName,rollNo:$scope.list[i].rollNo,status:"Blocked"};
+                                  }
+                                  else
+                                  {
+                                      $scope.blockedCount++;
+                                      $scope.studentList[i] ={id:$scope.list[i].id,firstName : $scope.list[i].firstName,rollNo:$scope.list[i].rollNo,status:"Blocked"};
                                   }
 
                                   }

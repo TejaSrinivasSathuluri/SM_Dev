@@ -3,10 +3,11 @@
 
 angular
   .module('app')
-  .factory('AuthServiceAdmin',   ['Admin',  '$q', '$rootScope', '$window','School',function(User,   $q,$rootScope,$window,School) {
+  .factory('AuthServiceAdmin',   ['Admin',  '$q', '$rootScope', '$window','School','$state',
+  function(User,   $q,$rootScope,$window,School,$state) {
     function login(email, password) {
       return User
-        .login({email: email, password: password})
+        .login({email: email.toLowerCase(), password: password})
         .$promise
         .then(function(response) {
           $rootScope.currentUser = {
@@ -18,7 +19,10 @@ angular
           $window.localStorage.setItem('user',JSON.stringify(response.user));
           var school = School.findById({id:response.user.schoolId},function(response){
             $window.localStorage.setItem('school',JSON.stringify(response));
+            $state.go('dashboard');
+            
           });
+
         });
     }
 
@@ -40,17 +44,18 @@ angular
       logout:logout    
     };
   }])
-  .factory('AuthServiceStudent', ['Student','$q', '$rootScope', '$window','School',function(User, $q,$rootScope,$window,School) {
+  .factory('AuthServiceStudent', ['Student','$q', '$rootScope', '$window','School','$state',function(User, $q,$rootScope,$window,School,$state) {
   function login(email, password) {
     return User
-      .login({email: email, password: password})
+      .login({email: email.toLowerCase(), password: password})
       .$promise
       .then(function(response) {
         $window.localStorage.setItem('user',JSON.stringify(response.user));
         var school = School.findById({id:response.user.schoolId},function(response){
          
           $window.localStorage.setItem('school',JSON.stringify(response));
-
+            $state.go('dashboard');
+        
         });
       });
   }
@@ -59,10 +64,10 @@ angular
     login: login
   };
 }])
-  .factory('AuthServiceStaff',   ['Staff',  '$q', '$rootScope', '$window','School',function(User,   $q,$rootScope,$window,School) {
+  .factory('AuthServiceStaff',   ['Staff',  '$q', '$rootScope', '$window','School','$state',function(User,  $q,$rootScope,$window,School,$state) {
   function login(email, password) {
     return User
-      .login({email: email, password: password})
+      .login({email: email.toLowerCase(), password: password})
       .$promise
       .then(function(response) {
         $rootScope.currentUser = {
@@ -72,7 +77,9 @@ angular
         };
         $window.localStorage.setItem('user',JSON.stringify(response.user));
         var school = School.findById({id:response.user.schoolId},function(){
-          $rootScope.schoolName = school.schoolName;});
+          $rootScope.schoolName = school.schoolName;
+            $state.go('dashboard');
+        });
       });
   }
 
@@ -80,11 +87,15 @@ angular
     login: login
   };
 }])
+
+
+
+ 
   .factory('AuthServiceParent',  ['Parent', '$q', '$rootScope', '$window','School','StudentParent','Student','$state',
   function(User,  $q,$rootScope,$window,School,StudentParent,Student,$state) {
   function login(email, password) {
     return User
-      .login({email: email, password: password})
+      .login({email: email.toLowerCase(), password: password})
       .$promise
       .then(function(response) {
        
@@ -101,9 +112,10 @@ angular
             },include :['student','school','parent']
           }},function(response){
         $window.localStorage.setItem('parent',JSON.stringify(response[0].parent));
+        console.log(response[0].student);
         $window.localStorage.setItem('user',JSON.stringify(response[0].student));
         $window.localStorage.setItem('school',JSON.stringify(response[0].school));
-                      $state.go('dashboard');
+        $state.go('dashboard');
   
           });
 

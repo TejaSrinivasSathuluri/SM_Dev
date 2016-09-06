@@ -19,11 +19,13 @@
               <option value="">Class </option>
               <option ng-repeat="y in classList"  value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>
             </select>
+						<br>
              </div>
-			          <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12"><span>{{response}}</span>
+			          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<span>{{response}}</span>
 								<div class="portlet-body-morris-fit morris-chart flip-scroll" style="margin-right:0px;margin-left:0px;margin-bottom:0px;height:max">
                   <div style="height: 500px; overflow: auto;">
-								  		  <table class="table table-bordered table-striped table-condensed flip-content">
+								  		  <table class="table table-bordered table-condensed flip-content">
 									<thead flip-content>
 									<tr>
 
@@ -38,8 +40,9 @@
 									</thead>
 
 									<tr ng-show="Admin" ng-repeat = "subject in scheduleList">
-									                         <td colspan="10" ng-show="subject.attendance == false">
-									 <center>{{ subject.title}}</center></td>
+									                         <td colspan="10" bgcolor="#FF0000" class="text-center" ng-show="subject.attendance == false">
+									  
+									     {{ subject.title}}</td>
 
 
 								    <td ng-show="subject.attendance == true">{{ subject.startTime | date:'hh:mm'}}-{{subject.endTime | date:'hh:mm'}}</td>
@@ -74,13 +77,13 @@
 									  </td>
 									</tr>
                     <tr ng-show="Student || Parent || Staff" ng-repeat = "subject in scheduleList">
-                      <td colspan="10" ng-show="subject.attendance == false">
-                        <center>{{ subject.title}}</center></td>
+                      <td colspan="10" ng-show="subject.attendance == false" style="background-color: darkgrey" class="text-center">
+                        {{ subject.title}} </td>
 
 
-                      <td ng-show="subject.attendance == true">{{ subject.startTime | date:'hh:mm'}}-{{subject.endTime | date:'hh:mm'}}</td>
+                      <td ng-show="subject.attendance == true"> {{ subject.startTime | date:'hh:mm'}}-{{subject.endTime | date:'hh:mm'}}</td>
 
-                      <td ng-show="subject.attendance == true"><select ng-model="subject.Monday" ng-disabled="Student || Staff || Parent" class="form-control id" required>
+                      <td ng-show="subject.attendance == true"><select ng-model="subject.Monday" ng-disabled="Student || Staff || Parent" class="form-control" required>
                         <option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
                       </select>
                       </td>
