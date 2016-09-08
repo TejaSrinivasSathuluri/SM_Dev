@@ -17,13 +17,16 @@ angular.module('app')
           if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
           if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
           $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
+        
+        
          //--------------------------------------------
          //          GET CLASS LIST
          //--------------------------------------------
          $scope.classList = Class.find({filter: {where: {schoolId: $scope.schoolId}}});
 
+
          //--------------------------------------------
-         //          SHOW NOTICE
+         //          SHOW EXAM
          //--------------------------------------------
       
           $scope.examList =[];

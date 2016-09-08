@@ -45,7 +45,8 @@ angular.module('app')
       //-----------------------------------
       // MONTH VIEW
       //------------------------------------
-      $scope.monthView = function() {
+      $scope.monthView = function() 
+      {
 
         $scope.monthList =[];
         var getDays = new Date($scope.yearSelected,parseInt($scope.monthSelected)+1,0).getDate();
@@ -62,8 +63,10 @@ angular.module('app')
                       function(response)
                       {
                               $scope.status=[];
-                              for(var s=0;s<getDays;s++)  $scope.status[s] =false;
-                              
+                              for(var s=0;s<getDays;s++)  
+                                {
+                                     $scope.status[s] =false;
+                                }
                               response.forEach(function(data)
                               {
                                 var data = data.toJSON();
@@ -171,18 +174,24 @@ angular.module('app')
                           if (x.status == true) 
                           {
                             
-                              Attendance.create(
+                                Attendance.create(
                                 { 
-                                      id :x.RFID + x.schoolCode + $scope.dateSelected.getFullYear()  +$scope.dateSelected.getMonth()+$scope.dateSelected.getDate(),   
+                                      id :x.RFID + x.schoolCode + $scope.dateSelected.getFullYear()  + $scope.dateSelected.getMonth() + $scope.dateSelected.getDate(),   
                                       RFID:x.RFID,
-                                     "day":$scope.dateSelected.getDate(),
-                                     "month":$scope.dateSelected.getMonth(),
-                                     "year":$scope.dateSelected.getFullYear(),
-
+                                      day:$scope.dateSelected.getDate(),
+                                      month:$scope.dateSelected.getMonth(),
+                                      year:$scope.dateSelected.getFullYear()
+                                },
+                                function()
+                                {
+                                        console.log('Attendance Added');
+                                        $scope.studentList=[];
+                                        $scope.loadDates();
+                                },
+                                function(response){
+                                        console.log(response);
                                 });
-                              $scope.studentList=[];
-                              $scope.loadDates();
-                              console.log('Attendance Added');
+      
 
 
                           }

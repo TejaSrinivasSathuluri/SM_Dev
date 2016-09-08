@@ -22,6 +22,19 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
              //--------------------------------------------
              // console.log = function() {}
             
+
+
+             //--------------------------------------------
+             //            STUDENT VIEW
+             //--------------------------------------------
+             Marks.find({filter:{where:{ studentId : $scope.user.id },include:'exam'}},
+             function(response)
+             {
+               console.log(response);
+             });
+                 
+
+
              //--------------------------------------------
              //          GET CLASS LIST & SUBJECT LIST
              //--------------------------------------------

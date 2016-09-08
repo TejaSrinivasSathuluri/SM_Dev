@@ -1,6 +1,6 @@
 angular
   .module('app')
-  .controller('DirectoryController',function (Mail,$scope,ngDialog, Admin, $state, School, Class, Student, Parent, StudentParent, Staff, $rootScope, $window,$filter,Timetable,Schedule,$http) {
+  .controller('DirectoryController',function (Attendance,Mail,$scope,ngDialog, Admin, $state, School, Class, Student, Parent, StudentParent, Staff, $rootScope, $window,$filter,Timetable,Schedule,$http) {
 
 
         //--------------------------------------------------------
@@ -38,7 +38,7 @@ angular
 
 
         //--------------------------------------------------------
-        //                  GET CLASS LIST
+        //                  GET STUDENT LIST
         // -------------------------------------------------------
         $scope.studentList = Student.find({filter: {where: {schoolId: $scope.schoolId}, include: 'class'}},
           function () {},
@@ -763,16 +763,65 @@ angular
         //--------------------------------------------------------
         //                 SHOW USER
         //--------------------------------------------------------
-        $scope.showUser = function (x) {
+
+        $scope.showUser = function (x) 
+        {
           $scope.tab = 1;
           $scope.setTab = function(newTab){  $scope.tab = newTab; };
           $scope.isSet = function(tabNum){   return $scope.tab === tabNum; };
           $scope.formData =x;
-          if      (x.type =='Student')   ngDialog.openConfirm({template: 'showStudent', scope: $scope});
+          if      (x.type =='Student')   
+                  {
+                      // monthView(x);
+                      ngDialog.openConfirm({template: 'showStudent', scope: $scope});
+                  }
           else if (x.type =='Parent')    ngDialog.openConfirm({template: 'showParent',  scope: $scope});
           else if (x.type =='Staff')     ngDialog.openConfirm({template: 'showStaff',   scope: $scope});
-
         }
+
+        //  ------------------------------------------------------
+        //               
+        // --------------------------------------------------------
+
+
+              monthView = function(x) 
+              {
+
+                      // $scope.monthList =[];
+                      year = new Date().getFullYear();
+                      month = new Date().getMonth();
+                      var getDays = new Date(year,parseInt(month)+1,0).getDate();
+                      $scope.monthDays = function(){   return new Array(getDays);    }
+                      $scope.list =[];
+
+                          //-----------
+                            Attendance.find({filter:{where: {RFID:x.RFID,year:year }}},
+                            function(response)
+                            {
+                                        var i=0;
+                                        response.forEach(function(data)
+                                        {
+                                              $scope.list[i] = data.toJSON();  
+                                              console.log($scope.list);
+                                              i++;
+                                          // if(data.day) $scope.count[i]=dayCount++;
+                                          // console.log($scope.count[i]);
+                                        });
+                                   
+                            });
+                          //  -----------
+
+                  }
+
+
+
+
+
+
+        // -----------------------------------------------------------
+
+
+
 
         //--------------------------------------------------------
         //                 PARENT SUBSCRIPTION

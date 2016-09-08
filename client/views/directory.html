@@ -681,17 +681,25 @@
 
       </table>
     </div>
-    <div ng-show="isSet(2)">
+     <div ng-show="isSet(2)">
+      
+                             <div class="text-center">Monthly Attendance<br><br></div>
+
+        <table>
+          <tr ng-repeat="x in list">
+            {{x.RFID}} </tr>
+        </table>
+       
+     </div>
+     <div ng-show="isSet(3)">
 
        Coming Soon
-    </div>
-  <div ng-show="isSet(3)">
+     </div> 
+     
+     <div ng-show="isSet(4)">
 
        Coming Soon
-    </div> <div ng-show="isSet(4)">
-
-       Coming Soon
-    </div>
+      </div>
 
   </div>
 </script>
@@ -801,10 +809,10 @@
 
 
 
-            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button ng-show="Admin" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Add Users <span class="caret"></span>
             </button>
-            <ul ng-show="Admin" class="dropdown-menu">
+            <ul class="dropdown-menu">
               <li><a  ng-click="clearForm();addStudentForm()"  >Add Student</a></li>
               <li><a ng-click="clearForm();addStaffForm()"     >Add Staff  </a></li>
               <!--<li><a ng-click="clearForm();addParentForm()"    >Add Parent </a></li>-->
@@ -867,7 +875,7 @@
                                                                                   <i class="fa fa-pencil-square-o" ng-click="editUser(x)"></i>
                                                                                   <i class="fa fa-trash-o"  ng-click="deleteUser(x)"></i>
                                                                   </td>
-                                                                  <td><button class="btn btn-circle" ng-click="addParentSubscription(x)">Subscribe</button></td>
+                                                                  <td ng-show="Admin"><button class="btn btn-circle" ng-click="addParentSubscription(x)">Subscribe</button></td>
 
                                                           </tr>
                                                      </tbody>

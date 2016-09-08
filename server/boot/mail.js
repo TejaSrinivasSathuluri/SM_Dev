@@ -25,55 +25,29 @@ module.exports = function(server) {
          School.findOne({ "where":{ "id" : schoolId}},function(err,response)
          {
             if (err) next(err);
-            var studyMonitorMailSender = nodemailer.createTransport({ service: 'Gmail',
-                                                                        auth:  
-                                                                        {user: response.schoolEmail ,
-                                                                            pass: response.schoolPassword }
-                                                                            });
+            // var studyMonitorMailSender = nodemailer.createTransport({ service: 'Gmail',
+            //                                                             auth:  
+            //                                                             {user: response.schoolEmail ,
+            //                                                                 pass: response.schoolPassword }
+            //                                                                 });
             
             
             
-                                                var mailOptions = {
-                                                    from: response.schoolEmail, 
-                                                    to: email, 
-                                                    subject: subject, 
-                                                    text: message 
-                                            };
-                studyMonitorMailSender.sendMail(mailOptions, function(error, info){
-                if(error)    console.log(error);
-                else         console.log('Message sent');
+            //                                     var mailOptions = {
+            //                                         from: response.schoolEmail, 
+            //                                         to: email, 
+            //                                         subject: subject, 
+            //                                         text: message 
+            //                                 };
+            //     studyMonitorMailSender.sendMail(mailOptions, function(error, info){
+            //     if(error)    console.log(error);
+            //     else         console.log('Message sent');
                 
-                });
+            //     });
+
 
                    
-
-// -----------------------------------------------------------------------------------------
-
-            // var smtpTransport = nodemailer.createTransport("SMTP",{
-            // service: "Gmail", 
-            // auth: {
-            //     user: response.schoolEmail,
-            //     pass: response.schoolPassword
-            // }
-            // });
-
-
-
-                        // smtpTransport.sendMail(
-                        //     { 
-                        //         from: "<" + response.schoolEmail+ ">",
-                        //         to: "<" + email  + ">", 
-                        //         subject: subject, 
-                        //         text: message
-                        //     }, 
-                        //     function(error, response)
-                        //     {  
-                        //             if(error) console.log(error);
-                        //             else console.log("Message sent: " + response.message);
-                        //             smtpTransport.close(); 
-                        //     });
- // -------------------------------------------------------------------------------------
-
+ 
             });
         }
             next();

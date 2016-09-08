@@ -116,8 +116,8 @@
                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-danger" ng-show="error"> {{responseExam}}</div>
             </div>
                         
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-hide="Student">
-                        <form ng-submit="addExam()">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+                        <form ng-hide="Student" ng-submit="addExam()">
                                         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 mbtm">
                                           <select ng-model="formData.classId"  required ng-change="setSubjectList()" class="form-control">
                                             <option value="">Class </option>
