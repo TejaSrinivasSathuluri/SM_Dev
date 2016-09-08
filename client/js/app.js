@@ -76,8 +76,10 @@ angular
       else
       {
 
+            
             $rootScope.currentUser = $window.localStorage.getItem('user');
-            $rootScope.user = JSON.parse($rootScope.currentUser);
+            $rootScope.user = JSON.parse($rootScope.currentUser); 
+
             if ($rootScope.user.type == 'Student')
             {
                   console.log('Student');
@@ -87,7 +89,6 @@ angular
                     if ($state.current.name == 'expensemanagement') $state.go('logout');
                     
                   }, 100); 
-
             }
       }
     });

@@ -47,8 +47,7 @@ angular
        }
       );
 
-     if ($scope.Admin)
-     {
+      
         $scope.addRecipient = function (receiver) 
         {
               if (receiver.title.length != 0) {
@@ -117,5 +116,5 @@ angular
             }, 1000 );
           });
       }
-    }
+    
     }]);

@@ -8,7 +8,9 @@ angular
     $scope.login = function() 
     {
       $scope.user.email = $scope.user.email.toLowerCase();
-      if ($scope.loginUser == 'Admin') {
+      if ($scope.loginUser == 'Admin') 
+      {
+        
         AuthServiceAdmin.login($scope.user.email, $scope.user.password)
           .then(function () {
      

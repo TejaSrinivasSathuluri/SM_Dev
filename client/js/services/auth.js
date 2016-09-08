@@ -15,6 +15,7 @@ angular
             tokenId: response.id,
             user : response.user
           };
+          console.log(response);
           console.log('Admin Logged In');
           $window.localStorage.setItem('user',JSON.stringify(response.user));
           var school = School.findById({id:response.user.schoolId},function(response){

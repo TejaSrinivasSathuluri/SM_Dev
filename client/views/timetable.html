@@ -37,7 +37,8 @@
                 </thead>
 
                 <tr ng-repeat = "receiver in receivers">
-                  <td ng-show="Admin"><a ng-click="addRecipient(receiver)"><i class="fa fa-plus"></i></a>
+                  <td ng-show="Admin">
+                      <a ng-click="addRecipient(receiver)"><i class="fa fa-plus"></i></a>
                       <a ng-click="deleteRecipient(receiver)"><i class="fa fa-minus-circle"></i></a>
                     {{$index+1}}
                   </td>

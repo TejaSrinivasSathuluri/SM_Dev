@@ -6174,6 +6174,33 @@ module.factory(
           method: "PUT"
         },
 
+        // INTERNAL. Use School.bus.findById() instead.
+        "prototype$__findById__bus": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Schools/:id/bus/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use School.bus.destroyById() instead.
+        "prototype$__destroyById__bus": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Schools/:id/bus/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use School.bus.updateById() instead.
+        "prototype$__updateById__bus": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Schools/:id/bus/:fk",
+          method: "PUT"
+        },
+
         // INTERNAL. Use School.timetables() instead.
         "prototype$__get__timetables": {
           url: urlBase + "/Schools/:id/timetables",
@@ -6351,6 +6378,31 @@ module.factory(
         // INTERNAL. Use School.classes.count() instead.
         "prototype$__count__classes": {
           url: urlBase + "/Schools/:id/classes/count",
+          method: "GET"
+        },
+
+        // INTERNAL. Use School.bus() instead.
+        "prototype$__get__bus": {
+          isArray: true,
+          url: urlBase + "/Schools/:id/bus",
+          method: "GET"
+        },
+
+        // INTERNAL. Use School.bus.create() instead.
+        "prototype$__create__bus": {
+          url: urlBase + "/Schools/:id/bus",
+          method: "POST"
+        },
+
+        // INTERNAL. Use School.bus.destroyAll() instead.
+        "prototype$__delete__bus": {
+          url: urlBase + "/Schools/:id/bus",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use School.bus.count() instead.
+        "prototype$__count__bus": {
+          url: urlBase + "/Schools/:id/bus/count",
           method: "GET"
         },
 
@@ -7983,6 +8035,307 @@ module.factory(
         R.classes.updateById = function() {
           var TargetResource = $injector.get("Class");
           var action = TargetResource["::updateById::School::classes"];
+          return action.apply(R, arguments);
+        };
+    /**
+     * @ngdoc object
+     * @name lbServices.School.bus
+     * @header lbServices.School.bus
+     * @object
+     * @description
+     *
+     * The object `School.bus` groups methods
+     * manipulating `Bus` instances related to `School`.
+     *
+     * Call {@link lbServices.School#bus School.bus()}
+     * to query all related instances.
+     */
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School#bus
+         * @methodOf lbServices.School
+         *
+         * @description
+         *
+         * Queries bus of School.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Bus` object.)
+         * </em>
+         */
+        R.bus = function() {
+          var TargetResource = $injector.get("Bus");
+          var action = TargetResource["::get::School::bus"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School.bus#count
+         * @methodOf lbServices.School.bus
+         *
+         * @description
+         *
+         * Counts bus of School.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        R.bus.count = function() {
+          var TargetResource = $injector.get("Bus");
+          var action = TargetResource["::count::School::bus"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School.bus#create
+         * @methodOf lbServices.School.bus
+         *
+         * @description
+         *
+         * Creates a new instance in bus of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Bus` object.)
+         * </em>
+         */
+        R.bus.create = function() {
+          var TargetResource = $injector.get("Bus");
+          var action = TargetResource["::create::School::bus"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School.bus#createMany
+         * @methodOf lbServices.School.bus
+         *
+         * @description
+         *
+         * Creates a new instance in bus of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Bus` object.)
+         * </em>
+         */
+        R.bus.createMany = function() {
+          var TargetResource = $injector.get("Bus");
+          var action = TargetResource["::createMany::School::bus"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School.bus#destroyAll
+         * @methodOf lbServices.School.bus
+         *
+         * @description
+         *
+         * Deletes all bus of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.bus.destroyAll = function() {
+          var TargetResource = $injector.get("Bus");
+          var action = TargetResource["::delete::School::bus"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School.bus#destroyById
+         * @methodOf lbServices.School.bus
+         *
+         * @description
+         *
+         * Delete a related item by id for bus.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for bus
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.bus.destroyById = function() {
+          var TargetResource = $injector.get("Bus");
+          var action = TargetResource["::destroyById::School::bus"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School.bus#findById
+         * @methodOf lbServices.School.bus
+         *
+         * @description
+         *
+         * Find a related item by id for bus.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for bus
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Bus` object.)
+         * </em>
+         */
+        R.bus.findById = function() {
+          var TargetResource = $injector.get("Bus");
+          var action = TargetResource["::findById::School::bus"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.School.bus#updateById
+         * @methodOf lbServices.School.bus
+         *
+         * @description
+         *
+         * Update a related item by id for bus.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for bus
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Bus` object.)
+         * </em>
+         */
+        R.bus.updateById = function() {
+          var TargetResource = $injector.get("Bus");
+          var action = TargetResource["::updateById::School::bus"];
           return action.apply(R, arguments);
         };
     /**
@@ -9984,12 +10337,6 @@ module.factory(
         // INTERNAL. Use Assignment.class() instead.
         "::get::Assignment::class": {
           url: urlBase + "/Assignments/:id/class",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Attendance.class() instead.
-        "::get::Attendance::class": {
-          url: urlBase + "/Attendances/:id/class",
           method: "GET"
         },
 
@@ -15119,6 +15466,65 @@ module.factory(
         "createChangeStream": {
           url: urlBase + "/Buses/change-stream",
           method: "POST"
+        },
+
+        // INTERNAL. Use School.bus.findById() instead.
+        "::findById::School::bus": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Schools/:id/bus/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use School.bus.destroyById() instead.
+        "::destroyById::School::bus": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Schools/:id/bus/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use School.bus.updateById() instead.
+        "::updateById::School::bus": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Schools/:id/bus/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use School.bus() instead.
+        "::get::School::bus": {
+          isArray: true,
+          url: urlBase + "/Schools/:id/bus",
+          method: "GET"
+        },
+
+        // INTERNAL. Use School.bus.create() instead.
+        "::create::School::bus": {
+          url: urlBase + "/Schools/:id/bus",
+          method: "POST"
+        },
+
+        // INTERNAL. Use School.bus.createMany() instead.
+        "::createMany::School::bus": {
+          isArray: true,
+          url: urlBase + "/Schools/:id/bus",
+          method: "POST"
+        },
+
+        // INTERNAL. Use School.bus.destroyAll() instead.
+        "::delete::School::bus": {
+          url: urlBase + "/Schools/:id/bus",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use School.bus.count() instead.
+        "::count::School::bus": {
+          url: urlBase + "/Schools/:id/bus/count",
+          method: "GET"
         },
 
         // INTERNAL. Use BusService.bus() instead.
@@ -20917,12 +21323,6 @@ module.factory(
       { 'id': '@id' },
       {
 
-        // INTERNAL. Use Attendance.class() instead.
-        "prototype$__get__class": {
-          url: urlBase + "/Attendances/:id/class",
-          method: "GET"
-        },
-
         // INTERNAL. Use Attendance.student() instead.
         "prototype$__get__student": {
           url: urlBase + "/Attendances/:id/student",
@@ -21498,42 +21898,6 @@ module.factory(
     */
     R.modelName = "Attendance";
 
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Attendance#class
-         * @methodOf lbServices.Attendance
-         *
-         * @description
-         *
-         * Fetches belongsTo relation class.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `refresh` – `{boolean=}` - 
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Class` object.)
-         * </em>
-         */
-        R.class = function() {
-          var TargetResource = $injector.get("Class");
-          var action = TargetResource["::get::Attendance::class"];
-          return action.apply(R, arguments);
-        };
 
         /**
          * @ngdoc method

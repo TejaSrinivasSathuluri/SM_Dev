@@ -59,9 +59,9 @@
                             </tr></thead>
                             <tbody>
                             <tr data-ng-repeat="x in studentList track by $index" >
-                              <td> {{x.rollNo}}</td>
-                              <td> {{x.firstName}}</td>
-                              <td> {{x.RFID}} </td>
+                              <td> {{x.student.rollNo}}</td>
+                              <td> {{x.student.firstName}} {{x.student.lastName}}</td>
+                              <td> {{x.student.RFID}} </td>
                               <td> <input type="checkbox"  ng-model="x.status"  ng-disabled="!Staff && !Admin" ng-click="addAttendance(x)" > </td>
                             </tr>
                             </tbody>
@@ -104,7 +104,7 @@
                                   </select>
                                 </div>
                                 <div class="col-lg-2 col-md-1 col-sm-12 col-xs-12 mbtm">
-                                  <input type="number" class="form-control" placeholder="Year" min=0001 minlength="1" max=9999 ng-model="yearSelected" required>
+                                  <input type="number" class="form-control" placeholder="Year" min=0001 minlength="4" maxlength="4"" max=9999 ng-model="yearSelected" required>
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 mbtm">
                                   <input type="submit" class="btn btn-success uppercase" value="View">
@@ -121,8 +121,8 @@
                                       <th ng-repeat="y in monthDays() track by $index">{{$index+1}}  </th>
                                     </tr>
                                     <tr ng-repeat="x in monthList track by $index"  >
-                                      <td>      {{x.rollNo}}</td>
-                                      <td>      {{x.firstName}}</td>
+                                      <td>      {{x.student.rollNo}}</td>
+                                      <td>      {{x.student.firstName}}{{x.student.lastName}}</td>
                                       <td ng-repeat="y in x.status track by $index">
                                         <input type="checkbox" ng-disabled="true" ng-model="y"/>
                                       </td>

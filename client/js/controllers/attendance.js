@@ -50,18 +50,24 @@ angular.module('app')
 
         $scope.monthList =[];
         var getDays = new Date($scope.yearSelected,parseInt($scope.monthSelected)+1,0).getDate();
-        $scope.monthDays = function(){   return new Array(getDays);    }
-        $scope.list = Student.find({filter: {where: {classId: $scope.classSelectedMonth},include:'school'}}, function (response) {
+        // $scope.monthDays = function(){   return new Array(getDays);    }
+        Student.find({filter: {where: {classId: $scope.classSelectedMonth},include:'school'}}, function (response) 
+        {
           var i=0;
           $scope.status=[];
           response.forEach(function(list)
           {
              
                     var student = list.toJSON();
+                    var key = student.RFID + $scope.yearSelected + $scope.monthSelected;
+                 
                     //-----------
+                  
                     Attendance.find({filter:{where: {RFID:student.RFID,month:parseInt($scope.monthSelected),year:$scope.yearSelected }}},
                       function(response)
                       {
+
+                            
                               $scope.status=[];
                               for(var s=0;s<getDays;s++)  
                                 {
@@ -73,13 +79,13 @@ angular.module('app')
                                 $scope.status[parseInt(data.day)-1]= true;
                               });
                               
-                              $scope.monthList[i] = {studentId:student.id,firstName:student.firstName,rollNo:student.rollNo,RFID:student.RFID,status:$scope.status};
+                              $scope.monthList[i] = {student:student,status:$scope.status};
                               i++;
 
                       },function()
                       {
                               for(var s=0;s<getDays;s++) $scope.status[s] =false;
-                              $scope.monthList[i] = { studentId :student.id,firstName:student.firstName,rollNo:student.rollNo,RFID:student.RFID,status:$scope.status};
+                              $scope.monthList[i] = { student :student,status:$scope.status};
                               i++;
                       }
                     );
@@ -97,35 +103,26 @@ angular.module('app')
 
 
 
-      $scope.loadDates = function() {
-        
-        if ($scope.dateSelected <= new Date())  {
+      $scope.loadDates = function() 
+      {
+            if ($scope.dateSelected <= new Date())  
+            {
 
-                              $scope.studentList = [];
-                              $scope.presentCount=0;
-                              $scope.absentCount=0;
-      
-                              $scope.list = Student.find({filter: {where: {classId: $scope.classSelected},include:'school'}}, 
-                              function () 
-                              {
-                                  for (var i = 0; i < $scope.list.length; i++) {
-                                  if ( $scope.list[i].RFID.length != 0)
-                                  {
-                                      $scope.chk($scope.list[i].id, $scope.list[i].firstName,i,$scope.list[i].RFID,$scope.list[i].rollNo,$scope.list[i].school.code);
-                                  }
-                                  else
-                                  {
-                                      $scope.blockedCount++;
-                                      $scope.studentList[i] ={id:$scope.list[i].id,firstName : $scope.list[i].firstName,rollNo:$scope.list[i].rollNo,status:"Blocked"};
-                                  }
+                    $scope.studentList = [];
+                    $scope.presentCount=0;
+                    $scope.absentCount=0;
 
-                                  }
-                              });
-                       
-			  }
-        else{
-          alert('Future Date Is Not Accepted');
-        }
+                    Student.find({filter: {where: {classId: $scope.classSelected},include:'school'}}, 
+                    function (response) 
+                    {
+                        for (var i = 0; i < response.length; i++)  $scope.chk(response[i],i);
+                        
+                    });
+                          
+            }
+            else{
+              alert('Future Date Is Not Accepted');
+            }
       }
 
 
@@ -136,37 +133,35 @@ angular.module('app')
     //  CHK ATTENDANCE
     // ------------------------------
 
-                                  $scope.chk = function(studentId,firstName,i,RFID,rollNo,schoolCode)
+                                  $scope.chk = function(student,i)
                                   {
                                     var day = parseInt($scope.dateSelected.getDate());
                                     var month = parseInt($scope.dateSelected.getMonth());
                                     var year = parseInt($scope.dateSelected.getFullYear());
-                                    var schoolCode = parseInt(schoolCode);
-                                    var key = RFID+schoolCode+year+month+day;
-                                    $scope.attendanceRecord = Attendance.findById({id: key},
+                                    var key = student.RFID+ student.school.code + year+month+day;
+                                    
+                                    Attendance.findById({id: key},
                                         function(response)
                                         {
                                              $scope.presentCount++;
-                                             $scope.studentList[i] ={     id :response.id,studentId:studentId ,firstName :firstName,
-                                                                          RFID:response.RFID,rollNo :rollNo,status:true,
-                                                                          schoolCode:schoolCode
-                                                                    };
+                                             $scope.studentList[i] ={id :response.id,student:student,status:true };
 
                                         },
                                         function()
                                         {
                                              $scope.absentCount++;
-                                             console.log('RFID:'+ RFID + ' Is Absent');
-                                             $scope.studentList[i] ={ 
-                                                                      id:null,firstName : firstName,RFID:RFID,rollNo:rollNo,
-                                                                      status:false,schoolCode:schoolCode,key:null,studentId:studentId};
+                                             console.log('RFID:'+ student.RFID + ' Is Absent');
+                                             $scope.studentList[i] ={student:student,status:false};
                                         });
 
                                   }
 
      
+
+
+
     //-------------------------------- 
-    //  ADD ATTENDANCE
+    //  ADD/DELETE ATTENDANCE
     // ------------------------------
       $scope.addAttendance = function(x)
       {
@@ -176,8 +171,8 @@ angular.module('app')
                             
                                 Attendance.create(
                                 { 
-                                      id :x.RFID + x.schoolCode + $scope.dateSelected.getFullYear()  + $scope.dateSelected.getMonth() + $scope.dateSelected.getDate(),   
-                                      RFID:x.RFID,
+                                      id :x.student.RFID + x.student.school.code + $scope.dateSelected.getFullYear()  + $scope.dateSelected.getMonth() + $scope.dateSelected.getDate(),   
+                                      RFID:x.student.RFID,
                                       day:$scope.dateSelected.getDate(),
                                       month:$scope.dateSelected.getMonth(),
                                       year:$scope.dateSelected.getFullYear()
@@ -188,23 +183,23 @@ angular.module('app')
                                         $scope.studentList=[];
                                         $scope.loadDates();
                                 },
-                                function(response){
+                                function(response)
+                                {
+                                        console.log('Attendance Not Added');
                                         console.log(response);
                                 });
-      
-
-
                           }
-                          else {
-                            console.log(x);
-                        
-                                    Attendance.deleteById({id:x.id},function(){
-                                      console.log('Attendance Deleted');
-                                      $scope.loadDates();
-                                    });
+                          else 
+                          {
+                                        console.log(x);
+                                        Attendance.deleteById({id:x.id},function()
+                                        {
+                                          console.log('Attendance Deleted');
+                                          $scope.loadDates();
+                                        });
 
                           }
       }
 
 
- })
+ });
