@@ -121,15 +121,15 @@ angular
                     }
                   }
                   else if (searchUser  == 'p') {
-                    alert('Parent Access is Under Developement. Will Be Activated Soon');
-                    //$scope.studentBox = false;$scope.staffBox = false;
-                    //if($scope.formData.parentSearch) {
-                    //  $scope.studentBox = true;
-                    //  $scope.staffBox = true;
-                    //  $scope.rollSearch = true;
-                    //  $scope.classSearch = true;
-                    //  $scope.searchList = $scope.parentList;
-                    //}
+                    // alert('Parent Access is Under Developement. Will Be Activated Soon');
+                    $scope.studentBox = false;$scope.staffBox = false;
+                    if($scope.formData.parentSearch) {
+                     $scope.studentBox = true;
+                     $scope.staffBox = true;
+                     $scope.rollSearch = true;
+                     $scope.classSearch = true;
+                     $scope.searchList = $scope.parentList;
+                    }
                   }
                   else if (searchUser  == 's') {
                       $scope.parentBox = false;$scope.staffBox = false;$scope.rollSearch = true;$scope.classSearch = true;
@@ -288,7 +288,6 @@ angular
                       nationalIdType  : formData.nationalIdType,
                       subCaste        : formData.subCaste,
                       contact         : formData.contact,
-                      type            : "Student",
                       created         : new Date(),
                       image           : $scope.image,
                       fatherName      : formData.fatherName,
@@ -639,7 +638,6 @@ angular
                         nationalIdType     : formData.nationalIdType,
                         subCaste           : formData.subCaste,
                         contact            : formData.contact,
-                        type               : "Staff",
                         created            : new Date(),
                         qualification      : formData.qualification,
                         qualifiedUniversity: formData.qualifiedUniversity,
@@ -835,9 +833,10 @@ angular
                  var message = null;          
                 Parent.create({
                   email :parentEmail,password :"parent"
-                },function(){
-                    message = "Please subscribe to your child " + x.firstName + ' ' + x.lastName + " @ www.studymonitor.in/#/signup using the following Key : " + x.id ;
-                  
+                },function()
+                {
+                    message = "Welcome To Study Monitor.Your default password is 'parent'.Please subscribe to your child " + x.firstName + ' ' + x.lastName + " @ www.studymonitor.in/#/signup using the following Key : " + x.id ;
+                   
                   sendSubscriptionEmail(parentEmail,x,message);
 
                 },function(){

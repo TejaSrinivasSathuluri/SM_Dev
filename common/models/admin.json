@@ -7,8 +7,6 @@
   },
   "properties": {
     "type": {
-      "type": "String",
-      "length": "5",
       "default": "Admin"
     }
   },

@@ -857,7 +857,7 @@
                                                                 <th ng-hide="Staff"><a ng-click="sortType = 'class.className'; sortReverse = !sortReverse">Class/Section</a></th>
                                                                 <th><a ng-click="sortType = 'contact'; sortReverse = !sortReverse">  Contact      </a></th>
                                                                 <th ng-show="Admin">Action</th>
-                                                                <th ng-show="Admin">Subscription</th>
+                                                                <!--<th ng-if="x.type == 'Student'" ng-show="Admin">Subscription</th>-->
                                                             </tr>
                                                    </thead>
                                                    <tbody>
@@ -875,7 +875,7 @@
                                                                                   <i class="fa fa-pencil-square-o" ng-click="editUser(x)"></i>
                                                                                   <i class="fa fa-trash-o"  ng-click="deleteUser(x)"></i>
                                                                   </td>
-                                                                  <td ng-show="Admin"><button class="btn btn-circle" ng-click="addParentSubscription(x)">Subscribe</button></td>
+                                                                  <td ng-if="x.type == 'Student'" ng-show="Admin"><button class="btn btn-circle" ng-click="addParentSubscription(x)">Subscribe</button></td>
 
                                                           </tr>
                                                      </tbody>

@@ -151,7 +151,9 @@
       "default": 999999
     },
     "type": {
-      "type": "String"
+      "type": "String",
+      "default": "Student"
+      
     },
     "created": {
       "type": "date"

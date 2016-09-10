@@ -64,6 +64,12 @@ angular
        $scope.response = message;
     }
 
+     successCall = function(message)
+    {
+       $scope.error = true;
+       $scope.response = message;
+    }
+
      $scope.register = function() {
         console.log($scope.user.email);
         console.log($scope.user.password);
@@ -88,6 +94,8 @@ angular
                                                           parentId  : $scope.parentExists.userId 
                                                       },function(){
                                                               console.log('Parent Student Relation Created');  
+                                                              successCall('You have registered Successfully');
+
                                                       },function(response){
                                                               console.log(response.data.error.message);
                                                       }); 

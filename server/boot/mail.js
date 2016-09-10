@@ -25,70 +25,42 @@ module.exports = function(server) {
          School.findOne({ "where":{ "id" : schoolId}},function(err,response)
          {
             if (err) next(err);
-            // var studyMonitorMailSender = nodemailer.createTransport({ service: 'Gmail',
-            //                                                             auth:  
-            //                                                             {user: response.schoolEmail ,
-            //                                                                 pass: response.schoolPassword }
-            //                                                                 });
-            
-            
-            
-            //                                     var mailOptions = {
-            //                                         from: response.schoolEmail, 
-            //                                         to: email, 
-            //                                         subject: subject, 
-            //                                         text: message 
-            //                                 };
-            //     studyMonitorMailSender.sendMail(mailOptions, function(error, info){
-            //     if(error)    console.log(error);
-            //     else         console.log('Message sent');
-                
-            //     });
+                                  // --------------------------------------------
+                                  var request = require('request');
 
+                                  // Set the headers
+                                  var headers = {
+                                    'User-Agent':       'Super Agent/0.0.1',
+                                    'Content-Type':     'application/json'
+                                  }
 
+                                  // Configure the request
+                                  var options = {
+                                    url: 'https://api.sendgrid.com/api/mail.send.json',
+                                    method: 'POST',
+                                    headers: headers,
+                                    form: {
+                                      "api_user":"teja.sathuluri",
+                                      "api_key":"Tej@3047",
+                                      "to":email,
+                                      "subject":subject,
+                                      "text":message,
+                                      "from":response.schoolEmail
+                                    }
+                                  }
 
-
-// --------------------------------------------
-var request = require('request');
-
-// Set the headers
-var headers = {
-  'User-Agent':       'Super Agent/0.0.1',
-  'Content-Type':     'application/json'
-}
-
-// Configure the request
-var options = {
-  url: 'https://api.sendgrid.com/api/mail.send.json',
-  method: 'POST',
-  headers: headers,
-  form: {
-    "api_user":"teja.sathuluri",
-    "api_key":"Tej@3047",
-    "to":email,
-    "subject":subject,
-    "text":message,
-    "from":response.schoolEmail
-  }
-}
-
-// Start the request
-request(options, function (error, response, body) {
-  if (!error && response.statusCode == 200) {
-    // Print out the response body
-    console.log(body)
-    console.log("email sent!");
-  } else {
-    console.log("error: "+JSON.stringify(response));
-    console.log("email sent!");
-  }
-})
+                                  // Start the request
+                                  request(options, function (error, response, body) {
+                                    if (!error && response.statusCode == 200) {
+                                      // Print out the response body
+                                      console.log(body)
+                                      console.log("email sent!");
+                                    } else {
+                                      console.log("error: "+JSON.stringify(response));
+                                      console.log("email sent!");
+                                    }
+                                  })
 // ---------------------------------------------
-
-
-
-                   
- 
             });
         }
             next();
