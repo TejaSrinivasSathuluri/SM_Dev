@@ -50,7 +50,7 @@ angular.module('app')
 
         $scope.monthList =[];
         var getDays = new Date($scope.yearSelected,parseInt($scope.monthSelected)+1,0).getDate();
-        // $scope.monthDays = function(){   return new Array(getDays);    }
+        $scope.monthDays = function(){   return new Array(getDays);    }
         Student.find({filter: {where: {classId: $scope.classSelectedMonth},include:'school'}}, function (response) 
         {
           var i=0;

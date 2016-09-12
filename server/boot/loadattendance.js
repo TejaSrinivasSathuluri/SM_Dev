@@ -13,11 +13,12 @@ module.exports = function(server)
             //  -NODE SCHEDULER DECLARATIONS
             var schedule  = require('node-schedule');
             var rule = new schedule.RecurrenceRule();
-            rule.minute = 36;
+            rule.minute = 59;
 
             //  -MODEL DECLARATIONS
             var Attendance = server.models.Attendance;
             var School     = server.models.School;
+            var Student     = server.models.Student;
  
        
           //  -DATE FUNCTION
@@ -62,29 +63,40 @@ module.exports = function(server)
                           var countParsed=0;
                           var countDuplicate=0;
                           var countError=0,i=0;
+                          
 
                           converter.on("record_parsed", function (jsonObj)
                           {
                                   var RFID  = jsonObj.CardNumber;
                                   var key = RFID + schoolCode +  year + month + day;
-
-                                  Attendance.create({RFID:RFID,day: day,month:month,year:year,schoolCode:schoolCode,id:key},
-                                  function(err,record)
+                                  console.log(key);
+                                  Student.findOne({"where":{  "RFID" : RFID,"schoolCode" : parseInt(schoolCode) }},
+                                  function(err,response)
                                   {
-                                          countParsed++; 
-                                          if (err) 
-                                          {
-                                            countDuplicate++;
-                                            console.log(err);
-                                          }
-                                          else 
-                                          {
-                                            console.log(record);
-                                            countAdded++;
-                                          }
+                                    if (err) console.log(err);
+                                    else 
+                                    {
+                                        // console.log(response);
+                                    }
                                   });
+
+                                  // Attendance.create({RFID:RFID,day: day,month:month,year:year,schoolCode:schoolCode,id:key},
+                                  // function(err,record)
+                                  // {
+                                  //         countParsed++; 
+                                  //         if (err) 
+                                  //         {
+                                  //           countDuplicate++;
+                                  //           console.log(err);
+                                  //         }
+                                  //         else 
+                                  //         {
+                                  //           console.log(record);
+                                  //           countAdded++;
+                                  //         }
+                                  // });
                                               
-                                  console.log('Parsed:' +countParsed + '-'  + 'Added:' +countAdded + '-' +  'Duplicate:' +countDuplicate);
+                                  // console.log('Parsed:' +countParsed + '-'  + 'Added:' +countAdded + '-' +  'Duplicate:' +countDuplicate);
                           });
 
                           var url ="http://studymonitor.net/prod/" + schoolCode  + "/CardsData" +  dateString + ".csv";

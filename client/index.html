@@ -194,7 +194,7 @@
                
       
       <!-- BEGIN MEGA MENU -->
-      <div class="hor-menu" ng-show="currentUser">
+      <div  ng-controller="MenuController" class="hor-menu" ng-show="currentUser">
       <!--<div class="hor-menu" ng-show="currentUser" data-ng-controller="LandingPageController">-->
         <ul class="nav navbar-nav">
           <li>
@@ -253,7 +253,7 @@
 
             </ul>
           </li>
-          <li class="menu-dropdown classic-menu-dropdown ">
+          <li ng-hide="Student || Staff" class="menu-dropdown classic-menu-dropdown ">
             <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">
               Settings <i class="fa fa-angle-down"></i>
             </a>
@@ -262,11 +262,30 @@
               <li><a ui-sref="holiday"><i class="icon-briefcase"></i>School Calendar </a></li>
               <li><a ui-sref="bulk"><i class="icon-briefcase"></i>Bulk Uploads </a></li>
               <li><a ui-sref="bulkremove"><i class="icon-briefcase"></i>Bulk Removals </a></li>
-              
-
             </ul>
 
           </li>
+
+ <li class="menu-dropdown classic-menu-dropdown"> <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" ></a>    </li>
+ <li class="menu-dropdown classic-menu-dropdown"> <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown"  ></a>    </li>
+ <li class="menu-dropdown classic-menu-dropdown"> <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;"></a>    </li>
+ <li class="menu-dropdown classic-menu-dropdown"> <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;"></a>    </li>
+ <li class="menu-dropdown classic-menu-dropdown"> <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;"></a>    </li>
+ <li class="menu-dropdown classic-menu-dropdown"> <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;"></a>    </li>
+ <li class="menu-dropdown classic-menu-dropdown"> <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;"></a>    </li>
+ <li class="menu-dropdown classic-menu-dropdown"> <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;"></a>    </li>
+ <li class="menu-dropdown classic-menu-dropdown"> <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;"></a>    </li>
+ <li class="menu-dropdown classic-menu-dropdown"> <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;"></a>    </li>
+ <li ng-show="Student" class="menu-dropdown classic-menu-dropdown"> 
+    <!--<a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">Select Student <i class="fa fa-angle-down"></i> </a>-->
+            <select class="form-control" ng-model="student" ng-change="changeStudent()">     
+               <option ng-repeat="x in students" value="{{x.studentId}}" ><a>{{ x.student.firstName}}</a></option>
+            </select>
+ </li>
+
+        
+
+
         </ul>
       </div>
       <!-- END MEGA MENU -->

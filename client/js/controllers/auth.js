@@ -39,12 +39,15 @@ angular
       else if ($scope.loginUser == 'Parent')
       {
         AuthServiceParent.login($scope.user.email, $scope.user.password)
-          .then(function () {
-          },function(){
-			  $scope.invalidLogin = true;
-		  });
+          .then(
+          function () 
+          {
+          },
+          function()
+          {
+			      $scope.invalidLogin = true;
+		      });
       }
-
     };
   }])
 
@@ -84,8 +87,9 @@ angular
                                 StudentParent.findOne({filter:{ where:{    
                                   studentId : response.id,
                                   parentId  : $scope.parentExists.userId 
-                                   }}},function(){
-                                                   failureCall('You Have Already Subscribed To This Student.Please Contact Your School Admin For Any Issues');    
+                                   }}},function()
+                                   {
+                                                    failureCall('You Have Already Subscribed To This Student.Please Contact Your School Admin For Any Issues');    
                                                                  
                                    },function(){
                                                  StudentParent.create({

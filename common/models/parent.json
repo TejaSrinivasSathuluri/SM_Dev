@@ -6,7 +6,11 @@
     "validateUpsert": true
   },
   "properties": {
-        "type": { "default": "Parent"}
+    "type": {
+      "type": {
+        "default": "Parent"
+      }
+    }
   },
   "validations": [],
   "relations": {

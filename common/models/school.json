@@ -43,7 +43,7 @@
       "model": "StudentParent",
       "foreignKey": ""
     },
-      "bus": {
+    "bus": {
       "type": "hasMany",
       "model": "Bus",
       "foreignKey": ""

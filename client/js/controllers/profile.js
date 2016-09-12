@@ -5,9 +5,9 @@ angular.module('app')
       
       
         $scope.user       = $window.localStorage.getItem('user');
-        $scope.parentData = $window.localStorage.getItem('parent');
-       
         $scope.userData = JSON.parse($scope.user);
+        
+        $scope.parentData = $window.localStorage.getItem('parent');
         $scope.parent = JSON.parse($scope.parentData);
        
         $scope.schoolId = $scope.userData.schoolId;
@@ -16,18 +16,23 @@ angular.module('app')
         if ($scope.userData.type == 'Student') { $scope.Student = true;}
         if ($scope.userData.type == 'Parent' ) { $scope.Parent  = true;}
         if ($scope.userData.type == 'Staff'  ) { $scope.Staff   = true;}
+
+
          $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
 
-          if ($scope.parent){
-          $scope.editData = $scope.parent;
-          $scope.Parent = true;
-          $scope.Student = false;
-
+          if ($scope.parent)
+          {
+              $scope.editData = $scope.parent;
+              $scope.Parent = true;
+              $scope.Student = false;
           }
-          else{
-          $scope.editData = $scope.userData;
-
+          else
+          {
+            $scope.editData = $scope.userData;
           }
+
+
+
        $scope.saveProfile = function()
        {
          if ($scope.Student)
@@ -35,11 +40,11 @@ angular.module('app')
               console.log('Student Profile Update');
               Student.prototype$updateAttributes(
                 {
-                        id:$scope.editData.id,
-                        password:$scope.editData.password,
+                        id       :$scope.editData.id,
+                        password :$scope.editData.password,
                         firstName:$scope.editData.firstName,
-                        lastName:$scope.editData.lastName,
-                        email:$scope.editData.email.toLowerCase()
+                        lastName :$scope.editData.lastName,
+                        email    :$scope.editData.email.toLowerCase()
                 },
                 function(response)
                 {

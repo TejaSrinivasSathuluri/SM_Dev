@@ -111,9 +111,12 @@ angular
             where :{
               parentId: response.user.id
             },include :['student','school','parent']
-          }},function(response){
+          }},function(response)
+          {
+
+        
+        $window.localStorage.setItem('students',JSON.stringify(response));
         $window.localStorage.setItem('parent',JSON.stringify(response[0].parent));
-        console.log(response[0].student);
         $window.localStorage.setItem('user',JSON.stringify(response[0].student));
         $window.localStorage.setItem('school',JSON.stringify(response[0].school));
         $state.go('dashboard');

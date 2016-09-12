@@ -8,11 +8,6 @@
   "properties": {},
   "validations": [],
   "relations": {
-    "student": {
-      "type": "belongsTo",
-      "model": "Student",
-      "foreignKey": ""
-    },
     "school": {
       "type": "belongsTo",
       "model": "School",
@@ -20,7 +15,7 @@
     }
   },
   "acls": [
-    {
+    { 
       "accessType": "*",
       "principalType": "ROLE",
       "principalId": "$authenticated",

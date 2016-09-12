@@ -77,18 +77,32 @@ angular
       {
 
             
-            $rootScope.currentUser = $window.localStorage.getItem('user');
-            $rootScope.user = JSON.parse($rootScope.currentUser); 
+              $rootScope.currentUser = $window.localStorage.getItem('user');
+              $rootScope.user = JSON.parse($rootScope.currentUser); 
+
+                if($window.localStorage.getItem('parent'))
+                {
+                    $rootScope.studentsData = $window.localStorage.getItem('students');
+                    $rootScope.students = JSON.parse($rootScope.studentsData);
+                    console.log($rootScope.students);
+                } 
 
             if ($rootScope.user.type == 'Student')
             {
-                  console.log('Student');
                   $rootScope.Student = true;
                   $timeout(function () 
                   { 
                     if ($state.current.name == 'expensemanagement') $state.go('logout');
                     
                   }, 100); 
+            }
+            else if ($rootScope.user.type == 'Admin')
+            {
+              $rootScope.Admin = true;
+            }            
+            else if ($rootScope.user.type == 'Staff')
+            {
+              $rootScope.Staff = true;
             }
       }
     });
