@@ -1,6 +1,6 @@
 angular
   .module('app')
-.controller('AssignmentController', function (
+.controller('AssignmentController', function (Student,
       $scope,$rootScope, $state, Class, Assignment,$window,ngDialog,$filter,School) {
 
       //--------------------------------------------------------
@@ -227,13 +227,28 @@ angular
         });
         }
       }
-       else if ($scope.Student){
-      //   //--------------------------------------------------------
-      //   //                 SHOW ASSIGNMENT LIST
-      //   //--------------------------------------------------------
+        //--------------------------------------------------------
+        //                 SHOW ASSIGNMENT LIST
+        //--------------------------------------------------------
+       else if ($scope.Student)
+       {
+       
         $scope.assignmentlist = [];
+        console.log($scope.schoolId);
+        Student.findOne({filter:{ where :{
+          id : $scope.userData.id
+        },
+                            include :  'class',scope:{
+                                       include : 'assignments'                                         
+                                       
+                            }
+                        }},
+        function(response)
+        {
+          console.log(response.class);
+        });
         $scope.assignmentlist = Assignment.find({filter: {where: {schoolId: $scope.schoolId,classId:$scope.userData.classId}, include: 'class'}});
-      }
+       }
       
 
-    })
+    });

@@ -49,7 +49,7 @@ angular
 
       .state('signup',        { url: '/signup', templateUrl: 'views/signup.html',  controller: 'SignUpController' })
 
-     $urlRouterProvider.otherwise('/');
+     $urlRouterProvider.otherwise('login');
     //  $locationProvider.html5Mode({ enabled: true, requireBase: false});
      
   })

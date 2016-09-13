@@ -52,6 +52,11 @@
       "type": "hasMany",
       "model": "FeePayment",
       "foreignKey": ""
+    },
+    "schedules": {
+      "type": "hasOne",
+      "model": "Schedule",
+      "foreignKey": ""
     }
   },
   "acls": [

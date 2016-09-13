@@ -12,6 +12,11 @@
       "type": "belongsTo",
       "model": "Timetable",
       "foreignKey": ""
+    },
+    "class": {
+      "type": "belongsTo",
+      "model": "Class",
+      "foreignKey": ""
     }
   },
   "acls": [

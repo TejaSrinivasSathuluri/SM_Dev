@@ -149,7 +149,7 @@
               <!-- BEGIN USER LOGIN DROPDOWN -->
               <li class="dropdown dropdown-user dropdown-dark">
                 
-                <button ng-hide="currentUser" ui-sref="login" class="btn btn-circle">Login</buttom>
+                <!--<button ng-hide="currentUser" ui-sref="login" class="btn btn-circle">Login</buttom>-->
                 <!--<button ng-hide="currentUser" ui-sref="signup" class="btn btn-circle">Signup</button>-->
               </li>
               <li class="dropdown dropdown-user dropdown-dark">
@@ -276,7 +276,7 @@
  <li class="menu-dropdown classic-menu-dropdown"> <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;"></a>    </li>
  <li class="menu-dropdown classic-menu-dropdown"> <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;"></a>    </li>
  <li class="menu-dropdown classic-menu-dropdown"> <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;"></a>    </li>
- <li ng-show="Student" class="menu-dropdown classic-menu-dropdown"> 
+ <li ng-hide="Student || Admin" class="menu-dropdown classic-menu-dropdown"> 
     <!--<a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">Select Student <i class="fa fa-angle-down"></i> </a>-->
             <select class="form-control" ng-model="student" ng-change="changeStudent()">     
                <option ng-repeat="x in students" value="{{x.studentId}}" ><a>{{ x.student.firstName}}</a></option>

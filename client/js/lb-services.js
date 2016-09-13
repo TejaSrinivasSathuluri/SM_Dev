@@ -2254,12 +2254,6 @@ module.factory(
           method: "GET"
         },
 
-        // INTERNAL. Use Attendance.student() instead.
-        "::get::Attendance::student": {
-          url: urlBase + "/Attendances/:id/student",
-          method: "GET"
-        },
-
         // INTERNAL. Use BusSubscription.student() instead.
         "::get::BusSubscription::student": {
           url: urlBase + "/BusSubscriptions/:id/student",
@@ -9531,6 +9525,30 @@ module.factory(
           method: "PUT"
         },
 
+        // INTERNAL. Use Class.schedules() instead.
+        "prototype$__get__schedules": {
+          url: urlBase + "/Classes/:id/schedules",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Class.schedules.create() instead.
+        "prototype$__create__schedules": {
+          url: urlBase + "/Classes/:id/schedules",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Class.schedules.update() instead.
+        "prototype$__update__schedules": {
+          url: urlBase + "/Classes/:id/schedules",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Class.schedules.destroy() instead.
+        "prototype$__destroy__schedules": {
+          url: urlBase + "/Classes/:id/schedules",
+          method: "DELETE"
+        },
+
         // INTERNAL. Use Class.assignments.findById() instead.
         "prototype$__findById__assignments": {
           params: {
@@ -10331,6 +10349,12 @@ module.factory(
         // INTERNAL. Use Subject.class() instead.
         "::get::Subject::class": {
           url: urlBase + "/Subjects/:id/class",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Schedule.class() instead.
+        "::get::Schedule::class": {
+          url: urlBase + "/Schedules/:id/class",
           method: "GET"
         },
 
@@ -11177,6 +11201,201 @@ module.factory(
         R.subjects.updateById = function() {
           var TargetResource = $injector.get("Subject");
           var action = TargetResource["::updateById::Class::subjects"];
+          return action.apply(R, arguments);
+        };
+    /**
+     * @ngdoc object
+     * @name lbServices.Class.schedules
+     * @header lbServices.Class.schedules
+     * @object
+     * @description
+     *
+     * The object `Class.schedules` groups methods
+     * manipulating `Schedule` instances related to `Class`.
+     *
+     * Call {@link lbServices.Class#schedules Class.schedules()}
+     * to query all related instances.
+     */
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class#schedules
+         * @methodOf lbServices.Class
+         *
+         * @description
+         *
+         * Fetches hasOne relation schedules.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Schedule` object.)
+         * </em>
+         */
+        R.schedules = function() {
+          var TargetResource = $injector.get("Schedule");
+          var action = TargetResource["::get::Class::schedules"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.schedules#create
+         * @methodOf lbServices.Class.schedules
+         *
+         * @description
+         *
+         * Creates a new instance in schedules of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Schedule` object.)
+         * </em>
+         */
+        R.schedules.create = function() {
+          var TargetResource = $injector.get("Schedule");
+          var action = TargetResource["::create::Class::schedules"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.schedules#createMany
+         * @methodOf lbServices.Class.schedules
+         *
+         * @description
+         *
+         * Creates a new instance in schedules of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Schedule` object.)
+         * </em>
+         */
+        R.schedules.createMany = function() {
+          var TargetResource = $injector.get("Schedule");
+          var action = TargetResource["::createMany::Class::schedules"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.schedules#destroy
+         * @methodOf lbServices.Class.schedules
+         *
+         * @description
+         *
+         * Deletes schedules of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.schedules.destroy = function() {
+          var TargetResource = $injector.get("Schedule");
+          var action = TargetResource["::destroy::Class::schedules"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Class.schedules#update
+         * @methodOf lbServices.Class.schedules
+         *
+         * @description
+         *
+         * Update schedules of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Schedule` object.)
+         * </em>
+         */
+        R.schedules.update = function() {
+          var TargetResource = $injector.get("Schedule");
+          var action = TargetResource["::update::Class::schedules"];
           return action.apply(R, arguments);
         };
     /**
@@ -17070,6 +17289,12 @@ module.factory(
           method: "GET"
         },
 
+        // INTERNAL. Use Schedule.class() instead.
+        "prototype$__get__class": {
+          url: urlBase + "/Schedules/:id/class",
+          method: "GET"
+        },
+
         /**
          * @ngdoc method
          * @name lbServices.Schedule#create
@@ -17492,6 +17717,37 @@ module.factory(
           method: "POST"
         },
 
+        // INTERNAL. Use Class.schedules() instead.
+        "::get::Class::schedules": {
+          url: urlBase + "/Classes/:id/schedules",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Class.schedules.create() instead.
+        "::create::Class::schedules": {
+          url: urlBase + "/Classes/:id/schedules",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Class.schedules.createMany() instead.
+        "::createMany::Class::schedules": {
+          isArray: true,
+          url: urlBase + "/Classes/:id/schedules",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Class.schedules.update() instead.
+        "::update::Class::schedules": {
+          url: urlBase + "/Classes/:id/schedules",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Class.schedules.destroy() instead.
+        "::destroy::Class::schedules": {
+          url: urlBase + "/Classes/:id/schedules",
+          method: "DELETE"
+        },
+
         // INTERNAL. Use Timetable.schedules.findById() instead.
         "::findById::Timetable::schedules": {
           params: {
@@ -17726,6 +17982,42 @@ module.factory(
         R.timetable = function() {
           var TargetResource = $injector.get("Timetable");
           var action = TargetResource["::get::Schedule::timetable"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Schedule#class
+         * @methodOf lbServices.Schedule
+         *
+         * @description
+         *
+         * Fetches belongsTo relation class.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Class` object.)
+         * </em>
+         */
+        R.class = function() {
+          var TargetResource = $injector.get("Class");
+          var action = TargetResource["::get::Schedule::class"];
           return action.apply(R, arguments);
         };
 
@@ -21323,12 +21615,6 @@ module.factory(
       { 'id': '@id' },
       {
 
-        // INTERNAL. Use Attendance.student() instead.
-        "prototype$__get__student": {
-          url: urlBase + "/Attendances/:id/student",
-          method: "GET"
-        },
-
         // INTERNAL. Use Attendance.school() instead.
         "prototype$__get__school": {
           url: urlBase + "/Attendances/:id/school",
@@ -21898,42 +22184,6 @@ module.factory(
     */
     R.modelName = "Attendance";
 
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Attendance#student
-         * @methodOf lbServices.Attendance
-         *
-         * @description
-         *
-         * Fetches belongsTo relation student.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `refresh` – `{boolean=}` - 
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Student` object.)
-         * </em>
-         */
-        R.student = function() {
-          var TargetResource = $injector.get("Student");
-          var action = TargetResource["::get::Attendance::student"];
-          return action.apply(R, arguments);
-        };
 
         /**
          * @ngdoc method
