@@ -32,10 +32,6 @@
 								</div>
 								</form>
 								
-
-
-    								
-                                   									
 									<div ng-hide="Student" class="col-lg-2 col-md-2 col-sm-12 col-xs-12 mbtm">
 									<button class="btn btn-success uppercase" ng-click="setMaxMarks()">Set Max Marks</button>
 									</div>
@@ -47,30 +43,28 @@
 							
 							<div ng-hide="Student" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> Max Marks : </div>
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="height:260px;overflow-y:auto;">
+								
+								<!---------------------------------------------------------------------------------->
+
 								<table class="table table-bordered table-striped table-condensed flip-content">
 									<thead flip-content>
 										<tr>
-											<th><a ng-click="sortType = 'student.firstName'; sortReverse = !sortReverse">Student Name</a> </th>
-											<th><a ng-click="sortType = 'student.rollNo'; sortReverse = !sortReverse">Roll No</a> </th>
-											<th><a ng-click="sortType = 'marksObtained'; sortReverse = !sortReverse">Marks</a> </th>
-											<th><a ng-click="sortType = 'percentage'; sortReverse = !sortReverse">Percentage</a> </th>
-											<th>Save Marks</th>
-                   						</tr>
+										<th ng-repeat="x in list1.exams">{{x.examName}}
+                   						</th>
+										   <tr>
 									</thead>
 									<tbody>
-										<tr data-ng-repeat="x in list track by $index">
+										<tr data-ng-repeat="x in list1.students track by $index">
 											<div data-ng-bind-html="x.id">
-												<td>{{x.student.firstName}} {{x.student.lastName}}                                 </td>
-												<td>{{x.student.rollNo}}                                                           </td>
-		                						<td><input type="number" ng-model="x.marksObtained" class="form-control">          </td>
-						  						<td>{{ x.marksObtained * 100 / x.maxMarks}}     </td>
-												<td><i class="fa fa-floppy-o" ng-click ="saveMarks(x)" ng-show="saveMarksFlag"></i></td>
+												<td> {{x.firstName}} 																  </td>
+												<td> {{x.rollNo}}  																	  </td>
+												<td> <input class="form-control" type="number" ng-model= x.marks[0].marksObtained>    </td>
+												<td> <i class="fa fa-floppy-o" ng-click ="saveMarks(x)" ng-show="saveMarksFlag"></i>  </td>
 											</div>
 										</tr>
                   					</tbody>
-                  
 								</table>
-								
+								<!---------------------------------------------------------------------------------->
 
 								<div class="pull-left"> Total Results: {{examList.length}} </div>
 								<div class="pull-right">

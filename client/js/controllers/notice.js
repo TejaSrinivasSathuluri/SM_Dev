@@ -107,27 +107,14 @@ angular
 		   ngDialog.openConfirm({template: 'editNotice',
           scope: $scope //Pass the scope object if you need to access in the template
         }).then(
-          function(formData) {
+          function(formData) 
+          {
             Noticeboard.upsert({id:x.id, title : formData.title,description: formData.description,date1: formData.date1,date2:formData.date2,uploadFile:formData.uploadFile},
-              function () {
-                $scope.successCall('Notice Saved Successfully');
-                //$scope.responseNotice = "Notice Saved Successfully";
-                setTimeout( function()
-                {
-                  $state.go($state.current, {}, {reload: true});
-                  $scope.$apply();
-                }, 1000 );
-              });
+              function () { $scope.successCall('Notice Saved Successfully'); });
           },
-          function(value) {
+          function(value) 
+          {
             $scope.failureCall('Notice Was Not Edited');
-            //$scope.responseNotice = "Notice Was Not Edited.Please Fill All Required Fields";
-            setTimeout( function()
-            {
-              $state.go($state.current, {}, {reload: true});
-              $scope.$apply();
-            }, 1000 );
-
           }
         );
       }

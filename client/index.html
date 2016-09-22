@@ -198,7 +198,8 @@
       <!--<div class="hor-menu" ng-show="currentUser" data-ng-controller="LandingPageController">-->
         <ul class="nav navbar-nav">
           <li>
-            <a ui-sref=".dashboard">Console</a>
+            <!--<a ng-click="reloadConsole()" ui-sref=".dashboard">Console</a>-->
+            <a ng-click="reloadConsole()">Console</a>
           </li>
           <li class="menu-dropdown classic-menu-dropdown ">
             <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">
@@ -276,8 +277,7 @@
  <li class="menu-dropdown classic-menu-dropdown"> <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;"></a>    </li>
  <li class="menu-dropdown classic-menu-dropdown"> <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;"></a>    </li>
  <li class="menu-dropdown classic-menu-dropdown"> <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;"></a>    </li>
- <li ng-hide="Student || Admin" class="menu-dropdown classic-menu-dropdown"> 
-    <!--<a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;">Select Student <i class="fa fa-angle-down"></i> </a>-->
+ <li ng-show="Parent" class="menu-dropdown classic-menu-dropdown"> 
             <select class="form-control" ng-model="student" ng-change="changeStudent()">     
                <option ng-repeat="x in students" value="{{x.studentId}}" ><a>{{ x.student.firstName}}</a></option>
             </select>

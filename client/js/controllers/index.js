@@ -15,6 +15,7 @@ angular
       {
          $scope.user = $window.localStorage.getItem('user');
          $scope.userData = JSON.parse($scope.user);
+         
         if ($scope.userData.type == 'Admin')   { $scope.Admin   = true;}
         if ($scope.userData.type == 'Student') { $scope.Student = true;}
         if ($scope.userData.type == 'Parent')  { $scope.Parent  = true;}
@@ -31,8 +32,6 @@ angular
 })
   .controller('MenuController', function ($scope,Admin,Student,Parent,Staff,Noticeboard,School,$window,$rootScope,$filter,$state) {
      
-      
-
       if (!$window.localStorage.getItem('user'))
 
       {
@@ -40,16 +39,15 @@ angular
       }
       else
       {
+         $scope.reloadConsole = function(){
+            $window.open('http://localhost:3000/#/dashboard','_self');
+                              location.reload();
+
+            
+         }
          console.log('Menu Controller .Logged In');
          $scope.user = $window.localStorage.getItem('user');
          $scope.userData = JSON.parse($scope.user);
-        // if ($scope.userData.type == 'Admin')   { $scope.Admin   = true;}
-        // if ($scope.userData.type == 'Student') { $scope.Student = true;}
-        // if ($scope.userData.type == 'Parent')  { $scope.Parent  = true;}
-        // if ($scope.userData.type == 'Staff')   { $scope.Staff   = true;}
-
-
-
         if ($window.localStorage.getItem('parent'))
         {
               $scope.student =   $scope.userData.id;
@@ -66,14 +64,4 @@ angular
         }
 
       }
-          
-      
-
-     
-
-        // $scope.schoolId = $scope.userData.schoolId;
-        // $scope.date = new Date();
-         
-        //   $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
-
 });

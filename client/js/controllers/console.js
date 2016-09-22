@@ -22,7 +22,7 @@ angular
         if ($scope.userData.type == 'Staff')   { $scope.Staff   = true;}
 
 
-        $scope.schoolId = $scope.school.id;
+        $scope.schoolId = $scope.userData.schoolId;
         $scope.date = new Date();
         $rootScope.image = $scope.school.image;
 
@@ -40,58 +40,108 @@ angular
           // --------------------------------------------------------
 
           
-         firstDay   = new Date(new Date().getTime() - 24*60*60000);
-         lastDay   = new Date(new Date().getTime() + 24*60*60000);
+        //  firstDay   = new Date(new Date().getTime() - 24*60*60000);
+        //  lastDay   = new Date(new Date().getTime() + 24*60*60000);
           // var day =$filter('date')(new Date(), 'yyyy-MM-dd');
-          var firstDay =$filter('date')(new Date(firstDay), 'yyyy-MM-dd');
+          // var firstDay =$filter('date')(new Date(firstDay), 'yyyy-MM-dd');
          
         
 
-          $scope.noticeList= [];
-          Noticeboard.find({filter:{where:{schoolId:$scope.schoolId,date1:{lt:firstDay},date2:{gt:lastDay}}}},function(response){
-            $scope.noticeList = response;
-            response.forEach(function(notices){
-              var p = notices.toJSON();
-            });
-          });
+          // $scope.noticeList= [];
+          // Noticeboard.find({filter:{where:{schoolId:$scope.schoolId,date1:{lt:firstDay},date2:{gt:lastDay}}}},function(response){
+          //   $scope.noticeList = response;
+          //   response.forEach(function(notices){
+          //     var p = notices.toJSON();
+          //   });
+          // });
       
           //--------------------------------------------------------
           //                   CALENDAR
           // --------------------------------------------------------
-          //
-          $scope.changeMode = function (mode) { $scope.mode = mode; };
-          $scope.today = function () {   $scope.currentDate = new Date(); }
-          $scope.isToday = function () {  var today = new Date(), currentCalendarDate = new Date($scope.currentDate);
-            today.setHours(0, 0, 0, 0);
-            currentCalendarDate.setHours(0, 0, 0, 0);
-            return today.getTime() === currentCalendarDate.getTime();
-          }
-          $scope.loadEvents = function () {    $scope.eventSource = createRandomEvents();};
-          $scope.onEventSelected = function (event) {   $scope.event = event; };
-          function createRandomEvents() {
-            var events = [];
-            //for (var i = 0; i < 20; i += 1) {
-            var date = new Date();
-            //var startDay = Math.floor(Math.random() * 90) - 45;
-            //var endDay = Math.floor(Math.random() * 2) + startDay;
-            //
-            //
-            //  startTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + startDay));
+                      $scope.changeMode = function (mode) { $scope.mode = mode; };
+                      
+                      $scope.today = function () {   $scope.currentDate = new Date(); }
+                      
+                      $scope.isToday = function () {  var today = new Date(), currentCalendarDate = new Date($scope.currentDate);
+                        today.setHours(0, 0, 0, 0);
+                        currentCalendarDate.setHours(0, 0, 0, 0);
+                        return today.getTime() === currentCalendarDate.getTime();
+                      }
 
-            //startTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
-            //  if (endDay === startDay) {      endDay += 1; }
-            //  endTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + endDay));
-            //  endTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() ));
+                      $scope.loadEvents = function () {    $scope.eventSource = createRandomEvents(); };
+                      // $scope.loadEvents();
+                      $scope.onEventSelected = function (event) { $scope.event = event; };
 
-            for(var i=0;i<$scope.noticeList.length;i++){
-              //console.log($scope.noticeList[i].date1);
-              events.push({ title:  $scope.noticeList[i].title });
+                    function createRandomEvents() 
+                    {
+                    var events = [];
+                    var notices = School.noticeboards({
+                      id : $scope.userData.schoolId
+                    },function(response){
 
-            }
 
-            //}
-            return events;
-          }
+
+                       for (var i = 0; i < response.length; i += 1) 
+                          {
+                                  startTime = new Date(notices[i].date1);
+                                  endTime = new Date(new Date(notices[i].date2).getTime() + 24 * 60 * 60000);
+                                  events.push({
+                                      id : notices[i].id,
+                                      title: notices[i].title,
+                                      description: notices[i].description,
+                                      startTime: startTime,
+                                      endTime: endTime,
+                                      allDay: true
+                                  });
+                              
+                               
+                          }
+                    });
+                  
+                   
+                          // for (var i = 0; i < 20; i += 1) 
+                          // {
+                          //     var date = new Date();
+                          //     var eventType = Math.floor(Math.random() * 2);
+                          //     var startDay = Math.floor(Math.random() * 90) - 45;
+                          //     console.log('startday' + startDay);
+                          //     var endDay = Math.floor(Math.random() * 2) + startDay;
+                          //     console.log('endDay' + endDay);
+                          //     var startTime;
+                          //     var endTime;
+                          //     if (eventType === 0) {
+                          //         startTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + startDay));
+                          //         if (endDay === startDay) {
+                          //             endDay += 1;
+                          //         }
+                          //         endTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + endDay));
+                          //         events.push({
+                          //             title: 'All Day - ' + i,
+                          //             startTime: startTime,
+                          //             endTime: endTime,
+                          //             allDay: true
+                          //         });
+                          //     } 
+                          //     else 
+                          //     {
+                          //         var startMinute = Math.floor(Math.random() * 24 * 60);
+                          //         var endMinute = Math.floor(Math.random() * 180) + startMinute;
+                          //         startTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + startDay, 0, date.getMinutes() + startMinute);
+                          //         endTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + endDay, 0, date.getMinutes() + endMinute);
+                          //         events.push({
+                          //             title: 'Event - ' + i,
+                          //             startTime: startTime,
+                          //             endTime: endTime,
+                          //             allDay: false
+                          //         });
+                          //     }
+                          // }
+                    return events;
+                }
+          //---------------------------------------------
+
+           
+           
 
 
           //--------------------------------------------------------

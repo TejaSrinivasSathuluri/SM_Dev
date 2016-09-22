@@ -697,9 +697,14 @@
      </div> 
      
      <div ng-show="isSet(4)">
-
-       Coming Soon
-      </div>
+        <form ng-submit="addComment()">
+           
+ 
+                     <input type="text" class="form-control" ng-model="comment"> 
+                 <input type="submit" class="btn-default" > 
+         
+       </form>
+     </div>
 
   </div>
 </script>

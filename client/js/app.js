@@ -84,7 +84,7 @@ angular
                 {
                     $rootScope.studentsData = $window.localStorage.getItem('students');
                     $rootScope.students = JSON.parse($rootScope.studentsData);
-                    console.log($rootScope.students);
+                    $rootScope.Parent = true;
                 } 
 
             if ($rootScope.user.type == 'Student')
@@ -94,7 +94,7 @@ angular
                   { 
                     if ($state.current.name == 'expensemanagement') $state.go('logout');
                     
-                  }, 100); 
+                  }, 100);
             }
             else if ($rootScope.user.type == 'Admin')
             {

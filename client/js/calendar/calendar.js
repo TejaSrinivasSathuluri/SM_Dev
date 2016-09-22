@@ -16,6 +16,7 @@ angular.module('ui.rCalendar', [])
         var self = this,
             ngModelCtrl = { $setViewValue: angular.noop }; // nullModelCtrl;
 
+
         // Configuration attributes
         angular.forEach(['formatDay', 'formatDayHeader', 'formatDayTitle', 'formatWeekTitle', 'formatMonthTitle',
             'showWeeks', 'showEventDetail', 'startingDay', 'eventSource', 'queryMode'], function (key, index) {

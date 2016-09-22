@@ -4,8 +4,10 @@
     <form ng-submit="confirm(formData)">
         <input  type="text" class="form-control newTitle" placeholder="Title" ng-model="formData.title" ng-value="title"  ng-mouseup="tag1=true"  ng-mouseleave="tag1=false"     required><div class="tag1" ng-show="tag1">Enter Title</div><br>
         <textarea rows="4" cols="50" class="form-control" placeholder="Description of Notice" ng-value="description" ng-model="formData.description"   ng-mouseup="tag2=true"  ng-mouseleave="tag2=false"     required></textarea><div class="tag2" ng-show="tag2">Enter Description</div><br>
-        <input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control"  ng-model="formData.date1" ng-value="date1"  ng-mouseup="tag3=true"  ng-mouseleave="tag3=false"     required><div class="tag3" ng-show="tag3">Enter From Date</div><br>
-        <input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control"  ng-model="formData.date2" ng-value="date2"   ng-mouseup="tag4=true"  ng-mouseleave="tag4=false"     required><div class="tag4" ng-show="tag4">Enter To Date</div><br>
+        <!--<input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control"  ng-model="formData.date1" ng-value="date1"  ng-mouseup="tag3=true"  ng-mouseleave="tag3=false"     required><div class="tag3" ng-show="tag3">Enter From Date</div><br>-->
+        <input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control"  ng-model="formData.date1"  ng-mouseup="tag3=true"  ng-mouseleave="tag3=false"     required><div class="tag3" ng-show="tag3">Enter From Date</div><br>
+        <!--<input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control"  ng-model="formData.date2" ng-value="date2"   ng-mouseup="tag4=true"  ng-mouseleave="tag4=false"     required><div class="tag4" ng-show="tag4">Enter To Date</div><br>-->
+        <input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control"  ng-model="formData.date2"  ng-mouseup="tag4=true"  ng-mouseleave="tag4=false"     required><div class="tag4" ng-show="tag4">Enter To Date</div><br>
         <!--<input type = "file" file-model = "myFile" class="form-control" ng-model="formData.uploadFile"><br>-->
         <button type="submit" class="btn btn-success uppercase">Save</button>
         <button type="button" class="btn btn-success uppercase" ng-click=closeThisDialog("Cancel")>Cancel</button>

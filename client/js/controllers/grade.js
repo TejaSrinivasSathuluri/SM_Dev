@@ -7,12 +7,10 @@ angular
         //------------------------------------------------
 
         $scope.userData   = $window.localStorage.getItem('user');
-        $scope.schoolData = $window.localStorage.getItem('school');
-        
         $scope.user = JSON.parse($scope.userData);
-        $scope.school = JSON.parse($scope.schoolData);
         
-        $scope.schoolId = $scope.school.id;
+        
+        $scope.schoolId = $scope.userData.schoolId;
 
         if ($scope.user.type == 'Admin')   { $scope.Admin   = true; }
         if ($scope.user.type == 'Student') { $scope.Student = true; }
@@ -97,11 +95,6 @@ angular
                                                                         },function()
                                                                         {
                                                                           successCall('Grade Added Successfully');
-                                                                          setTimeout( function()
-                {
-                  $state.go($state.current, {}, {reload: true});
-                  $scope.$apply();
-                }, 1000 );
                                                                         }
                                                                         );
                                                                                                               
@@ -166,33 +159,7 @@ angular
 
       
        
-      //       Grade.upsert({id         : x.id,
-      //                  gradeName      :editData.gradeName,
-      //                  gradePoint    :editData.gradePoint,
-      //                  percentageRangeFrom:editData.percentageRangeFrom,
-      //                 percentageRangeTo:editData.percentageRangeTo},
-      //       function () {
-      //         successCall(' Grade Updated Successfully');
-      //           // $scope.responseExam = "Exam Record Updated Successfully";
-      //           setTimeout( function()
-      //           {
-      //             $state.go($state.current, {}, {reload: true});
-      //             $scope.$apply();
-      //           }, 1000 );
-      //         });
-      //     },
-      //     function(value) {
-      //       failureCall(' Grade Not Edited');
-      //       // $scope.responseExam = "Exam Record Was Not Edited.Please Fill All Required Fields";
-      //       setTimeout( function()
-      //       {
-      //         $state.go($state.current, {}, {reload: true});
-      //         $scope.$apply();
-      //       }, 1000 );
-
-      //     }
-      //   );
-      // } 
+    
 
 
         //----------------------------------------------

@@ -5,12 +5,8 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
             //------------------------------------------------
 
             $scope.userData   = $window.localStorage.getItem('user');
-            $scope.schoolData = $window.localStorage.getItem('school');
-            
             $scope.user = JSON.parse($scope.userData);
-            $scope.school = JSON.parse($scope.schoolData);
-        
-            $scope.schoolId = $scope.school.id;
+            $scope.schoolId = $scope.user.schoolId;
 
             if ($scope.user.type == 'Admin')   { $scope.Admin   = true; }
             if ($scope.user.type == 'Student') { $scope.Student = true; }
@@ -33,7 +29,7 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
                console.log(response);
              });
                  
-
+             
 
              //--------------------------------------------
              //          GET CLASS LIST & SUBJECT LIST
@@ -86,8 +82,55 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
              //----------------------------------------------
              //                 SHOW MARKS
              //----------------------------------------------
-             $scope.list =[];
-             $scope.showMarks = function() {
+                $scope.list =[];
+              $scope.delete= function(){
+                var count =0;
+                $scope.test =Marks.find(function(response){
+                    response.forEach(function(tests){
+                    var p = tests.toJSON();
+                    console.log(count);
+                    Marks.destroyById({id: p.id},function()
+                    {
+                    },function(response){
+                        console.log(response);
+                    });
+                    count++;  
+                    });
+                });
+                  }
+             //   $scope.delete();
+             $scope.showMarks = function() 
+             {
+                //  -------------------------------------------------
+             Class.findOne({ filter :{ where : { id : $scope.formData.classId },
+             include : [
+                 {
+                     relation : 'students',scope:{
+                         include :[
+                             {
+                                 relation : 'marks',scope:
+                                 {
+                                     where : 
+                                            {
+                                                examId : $scope.formData.examId,
+                                                subjectId : $scope.formData.subjectId
+                                            }
+                                 }
+                             }
+                         ]
+                     }
+                 }
+             ]
+            }
+            },
+             function(response)
+             {
+                 console.log(response);
+                 $scope.list1 = response;
+             });
+
+
+                // --------------------------------------------------
 
                 $scope.students = Student.find({filter:{ where:{  classId : $scope.formData.classId }}},
                 function(response)
@@ -98,9 +141,7 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
                            $scope.checkMarks(p,i);
                            i++;
                     });
-                
                 });
-
              }
 
 
@@ -146,7 +187,8 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
              //----------------------------------------------
              //                 SET MAX MARKS
              //----------------------------------------------
-             $scope.setMaxMarks = function(){
+             $scope.setMaxMarks = function()
+             {
                  if (!$scope.formData.examId || !$scope.formData.subjectId ){
                         
                  } 
@@ -182,31 +224,8 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
 
              $scope.saveMarks = function (x) 
              {
-                if (x.marksObtained > x.maxMarks)
-                {
-                        successCall('Marks Can Not Be More Than Max Marks');
-                        $scope.showMarks();
-                }
-                else
-                {
-
-                        Marks.upsert({ id: x.id,marksObtained :x.marksObtained},
-                        function()
-                        {
-                            successCall('Marks Saved Successfully');
-                        },
-                        function()
-                        {
-                            $scope.responseMarks = 'Marks Not Saved';
-                            $scope.error = true;
-                            $scope.success = false;
-                        });
-
-                            
-                
-                }
-                
-            }
+                Marks.upsert({ id : x.marks[0].id,marksObtained : x.marks[0].marksObtained});
+             }
                 
 
 

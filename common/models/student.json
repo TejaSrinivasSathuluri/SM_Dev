@@ -204,6 +204,11 @@
       "type": "hasMany",
       "model": "Marks",
       "foreignKey": ""
+    },
+    "remarks": {
+      "type": "hasMany",
+      "model": "Remarks",
+      "foreignKey": ""
     }
   },
   "acls": [

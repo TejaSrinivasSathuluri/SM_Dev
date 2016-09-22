@@ -18,10 +18,8 @@
                                                'monthview-secondary-with-event': dt.secondary&&dt.hasEvent,
                                                'monthview-primary-with-event':!dt.secondary&&dt.hasEvent&&!dt.selected,
                                                'monthview-selected': dt.selected}">
-                <!--<div ng-controller="LandingPageController" ng-class="{'text-muted':dt.secondary}">-->
-                <div ng-class="{'text-muted':dt.secondary}">
-                    {{dt.label}}<span ng-show="getBday(dt)">*</span>
-                </div>
+                
+                        <div ng-class="{'text-muted':dt.secondary}"> {{dt.label}}     </div>
 
             </td>
         </tr>
@@ -31,12 +29,13 @@
         <div class="scrollable" style="height: 200px">
             <table class="table table-bordered table-striped table-fixed">
                 <tr ng-repeat="event in selectedDate.events" ng-if="selectedDate.events">
-                    <td ng-if="!event.allDay" class="monthview-eventdetail-timecolumn">{{event.startTime|date: 'HH:mm'}}
+                    <!--<td ng-if="!event.allDay" class="monthview-eventdetail-timecolumn">{{event.startTime|date: 'HH:mm'}}
                         -
                         {{event.endTime|date: 'HH:mm'}}
-                    </td>
-                    <td ng-if="event.allDay" class="monthview-eventdetail-timecolumn">All day</td>
-                    <td class="event-detail" ng-click="eventSelected({event:event})">{{event.title}}</td>
+                    </td>-->
+                    <td ng-if="event.allDay" class="monthview-eventdetail-timecolumn">{{event.title}}</td>
+                    <td class="event-detail">{{event.description}}</td>
+                    <!--<td class="event-detail" ng-click="eventSelected({event:event})">{{event.description}}</td>-->
                 </tr>
                 <tr ng-if="!selectedDate.events"><td class="no-event-label">No Events</td></tr>
             </table>

@@ -177,24 +177,36 @@ angular.module('app')
 
             $scope.subjectList =[];
          
-          Class.findOne({
-            filter:{
-              where:{
-                id : $scope.userData.classId 
-              },
-              include:[{relation:'staff'},
-              {
-              relation :'subjects',scope:{
-                include : 'staff'
-              }
-              }
-               ]
-            }
-          },function(response)
-          {
-            $scope.classData = response;
-            $scope.subjectList = $scope.classData.subjects;
-          });
+         Student.findOne({filter:{
+           where :{
+             id : $scope.userData.id
+           },include :[
+             {
+               relation : 'class',scope:{
+                 include :[
+                   {
+                     relation : 'subjects',
+                     scope :{
+                       include : [
+                         {
+                           relation : 'staff'
+                         }
+                       ]
+                     }
+                   },
+                   {
+                     relation : 'staff'
+                   }
+                 ]
+               }
+             }
+           ]
+         }},function(response)
+         {
+              $scope.classData = response.class; 
+              $scope.subjectList = response.class.subjects;
+         });
+         
         }
 		// --------------------------------------------------------
         //                 SORT TABLE TECHNIQUE

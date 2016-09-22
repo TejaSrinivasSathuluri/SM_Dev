@@ -9,12 +9,8 @@ controller('FeeController',function($scope,$rootScope,$state,$window,$filter,ngD
 
 
               $scope.userData   = $window.localStorage.getItem('user');
-              $scope.schoolData = $window.localStorage.getItem('school');
-              
               $scope.user = JSON.parse($scope.userData);
-              $scope.school = JSON.parse($scope.schoolData);
-              
-              $scope.schoolId = $scope.school.id;
+              $scope.schoolId = $scope.user.schoolId;
 
               if ($scope.user.type == 'Admin')   { $scope.Admin = true;  }
               if ($scope.user.type == 'Student') { $scope.Student = true;}
@@ -218,7 +214,7 @@ controller('FeeController',function($scope,$rootScope,$state,$window,$filter,ngD
                 // ----------------------------------------------------
                 //   SHOW FEE TYPE
                 //-----------------------------------------------------
-                $scope.showFee= function(){ $scope.feeList = FeeSetup.find({filter:{  where:{schoolId:$scope.schoolId},include:'class'}}); }
+                $scope.showFee= function(){   $scope.feeList = FeeSetup.find({filter:{  where:{schoolId:$scope.schoolId},include:'class'}}); }
                 $scope.showFee();
 
        

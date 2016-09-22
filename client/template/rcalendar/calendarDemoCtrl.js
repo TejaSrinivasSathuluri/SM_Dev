@@ -1,7 +1,9 @@
 angular.module('calendarDemoApp', ['ui.rCalendar']);
 
 angular.module('calendarDemoApp')
-  .controller('CalendarDemoCtrl', ['$scope', function ($scope) {
+  .controller('CalendarDemoCtrl',function ($scope) {
+
+
     $scope.changeMode = function (mode) {
         $scope.mode = mode;
     };
@@ -63,4 +65,4 @@ angular.module('calendarDemoApp')
         }
         return events;
     }
-}]);
+});

@@ -234,20 +234,26 @@ angular
        {
        
         $scope.assignmentlist = [];
-        console.log($scope.schoolId);
         Student.findOne({filter:{ where :{
           id : $scope.userData.id
         },
-                            include :  'class',scope:{
-                                       include : 'assignments'                                         
-                                       
+                        include:[   { relation :  'class',scope:{
+                              
+                                       include : [
+                                         {
+                                           relation :'assignments'
+                                         }                                         
+                                       ]
                             }
+                           }]
                         }},
         function(response)
         {
-          console.log(response.class);
+          $scope.assignmentlist = response.class.assignments;
         });
-        $scope.assignmentlist = Assignment.find({filter: {where: {schoolId: $scope.schoolId,classId:$scope.userData.classId}, include: 'class'}});
+
+       
+        
        }
       
 

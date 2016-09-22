@@ -16,6 +16,7 @@ angular
         $scope.formData = [];
         $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
         $scope.classList =[];
+       
         School.findOne({
           filter:{
             where :{
@@ -38,7 +39,10 @@ angular
         {
              $scope.staffList = response.staffs;
              $scope.classList = response.classes;
-        })
+        });
+
+
+
 		      //--------------------------------------------------------
           //                  CLEAR RESPONSE
           // --------------------------------------------------------
@@ -97,11 +101,9 @@ angular
           //                  ADD CLASS
           // --------------------------------------------------------
 
-          $scope.addClass = function () {
-
-            ngDialog.openConfirm({template: 'addClass',
-              scope: $scope //Pass the scope object if you need to access in the template
-            }).then(
+          $scope.addClass = function () 
+          {
+            ngDialog.openConfirm({template: 'addClass',scope: $scope }).then(
               function(formData) {
 
                 $scope.classExists = Class.findOne({filter: {where: { schoolId: $scope.schoolId, className: formData.className, sectionName: formData.sectionName}}},

@@ -47,6 +47,11 @@
       "type": "hasMany",
       "model": "Bus",
       "foreignKey": ""
+    },
+    "noticeboards": {
+      "type": "hasMany",
+      "model": "Noticeboard",
+      "foreignKey": ""
     }
   },
   "acls": [

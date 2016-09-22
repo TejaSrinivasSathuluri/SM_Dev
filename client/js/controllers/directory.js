@@ -1,6 +1,6 @@
 angular
   .module('app')
-  .controller('DirectoryController',function (Attendance,Mail,$scope,ngDialog, Admin, $state, School, Class, Student, Parent, StudentParent, Staff, $rootScope, $window,$filter,Timetable,Schedule,$http) {
+  .controller('DirectoryController',function (Remarks,Attendance,Mail,$scope,ngDialog, Admin, $state, School, Class, Student, Parent, StudentParent, Staff, $rootScope, $window,$filter,Timetable,Schedule,$http) {
 
 
         //--------------------------------------------------------
@@ -592,8 +592,32 @@ angular
               );
             }
           }
-
-
+          //--------------------------------------------------------
+          //                 ADD STAFF STARTS
+          //--------------------------------------------------------
+           $scope.addComment = function()
+           {
+             console.log($scope.formData);
+             if ($scope.formData.type == 'Staff')
+             {
+               console.log('Staff Gave Remarks');
+               
+                Remarks.create({
+                  studentId : $scope.formData.id,
+                  staffId : $scope.userData.id,
+                  comment : $scope.comment
+                });
+             }
+             else if ($scope.formData.type == 'Admin')
+             {
+               console.log('Admin Gave Remarks');
+                    Remarks.create({
+                    adminId : $scope.formData.id,
+                    staffId : $scope.userData.id,
+                    comment : $scope.comment
+                  });
+             }
+           }
 
           //--------------------------------------------------------
           //                 ADD STAFF STARTS
