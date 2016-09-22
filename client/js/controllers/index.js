@@ -41,6 +41,7 @@ angular
       {
          $scope.reloadConsole = function(){
             $window.open('http://localhost:3000/#/dashboard','_self');
+                              $state.go($state.current, {}, {reload: true});
                               location.reload();
 
             
