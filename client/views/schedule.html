@@ -10,7 +10,7 @@
 		        </div>
 		     </div>
 
-        <!-- -----------------------------------Search Form------------------------------->
+        <!-- ------------------------------------------------------------------>
             <div class="portlet-body">
                <div class="row list-separated">
 			            <div class="col-sm-12">
@@ -45,43 +45,47 @@
 																									<td>Saturday</td>
 																							</tr>
 																					</thead>
+									<!--For Admin-->
 
-																						<tr ng-show="Admin" ng-repeat = "subject in scheduleList">
-									        			                  <td colspan="10" bgcolor="#FF0000" class="text-center" ng-show="subject.attendance == false">{{ subject.title}}</td>
-																							    <td ng-show="subject.attendance == true">{{ subject.startTime | date:'hh:mm'}}-{{subject.endTime | date:'hh:mm'}}</td>			
-																								  <td ng-show="subject.attendance == true">
-																										     <select ng-model="subject.Monday" class="form-control id" required>
-																												<option value="">Subject</option>
-																												<option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
-																												</select>
-																								  </td>
+										<tr ng-show="Admin" ng-repeat = "subject in scheduleList">
+																			<td colspan="10" bgcolor="#FF0000" class="text-center" ng-show="subject.attendance == false">{{ subject.title}}</td>
+																			<td ng-show="subject.attendance == true">{{ subject.startTime | date:'hh:mm'}}-{{subject.endTime | date:'hh:mm'}}</td>			
+																			<td ng-show="subject.attendance == true">
+																							<select ng-model="subject.Monday" class="form-control id" required>
+																						<option value="">Subject</option>
+																						<option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
+																						</select>
+																			</td>
 
-																									<td ng-show="subject.attendance == true">
-																													<select ng-model="subject.Tuesday" class="form-control" required>
-																													<option value="">Subject</option>
-																													<option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
-																													</select>
-																									</td>
-									  <td ng-show="subject.attendance == true"><select ng-model="subject.Wednesday" class="form-control" required>
-										<option value="">Subject</option>
-										<option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
-									  </select>
-									  </td>
-									  <td ng-show="subject.attendance == true"><select ng-model="subject.Thursday" class="form-control" required>
-										<option value="">Subject</option>
-										<option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
-									  </select>
-									  </td>
-									  <td ng-show="subject.attendance == true"><select ng-model="subject.Friday" class="form-control" required>
-										<option value="">Subject</option>
-										<option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
-									  </select>
-									  <td ng-show="subject.attendance == true"><select ng-model="subject.Saturday" class="form-control" required>
-										<option value="">Subject</option>
-										<option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
-									  </select>
-									  </td>
+																			<td ng-show="subject.attendance == true">
+																							<select ng-model="subject.Tuesday" class="form-control" required>
+																							<option value="">Subject</option>
+																							<option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
+																							</select>
+																			</td>
+																			<td ng-show="subject.attendance == true"><select ng-model="subject.Wednesday" class="form-control" required>
+																			<option value="">Subject</option>
+																			<option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
+																			</select>
+																			</td>
+																			<td ng-show="subject.attendance == true"><select ng-model="subject.Thursday" class="form-control" required>
+																			<option value="">Subject</option>
+																			<option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
+																			</select>
+																			</td>
+																			<td ng-show="subject.attendance == true"><select ng-model="subject.Friday" class="form-control" required>
+																			<option value="">Subject</option>
+																			<option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
+																			</select>
+																			<td ng-show="subject.attendance == true"><select ng-model="subject.Saturday" class="form-control" required>
+																			<option value="">Subject</option>
+																			<option ng-repeat="y in subjectList" value="{{y.id}}">{{y.subjectName}}</option>
+																			</select>
+																			</td>
 									</tr>
+									<!--For Admin-->
+
+									<!--For Student ,Staff,Parent-->
                     <tr ng-show="Student || Parent || Staff" ng-repeat = "subject in scheduleList">
                       <td colspan="10" ng-show="subject.attendance == false" style="background-color: darkgrey" class="text-center">
                         {{ subject.title}} </td>
@@ -118,6 +122,8 @@
                       </select>
                       </td>
                     </tr>
+									<!--For Student ,Staff,Parent-->
+										
 
 								  </table>
 													<center> <button class="form-control" ng-show="Admin" ng-click="saveSchedule()">Save</button> </center>

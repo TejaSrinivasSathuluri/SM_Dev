@@ -9,7 +9,9 @@ angular
         
         School.findById({id : $scope.userData.schoolId},function(response)
         {
-             $window.localStorage.setItem('school',JSON.stringify(response));
+               $window.localStorage.setItem('school',JSON.stringify(response));
+               $rootScope.image = $scope.school.image;
+               document.getElementById('myIframe').src = $scope.school.video;
         });         
        
 
@@ -24,14 +26,12 @@ angular
 
         $scope.schoolId = $scope.userData.schoolId;
         $scope.date = new Date();
-        $rootScope.image = $scope.school.image;
 
 
           
 
 
 
-        document.getElementById('myIframe').src = $scope.school.video;
             
 
 

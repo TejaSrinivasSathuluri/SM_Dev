@@ -246,7 +246,7 @@
         <div class="col-sm-6"><input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control" ng-model="formData.dateofJoin"   ng-mouseover="tag8=true" ng-mouseleave="tag8=false"   required> <div class="tag8" ng-show="tag8">Joining Date</div><br></div>
       </div>
       <div class="col-sm-12">
-        <div class="col-sm-6"><input type="text"  class="form-control" placeholder="RFID"  required ng-model="formData.RFID"  ng-mouseover="tag9=true" ng-mouseleave="tag9=false"	 ><div class="tag9" ng-show="tag9">RFID</div><br></div>
+        <div class="col-sm-6"><input type="text"  class="form-control" placeholder="RFID"  required ng-model="formData.RFID" min="1" minlength="15"  ng-mouseover="tag9=true" ng-mouseleave="tag9=false"	 ><div class="tag9" ng-show="tag9">RFID</div><br></div>
         <div class="col-sm-6"><input type = "file" file-model = "formData.studentImg" class="form-control" placeholder="Image" ng-mouseover="tag10=true" ng-mouseleave="tag10=false"	 ><div class="tag10" ng-show="tag10">Profile Image</div><br></div>
       </div>
 
@@ -374,7 +374,7 @@
         <div class="col-sm-6"><input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control" ng-model="formData.dateofJoin"   ng-mouseover="tag8=true" ng-mouseleave="tag8=false"   required> <div class="tag8" ng-show="tag8">Joining Date</div><br></div>
       </div>
       <div class="col-sm-12">
-        <div class="col-sm-6"><input type="text" required class="form-control" placeholder="RFID"  ng-model="formData.RFID"  ng-mouseover="tag9=true" ng-mouseleave="tag9=false"	 ><div class="tag9" ng-show="tag9">RFID</div><br></div>
+        <div class="col-sm-6"><input type="text" required class="form-control" placeholder="RFID"  ng-model="formData.RFID" minlength="15"  ng-mouseover="tag9=true" ng-mouseleave="tag9=false"	 ><div class="tag9" ng-show="tag9">RFID</div><br></div>
         <div class="col-sm-6"><input type = "file" file-model = "formData.image" class="form-control" placeholder="Image" ng-mouseover="tag10=true" ng-mouseleave="tag10=false"	 ><div class="tag10" ng-show="tag10">Profile Image</div><br></div>
       </div>
       <div class="col-sm-12">
@@ -683,7 +683,7 @@
     </div>
      <div ng-show="isSet(2)">
       
-                             <div class="text-center">Monthly Attendance<br><br></div>
+      <div class="text-center">Monthly Attendance<br><br></div>
 
         <table>
           <tr ng-repeat="x in list">
@@ -692,17 +692,13 @@
        
      </div>
      <div ng-show="isSet(3)">
-
        Coming Soon
      </div> 
      
      <div ng-show="isSet(4)">
         <form ng-submit="addComment()">
-           
- 
                      <input type="text" class="form-control" ng-model="comment"> 
                  <input type="submit" class="btn-default" > 
-         
        </form>
      </div>
 
@@ -729,7 +725,6 @@
 
     <tr>  <th>	Name             </th>                 <td>{{	formData.firstName }}{{	formData.lastName }} </td>                         </tr>
     <tr>  <th>	Email            </th>                 <td>{{	formData.email            }}                 </td>                         </tr>
-    <tr>  <th>	RFID             </th>                 <td>{{	formData.RFID             }}                 </td>                         </tr>
     <tr>  <th>	DateofJoin       </th>                 <td>{{	formData.dateofJoin     | date:'MMM dd yyyy'  }}                  </td>                         </tr>
     <tr>  <th>	Class            </th>                 <td>{{	formData.class.className  }}                 </td>                         </tr>
     <tr>  <th>	Status           </th>                 <td>{{	formData.status           }}                 </td>                         </tr>

@@ -49,7 +49,7 @@ angular.module('app')
 
 
           $scope.formData = [];
-        if($scope.Admin) {
+        if($scope.Admin || $scope.Staff) {
 
 	    	  //--------------------------------------------------------
           //                  CLEAR RESPONSE

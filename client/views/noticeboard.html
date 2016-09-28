@@ -54,7 +54,7 @@
     <div class="portlet light ">
       <div class="portlet-title">
         <div class="caption caption-md">NOTICEBOARD</div>
-        <button ng-hide='Student' class="btn btn-success uppercase pull-right" ng-click="addNotice()">ADD NOTICE</button>
+        <button ng-hide='Student || Staff' class="btn btn-success uppercase pull-right" ng-click="addNotice()">ADD NOTICE</button>
       </div>
 
       <!-- -----------------------------------Search Form------------------------------->
@@ -108,6 +108,13 @@
                 </tr>
                 </tbody>
                </table>
+
+                <div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="true">
+</div
                  <div class="pull-left">
                       Total Results: {{noticeList.length}}||Filtered Results :{{ filtered.length}}
                  </div>
@@ -120,3 +127,5 @@
           </div>
         </div>
       </div>
+
+     
