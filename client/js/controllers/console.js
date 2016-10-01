@@ -11,7 +11,8 @@ angular
         {
                $window.localStorage.setItem('school',JSON.stringify(response));
                $rootScope.image = $scope.school.image;
-               document.getElementById('myIframe').src = $scope.school.video;
+               document.getElementById('myIframe1').src = $scope.school.images;
+               document.getElementById('myIframe2').src = $scope.school.video;
         });         
        
 
@@ -26,34 +27,7 @@ angular
 
         $scope.schoolId = $scope.userData.schoolId;
         $scope.date = new Date();
-
-
-          
-
-
-
-            
-
-
-          // --------------------------------------------------------
-          //                  GET NOTICE LIST
-          // --------------------------------------------------------
-
-          
-        //  firstDay   = new Date(new Date().getTime() - 24*60*60000);
-        //  lastDay   = new Date(new Date().getTime() + 24*60*60000);
-          // var day =$filter('date')(new Date(), 'yyyy-MM-dd');
-          // var firstDay =$filter('date')(new Date(firstDay), 'yyyy-MM-dd');
-         
-        
-
-          // $scope.noticeList= [];
-          // Noticeboard.find({filter:{where:{schoolId:$scope.schoolId,date1:{lt:firstDay},date2:{gt:lastDay}}}},function(response){
-          //   $scope.noticeList = response;
-          //   response.forEach(function(notices){
-          //     var p = notices.toJSON();
-          //   });
-          // });
+ 
       
           //--------------------------------------------------------
           //                   CALENDAR
@@ -75,69 +49,98 @@ angular
                     function createRandomEvents() 
                     {
                     var events = [];
-                    var notices = School.noticeboards({
-                      id : $scope.userData.schoolId
-                    },function(response){
 
+                    School.findOne({ filter:{ where:{ id : $scope.userData.schoolId },
+                                include:[
+                                    { 
+                                      relation :'noticeboards'
+                                    },
+                                   { 
+                                      relation: 'exams',scope : {
+                                        where :{
+                                          classId : $scope.userData.classId
+                                        }
+                                      }
+                                   },
+                                    {
+                                      relation: 'assignments',scope : {
+                                        where :{
+                                          classId : $scope.userData.classId
+                                        }
+                                      }
+                                    }
+                                  ]}},
+                    function(response){
 
-
-                       for (var i = 0; i < response.length; i += 1) 
-                          {
+                       notices  = response.noticeboards;
+                       exams = response.exams;
+                       assignments = response.assignments;
+                       
+                       for (var i = 0; i < notices.length; i += 1) 
+                          { 
+                            
                                   startTime = new Date(notices[i].date1);
                                   endTime = new Date(new Date(notices[i].date2).getTime() + 24 * 60 * 60000);
                                   events.push({
+                                     count:true,
                                       id : notices[i].id,
                                       title: notices[i].title,
                                       description: notices[i].description,
                                       startTime: startTime,
                                       endTime: endTime,
-                                      allDay: true
+                                      allDay: true,
+                                      notice:true
+                                  });
+                              
+                               
+                          }
+
+                          for (var i = 0; i < assignments.length; i += 1) 
+                          { 
+                            
+                                  
+
+                                        startTime = new Date(assignments[i].fromDate);
+                                        endTime = new Date(new Date(assignments[i].toDate).getTime() + 24 * 60 * 60000);
+                                        events.push({
+                                          count:true,
+                                            id : assignments[i].id,
+                                            title: assignments[i].title,
+                                            description: assignments[i].description,
+                                            startTime: startTime,
+                                            endTime: endTime,
+                                            allDay: true,
+                                            assignment:true
+                                        });
+                               
+                          }
+
+                          for (var i = 0; i < exams.length; i += 1) 
+                          {
+                                  startTime = new Date(exams[i].fromDate);
+                                  endTime = new Date(new Date(exams[i].toDate).getTime() + 24 * 60 * 60000);
+                                  events.push({
+                                      count:i+1,
+                                      id : exams[i].id,
+                                      title: exams[i].examName,
+                                      description: exams[i].examName,
+                                      startTime: startTime,
+                                      endTime: endTime,
+                                      allDay: true,
+                                      exam:true
                                   });
                               
                                
                           }
                     });
-                  
-                   
-                          // for (var i = 0; i < 20; i += 1) 
-                          // {
-                          //     var date = new Date();
-                          //     var eventType = Math.floor(Math.random() * 2);
-                          //     var startDay = Math.floor(Math.random() * 90) - 45;
-                          //     console.log('startday' + startDay);
-                          //     var endDay = Math.floor(Math.random() * 2) + startDay;
-                          //     console.log('endDay' + endDay);
-                          //     var startTime;
-                          //     var endTime;
-                          //     if (eventType === 0) {
-                          //         startTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + startDay));
-                          //         if (endDay === startDay) {
-                          //             endDay += 1;
-                          //         }
-                          //         endTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + endDay));
-                          //         events.push({
-                          //             title: 'All Day - ' + i,
-                          //             startTime: startTime,
-                          //             endTime: endTime,
-                          //             allDay: true
-                          //         });
-                          //     } 
-                          //     else 
-                          //     {
-                          //         var startMinute = Math.floor(Math.random() * 24 * 60);
-                          //         var endMinute = Math.floor(Math.random() * 180) + startMinute;
-                          //         startTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + startDay, 0, date.getMinutes() + startMinute);
-                          //         endTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + endDay, 0, date.getMinutes() + endMinute);
-                          //         events.push({
-                          //             title: 'Event - ' + i,
-                          //             startTime: startTime,
-                          //             endTime: endTime,
-                          //             allDay: false
-                          //         });
-                          //     }
-                          // }
                     return events;
                 }
+
+
+
+
+
+                
           //---------------------------------------------
 
            
@@ -149,7 +152,7 @@ angular
           // --------------------------------------------------------
 
 
-    if($scope.Student){
+    // if($scope.Student){
 
                 $scope.studentList = Student.find({
             filter: {
@@ -188,48 +191,48 @@ angular
 
 
 
-    }
+    // }
 
-    else if ($scope.Staff || $scope.Admin) 
+    // else if ($scope.Staff || $scope.Admin) 
     
-    {
-          $scope.studentList = Student.find({
-            filter: {
-              where: {schoolId: $scope.schoolId},
-              include: 'class'
-            }
-          },
-            function () {
-            $scope.birthdayList =[];
-            var j =0;
+    // {
+    //       $scope.studentList = Student.find({
+    //         filter: {
+    //           where: {schoolId: $scope.schoolId},
+    //           include: 'class'
+    //         }
+    //       },
+    //         function () {
+    //         $scope.birthdayList =[];
+    //         var j =0;
 
 
-            for(var i=0;i<$scope.studentList.length;i++)
-            {
+    //         for(var i=0;i<$scope.studentList.length;i++)
+    //         {
 
 
 
-              var a =  $filter('date')(new Date($scope.studentList[i].dateofBirth), 'MM-dd')    ;
-              var b =  $filter('date')(new Date(), 'MM-dd')    ;
-              var c= (new Date(a)-new Date(b)) / (1000 * 3600 * 24);
-              if ( c <7 && c >=0){
-                $scope.birthdayList[j] = { studentId:$scope.studentList[i].id,firstName:$scope.studentList[i].firstName,
-                  class:($scope.studentList[i].class.className + '-' +$scope.studentList[i].class.sectionName),
-                  dateofBirth:$scope.studentList[i].dateofBirth};
-                j++;
-              }
+    //           var a =  $filter('date')(new Date($scope.studentList[i].dateofBirth), 'MM-dd')    ;
+    //           var b =  $filter('date')(new Date(), 'MM-dd')    ;
+    //           var c= (new Date(a)-new Date(b)) / (1000 * 3600 * 24);
+    //           if ( c <7 && c >=0){
+    //             $scope.birthdayList[j] = { studentId:$scope.studentList[i].id,firstName:$scope.studentList[i].firstName,
+    //               class:($scope.studentList[i].class.className + '-' +$scope.studentList[i].class.sectionName),
+    //               dateofBirth:$scope.studentList[i].dateofBirth};
+    //             j++;
+    //           }
 
-            }
+    //         }
 
-            },
-            function (response)
-            {
-              console.log('Cant Fetch Student List');
-              if (response.status =401) $state.go('logout', {}, {reload: true}) ;
-            });
+    //         },
+    //         function (response)
+    //         {
+    //           console.log('Cant Fetch Student List');
+    //           if (response.status =401) $state.go('logout', {}, {reload: true}) ;
+    //         });
 
 
-    }
+    // }
 
 
 

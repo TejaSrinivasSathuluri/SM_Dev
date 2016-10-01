@@ -77,7 +77,7 @@ angular
                   where:{
                         schoolId:$scope.schoolId,
                          title       : formData.title,
-                       classId     : formData.classSelected,
+                         classId     : formData.classSelected,
                          description : formData.description,
                   fromDate    : formData.fromDate,
                   toDate      : formData.toDate
@@ -128,6 +128,7 @@ angular
         $scope.showAssignments  = function()
         {
           $scope.assignmentlist = Assignment.find({filter: {where: {schoolId: $scope.schoolId}, include: 'class'}});
+          console.log($scope.assignmentlist);
         }
         $scope.showAssignments(); 
 

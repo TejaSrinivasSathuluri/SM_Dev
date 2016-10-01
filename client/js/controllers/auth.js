@@ -7,6 +7,7 @@ angular
     $scope.loginUser = 'Admin';
     $scope.login = function() 
     {
+      localStorage.clear();
       $scope.user.email = $scope.user.email.toLowerCase();
       if ($scope.loginUser == 'Admin') 
       {

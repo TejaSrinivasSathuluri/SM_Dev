@@ -19,26 +19,25 @@
                                                'monthview-primary-with-event':!dt.secondary&&dt.hasEvent&&!dt.selected,
                                                'monthview-selected': dt.selected}">
                 
-                        <div ng-class="{'text-muted':dt.secondary}"> {{dt.label}}     </div>
+                        <div ng-click="showEvents(dt.events)" ng-class="{'text-muted':dt.secondary}"> {{dt.label}}  
+                        <i ng-show="dt.events[0].count"  style="font-size:5px;color:blue" class="fa fa-circle" aria-hidden="true"></i>
+                        
+                        
+                        </div>
 
             </td>
         </tr>
         </tbody>
     </table>
-    <div ng-if="showEventDetail" class="event-detail-container">
+    <!--<div ng-if="showEventDetail" class="event-detail-container">
         <div class="scrollable" style="height: 200px">
             <table class="table table-bordered table-striped table-fixed">
                 <tr ng-repeat="event in selectedDate.events" ng-if="selectedDate.events">
-                    <!--<td ng-if="!event.allDay" class="monthview-eventdetail-timecolumn">{{event.startTime|date: 'HH:mm'}}
-                        -
-                        {{event.endTime|date: 'HH:mm'}}
-                    </td>-->
-                    <td ng-if="event.allDay" class="monthview-eventdetail-timecolumn">{{event.title}}</td>
+                    <td class="monthview-eventdetail-timecolumn">{{event.title}}</td>
                     <td class="event-detail">{{event.description}}</td>
-                    <!--<td class="event-detail" ng-click="eventSelected({event:event})">{{event.description}}</td>-->
                 </tr>
                 <tr ng-if="!selectedDate.events"><td class="no-event-label">No Events</td></tr>
             </table>
         </div>
-    </div>
+    </div>-->
 </div>

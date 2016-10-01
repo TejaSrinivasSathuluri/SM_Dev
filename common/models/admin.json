@@ -6,11 +6,7 @@
     "validateUpsert": true
   },
   "properties": {
-    "type": {
-      "type": {
-        "default": "Admin"
-      }
-    }
+    "type": { "default": "Admin"}
   },
   "validations": [],
   "relations": {

@@ -73,13 +73,13 @@
 }
 
 .monthview-primary-with-event {
-    background-color: #3a87ad;
-    color: white;
+    /*background-color: #3a87ad;*/
+    /*color: white;*/
   /*background-color: #d9edf7;*/
-
 }
+
 .monthview-primary-with-event:before {
-  content:"•";
+  /*content:"•";*/
 }
 
 .monthview-selected {

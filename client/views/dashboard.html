@@ -18,7 +18,45 @@ $(window).resize(function() {
 }).resize(); // Trigger resize han
   </script>
 
+<script type="text/ng-template" id="showEvents">
+  <div class="ngdialog-message">
+    <div class="ngdialog-buttons" style="height: 300px;overflow-y:auto;">
+        <!---------------------Notices-------------------->
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">Notices</div>
+            <div class="panel-body">
+                <ul ng-repeat="notice in events">
+                  <li ng-if="notice.notice"> {{notice.title}} {{notice.description}} </li>
+                </ul>
+            </div>
+        </div>
+        <!---------------------Notices-------------------->
 
+        <!---------------------Exams-------------------->
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">Exams</div>
+            <div class="panel-body">
+                <ul ng-repeat="exam in events">
+                  <li ng-if="exam.exam"> {{exam.title}}</li>
+                </ul>
+            </div>
+        </div>
+        <!---------------------Exams-------------------->
+
+<!---------------------Assignments-------------------->
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">Assignments</div>
+            <div class="panel-body">
+                <ul ng-repeat="assignment in events">
+                  <li ng-if="assignment.assignment"> {{assignment.title}}</li>
+                </ul>
+            </div>
+        </div>
+        <!---------------------Assignments-------------------->
+        
+    </div>
+  </div>
+</script>
 
 <div class="container">
   <div class="row margin-top-10">
@@ -61,8 +99,8 @@ $(window).resize(function() {
                 </section>
       </div>
     </div>
-    <div class="col-md-4 col-sm-12 col-xs-12 row-md-4">
-      <div class="portlet light row-md-1">
+    <div  class="col-md-4 col-sm-12 col-xs-12 row-md-4">
+      <div ng-hide="Parent" class="portlet light row-md-1">
             <div class="panel panel-default">
               <div class="panel-heading text-center">
                 Birthday List
@@ -93,8 +131,8 @@ $(window).resize(function() {
         <div class="row list-separated">
 
                     <!--IMAGES CODE--->
-                    <!--<iframe width="350" height="250" src="https://www.youtube.com/embed/XGSy3_Czz8k" >
-                    </iframe>-->
+                    <iframe width="350" height="250" id="myIframe1"  frameborder="0"></iframe>
+                    
                     <!---->
 
         </div>
@@ -105,7 +143,7 @@ $(window).resize(function() {
         </div>
         <div class="row list-separated">
                     <!--VIDEOS CODE--->
-                    <iframe width="350" height="250" id="myIframe" src="" frameborder="0" allowfullscreen></iframe>
+                    <iframe width="350" height="250" id="myIframe2"  frameborder="0"></iframe>
                     <!---->
         </div>
 

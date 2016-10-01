@@ -12,7 +12,9 @@ angular.module('ui.rCalendar', [])
         eventSource: null,
         queryMode: 'local'
     })
-    .controller('CalendarController', ['$scope', '$attrs', '$parse', '$interpolate', '$log', 'dateFilter', 'calendarConfig', function ($scope, $attrs, $parse, $interpolate, $log, dateFilter, calendarConfig) {
+    .controller('CalendarController', 
+    ['ngDialog','$scope', '$attrs', '$parse', '$interpolate', '$log', 'dateFilter', 'calendarConfig','Noticeboard', 
+    function (ngDialog,$scope, $attrs, $parse, $interpolate, $log, dateFilter, calendarConfig,Noticeboard) {
         var self = this,
             ngModelCtrl = { $setViewValue: angular.noop }; // nullModelCtrl;
 
@@ -22,7 +24,24 @@ angular.module('ui.rCalendar', [])
             'showWeeks', 'showEventDetail', 'startingDay', 'eventSource', 'queryMode'], function (key, index) {
             self[key] = angular.isDefined($attrs[key]) ? (index < 5 ? $interpolate($attrs[key])($scope.$parent) : $scope.$parent.$eval($attrs[key])) : calendarConfig[key];
         });
+            // ---------------------------------------
+            $scope.showEvents = function(events)
+                {
+                    $scope.events = events;
+                    var dialog = ngDialog.open(
+                        {
+                                template:'showEvents',
+                                scope: $scope
+                        });
+                    dialog.closePromise.then(function (data) {
+                    if (data.value && data.value != '$document' && data.value != '$closeButton') 
 
+                    
+                      return true;
+                      });
+        
+                }
+                // -----------------------------------------------
         $scope.$parent.$watch('eventSource', function (value) {
             self.onEventSourceChanged(value);
         });
@@ -408,7 +427,8 @@ angular.module('ui.rCalendar', [])
                         while (index < timeDifferenceEnd - eps) {
                             var rowIndex = Math.floor(index / 7);
                             var dayIndex = Math.floor(index % 7);
-                            rows[rowIndex][dayIndex].hasEvent = true;
+                            // rows[rowIndex][dayIndex].hasEvent = true;
+                            rows[rowIndex][dayIndex].hasEvent = false;
                             eventSet = rows[rowIndex][dayIndex].events;
                             if (eventSet) {
                                 eventSet.push(event);

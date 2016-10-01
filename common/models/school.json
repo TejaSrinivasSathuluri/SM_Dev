@@ -52,6 +52,16 @@
       "type": "hasMany",
       "model": "Noticeboard",
       "foreignKey": ""
+    },
+    "exams": {
+      "type": "hasMany",
+      "model": "Exam",
+      "foreignKey": ""
+    },
+    "assignments": {
+      "type": "hasMany",
+      "model": "Assignment",
+      "foreignKey": ""
     }
   },
   "acls": [

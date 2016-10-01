@@ -55,8 +55,7 @@ test.listView().fields([
     .choices([
         { value: 'Y', label: 'Yes' },
         { value: 'N', label: 'No' },
-      ]),
-    nga.field('video')
+      ]) 
   ]);
     school.deletionView().fields([
     nga.field('schoolName'),
@@ -73,9 +72,7 @@ test.listView().fields([
     .choices([
         { value: 'Y', label: 'Yes' },
         { value: 'N', label: 'No' },
-      ]),
-    nga.field('video')
-      
+      ]) 
   ]);
     school.editionView().fields([
     nga.field('schoolName'),
@@ -91,9 +88,7 @@ test.listView().fields([
     .choices([
         { value: 'Y', label: 'Yes' },
         { value: 'N', label: 'No' },
-      ]),
-    nga.field('video')
-      
+      ]) 
   ]);
     school.showView().fields([
     nga.field('schoolName'),
@@ -109,9 +104,7 @@ test.listView().fields([
     .choices([
         { value: 'Y', label: 'Yes' },
         { value: 'N', label: 'No' },
-      ]),
-    nga.field('video')
-      
+      ])
   ]);
 
 var admins = nga.entity('Admins');

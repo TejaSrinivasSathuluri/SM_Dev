@@ -12,7 +12,6 @@ angular.module('app')
       $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
 
       $scope.scheduleList = [];
-      console.log($scope.Staff); 
 
       // ------------------------------------------------
       //             SUCCESS CALL
@@ -69,7 +68,7 @@ angular.module('app')
 
       if ($scope.Admin || $scope.Staff) 
       {
-          console.log('Admin or Staff TimeTable');
+          // console.log('Admin or Staff TimeTable');
           $scope.loadSchedule = function () 
           {
                                   School.findOne({filter: { where :{ id: $scope.schoolId },
@@ -92,7 +91,7 @@ angular.module('app')
                                   ]}},
                                   function(response)
                                   {
-                                    console.log(response);
+                                    // console.log(response);
                                     $scope.subjectList = response.classes[0].subjects;
                                     if(response.classes[0].schedules != undefined)           
                                     {
@@ -108,13 +107,13 @@ angular.module('app')
                                             for (var i = 0; i < response.schedule.length; i++) 
                                             {
                                                 $scope.scheduleList[i] = response.schedule[i];
+                                                console.log(response.schedule)
                                                 $scope.scheduleList[i].startTime = new Date(response.schedule[i].startTime);
                                                 $scope.scheduleList[i].endTime = new Date(response.schedule[i].endTime);
+                                                
                                                 if ($scope.scheduleList[i].attendance != true) 
                                                 {
-                                                  $scope.scheduleList[i].attendance == false;
-                                                  $scope.scheduleList[i].startTime = response.schedule[i].title;
-                                                  $scope.scheduleList[i].endTime = null;
+                                                  $scope.scheduleList[i].attendance = false;
                                                   $scope.scheduleList[i].Monday = null;
                                                 }
                                               }
