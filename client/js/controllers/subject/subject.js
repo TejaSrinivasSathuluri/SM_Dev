@@ -15,38 +15,6 @@ angular.module('app')
          
           $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
           var data;
-          $scope.array={subjectName:"",classId:"",staffId:""};
-          $scope.uploadFile= function(){
-              Papa.parse($scope.myFile, {
-                  header: true,
-                  dynamicTyping: true,
-                  complete: function(results) {
-                      data = results.data;
-
-                      for(var k=0;k<data.length;k++){
-                          $scope.array.subjectName = data[k].Subject;
-                          var className = data[k].Class;
-                          var sectionName = data[k].Section;
-                          var firstName = data[k].Teacher;
-
-                          $scope.classList = Class.findOne({filter:{where:{className:className,sectionName:sectionName}}},function(response){
-                          });
-                          console.log($scope.classList[0]);
-
-                              //Staff.findOne({filter:{where:{schoolId:$scope.schoolId,firstName:firstName}}},function(response){
-                              //    $scope.array.staffId = response.id;
-                              //
-                              //});
-
-
-                      }
-                  }
-              });
-          }
-
-
-
-
 
           $scope.formData = [];
         if($scope.Admin || $scope.Staff) {
@@ -60,20 +28,26 @@ angular.module('app')
 			   $scope.responseAddSubject = null;
 		   }
 
-          $scope.staffList = Staff.find  ({filter: {where: {schoolId: $scope.schoolId}}}, function () {
-          }, function (response) {
-            if (response.status = 401) $state.go('logout', {}, {reload: true});
-          });
-          $scope.classList = Class.find  ({filter: {where: {schoolId: $scope.schoolId}}}, function () {
-          }, function (response) {
-            if (response.status = 401) $state.go('logout', {}, {reload: true});
-          });
           $scope.subjectList =[];
+          School.findOne({
+            filter:{
+              where :{
+                id : $scope.userData.schoolId
+              },
+              include:['classes','staffs']
+            }
+          },function(response)
+          {
+            $scope.staffList = response.staffs;
+            $scope.classList = response.classes;
+          });
+
           $scope.showSubject = function()
           {
             $scope.subjectList = Subject.find({filter: {where:{schoolId: $scope.schoolId},include: ['staff', 'class']}});
-
           }
+
+          
           $scope.showSubject();
           $scope.successCallSubject = function(message) {
             $scope.responseAddSubject = message;
@@ -95,51 +69,13 @@ angular.module('app')
         }
 
 
-          $scope.addSubject = function () {
-            ngDialog.openConfirm({template: 'addSubject',
-              scope: $scope //Pass the scope object if you need to access in the template
-            }).then(
-              function(formData) {
-                Subject.findOne({
-                    filter: {
-                      where: {
-                          schoolId:$scope.schoolId,classId: formData.classSelected,subjectName: formData.subjectName
-                      }
-                    }
-                  },
-                function () {
-                    $scope.responseAddSubject = 'Subject ' + formData.subjectName + ' Already Exists For The Class.' ;
-                    $scope.failureCallSubject();
-                  },
-                function () {
-                              Subject.create({
-                                  subjectName: formData.subjectName,
-                                  classId: formData.classSelected,
-                                  staffId: formData.staffSelected,
-                                  schoolId:$scope.schoolId
-                                },
-                                function () {
-                                  $scope.successCallSubject("Subject "+ formData.subjectName + " created Successfully");
-                                  $scope.showSubject();
-                                },
-                                function () {
-                                      
-
-                                }
-                                );
-                 });
-
-              },
-              function (value) { }
-            );
-          }
+         
 
 
           $scope.updateSubject = function (a) {
 						Subject.upsert({id: a.id, staffId: a.staff.id},
 						  function () {
                 $scope.successCallSubject("Subject Edited Successfully");
-                
 						  },
 						  function (response) {
 							console.log(response.data.error.message);
@@ -208,7 +144,7 @@ angular.module('app')
          });
          
         }
-		// --------------------------------------------------------
+	    	// --------------------------------------------------------
         //                 SORT TABLE TECHNIQUE
         //--------------------------------------------------------
 
@@ -216,7 +152,7 @@ angular.module('app')
         $scope.sortReverse  = false;
         $scope.searchFish   = '';
         $scope.currentPage = 0;
-        $scope.pageSize = 10;
+        $scope.pageSize = 8;
         $scope.numberOfPages=function(){    return Math.ceil($scope.filtered.length/$scope.pageSize);}
 
 

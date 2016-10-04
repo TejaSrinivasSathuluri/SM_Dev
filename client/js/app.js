@@ -11,10 +11,18 @@ angular
     .state('pdashboard',            { url: 'parent/dashboard',   templateUrl: 'views/parent/dashboard.html',   controller: 'ParentLandingPageController', authenticate: true})
    
     .state('directory',             { url: '/directory',         templateUrl: 'views/directory.html',          controller: 'DirectoryController',         authenticate: true})
-    .state('pdirectory',            { url: 'parent/directory',   templateUrl: 'views/parent/directory.html',   controller: 'ParentDirectoryController',   authenticate: true})
    
-    .state('class',                 { url: '/class',             templateUrl: 'views/class.html',              controller: 'ClassController',       authenticate: true})
-    .state('subject',               { url: '/subject',           templateUrl: 'views/subject.html',            controller: 'SubjectController',     authenticate: true})
+    .state('class',                 { url: '/class',             templateUrl: 'views/class/class.html',              controller: 'ClassController',       authenticate: true})
+    .state('addclass',              { url: '/addclass',          templateUrl: 'views/class/addclass.html',           controller: 'AddClassController',    authenticate: true})
+    
+    
+    
+    .state('subject',               { url: '/subject',           templateUrl: 'views/subject/subject.html',            controller: 'SubjectController',     authenticate: true})
+    .state('addsubject',            { url: '/addsubject',        templateUrl: 'views/subject/addsubject.html',         controller: 'AddSubjectController',  authenticate: true})
+    
+    
+    
+    
     .state('attendance',            { url: '/attendance',        templateUrl: 'views/attendance.html',         controller: 'AttendanceController',  authenticate: true})
     .state('timetable',             { url: '/timetable',         templateUrl: 'views/timetable.html',          controller: 'TimetableController',   authenticate: true})
     .state('transport',             { url: '/transport',         templateUrl: 'views/transport.html',          controller: 'TransportController',   authenticate: true})

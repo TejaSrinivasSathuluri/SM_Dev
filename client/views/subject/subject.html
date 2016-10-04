@@ -1,0 +1,116 @@
+<script type="text/ng-template" id="deleteSubject">
+  <div class="ngdialog-message">
+    <h3>Confirm Delete</h3>
+    <div class="ngdialog-buttons">
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog('Yes')">Yes</button>
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog()">No</button>
+    </div>
+  </div>
+</script>
+
+
+
+
+<div class="container">
+  <div class="row margin-top-10">
+    <div class=" col-sm-12" >
+      <!------------------------------------------------ BEGIN PORTLET------------------------------------------>
+       <div class="portlet light " style="height:462px;">
+        <div class="portlet-title">
+           
+          <div class="caption caption-md col-sm-12">
+            <span class="uppercase pull-left">Subjects</span>
+            <span class="caption-subject uppercase col-sm-6"></span>
+            <span class="btn btn-primary uppercase pull-right" ng-show="Admin" <a ui-sref="addsubject"> Add Subject</a></span>
+          </div>
+        </div>
+        <div class="portlet-body">
+              <div class="row list-separated">
+                <div class="col-sm-12">
+                  <div ng-show="error"   class="alert alert-danger  col-lg-12 col-md-12 col-sm-12 col-xs-12">{{responseAddSubject}}</div>
+                  <div ng-show="success" class="alert alert-success col-lg-12 col-md-12 col-sm-12 col-xs-12">{{responseAddSubject}}</div>
+                </div>
+
+
+
+               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div ng-hide="Student" class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <select ng-model="search.class.id" class="form-control">
+                  <option value="">Class </option>
+                  <option ng-repeat="y in classList" value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>
+                </select>
+
+              <br>
+                <input type="text" ng-model="search.staff.firstName" placeholder="Search By Teacher" class="form-control">
+              <br>
+                <input type="text" ng-model="search.subjectName" placeholder="Search By Subject" class="form-control"> </input>
+              </div>
+              <div  class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                 
+                            
+                                 <div ng-show="Student" class="pull-right panel-default">
+  <div class="panel-body"> 
+                Class : {{classData.className}}-{{classData.sectionName}} | Class Teacher : {{classData.staff.firstName}} {{classData.staff.lastName}}
+    
+  </div>
+</div>
+                
+              <!--<div class="portlet-body-morris-fit morris-chart flip-scroll" style="height: max">-->
+              <table class="table table-bordered table-striped table-condensed flip-content" >
+                <thead flip-content>
+                <tr ng-show="Admin || Staff">
+        				  <th><a ng-click="sortType = 'subjectName'; sortReverse = !sortReverse">Subject</a></th>
+                  <th><a ng-click="sortType = 'class.className'; sortReverse = !sortReverse">Class</a></th>
+                  <th><a ng-click="sortType = 'staff.firstName'; sortReverse = !sortReverse">Teacher</a></th>
+                  <th ng-show="Admin">Exam Enabled</th>
+                  <th ng-show="Admin">Action</th>
+                </tr>
+
+                <tr ng-hide="Admin || Staff">
+        				  <th><a ng-click="sortType = 'subjectName'; sortReverse = !sortReverse">Subject</a></th>
+                  <th><a ng-click="sortType = 'staff.firstName'; sortReverse = !sortReverse">Teacher</a></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr ng-repeat="a in  filtered = (subjectList | filter:search) | orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
+                  <td>{{a.subjectName}}</td>
+                  <td ng-show="Admin">{{a.class.className}}-{{a.class.sectionName}}</td>
+                  <td ng-hide="Admin">{{a.staff.firstName}} {{a.staff.lastName}}</td>
+                
+                  <td ng-show="Admin">
+						  <address style="height:0.5px" ng-hide="editsubject">{{a.staff.firstName}} {{a.staff.lastName}}</address>
+						  <select ng-show="editsubject" ng-model="a.staff.id" class="form-control Staff" required>
+							  <option value="">Teacher</option>
+							  <option ng-repeat="y in staffList" value="{{y.id}}">{{y.firstName}} {{y.lastName}}</option>
+							</select>
+				  </td>  <td ng-show="Admin"> <input type="checkbox" ng-model="a.examFlag" ng-click="addExamEligibility(a)"</td>
+                  <td ng-show="Admin">
+                      <i class="fa fa-pencil-square-o" ng-hide="editsubject" ng-click="clearResponse();editsubject=true"></i>
+                      <i class="fa fa-floppy-o"       ng-show="editsubject" ng-click="updateSubject(a)"></i>
+                      <i class="fa fa-trash-o"  ng-click="deleteSubject(a)"></i>
+                   </td>
+                </tbody>
+              </table>
+               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel-footer">
+                 <div class="pull-left"> Total Results :{{classList.length}} | Filtered Results : {{filtered.length}}</div>
+                 <div class="pull-right"> 
+                   <button ng-disabled="currentPage == 0" class="pgr"  ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
+                  <button ng-disabled="currentPage >= classList.length/pageSize-1" class="pgr" ng-click="currentPage=currentPage+1">Next</button>
+                  </div>
+                </div>
+                </div>
+                
+            </div>
+
+        </div>
+         </div>
+         </div>
+         <!--<div class="portlet-body-morris-fit morris-chart" style="height:120px">-->
+      <!--------------------------------------------- END PORTLET------------------------------------------------>
+      </div>
+
+    </div>
+  </div>
+</div>
+

@@ -848,6 +848,7 @@ angular
         //--------------------------------------------------------
         //                 PARENT SUBSCRIPTION
         //--------------------------------------------------------
+        console.log(window.location.origin);
         $scope.addParentSubscription = function (x) {
            var dialog = ngDialog.open({template: 'parentSubscription'});
             dialog.closePromise.then(function (data) 

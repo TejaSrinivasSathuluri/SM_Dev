@@ -1,0 +1,92 @@
+
+<!------------------------------------------------------------------- BEGIN CONTAINER----------------------------------------------->
+<div class="container">
+  <!------------------------------------------------------------------- BEGIN ROW MARGIN-------------------------------------------->
+  <div class="row margin-top-10">
+    <!------------------------------------------------------------------- BEGIN DIV------------------------------------------------->
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <!------------------------------------------------------------------- BEGIN PORTLET------------------------------------------->
+      <div class="portlet light" style="height: 464px">
+        <!------------------------portlet-body-------------------------------------->
+        <div class="portlet-body">
+          <div class="row list-separated">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <!------------------------Message Block-------------------------------------->
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div ng-show="error"  class="alert alert-danger">{{responseAddSubject}}</div>
+                    <div ng-show="success" class="alert alert-success">{{responseAddSubject}}</div>
+                </div>
+            </div>    
+                <!------------------------Message Block-------------------------------------->
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+ 
+                <!------------------------Create CLass-------------------------------------->
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">ADD SUBJECT</div>
+                                                    
+                     <div class="panel-body">
+                                <form class="form-horizontal" ng-submit="addSubject()">
+
+                              <fieldset>
+                                <div class="form-group">
+                                  <label for="select" class="col-lg-offset-2 col-lg-3 control-label col-lg-offset-2">Subject Name</label>
+                                  <div class="col-lg-3">
+                                    <input type="text" class="form-control"  placeholder="Subject Name" ng-model="formData.subjectName" required>
+                                  </div>
+                                
+                                </div>
+                                <div class="form-group">
+                                  <label for="select" class="col-lg-offset-2 col-lg-3 control-label col-lg-offset-2">Class-Section</label>
+                                  <div class="col-lg-3">
+                                    <select ng-model="formData.classSelected" id="repeatSelect1" class="form-control" required>
+                                        <option value="">Class-Section</option>
+                                              <option ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
+                                    </select>
+                                    
+                                    
+                                  </div>
+                                </div>
+                                  
+                                <div class="form-group">
+                                  <label for="select" class="col-lg-offset-2 col-lg-3 control-label col-lg-offset-2">Select Teacher</label>
+                                  <div class="col-lg-3">
+                                    <select class="form-control" id="select" ng-model="formData.staffSelected" class="form-control Staff" required>
+                                      <option value="">Select Teacher</option>
+                                              <option ng-repeat="option1 in staffList" value=" {{option1.id}}">{{option1.firstName}} {{option1.lastName}}</option>
+                                    </select>
+                                    
+                                    
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <div class="col-lg-offset-5 col-lg-8">
+                                    <button type="reset" class="btn btn-primary" <a ui-sref="subject">Cancel</a></button>
+                                    <button type="submit"  class="btn btn-primary">Create</button>
+                                  </div>
+                                </div>
+                              </fi
+                      </div>
+                </div>
+                <!--------------------------END create Class------------------------------------>
+                
+            </div>
+          </div>
+        </div>
+        <!------------------------END portlet-body-------------------------------------->
+      </div>
+      <!------------------------------------------------------------------- END PORTLET------------------------------------------->
+      
+
+    </div>
+    <!------------------------------------------------------------------- END DIV------------------------------------------------->
+
+  </div>
+  <!------------------------------------------------------------------- END ROW MARGIN-------------------------------------------->
+
+  
+</div>
+<!------------------------------------------------------------------- END CONTAINER----------------------------------------------->
+
+      

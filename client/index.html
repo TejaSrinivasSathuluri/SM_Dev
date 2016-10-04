@@ -32,8 +32,14 @@
   <script src="js/controllers/fee.js">        </script>
   <script src="js/controllers/assignment.js"> </script>
   <script src="js/controllers/directory.js">  </script>
-  <script src="js/controllers/class.js">  </script>
-  <script src="js/controllers/subject.js">  </script>
+
+  <script src="js/controllers/class/class.js">  </script>
+  <script src="js/controllers/class/addclass.js">  </script>
+  
+  
+  <script src="js/controllers/subject/subject.js">  </script>
+  <script src="js/controllers/subject/addsubject.js">  </script>
+
   <script src="js/controllers/schedule.js">  </script>
   <script src="js/controllers/attendance.js">  </script>
   <script src="js/controllers/console.js">  </script>
@@ -58,6 +64,8 @@
   <!--------------------------POP UP JS & CSS------------------------------------->
   <script src="/js/ngDialog/ngDialog.js"       type="text/javascript"></script>
   <script src="/js/ngDialog/ngDialog.min.js"   type="text/javascript"></script>
+  <link href="/css/pagination.css"               rel="stylesheet" type="text/css">
+
   <link href="/styles/ngDialog.css"               rel="stylesheet" type="text/css">
   <link href="/styles/ngDialog-theme-default.css" rel="stylesheet" type="text/css">
   <!------------------------------------------------------------------------------>
@@ -362,16 +370,10 @@
   </div>
 
 
-  <!--<div ng-controller="ChattingController">
-  <form ng-submit="addMessage()"> 
-    <input  type="text" ng-model="message"/>
-    <button class="btn btn">Send</button>
-  </form>
-  </div>-->
+  
 
-
-  <div class="panel-footer text-center" link="black" style="font-weight: bold">
-    2016 &copy; <a href="http://studymonitor.net/" target="_blank">Study Monitor.</a>
+  <div class="panel-footer text-center" link="black">
+    2016 &copy; <a href="http://studymonitor.net/" target="_blank">Study Monitor</a>
     Developed By<a href="http://cyluscreators.com"  target="_blank"> Cylus Creators</a>
   </div>
 

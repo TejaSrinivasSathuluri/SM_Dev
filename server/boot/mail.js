@@ -14,9 +14,6 @@ module.exports = function(server) {
     remotes.after('**', function (ctx, next)  {  
     if (ctx.req.originalUrl.toString().indexOf('/api/Mails') > -1){
 
-
-        
-
          email = JSON.parse(ctx.req.query.filter.toString()).where.email;
          message = JSON.parse(ctx.req.query.filter.toString()).where.message;
          subject = JSON.parse(ctx.req.query.filter.toString()).where.subject;
