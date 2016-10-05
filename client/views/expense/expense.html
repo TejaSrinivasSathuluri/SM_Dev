@@ -8,8 +8,9 @@
         <input ng-model="editData.expenseType" placeholder="Expense Type*" class="form-control" type="text" required/>
         <br>
         <input ng-model="editData.description" class="form-control"  placeholder="Description*" type="text" required/><br>
+        <input type="text" ng-calendar format="%d-%m-%Y"  ng-model="editData.date"  placeholder="Date" class="form-control" required><br>
 
-        <input type="date"  max="9999-12-31" max="0001-01-01"  class="form-control"  ng-model="editData.date" ng-value="feeDate" required><br>
+        <!--<input type="date"  max="9999-12-31" max="0001-01-01"  class="form-control"  ng-model="editData.date" ng-value="feeDate" required><br>-->
         <input type="number" class="form-control" ng-disabled="false" max="100000" min="1" ng-model="editData.amount" required><br>
 
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">  <button type="submit" class="btn btn-success uppercase">Save Expense Payment</button></div>
@@ -50,7 +51,12 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="portlet light" style="height: 450px">
         <div class="portlet-title">
-          <div class="caption caption-md pull-left">EXPENSES</div>
+          <div class="caption caption-md col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <span class="uppercase pull-left">EXPENSE</span>
+            <span class="caption-subject uppercase col-sm-6"></span>
+            <span class="btn btn-primary pull-right" ng-show="Admin" <a ui-sref="addexpense"> Add Expense</a></span>
+          </div>
+
         </div>
  
         <div class="row list-separated">
@@ -60,35 +66,16 @@
                     <div ng-show="error"  class="alert alert-danger">{{response}}</div>
                     <div ng-show="success" class="alert alert-success">{{response}}</div>
                 </div>
-                          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                          <form ng-submit="addExpensePayment()">
-                                    <div class="form-group col">
-                                      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                                        <input type="text" ng-model="formData.expenseType" class="form-control" required placeholder="Expense Type"><br>
-                                        <input type="date" class="form-control" max="9999-12-31" min="0001-01-01" ng-model="formData.date" required><br>
-                                        <input type="description" class="form-control" placeholder="Description" ng-model="formData.description" required><br>
-                                        <input type="number" class="form-control" max="100000" min="1" placeholder="Expense Amount*"  ng-model="formData.amount" required ><br>
-                                        <button type="submit" class="btn btn-primary">Add</button><br>
-                                        
-                                        
-                                      </div>
-                                    </div>
-                                   
-                            </form>
+                          
+                           
                             
-             
-            <div class="form-group col-lg-9 col-md-9 col-sm-12 col-xs-12">
-          
-                  <label for="inputEmail3" class="col-sm-3 col-form-label">Search By</label>
-
-            <div class="form-group col-sm-3 col"> <input  type="text" class="form-control" placeholder="Expense Type" ng-model="search1.expenseType"></div>
-            <div class="form-group col-sm-3 col"> <input  type="text" class="form-control" placeholder="Description" ng-model="search1.description"></div>           
-              </div>      
-         
-          
-            
-
-            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12" style="height: 150px; overflow-y: scroll;">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+            <div class="form-group col-lg-3 col-md-3 col-sm-12 col-xs-12">    
+               
+                 <input  type="text" class="form-control" placeholder="Expense Type" ng-model="search1.expenseType"><br>
+                 <input  type="text" class="form-control" placeholder="Description" ng-model="search1.description"><br>           
+            </div>              
+            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
               
                     
                 <table class="table table-bordered table-striped table-condensed flip-content">
@@ -106,7 +93,7 @@
                   <div data-ng-bind-html="x.id">
                     <td>{{x.expenseType}}</td>
                     <td>{{x.description}}</td>
-                    <td>{{x.date | date:'MMM dd yyyy'}} </td>
+                    <td>{{x.date}} </td>
                     <td>{{x.amount}}</td>
                     <td ng-show="Admin">
                       <i class="fa fa-pencil-square-o" aria-hidden="true" ng-click="editExpensePayment(x)"></i>
@@ -120,15 +107,23 @@
               </table>
             
 
-            </div>
-            <hr/>
-            <div class="pull-left">
+            
+        
+            <!--<div class="pull-left">
               Total Results :{{ ExpensePaymentList.length}} |  Filtered Results :{{ filtered.length}}
             </div>
             <div class="pull-right">
               <button ng-disabled="currentPage == 0"               ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
               <button ng-disabled="currentPage >= filtered.length/pageSize-1" ng-click="currentPage=currentPage+1">Next</button>
 
+            </div>-->
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel-footer">
+                 <div class="pull-left"> Total Results :{{ExpensePaymentList.length}} | Filtered Results : {{filtered.length}}</div>
+                 <div class="pull-right"> 
+                   <button ng-disabled="currentPage == 0" class="pgr"  ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
+                  <button ng-disabled="currentPage >= ExpensePaymentList.length/pageSize-1" class="pgr" ng-click="currentPage=currentPage+1">Next</button>
+                  </div>
+                </div>
             </div>
             </div>
 

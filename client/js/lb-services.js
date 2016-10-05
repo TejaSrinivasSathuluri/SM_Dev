@@ -22,7 +22,6 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
   }
 
   var urlBaseHost = getHost(urlBase) || location.host;
-  console.log(urlBaseHost);
 
 /**
  * @ngdoc overview

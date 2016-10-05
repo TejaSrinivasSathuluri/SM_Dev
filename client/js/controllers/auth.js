@@ -24,6 +24,7 @@ angular
       {
         AuthServiceStudent.login($scope.user.email, $scope.user.password)
           .then(function () {
+            
         
           },function(){
 			  $scope.invalidLogin = true;

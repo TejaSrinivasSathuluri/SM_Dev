@@ -2,7 +2,7 @@
 // Node module: Study Monitor-Routing JS File
 
 angular
-  .module('app', [ 'ui.router','lbServices','ngDialog','mgo-angular-wizard','ngScrollbar','ui.rCalendar','calendarDemoApp'])
+  .module('app', [ 'ui.router','lbServices','ngDialog','mgo-angular-wizard','ngScrollbar','ui.rCalendar','calendarDemoApp','ngCalendar'])
   .config(function($stateProvider,$urlRouterProvider,$locationProvider) {
     $stateProvider
 
@@ -20,6 +20,8 @@ angular
     .state('subject',               { url: '/subject',           templateUrl: 'views/subject/subject.html',            controller: 'SubjectController',     authenticate: true})
     .state('addsubject',            { url: '/addsubject',        templateUrl: 'views/subject/addsubject.html',         controller: 'AddSubjectController',  authenticate: true})
     
+    .state('expensemanagement',     { url: '/expenses', templateUrl: 'views/expense/expense.html',     controller: 'ExpenseController',     authenticate: true})
+    .state('addexpense',            { url: '/expenses', templateUrl: 'views/expense/addexpense.html',  controller: 'AddExpenseController',  authenticate: true})
     
     
     
@@ -32,7 +34,6 @@ angular
     .state('assignment',            { url: '/assignment',        templateUrl: 'views/assignment.html',         controller: 'AssignmentController',  authenticate: true})
     .state('holiday',               { url: '/schoolcalendar',    templateUrl: 'views/holiday.html',            controller: 'HolidayController',     authenticate: true})
     .state('profile',               { url: '/profile',           templateUrl: 'views/profile.html',            controller: 'ProfileController',     authenticate: true})
-    .state('expensemanagement',     { url: '/expensemanagement', templateUrl: 'views/expensemanagement.html',  controller: 'ExpenseController',     authenticate: true})
     .state('fees',                  { url: '/feepayments',       templateUrl: 'views/fee.html',                controller: 'FeeController',         authenticate: true})
     .state('exams',                 { url: '/exams',             templateUrl: 'views/exams.html',              controller: 'ExamController',        authenticate: true})
     .state('grades',                { url: '/grades',            templateUrl: 'views/grades.html',             controller: 'GradeController',       authenticate: true})

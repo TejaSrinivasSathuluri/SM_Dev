@@ -33,7 +33,11 @@ angular
         .$promise
         .then(function() {
           console.log('Admin Logged Out');
-          $rootScope.currentUser = null;
+          for (var prop in $rootScope) {
+           if (prop.substring(0,1) !== '$') {
+              delete $rootScope[prop];
+             }
+}
           $window.localStorage.clear();
         }, function (response) {
           $rootScope.currentUser = null;

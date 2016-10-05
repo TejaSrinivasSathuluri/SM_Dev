@@ -848,7 +848,6 @@ angular
         //--------------------------------------------------------
         //                 PARENT SUBSCRIPTION
         //--------------------------------------------------------
-        console.log(window.location.origin);
         $scope.addParentSubscription = function (x) {
            var dialog = ngDialog.open({template: 'parentSubscription'});
             dialog.closePromise.then(function (data) 
@@ -860,12 +859,12 @@ angular
                   email :parentEmail,password :"parent"
                 },function()
                 {
-                    message = "Welcome To Study Monitor.Your default password is 'parent'.Please subscribe to your child " + x.firstName + ' ' + x.lastName + " @ www.studymonitor.in/#/signup using the following Key : " + x.id ;
+                    message = 'Welcome To Study Monitor.Your default password is parent.Please subscribe to your child ' + x.firstName + ' ' + x.lastName + ' '+ window.location.origin + '/#/signup' + ' using the following Key : ' + x.id ;
                    
                   sendSubscriptionEmail(parentEmail,x,message);
 
                 },function(){
-                    message = "Please subscribe to your child " + x.firstName + ' ' + x.lastName + " @ www.studymonitor.in/#/signup using the following Key : " + x.id ;
+                    message = "Please subscribe to your child " + x.firstName + ' ' + x.lastName +' '+  window.location.origin + "/#/signup" + " using the following Key : " + x.id ;
                   
                   sendSubscriptionEmail(parentEmail,x,message);
                 })
