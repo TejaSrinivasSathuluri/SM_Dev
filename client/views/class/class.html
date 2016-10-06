@@ -10,6 +10,47 @@
 
 <!---------------------------------------------------------------------------------->
 
+<!------------------------subjects---------------------------->
+
+<script type="text/ng-template" id="showSubjectList">
+  <div class="ngdialog-message">
+    <div class="ngdialog-buttons" >
+        <div class="panel panel-info">
+            <!--<div class="panel-heading text-center">Subjects</div>-->
+            <div class="panel-body">
+                          
+
+		            <table class="table table-bordered table-striped table-condensed flip-content">
+
+
+                        <thead>
+                          <th>Subject </td>
+                          <th>Teacher</th>
+                          
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="subject in subjects"> 
+                            <td>{{subject.subjectName}} </td>
+                            <td>{{subject.staff.firstName}}</td>
+                          </tr>
+                        </tbody>
+                </table>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+  </div>
+</script>
+
+<!---------------------------------------subjects------------------------------------------->
+
+
+
+<!---------------------------------------Page View Starts------------------------------------------->
 <div class="container">
   <div class="row margin-top-10">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -61,11 +102,13 @@
                     </tr>
                     </thead>
                     <!----------------------------------Table Head Ends-------------------------------------------->
+               
+               
                     <!----------------------------------Table Body Begins-------------------------------------------->
                     <tbody>
                     <tr style="height:20px" data-ng-repeat="x in  filtered = (classList | filter:search) |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
                         <div data-ng-bind-html="x.id">
-                        <td>{{x.className}}</td>
+                        <td><a ng-click="showSubjects(x)"> {{x.className}}</a></td>
                         <td>{{x.sectionName}}</td>
                         <td ng-hide="Admin">{{x.staff.firstName}}</td>
                         <td ng-show="Admin">

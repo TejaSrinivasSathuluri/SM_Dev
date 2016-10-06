@@ -20,46 +20,81 @@ angular
         $scope.classList =[];
           if ($scope.Student)
           {
-            console.log('Student');
             Class.findOne({ filter:{ where :{ id : $scope.userData.classId},include:'staff'}},function(response){ $scope.classData = response});
           }
 
 
-          School.findOne({
-            filter:{
-              where :{
-                  id : $scope.userData.schoolId
-              },
-              include:
-              [
-                    {
-                        relation: 'classes',scope: 
-                                            { 
-                                              include: 'staff' 
-                                            }
-                    },
-                    {
-                        relation: 'staffs'
-                    }
-              ]
-            }
-          },function(response)
-          {
-              $rootScope.image = response.image;
-              $scope.staffList = response.staffs;
-              $scope.classList = response.classes;
-          });
+          
+      // Getting The Data Required For The Class Page
+       
+        School.findOne({
+          filter:{
+            where :{
+                 id : $scope.schoolId
+            },
+            include:
+            [
+                  {
+                      relation: 'classes',scope: 
+                                           { 
+                                             include: [
+                                               {
+                                                 relation :'subjects',scope:{
+                                                    include:'staff'
+                                                 }
+                                               },
+                                               {
+                                                 relation:'staff'
+                                               }
+                                             ] 
+                                             }
+                  },
+                  {
+                      relation: 'staffs'
+                  }
+            ]
+          }
+        },function(response)
+        {
+             $scope.staffList = response.staffs;
+             $scope.classList = response.classes;
+            
+        });
+        // Getting The Data Required For The Class Page
+
+
+
+
+        // --------------------------------------------------------
+        //                        subject list
+        // --------------------------------------------------------
+          $scope.showSubjects = function(x)
+                {
+                    $scope.subjects = x.subjects;                      
+                    var dialog = ngDialog.open(
+                        {
+                                template:'showSubjectList',
+                                scope: $scope
+                        });
+                    dialog.closePromise.then(function (data) {
+                    if (data.value && data.value != '$document' && data.value != '$closeButton') 
+                      return true;
+                      });
+        
+                }
 
 
 
 		      //--------------------------------------------------------
           //                  CLEAR RESPONSE
           // --------------------------------------------------------
-		       $scope.clearResponse = function ()
+		       clearResponse = function ()
            {
 			           $scope.response = null;
-			           $scope.responseAddClass = null;
                  $scope.formData=null;
+                 $scope.success = false;
+                 $scope.failure = false;
+                 $state.reload();
 		       }
 
            
@@ -70,13 +105,10 @@ angular
            $scope.response = message;
            $scope.error = false;
            $scope.success = true;
-          setTimeout( function()
-          {
-           $scope.response = null;
-           $scope.success = false;
-            $scope.formData = {};
-          }, 1000 );
-
+            setTimeout( function()
+            {
+                clearResponse();
+            }, 1000 );
          }
 
 

@@ -42,7 +42,6 @@ angular
            $scope.response = null;
            $scope.success = false;
             $scope.formData = {};
-            $scope.showExpense();
              $state.go('expensemanagement');
           }, 1000 );
          

@@ -115,22 +115,20 @@ angular
             where :{
               parentId: response.user.id
             },include :['student','school','parent']
-          }},function(response)
+          }
+        },
+          function(response)
           {
+              $window.localStorage.setItem('students',JSON.stringify(response));
+              $window.localStorage.setItem('parent',JSON.stringify(response[0].parent));
+              $window.localStorage.setItem('user',JSON.stringify(response[0].student));
+              $window.localStorage.setItem('school',JSON.stringify(response[0].school));
 
-        
-        $window.localStorage.setItem('students',JSON.stringify(response));
-        $window.localStorage.setItem('parent',JSON.stringify(response[0].parent));
-        $window.localStorage.setItem('user',JSON.stringify(response[0].student));
-        $window.localStorage.setItem('school',JSON.stringify(response[0].school));
-        $state.go('dashboard');
-  
+              $rootScope.students = response.students;
+              $rootScope.Parent = true;
+              $state.go('dashboard',{ reload: true });
+              location.reload();
           });
-
-
-           
-      
-
       });
   }
 
