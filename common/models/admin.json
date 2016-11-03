@@ -5,13 +5,7 @@
   "options": {
     "validateUpsert": true
   },
-  "properties": {
-    "type": {
-      "type": {
-        "default": "Admin"
-      }
-    }
-  },
+  "properties": {},
   "validations": [],
   "relations": {
     "school": {
@@ -28,30 +22,15 @@
       "permission": "DENY"
     },
     {
-      "accessType": "EXECUTE",
+      "accessType": "*",
       "principalType": "ROLE",
-      "principalId": "$unauthenticated",
-      "permission": "ALLOW",
-      "property": "find"
+      "principalId": "$owner",
+      "permission": "ALLOW"
     },
     {
-      "accessType": "EXECUTE",
+      "accessType": "*",
       "principalType": "ROLE",
-      "principalId": "$unauthenticated",
-      "permission": "ALLOW",
-      "property": "findById"
-    },
-    {
-      "accessType": "EXECUTE",
-      "principalType": "ROLE",
-      "principalId": "$unauthenticated",
-      "permission": "ALLOW",
-      "property": "updateById"
-    },
-    {
-      "accessType": "EXECUTE",
-      "principalType": "ROLE",
-      "principalId": "$unauthenticated",
+      "principalId": "Admin",
       "permission": "ALLOW"
     }
   ],
