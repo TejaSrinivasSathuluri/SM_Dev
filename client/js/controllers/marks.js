@@ -130,9 +130,12 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
              });
 
 
+
+               
+             }
                 // --------------------------------------------------
 
-                $scope.students = Student.find({filter:{ where:{  classId : $scope.formData.classId }}},
+              $scope.students = Student.find({filter:{ where:{  classId : $scope.formData.classId }}},
                 function(response)
                 { 
                     var i=0;
@@ -142,7 +145,6 @@ angular.module('app').controller('MarksController', function ($scope, $state, Sc
                            i++;
                     });
                 });
-             }
 
 
 

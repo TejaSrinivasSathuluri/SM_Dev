@@ -24,7 +24,7 @@
       "foreignKey": ""
     },
     "timetables": {
-      "type": "hasOne",
+      "type": "hasMany",
       "model": "Timetable",
       "foreignKey": ""
     },
@@ -61,6 +61,31 @@
     "assignments": {
       "type": "hasMany",
       "model": "Assignment",
+      "foreignKey": ""
+    },
+    "buses": {
+      "type": "hasMany",
+      "model": "Bus",
+      "foreignKey": ""
+    },
+    "busServices": {
+      "type": "hasMany",
+      "model": "BusService",
+      "foreignKey": ""
+    },
+    "calendars": {
+      "type": "hasOne",
+      "model": "Calendar",
+      "foreignKey": ""
+    },
+    "expensePayments": {
+      "type": "hasMany",
+      "model": "ExpensePayment",
+      "foreignKey": ""
+    },
+    "grades": {
+      "type": "hasMany",
+      "model": "Grade",
       "foreignKey": ""
     }
   },

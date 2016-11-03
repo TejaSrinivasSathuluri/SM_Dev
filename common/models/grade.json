@@ -27,7 +27,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "school": {
+      "type": "belongsTo",
+      "model": "School",
+      "foreignKey": ""
+    }
+  },
   "acls": [],
   "methods": {}
 }

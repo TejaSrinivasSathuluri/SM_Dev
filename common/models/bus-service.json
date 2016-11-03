@@ -39,6 +39,11 @@
       "type": "belongsTo",
       "model": "Bus",
       "foreignKey": ""
+    },
+    "school": {
+      "type": "belongsTo",
+      "model": "School",
+      "foreignKey": ""
     }
   },
   "acls": [],
