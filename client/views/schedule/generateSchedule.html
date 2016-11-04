@@ -1,0 +1,75 @@
+
+<!------------------------------------------------------------------- BEGIN CONTAINER----------------------------------------------->
+<div class="container">
+  <!------------------------------------------------------------------- BEGIN ROW MARGIN-------------------------------------------->
+  <div class="row margin-top-10">
+    <!------------------------------------------------------------------- BEGIN DIV------------------------------------------------->
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <!------------------------------------------------------------------- BEGIN PORTLET------------------------------------------->
+      <div class="portlet light" style="height: 415px">
+        <!------------------------portlet-body-------------------------------------->
+        <div class="portlet-body">
+          <div class="row list-separated">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <!------------------------Message Block-------------------------------------->
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div ng-show="error"  class="alert alert-danger">{{response}}</div>
+                    <div ng-show="success" class="alert alert-success">{{response}}</div>
+                </div>
+            </div>    
+                <!------------------------Message Block-------------------------------------->
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+ 
+                <!------------------------Create CLass-------------------------------------->
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">Generate TimeTable</div>
+                                                    
+                     <div class="panel-body">
+                                <form class="form-horizontal" ng-submit="generateSchedule()">
+
+                                <fieldset>
+                                    <div class="form-group">
+                                    <label for="select" class="col-lg-offset-2 col-lg-3 control-label col-lg-offset-2">Class Name</label>
+                                    <div class="col-lg-3">
+                                        <div ng-show="Admin || Staff">
+														<select ng-model="classId" class="form-control">
+														<option value="">Class </option>
+														<option ng-repeat="y in classList"  value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>
+														</select>
+														<br>
+										</div>
+                                    </div>
+                                    </div>
+                                    <div class="form-group">
+                                    <div class="col-lg-offset-5 col-lg-8" ng-show="classId">
+                                        <button type="reset" class="btn btn-primary" <a ui-sref="schedule">Cancel</a></button>
+                                        <button type="submit" class="btn btn-primary" >Create</button>
+                                    </div>
+                                    </div>
+                                </fieldset>
+                                </form>
+                      </div>
+                </div>
+                <!--------------------------END create Class------------------------------------>
+                
+            </div>
+          </div>
+        </div>
+        <!------------------------END portlet-body-------------------------------------->
+      </div>
+      <!------------------------------------------------------------------- END PORTLET------------------------------------------->
+      
+
+    </div>
+    <!------------------------------------------------------------------- END DIV------------------------------------------------->
+
+  </div>
+  <!------------------------------------------------------------------- END ROW MARGIN-------------------------------------------->
+
+  
+</div>
+<!------------------------------------------------------------------- END CONTAINER----------------------------------------------->
+
+      

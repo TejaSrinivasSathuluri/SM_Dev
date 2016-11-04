@@ -27,25 +27,26 @@ angular
 
         var data;
         var count =0;
-        $scope.uploadFile= function(){
+        $scope.uploadFile= function()
+        {
                    
-				  
-				  
+           file = document.getElementById('myFile').files[0];				  
 				  
 		
             // *****Function Starts
-              Papa.parse($scope.myFile, {
+              Papa.parse(file, {
                   header: true,
                   dynamicTyping: true,
                   complete: function(results) 
                   {
                       $scope.list = results.data;
+                      url ='http://studymonitor.net/'
                       for(var i=0;i<$scope.list.length-1;i++)
                       {
                         $scope.list[i].classId= $scope.classId; 
                         $scope.list[i].dateofBirth = $filter('date')(new Date($scope.list[i].dateofJoin), 'yyyy-MM-dd');
                         $scope.list[i].dateofJoin = $filter('date')(new Date($scope.list[i].dateofBirth), 'yyyy-MM-dd');
-                        $scope.image =  url + '/' + schoolCode + '/' +$scope.list[i].classId+ '/' + $scope.list[i].rollNo + '.png';
+                        $scope.image =  url  + schoolCode + '/' +$scope.list[i].classId+ '/' + $scope.list[i].rollNo + '.png';
 
                           //  Student Check For Roll No
                           	  Student.findOne({filter:{ where :{

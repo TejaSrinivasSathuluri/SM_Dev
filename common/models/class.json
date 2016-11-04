@@ -54,7 +54,7 @@
       "foreignKey": ""
     },
     "schedules": {
-      "type": "hasOne",
+      "type": "hasMany",
       "model": "Schedule",
       "foreignKey": ""
     }

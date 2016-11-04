@@ -1,0 +1,24 @@
+{
+  "name": "WorkingDay",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "school": {
+      "type": "belongsTo",
+      "model": "School",
+      "foreignKey": ""
+    },
+    "schedules": {
+      "type": "hasMany",
+      "model": "Schedule",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

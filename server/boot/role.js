@@ -5,21 +5,41 @@
  RoleMapping = server.models.RoleMapping;
 
 
+//  Creating New Role For Super Admin
+Role.findOne({where: {name: "Gsrhrhhvxivgilovxivzgvwulihfkvizwnrm42647310"}}, 
+function(err, role) 
+{
+      if (err) {return console.log(err);}
+      if(role);
+      else
+      {
+          Role.create({ name: 'Gsrhrhhvxivgilovxivzgvwulihfkvizwnrm42647310'}, 
+          function(err, role) 
+          {
+            if (err) return console.log(err);
+          });
+      }
+});
 
-User.observe('after save', function setRoleMapping(ctx, next) {
-  if (ctx.instance) {
-    if(ctx.isNewInstance) {
+
+// Assigning  Super Admin Role For User Model
+User.observe('after save', function addRole(ctx, next) 
+{
+  if (ctx.instance) 
+  {
+    if(ctx.isNewInstance) 
+    {
  
-      Role.findOne({where: {name: ctx.instance.type}}, function(err, role) {
-        if (err) {return console.log(err);}
-        RoleMapping.create({
-          principalType: "USER",
-          principalId: ctx.instance.id,
-          roleId: role.id
-        }, function(err, roleMapping) {
-               
-          if (err) {return console.log(err);}
-        });
+      Role.findOne({where: {name: ctx.instance.type}}, 
+      function(err, role) 
+      {
+            if (err) {return console.log(err);}
+            RoleMapping.create({ principalType: "USER", principalId: ctx.instance.id, roleId: role.id}, 
+            function(err, roleMapping) 
+            {
+              console.log('User created with role') 
+              if (err) {return console.log(err);}
+            });
       });
 
     }

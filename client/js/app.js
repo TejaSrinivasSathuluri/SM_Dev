@@ -3,32 +3,38 @@
 
 angular
   .module('app', [ 'ui.router','lbServices','ngDialog','mgo-angular-wizard','ngScrollbar','ui.rCalendar','calendarDemoApp','ngCalendar'])
-  .config(function($stateProvider,$urlRouterProvider,$locationProvider) {
+  .config(function($stateProvider,$urlRouterProvider,$locationProvider) 
+  {
     $stateProvider
 
     // Functional Routes
     .state('dashboard',             { url: '/dashboard',         templateUrl: 'views/dashboard.html',          controller: 'LandingPageController',       authenticate: true})
     .state('pdashboard',            { url: 'parent/dashboard',   templateUrl: 'views/parent/dashboard.html',   controller: 'ParentLandingPageController', authenticate: true})
    
-    .state('directory',             { url: '/directory',         templateUrl: 'views/directory.html',          controller: 'DirectoryController',         authenticate: true})
+    .state('directory',             { url: '/directory',         templateUrl: 'views/directory.html',          controller: 'DirectoryController',   authenticate: true})
    
-    .state('class',                 { url: '/class',             templateUrl: 'views/class/class.html',              controller: 'ClassController',       authenticate: true})
-    .state('addclass',              { url: '/addclass',          templateUrl: 'views/class/addclass.html',           controller: 'AddClassController',    authenticate: true})
+    .state('class',                 { url: '/class',             templateUrl: 'views/class/class.html',        controller: 'ClassController',       authenticate: true})
+    .state('addclass',              { url: '/addclass',          templateUrl: 'views/class/addclass.html',     controller: 'AddClassController',    authenticate: true})
     
     
     
-    .state('subject',               { url: '/subject',           templateUrl: 'views/subject/subject.html',            controller: 'SubjectController',     authenticate: true})
-    .state('addsubject',            { url: '/addsubject',        templateUrl: 'views/subject/addsubject.html',         controller: 'AddSubjectController',  authenticate: true})
+    .state('subject',               { url: '/subject',           templateUrl: 'views/subject/subject.html',     controller: 'SubjectController',     authenticate: true})
+    .state('addsubject',            { url: '/addsubject',        templateUrl: 'views/subject/addsubject.html',  controller: 'AddSubjectController',  authenticate: true})
     
-    .state('expensemanagement',     { url: '/expenses', templateUrl: 'views/expense/expense.html',     controller: 'ExpenseController',     authenticate: true})
-    .state('addexpense',            { url: '/expenses', templateUrl: 'views/expense/addexpense.html',  controller: 'AddExpenseController',  authenticate: true})
+    .state('expensemanagement',     { url: '/expenses',          templateUrl: 'views/expense/expense.html',     controller: 'ExpenseController',     authenticate: true})
+    .state('addexpense',            { url: '/expenses',          templateUrl: 'views/expense/addexpense.html',  controller: 'AddExpenseController',  authenticate: true})
     
     
     
     .state('attendance',            { url: '/attendance',        templateUrl: 'views/attendance.html',         controller: 'AttendanceController',  authenticate: true})
     .state('timetable',             { url: '/timetable',         templateUrl: 'views/timetable.html',          controller: 'TimetableController',   authenticate: true})
     .state('transport',             { url: '/transport',         templateUrl: 'views/transport.html',          controller: 'TransportController',   authenticate: true})
-    .state('schedule',              { url: '/schedule',          templateUrl: 'views/schedule.html',           controller: 'ScheduleController',    authenticate: true})
+
+    .state('schedule',              { url: '/schedule',          templateUrl: 'views/schedule/schedule.html',                controller: 'ScheduleController',    authenticate: true})
+    .state('generateschedule',      { url: '/generateschedule',  templateUrl: 'views/schedule/generateschedule.html',        controller: 'GenerateScheduleController',    authenticate: true})
+    
+    
+    .state('workingdays',           { url: '/workingdays',       templateUrl: 'views/workingdays.html',        controller: 'WorkingDayController', authenticate: true})
     .state('noticeboard',           { url: '/noticeboard',       templateUrl: 'views/noticeboard.html',        controller: 'NoticeboardController', authenticate: true})
     .state('library',               { url: '/library',           templateUrl: 'views/library.html',            controller: 'LibraryController',     authenticate: true})
     .state('assignment',            { url: '/assignment',        templateUrl: 'views/assignment.html',         controller: 'AssignmentController',  authenticate: true})
@@ -60,9 +66,11 @@ angular
       .state('signup',        { url: '/signup', templateUrl: 'views/signup.html',  controller: 'SignUpController' })
 
      $urlRouterProvider.otherwise('login');
-    //  $locationProvider.html5Mode({ enabled: true, requireBase: false});
      
   })
+
+
+
 
 
 

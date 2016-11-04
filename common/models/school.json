@@ -87,6 +87,11 @@
       "type": "hasMany",
       "model": "Grade",
       "foreignKey": ""
+    },
+    "workingDays": {
+      "type": "hasMany",
+      "model": "WorkingDay",
+      "foreignKey": ""
     }
   },
   "acls": [

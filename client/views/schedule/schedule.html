@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="row margin-top-10">
+    <div class="col-md-12 col-sm-12">
+      <!-- BEGIN PORTLET-->
+
+        <div class="portlet light ">
+            <div class="portlet-title">
+		        <div class="caption caption-md col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <span class="uppercase pull-left">TimeTable</span>
+            <span class="caption-subject uppercase col-sm-6"></span>
+            <span class="btn btn-primary pull-right" ng-show="Admin" <a ui-sref="generateschedule">Generate TimeTable</a></span>
+          </div>
+		     </div>
+
+        <!-- ------------------------------------------------------------------>
+            <div class="portlet-body">
+               <div class="row list-separated">
+								 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div ng-show="error"  class="alert alert-danger">{{response}}</div>
+                    <div ng-show="success" class="alert alert-success">{{response}}</div>
+                </div>
+			            <div  ng-hide="noTimetable" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+									
+											<div  class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+														<select ng-show="Admin || Staff" ng-model="classId" class="form-control">
+														<option value="">Class </option>
+														<option ng-repeat="y in classList"  value="{{y.id}}">{{y.className}}-{{y.sectionName}}</option>
+														</select><br>
+														<button  ng-show="Admin || Staff" ng-click="loadTimetable()"  class="btn btn-primary">Show</button>
+														<!--<button  ng-show="classId && Admin" ng-click="deleteSchedule()" class="btn btn-primary">Clear</button>-->
+											</div>
+											
+			          			<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+													<div class="portlet-body-morris-fit morris-chart flip-scroll" style="margin-right:0px;margin-left:0px;margin-bottom:0px;height:max">
+															<div>
+								  		  								<table class="table table-bordered table-condensed flip-content">
+																					<thead flip-content>
+																							<tr>
+																									<td>Periods</td>
+																									<td>Monday</td>
+																									<td>Tuesday</td>
+																									<td>Wednesday</td>
+																									<td>Thursday</td>
+																									<td>Friday</td>
+																									<td>Saturday</td>
+																							</tr>
+																					</thead>
+									<!--For Admin-->
+
+										<tr ng-repeat = "x in timetables">
+												<td>
+													 {{ x. startTime | date :'hh:mm a'}}-{{ x. endTime | date :'hh:mm a'}}
+													 <td colspan="10" bgcolor="#808080" class="text-center" ng-show="x.attendance == false">{{ x.title}}</td>
+													 <td ng-show="x.attendance == true" ng-repeat="y in x.schedules" ng-if="y.workingDay.working">
+														 <select ng-model="y.subjectId" class="form-control" ng-disabled="!Admin" ng-change="saveSchedule(y)" required>
+														 <option value="">Subject</option>
+												     <option ng-repeat="z in y.class.subjects" value="{{z.id}}">{{z.subjectName}}</option>
+												     </select>
+														 </td>
+												</td>						
+								   </tr>
+									<!--For Admin-->
+								  </table>
+								</div>
+							</div>
+          </div>
+      </div>
+			
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-show="noTimetable">
+					<p> Please Generate the School TimeTable First and Then Come Back to Class TimeTables </p> 
+			</div>	
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>

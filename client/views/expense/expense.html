@@ -1,6 +1,6 @@
 <!--------------------------------------------------EDIT SECTION---------------------------------------------->
 <!-----------------------------------EDIT EXPENSE PAYMENT TYPE-------------------------->
-<script type="text/ng-template" id="editExpensePayment">
+<!--<script type="text/ng-template" id="editExpensePayment">
   <div class="ngdialog-message">
     <h3>Edit Expense Payment</h3>
     <form ng-submit=closeThisDialog(editData) >
@@ -10,7 +10,6 @@
         <input ng-model="editData.description" class="form-control"  placeholder="Description*" type="text" required/><br>
         <input type="text" ng-calendar format="%d-%m-%Y"  ng-model="editData.date"  placeholder="Date" class="form-control" required><br>
 
-        <!--<input type="date"  max="9999-12-31" max="0001-01-01"  class="form-control"  ng-model="editData.date" ng-value="feeDate" required><br>-->
         <input type="number" class="form-control" ng-disabled="false" max="100000" min="1" ng-model="editData.amount" required><br>
 
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">  <button type="submit" class="btn btn-success uppercase">Save Expense Payment</button></div>
@@ -22,7 +21,7 @@
     <div class="ngdialog-buttons">
     </div>
   </div>
-</script>
+</script>-->
 <!-----------------------------------EDIT EXPENSE PAYMENT-------------------------->
 <!---------------------------------------------------------------------EDIT SECTION---------------------------------------------->
 
@@ -89,7 +88,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr data-ng-repeat="x in  filtered = (ExpensePaymentList | filter:search1) |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
+                <tr data-ng-repeat="x in  filtered = (expensePaymentList | filter:search1) |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
                   <div data-ng-bind-html="x.id">
                     <td>{{x.expenseType}}</td>
                     <td>{{x.description}}</td>
@@ -110,7 +109,7 @@
             
         
             <!--<div class="pull-left">
-              Total Results :{{ ExpensePaymentList.length}} |  Filtered Results :{{ filtered.length}}
+              Total Results :{{ expensePaymentList.length}} |  Filtered Results :{{ filtered.length}}
             </div>
             <div class="pull-right">
               <button ng-disabled="currentPage == 0"               ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
@@ -118,10 +117,10 @@
 
             </div>-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel-footer">
-                 <div class="pull-left"> Total Results :{{ExpensePaymentList.length}} | Filtered Results : {{filtered.length}}</div>
+                 <div class="pull-left"> Total Results :{{expensePaymentList.length}} | Filtered Results : {{filtered.length}}</div>
                  <div class="pull-right"> 
                    <button ng-disabled="currentPage == 0" class="pgr"  ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
-                  <button ng-disabled="currentPage >= ExpensePaymentList.length/pageSize-1" class="pgr" ng-click="currentPage=currentPage+1">Next</button>
+                  <button ng-disabled="currentPage >= expensePaymentList.length/pageSize-1" class="pgr" ng-click="currentPage=currentPage+1">Next</button>
                   </div>
                 </div>
             </div>

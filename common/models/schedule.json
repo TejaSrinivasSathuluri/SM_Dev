@@ -17,6 +17,16 @@
       "type": "belongsTo",
       "model": "Class",
       "foreignKey": ""
+    },
+    "subjects": {
+      "type": "hasMany",
+      "model": "Subject",
+      "foreignKey": ""
+    },
+    "workingDay": {
+      "type": "belongsTo",
+      "model": "WorkingDay",
+      "foreignKey": ""
     }
   },
   "acls": [

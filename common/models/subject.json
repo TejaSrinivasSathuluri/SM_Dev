@@ -27,6 +27,11 @@
       "type": "hasMany",
       "model": "Marks",
       "foreignKey": ""
+    },
+    "schedule": {
+      "type": "belongsTo",
+      "model": "Schedule",
+      "foreignKey": ""
     }
   },
   "acls": [

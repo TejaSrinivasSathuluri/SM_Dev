@@ -1,0 +1,45 @@
+<div class="panel panel-default">
+                <div class="panel-heading text-center">EDIT EXPENSE </div>
+                <div class="panel-body">
+                    <!--<form class="form-horizontal" ng-submit="saveExpensePayment()"> -->
+                    <form class="form-horizontal" ng-submit="closeThisDialog()">
+                        
+
+                        <fieldset>
+                            <div class="form-group">
+                            <label for="select" class="col-lg-offset-2 col-lg-3 control-label col-lg-offset-2">Expense Type</label>
+                            <div class="col-lg-3">
+                                <input type="text" ng-model="editData.expenseType" class="form-control" required placeholder="Expense Type">
+                            </div>
+                            </div>
+                            <div class="form-group">
+                            <label for="select" class="col-lg-offset-2 col-lg-3 control-label col-lg-offset-2">Date of Expense</label>
+                            <div class="col-lg-3">
+                                <input type="date" myDate ng-model="editData.date" class="form-control" required>
+                            </div>
+                            </div>
+                            <div class="form-group">
+                            <label for="select" class="col-lg-offset-2 col-lg-3 control-label col-lg-offset-2">Description</label>
+                            <div class="col-lg-3">
+                                 <input type="description" class="form-control" placeholder="Description" ng-model="editData.description" required>
+                            </div>
+                            </div>
+                             <div class="form-group">
+                            <label for="select" class="col-lg-offset-2 col-lg-3 control-label col-lg-offset-2">Expense Amount</label>
+                            <div class="col-lg-3">
+                                <input type="number" class="form-control" max="100000" min="1" placeholder="Expense Amount*"  ng-model="editData.amount" required >
+                            </div>
+                            </div>
+                            <div class="form-group">
+                            <div class="col-lg-offset-5 col-lg-8">
+                                <button  class="btn btn-primary" >Cancel </button>
+                                <button type="submit" class="btn btn-primary" >Create</button>
+                            </div>
+                            </div>
+                         </fieldset>
+                     </form>
+                     
+                </div>
+                </div>
+</div>
+             
