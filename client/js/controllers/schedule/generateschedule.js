@@ -79,6 +79,8 @@ angular.module('app')
                     });     
           }
 
+
+
           checkClassTimetable = function(timetables)
           {
                 Class.findOne({ filter :{ where :{ id : $scope.classId},include:'schedules'}},
