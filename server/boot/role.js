@@ -34,12 +34,19 @@ User.observe('after save', function addRole(ctx, next)
       function(err, role) 
       {
             if (err) {return console.log(err);}
-            RoleMapping.create({ principalType: "USER", principalId: ctx.instance.id, roleId: role.id}, 
-            function(err, roleMapping) 
+            if(role)
             {
-              console.log('User created with role') 
-              if (err) {return console.log(err);}
-            });
+                RoleMapping.create({ principalType: "USER", principalId: ctx.instance.id, roleId: role.id}, 
+                function(err, roleMapping) 
+                {
+                  console.log('User created with role'); 
+                  if (err) {return console.log(err);}
+                });
+            }
+            else{
+              console.log('Non Super Admin');
+            }
+              
       });
 
     }

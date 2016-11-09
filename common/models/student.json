@@ -88,7 +88,7 @@
     "status": {
       "type": "String",
       "length": 1,
-      "default": ""
+      "default": "A"
     },
     "religion": {
       "type": "String",
@@ -127,8 +127,7 @@
     },
     "currentPincode": {
       "type": "Number",
-      "length": 6,
-      "default": 999999
+      "length": 6
     },
     "permanentAddress": {
       "type": "String",

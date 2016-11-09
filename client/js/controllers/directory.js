@@ -246,14 +246,9 @@ angular
                   function () { $scope.response = 'Student Already Exists For This Class With This Roll Number';},
                   function () {
 
-                    var date1 = new Date(formData.dateofBirth);
-                    var date2 = new Date(formData.dateofJoin);
-                    formData.dateofBirth = new Date(date1.setDate(formData.dateofBirth.getDate()+1));
-                    formData.dateofJoin  = new Date(date2.setDate(formData.dateofBirth.getDate()+1));
+                     
 
                     $scope.image =  url + '/' + schoolCode + '/' +formData.classId+ '/' + formData.rollNo + '.png';
-                    console.log(formData.fatherContact);
-                    console.log(formData.motherContact);
 
                     $scope.newStudent = Student.create({
                       schoolId        : $scope.schoolId,
@@ -268,7 +263,6 @@ angular
                       previousSchool  : formData.previousSchool,
                       dateofJoin      : formData.dateofJoin,
                       classId         : formData.classId,
-                      status          : "A",
                       regId           : formData.regId,
                       isDisable       : formData.isDisable,
                       currentAddress  : formData.currentAddress,
@@ -312,7 +306,7 @@ angular
                           $state.go($state.current, {}, {reload: true});
                           $scope.$apply();
                         }, 2000 );
-                        console.log(response.data.error.message);
+                        console.log(response);
                       }
                     );
 
@@ -330,43 +324,11 @@ angular
 
 
           //--------------------------------------------------------
+          //               UPDATE STUDENT
           //--------------------------------------------------------
-          //--------------------------------------------------------
-          //                 EDIT STUDENT/PARENT/STAFF STARTS
-          //--------------------------------------------------------
-
-          $scope.editUser = function (x) {
-            if (x.type == "Student") {
-              $scope.editData = {};
-              $scope.editData = x;
-              $scope.classId = x.classId;
-              $scope.rollNo = x.rollNo;
-
-              $scope.editData.dateofBirth = $filter('date')(new Date(x.dateofBirth), 'yyyy-MM-dd');
-              var d = new Date($scope.editData.dateofBirth);
-              var date2 = new Date(d);
-              $scope.editData.dateofBirth = new Date(date2.setDate(d.getDate()));
-              $scope.editData.dateofBirth = new Date($scope.editData.dateofBirth);
-
-
-              $scope.editData.dateofJoin = $filter('date')(new Date(x.dateofJoin), 'yyyy-MM-dd');
-              var d = new Date($scope.editData.dateofJoin);
-              var date2 = new Date(d);
-              $scope.editData.dateofJoin = new Date(date2.setDate(d.getDate()));
-              $scope.editData.dateofJoin = new Date($scope.editData.dateofJoin);
-                     console.log('Editing Student Details'); 
-              
-
-              ngDialog.openConfirm({
-                template: 'editStudent',
-                scope: $scope
-              }).then(
-                function (editData) {
-                   
-                  if ($scope.classId == editData.classId && $scope.rollNo == editData.rollNo){
- 
-                     console.log('Updating Student Details'); 
-                    Student.prototype$updateAttributes({id: x.id}, {
+          updateStudent = function(editData)
+          {
+                    Student.prototype$updateAttributes({id: editData.id}, {
                         firstName            : editData.firstName,
                         password             : editData.password,
                         lastName             : editData.lastName,
@@ -418,75 +380,55 @@ angular
                         $scope.error =true ;
                         console.log(response.data.error.message);
                       });
+          }
+          
+          
+          //--------------------------------------------------------
+          //                 EDIT STUDENT/PARENT/STAFF STARTS
+          //--------------------------------------------------------
+
+          $scope.editUser = function (x) {
+            if (x.type == "Student") {
+              $scope.editData = null;
+              $scope.editData = x;
+              $scope.classId = x.classId;
+              $scope.rollNo = x.rollNo;
+
+              $scope.editData.dateofBirth = new Date($scope.editData.dateofBirth);
+              $scope.editData.dateofJoin = new Date($scope.editData.dateofJoin);
+              console.log('Editing Student Details'); 
+              
+
+              ngDialog.openConfirm({
+                template: 'editStudent',
+                scope: $scope
+              }).then(
+                function (editData) {
+                   
+                  if ($scope.classId == editData.classId && $scope.rollNo == editData.rollNo)
+                  {
+ 
+                     console.log('Updating Student Details'); 
+                     updateStudent(editData);
+                    
 
                   }
-                  else{
-                    $scope.studentExists = Student.findOne({filter: {where: {classId:editData.classId,rollNo:editData.rollNo},include:'class'}},
-                      function () {
+                  else
+                  {
+                      $scope.studentExists = Student.findOne({filter: {where: {classId:editData.classId,rollNo:editData.rollNo},include:'class'}},
+                      function () 
+                      {
                         $scope.error = true;
-                        $scope.response = 'Student Already Exists In Class';
-
+                        $scope.response = 'Student Already Exists In Class With Roll No :' + $scope.editData.rollNo;
                         setTimeout( function()
                         {
                           $state.go($state.current, {}, {reload: true});
                           $scope.$apply();
                         }, 3000 );
                       },
-                      function () {
-                        Student.prototype$updateAttributes({id: x.id}, {
-                            firstName            : editData.firstName,
-                            password             : editData.password,
-                            lastName             : editData.lastName,
-                            email                : editData.email.toLowerCase(),
-                            gender               : editData.gender,
-                            dateofBirth          : editData.dateofBirth,
-                            rollNo               : editData.rollNo,
-                            classId              : editData.classId,
-                            RFID                 : editData.RFID,
-                            previousSchool       : editData.previousSchool,
-                            previousSchoolTC     : editData.previousSchoolTC,
-                            dateofJoin           : editData.dateofJoin,
-                            status               : editData.status,
-                            regId                : editData.regId,
-                            isDisable            : editData.isDisable,
-                            currentAddress       : editData.currentAddress,
-                            currentCity          : editData.currentCity,
-                            currentState         : editData.currentState,
-                            currentPincode       : editData.currentPincode,
-                            bloodGroup           : editData.bloodGroup,
-                            religion             : editData.religion,
-                            caste                : editData.caste,
-                            alternateContact     : editData.alternateContact,
-                            permanentAddress     : editData.permanentAddress,
-                            permanentCity        : editData.permanentCity,
-                            permanentState       : editData.permanentState,
-                            permanentPincode     : editData.permanentPincode,
-                            nationalId           : editData.nationalId,
-                            motherTounge         : editData.motherTounge,
-                            nationalIdType       : editData.nationalIdType,
-                            subCaste             : editData.subCaste,
-                            contact              : editData.contact,
-                            fatherName           : editData.fatherName,
-                            motherName           : editData.motherName,
-                            fatherContact        : editData.fatherContact,
-                            motherContact        : editData.motherContact
-
-                          },
-                          function () {
-                            $scope.response = 'Student Updated Successfully';
-                            $scope.error = true;
-
-                            setTimeout( function()
-                            {
-                              $state.go($state.current, {}, {reload: true});
-                              $scope.$apply();
-                            }, 1000 );
-                          },
-                          function (response) {
-                            alert('Student Is Not Saved.Please Check The Fields');
-                            $scope.error =true ;
-                            console.log(response.data.error.message);
-                          });
+                      function () 
+                      {
+                         updateStudent(editData);
                       });
 
                   }
@@ -495,15 +437,7 @@ angular
                 },
                 function (value) 
                 {
-                            // $scope.response = 'Student Not Updated.Please Check All The Fields';
-                            // $scope.error =true ;   
                               $state.go($state.current, {}, {reload: true});
-                  
-                            // $scope.response = 'Student Not Updated.Please Check All The Fields';
-                            // $scope.error =true ;   
-                            // $scope.editData = null;
-                            // $scope.processSearch('s'); 
-                            // console.log('Mansoor');
                 }
               );
             }
@@ -585,13 +519,15 @@ angular
                       }, 1000);        
                 
                   
-                  // $scope.studentList = [];
-                  // $scope.studentList = Student.find({filter: {where: {schoolId: $scope.schoolId}, include: 'class'}});
 
                 }
               );
             }
           }
+
+
+
+
           //--------------------------------------------------------
           //                 ADD STAFF STARTS
           //--------------------------------------------------------
@@ -883,15 +819,12 @@ angular
 
           sendSubscriptionEmail = function(email,x,message) {
             subject = 'Student Subscription From ' + $scope.school.schoolName;
-                  Mail.find({
-                    filter:{
-                      where:{
+                  Mail.create({
+                   
                         email : email.toLowerCase(),
                         message : message,
                         subject:subject,
                         schoolId : x.schoolId
-                      }
-                    }
                   },function(){},function(response){
                     console.log(response.data.error.message);
                   });

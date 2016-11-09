@@ -14,12 +14,12 @@
   <script src="js/services/auth.js">        </script>
   <!----------------------------------------------->
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>
+  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>-->
 
    
 
   <!----------------------------------------------------------------->
-  <script src="template/rcalendar/calendarDemoCtrl.js">      </script>
+  <script src="js/calendar/calendarDemoCtrl.js">      </script>
   <!----------------------------------------------------------------->
   
  
@@ -27,13 +27,20 @@
   <!---------------------FUNCTIONAL CONTROLLERS---------------------->
   <script src="js/controllers/exam.js">       </script>
   <script src="js/controllers/grade.js">      </script>
-  <script src="js/controllers/marks.js">      </script>
   <script src="js/controllers/fee.js">        </script>
-  <script src="js/controllers/assignment.js"> </script>
   <script src="js/controllers/directory.js">  </script>
+
+
+  <script src="js/controllers/marks/marks.js">      </script>
+  <script src="js/controllers/marks/maxMarks.js">      </script>
+  <script src="js/controllers/marks/generateMarks.js">      </script>
+
 
   <script src="js/controllers/class/class.js">  </script>
   <script src="js/controllers/class/addclass.js">  </script>
+  
+  <script src="js/controllers/assignment/assignment.js"> </script>
+  <script src="js/controllers/assignment/addAssignment.js"> </script>
   
   
   <script src="js/controllers/subject/subject.js">  </script>
@@ -52,8 +59,13 @@
   <script src="js/controllers/console.js">  </script>
   <script src="js/controllers/bulk.js">  </script>
   <script src="js/controllers/bus.js">  </script>
-  <script src="js/controllers/library.js">  </script>
-  <script src="js/controllers/notice.js">  </script>
+
+  <script src="js/controllers/library/library.js">  </script>
+  <script src="js/controllers/library/addLibrary.js">  </script>
+
+  <script src="js/controllers/notice/notice.js">  </script>
+  <script src="js/controllers/notice/addNotice.js">  </script>
+
   <script src="js/controllers/timetable.js">  </script>
   <script src="js/controllers/holiday.js">  </script>
   <script src="js/controllers/bulkremovals.js">  </script>
@@ -63,16 +75,13 @@
   
   <!----------------------------------------------------------------->
   
-  <!--------------------------ngCalendar CSS------------------------------->
-  <link href="/css/ngCalendar/ngcalendar.css" rel="stylesheet" type="text/css">
-  <script src="/css/ngCalendar/ngcalendar.js"></script>
-  <!--------------------------SLIDES------------------------------------->
+   
   
   
   <!--------------------------POP UP JS & CSS------------------------------------->
   <script src="/js/ngDialog/ngDialog.js"       type="text/javascript"></script>
   <script src="/js/ngDialog/ngDialog.min.js"   type="text/javascript"></script>
-  <link href="/css/pagination.css"               rel="stylesheet" type="text/css">
+  <link href="/styles/pagination.css"               rel="stylesheet" type="text/css">
 
   <link href="/styles/ngDialog.css"               rel="stylesheet" type="text/css">
   <link href="/styles/ngDialog-theme-default.css" rel="stylesheet" type="text/css">
@@ -86,28 +95,16 @@
 
   <!------------------------------------------------------------------------------------------------>
   <link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css">
-  <link href="styles/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="styles/fonts.css" rel="stylesheet" type="text/css">
-  <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>-->
-
   <script src="styles/ui-bootstrap.js">    </script>
   <script src="styles/ui-bootstrap-tpls.js"></script>
+  <script src="styles/jquery-2.1.4.min.js"></script>
+  
   <!------------------------------------------------------------------------------------------------->
-  <!--------------------------------------------------->
-  <script src="js/ng-scrollbar.min.js"></script>
-  <link rel="stylesheet" href="js/ng-scrollbar.min.css" >
-  <!---------------------------------------------------->
-  <!--------------------------------------------------------------------------->
-  <script src="/styles/angular-wizard.min.js"></script>
-  <link href="/styles/angular-wizard.min.css" rel="stylesheet" type="text/css">
-  <!--------------------------------------------------------------------------->
-  <!----------------------------------------------------------------------------->
-  <script src="/styles/angular-material.min.js"></script>
-  <link href="/styles/angular-material.min.css"  rel="stylesheet" type="text/css">
-  <!----------------------------------------------------------------------------->
+  
+ 
   <!----------------------------------------------------------------------------->
   <link href="../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-  <script src="styles/jquery-2.1.4.min.js"></script>
   <link href="../../assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css">
   <link href="../../assets/admin/layout3/css/layout.css" rel="stylesheet" type="text/css">
   <!----------------------------------------------------------------------------->
@@ -342,7 +339,7 @@
 			<!-- Wrapper for slides -->
 			<div class="carousel-inner">
 			    <div class="item active">
-			    	<img class="img-responsive" src="../../slides/img/slide1.jpg" alt="First slide">
+			    	<img class="img-responsive" src="../../images/slides/slide1.jpg" alt="First slide">
             <!--<div class="symbol">
             <div class="absShape text-center">
                 <h1>Commute<small>parents can now track the school bus live status</small></h1>
@@ -350,16 +347,16 @@
         </div>-->
 			    </div>
 			    <div class="item">
-			    	<img class="img-responsive" src="../../slides/img/slide2.jpg" alt="Second slide">
+			    	<img class="img-responsive" src="../../images/slides/slide2.jpg" alt="Second slide">
 			    </div>
 			    <div class="item">
-			    	<img class="img-responsive" src="../../slides/img/slide3.jpg" alt="Third slide">
+			    	<img class="img-responsive" src="../../images/slides/slide3.jpg" alt="Third slide">
 			    </div>
           <div class="item">
-			    	<img class="img-responsive" src="../../slides/img/slide4.jpg" alt="Fourth slide">
+			    	<img class="img-responsive" src="../../images/slides/slide4.jpg" alt="Fourth slide">
 			    </div>
           <div class="item">
-			    	<img class="img-responsive" src="../../slides/img/slide5.jpg" alt="Fifth slide">
+			    	<img class="img-responsive" src="../../images/slides/slide5.jpg" alt="Fifth slide">
 			    </div>
 			</div>
 			<!-- Controls -->

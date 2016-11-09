@@ -30,7 +30,7 @@ angular
         School.findOne({
           filter:{
             where :{
-                 id : $scope.schoolId
+                 id : $scope.userData.schoolId
             },
             include:
             [
@@ -58,6 +58,7 @@ angular
         {
              $scope.staffList = response.staffs;
              $scope.classList = response.classes;
+             console.log(response);
             
         });
         // Getting The Data Required For The Class Page

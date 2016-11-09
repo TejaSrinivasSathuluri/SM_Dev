@@ -132,19 +132,15 @@
     "dataSource": "Study_Monitor_Data",
     "public": true
   },
-  "Test": {
-    "dataSource": "Study_Monitor_Data",
-    "public": true
-  },
   "Remarks": {
     "dataSource": "Study_Monitor_Data",
     "public": true
   },
-  "Container": {
-    "dataSource": "container",
+  "WorkingDay": {
+    "dataSource": "Study_Monitor_Data",
     "public": true
   },
-  "WorkingDay": {
+  "MaxMark": {
     "dataSource": "Study_Monitor_Data",
     "public": true
   }

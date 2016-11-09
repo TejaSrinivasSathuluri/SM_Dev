@@ -1,0 +1,97 @@
+<div class="container">
+	<div class="row margin-top-10">
+		<div class="col-lg-12 col-md-12 col-sm-12` col-xs-12">
+			<!-- BEGIN PORTLET-->
+			<div class="portlet light ">
+				<div class="portlet-title">
+					<div class="caption caption-md">MARKS</div>
+					<div class="caption caption-md pull-right">
+						<button ng-show="Admin" class="btn btn-primary" <a ui-sref="maxMarks">SET MAX MARKS</a></button>
+						<button ng-show="Admin" class="btn btn-primary" <a ui-sref="generateMarks">GENERATE MARKS</a></button>
+						<!--<button ng-show="Admin" class="btn btn-primary" <a ui-sref="marks">VIEW MARKS</a></button>-->
+					</div>
+					</div>
+				<div class="portlet-body" ng-show="!showForm">
+					<div class="row list-separated">
+						<!---->
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-success" ng-show="success"> {{response}}</div>
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-danger" ng-show="error"> {{response}}</div>
+						</div>
+											
+						<!--<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mbtm">-->
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mbtm">
+							<form ng-hide="Student" ng-submit="viewMarks()">
+								
+								<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 mbtm">
+									<select class="form-control" ng-model="formData.classId" ng-change="setSubjectList()" required>
+										<option value="">Class-Section</option>
+										<option ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
+									</select>
+								</div>
+								<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 mbtm">									
+									<select class="form-control" ng-model="formData.subjectId" required>
+										<option value="">Subjects</option>
+										<option ng-repeat="x in subjectList" value="{{x.id}}">{{x.subjectName}}</option>
+									</select>
+								</div>
+								<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 mbtm">								
+									<select class="form-control" ng-model="formData.examId" required>
+										<option value="">Exams</option>
+										<option ng-repeat="x in examList" value="{{x.id}}">{{x.examName}}</option>
+									</select>
+								</div>
+								<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 mbtm">								
+									<button type="submit" class="btn btn-success uppercase">Manage Marks</button><br>
+								</div>
+								</form>
+						</div>
+						<br><br><br>
+								<!-------------------------------Table Starts---------------------------------------------------->
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"></div>								
+								<div class="col-lg-1 col-md-1 col-sm-12 col-xs-12"></div>								
+								<div class="col-lg-10 col-md-10 col-sm-12 col-xs-12" style="height:260px;overflow-y:auto;" ng-hide="Student">
+									Max Marks :{{formData.maxMarks}}
+								<table class="table table-bordered table-striped table-condensed flip-content">
+									<thead flip-content>
+										<tr>
+										<th><a ng-click="sortType = ''; sortReverse = !sortReverse">Student Name</a></th>
+                                    	<th><a ng-click="sortType = ''; sortReverse = !sortReverse">RollNo</a></th>
+                                    	<th><a ng-click="sortType = ''; sortReverse = !sortReverse">Enter Marks</a></th>
+                                    	<th><a ng-click="sortType = ''; sortReverse = !sortReverse">Percentage(%)</a></th>
+										<th ng-show="Admin">Option</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr data-ng-repeat="x in list1.students track by $index">
+											<div data-ng-bind-html="x.id">
+												<td> {{x.firstName}} 																  </td>
+												<td> {{x.rollNo}}  																	  </td>
+												<td><input type="number" class="form-control" ng-model= x.marks[0].marksObtained></td>
+												<td>  {{ x.marks[0].marksObtained * 100 / formData.maxMarks }}</td>
+												<td><i class="fa fa-floppy-o" ng-click ="saveMarks(x)"></i></td>
+											</div>
+										</tr>
+                  </tbody>
+								</table>
+								<!-------------------------------------Table Ends---------------------------------------------->
+								 <!----------------------------------Page Nation-------------------------------------------->
+                                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel-footer">
+                                    <div class="pull-left"> Total Results: {{examList.length}}</div>
+                                        <div class="pull-right"> 
+                                        <button ng-disabled="currentPage == 0" class="pgr"  ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
+                                        <button ng-disabled="currentPage >= list.length/pageSize-1" class="pgr" ng-click="currentPage=currentPage+1">Next</button>
+                                      </div>
+                                  </div>          
+                 <!----------------------------------Page Nation--------------------------------------------> 
+
+								
+								
+							</div>
+							</div>
+						
+						</div>
+						</div>
+					</div>
+				</div>
+			</div>

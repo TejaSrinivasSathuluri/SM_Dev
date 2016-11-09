@@ -35,6 +35,11 @@
       "type": "hasMany",
       "model": "Marks",
       "foreignKey": ""
+    },
+    "maxMarks": {
+      "type": "hasMany",
+      "model": "MaxMark",
+      "foreignKey": ""
     }
   },
   "acls": [

@@ -37,6 +37,11 @@
       "type": "hasMany",
       "model": "Schedule",
       "foreignKey": ""
+    },
+    "maxMarks": {
+      "type": "hasMany",
+      "model": "MaxMark",
+      "foreignKey": ""
     }
   },
   "acls": [

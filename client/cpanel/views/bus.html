@@ -1,0 +1,83 @@
+<div id="page-wrapper">
+<br><br>
+<div></div>
+            <div class="container-fluid">
+<div class="col-lg-10 pull-right">
+<div class="container">
+  <div class="row margin-top-10">
+    <div class="col-md-12 col-sm-12">
+      <div class="portlet light ">
+        <div class="portlet-title">
+          <div class="caption caption-md pull-left"></div>
+          <div class="caption caption-md pull-right">
+            <!--Tab Buttons-->
+
+            <button class="btn btn-default" ng-class="{ active: isSet(2) }" href ng-click="setTab(2)">View Busses </button>
+
+
+          </div>
+
+        </div>
+        <!-- -------------------------------------------------------------------->
+        <div class="row list-separated">
+
+          <div class="row">
+            <!-----------TAB 1 BEGINS HERE---------------------------->
+
+            <!--Tab 1-->
+            <div ng-show="isSet(2)">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            
+
+            <table class="table table-striped table-bordered">
+                <thead>
+
+                <tr>
+
+                  <th>Bus Number</th>
+                  <th>Bus Type </th>
+                  <th>Bus Capacity</th>
+
+
+
+
+                </tr>
+                </thead>
+                <tbody>
+                Search by School: <select ng-model = "search.schoolId" class="form-control" style="width:30%;"required>
+                  <option value="">School Name</option>
+                  <option ng-repeat="x in SchoolList" value="{{x.id}}">{{x.schoolName}}</option>
+                </select><br>
+                <tr ng-repeat="x in busList   | filter:search">
+                  <td>
+                    {{x.busNo}}</td>
+                  <td>{{x.busType}}</td>
+                  <td>{{x.busCapacity}}</td>
+
+
+                </tr>
+                </tbody>
+              </table>
+
+
+
+
+
+            
+              </div>
+
+
+            </div>
+            
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+            </div>
+</div>

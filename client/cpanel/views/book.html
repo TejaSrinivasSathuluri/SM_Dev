@@ -1,0 +1,85 @@
+<div id="page-wrapper">
+<br><br>
+<div></div>
+            <div class="container-fluid">
+<div class="col-lg-10 pull-right">
+<div class="container">
+  <div class="row margin-top-10">
+    <div class="col-md-12 col-sm-12">
+      <div class="portlet light ">
+        <div class="portlet-title">
+          <div class="caption caption-md pull-left"></div>
+          <div class="caption caption-md pull-right">
+            <!--Tab Buttons-->
+
+            <button class="btn btn-default" ng-class="{ active: isSet(2) }" href ng-click="setTab(2)">View Books </button>
+
+
+          </div>
+
+        </div>
+        <!-- -------------------------------------------------------------------->
+        <div class="row list-separated">
+
+          <div class="row">
+            <!-----------TAB 1 BEGINS HERE---------------------------->
+
+            <!--Tab 1-->
+           <div ng-show="isSet(2)">
+            <div class="col-sm-12">
+              <h1 class="page-header">
+                View Books
+
+              </h1>
+
+              <table class="table table-striped table-bordered">
+                <thead>
+
+                <tr>
+
+                  <th>Schoo</th>
+                  <th>Name</th>
+                  <th>Author</th>
+                  <th>Price </th>
+                  <th>No.Of Books Available</th>
+                  <th>Desciption</th>
+
+
+
+
+                </tr>
+                </thead>
+                <tbody>
+                Search by School:
+                <select ng-model = "search.schoolId" class="form-control" style="width:30%;"required>
+                  <option value="">School Name</option>
+                  <option ng-repeat="y in SchoolList" value="{{y.id}}">{{y.schoolName}}</option>
+                </select><br>
+                <tr ng-repeat="x in bookList   | filter:search">
+                  <td>{{x.school.schoolName}}</td>
+                  <td>
+                    {{x.name}}</td>
+                  <td>{{x.author}}</td>
+                  <td>{{x.price}}</td>
+                  <td>{{x.available}}</td>
+                  <td>{{x.description}}</td>
+
+
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+            
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+            </div>
+</div>

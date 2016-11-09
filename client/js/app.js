@@ -2,7 +2,7 @@
 // Node module: Study Monitor-Routing JS File
 
 angular
-  .module('app', [ 'ui.router','lbServices','ngDialog','mgo-angular-wizard','ngScrollbar','ui.rCalendar','calendarDemoApp','ngCalendar'])
+  .module('app', [ 'ui.router','lbServices','ngDialog','ui.rCalendar','calendarDemoApp'])
   .config(function($stateProvider,$urlRouterProvider,$locationProvider) 
   {
     $stateProvider
@@ -35,15 +35,26 @@ angular
     
     
     .state('workingdays',           { url: '/workingdays',       templateUrl: 'views/workingdays.html',        controller: 'WorkingDayController', authenticate: true})
-    .state('noticeboard',           { url: '/noticeboard',       templateUrl: 'views/noticeboard.html',        controller: 'NoticeboardController', authenticate: true})
-    .state('library',               { url: '/library',           templateUrl: 'views/library.html',            controller: 'LibraryController',     authenticate: true})
-    .state('assignment',            { url: '/assignment',        templateUrl: 'views/assignment.html',         controller: 'AssignmentController',  authenticate: true})
+
+    .state('noticeboard',           { url: '/noticeboard',       templateUrl: 'views/notice/noticeboard.html',        controller: 'NoticeboardController', authenticate: true})
+    .state('addNoticeboard',        { url: '/addNoticeboard',    templateUrl: 'views/notice/addNoticeboard.html',        controller: 'AddNoticeboardController', authenticate: true})
+
+    .state('library',               { url: '/library',           templateUrl: 'views/library/library.html',            controller: 'LibraryController',     authenticate: true})
+    .state('addLibrary',            { url: '/addLibrary',        templateUrl: 'views/library/addLibrary.html',            controller: 'AddLibraryController',     authenticate: true})
+
+    .state('assignment',            { url: '/assignment',        templateUrl: 'views/assignment/assignment.html',         controller: 'AssignmentController',  authenticate: true})
+    .state('addAssignment',         { url: '/addAssignment',     templateUrl: 'views/assignment/addAssignment.html',         controller: 'AddAssignmentController',  authenticate: true})
+
     .state('holiday',               { url: '/schoolcalendar',    templateUrl: 'views/holiday.html',            controller: 'HolidayController',     authenticate: true})
     .state('profile',               { url: '/profile',           templateUrl: 'views/profile.html',            controller: 'ProfileController',     authenticate: true})
     .state('fees',                  { url: '/feepayments',       templateUrl: 'views/fee.html',                controller: 'FeeController',         authenticate: true})
     .state('exams',                 { url: '/exams',             templateUrl: 'views/exams.html',              controller: 'ExamController',        authenticate: true})
     .state('grades',                { url: '/grades',            templateUrl: 'views/grades.html',             controller: 'GradeController',       authenticate: true})
-    .state('marks',                 { url: '/marks',             templateUrl: 'views/marks.html',              controller: 'MarksController',       authenticate: true})
+
+    .state('marks',                 { url: '/marks',             templateUrl: 'views/marks/marks.html',      controller: 'MarksController',       authenticate: true})
+    .state('maxMarks',              { url: '/maxMarks',          templateUrl: 'views/marks/maxMarks.html',             controller: 'MaxMarksController',       authenticate: true})
+    .state('generateMarks',         { url: '/generateMarks',     templateUrl: 'views/marks/generateMarks.html',        controller: 'GenerateMarksController',       authenticate: true})
+
     .state('bulk',                  { url: '/bulkuploads',       templateUrl: 'views/bulk.html',               controller: 'BulkController',        authenticate: true})
     .state('bulkremove',            { url: '/bulkremovals',      templateUrl: 'views/bulkremovals.html',       controller: 'BulkDeleteController',  authenticate: true})
     .state('mediauploads',          { url: '/mediauploads',      templateUrl: 'views/mediauploads.html',       controller: 'MediaUploadController',  authenticate: true})

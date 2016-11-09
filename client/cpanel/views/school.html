@@ -1,0 +1,132 @@
+<div id="page-wrapper">
+<br><br>
+<div></div>
+            <div class="container-fluid">
+<div class="col-lg-10 pull-right">
+<div class="container">
+  <div class="row margin-top-10">
+    <div class="col-md-12 col-sm-12">
+      <div class="portlet light ">
+        <div class="portlet-title">
+          <div class="caption caption-md pull-left"></div>
+          <div class="caption caption-md pull-right">
+            <!--Tab Buttons-->
+
+            <button class="btn btn-default" ng-class="{ active: isSet(1) }" href ng-click="setTab(1)">Add School  </button>
+                        <button class="btn btn-default" ng-class="{ active: isSet(2) }" href ng-click="setTab(2)">View Schools </button>
+
+
+          </div>
+
+        </div>
+        <!-- -------------------------------------------------------------------->
+        <div class="row list-separated">
+
+          <div class="row">
+            <!-----------TAB 1 BEGINS HERE---------------------------->
+
+            <!--Tab 1-->
+            <div ng-show="isSet(1)">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+
+              <form ng-submit="addSchool()" >
+                {{responseAddSchool}}
+
+
+
+                    <br>
+
+                    <input  type="text"   class="form-control" placeholder="Enter School Name"  ng-model="school.schoolName" required><br>
+                    <input  type="number"   class="form-control" placeholder="Enter School Code"  ng-model="school.code" required><br>
+                    <input  type="text"   class="form-control" placeholder="Enter Address "  ng-model="school.address" required><br>
+					          <input  type="text"   class="form-control" placeholder="Enter City"  ng-model="school.city" required><br>
+                    <input  type="text"   class="form-control" placeholder="Enter State"  ng-model="school.state" required><br>
+                    <input  type="email"   class="form-control" placeholder="Enter School Email "  ng-model="school.schoolEmail" required><br>
+
+					          <input  type="password"   class="form-control" placeholder="Enter School Password"  ng-model="school.schoolPassword" required><br>
+                    <input  type="date"   class="form-control" placeholder=" Start date "  ng-model="school.startDate" required><br>
+                    <input  type="date"   class="form-control" placeholder="End Date "  ng-model="school.endDate" required><br>
+
+
+					<select ng-model = "school.attendance" class="form-control" required>
+                      <option value="">Attendance</option>
+                      <option value="Y">Yes</option>
+					             <option value="N">No</option>
+                    </select><br>
+                    <button type="submit" class="btn btn-success uppercase">Add School</button>
+
+
+
+                </form>
+
+
+
+</div>
+
+            
+              </div>
+
+
+            </div>
+            <div ng-show="isSet(2)">
+               
+           <table class="table table-striped table-bordered">
+                            <thead>
+
+                            <tr>
+
+                              <th>School Name</th>
+                              <th>School Code</th>
+                              <th>Address</th>
+                              <th>City</th>
+                              <th>State</th>
+                              <th>School Email</th>
+
+                              <th>Start Date</th>
+                              <th>End Date</th>
+                              <th>Attendance</th>
+
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            Search by School: <select ng-model = "search.id" class="form-control" style="width:30%;"required>
+                              <option value="">School Name</option>
+                              <option ng-repeat="x in schoolList" value="{{x.id}}">{{x.schoolName}}</option>
+                            </select><br>
+                            <tr ng-repeat="x in  schoolList    | filter:search">
+                             <td>
+                                {{x.schoolName}}</td>
+                              <td>
+                                {{x.code}}</td>
+                              <td>
+                               {{x.address}}</td>
+
+                              <td>
+                               {{x.city}}</td>
+
+                              <td>{{x.state}}</td>
+
+                              <td> {{x.schoolEmail}}</td>
+                              <td> {{x.startDate  | date:'MMM dd yyyy'}}</td>
+                              <td> {{x.endDate  | date:'MMM dd yyyy'}}</td>
+                              <td>{{x.attendance}}</td>
+                            </tr>
+                            </tbody>
+                          </table>
+
+</div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+            </div>
+</div>

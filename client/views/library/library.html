@@ -1,0 +1,135 @@
+<!-------------------------------------DELETE LIBRARY---------------------------------------------->
+<script type="text/ng-template" id="deleteLibrary">
+  <div class="ngdialog-message">
+    <h3>Confirm Delete</h3>
+    <div class="ngdialog-buttons">
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog('Yes')">Yes</button>
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog()">No</button>
+    </div>
+  </div>
+</script>
+<!-------------------------------------DELETE LIBRARY---------------------------------------------->
+
+
+<!-------------------------------------EDIT LIBRARY---------------------------------------------->
+<script type="text/ng-template" id="editLibrary">
+  <div class="ngdialog-message">
+    <h3>Edit Book</h3>
+    <div class="ngdialog-contents">
+      <form ng-submit="closeThisDialog(formData)">
+        <input  type="text" class="form-control" maxlength="50" minlength="1"    placeholder="Name"   ng-value="name"    ng-model="formData.name" ng-mouseover="tag1=true" required ng-mouseleave="tag1=false"><div class="tag1" ng-show="tag1">Name</div><br>
+        <input  type="text" class="form-control"   placeholder="Author" maxlength="30" minlength="1"  ng-value="author"      required        ng-model="formData.author" ng-mouseover="tag2=true" ng-mouseleave="tag2=false"><div class="tag2" ng-show="tag2">Author</div><br>
+        <textarea rows="4" cols="50" class="form-control" placeholder="Description"  required ng-model="formData.description" ng-mouseover="tag3=true" ng-mouseleave="tag3=false"></textarea><div class="tag3" ng-show="tag3">Description</div><br>
+        <input  type="number"  class="form-control" placeholder="Price"      ng-value="price" minlength="1" maxlength="6" min="1.5" max="9999.5"   step="0.01" required     ng-model="formData.price" ng-mouseover="tag4=true" ng-mouseleave="tag4=false"><div class="tag4" ng-show="tag4">Price</div><br>
+        <input  type="number" class="form-control" placeholder="No.of Books Available" ng-value="available" required ng-model="formData.available" minlength="1" maxlength="4" min="1" max="9999" ng-mouseover="tag5=true" ng-mouseleave="tag5=false"><div class="tag5" ng-show="tag5">No.Of Books Available</div><br>
+        <button type="submit" class="btn btn-success uppercase">Save</button>
+        <button type="button" class="btn btn-success uppercase" ng-click=closeThisDialog("Cancel")>Cancel</button>
+
+      </form>
+    </div>
+    </div>
+</script>
+<!-------------------------------------EDIT LIBRARY---------------------------------------------->
+
+<!-------------------------------------PAGE MAIN VIEW---------------------------------------------->
+
+<div class="container">
+  <div class="row margin-top-10">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+     <!-------------------------------------PORTLET BEGINS---------------------------------------------->
+
+      <!--<div class="portlet light ">
+        <div class="portlet-title">
+          <div class="caption caption-md">LIBRARY</div>
+          <button ng-hide='Student' class="btn btn-success uppercase pull-right" ng-click="addLibrary()">ADD BOOK</button>
+        </div>-->
+        <div class="portlet light"  style="height: 462px">
+        <div class="portlet-title">
+          <div class="caption caption-md">LIBRARY</div>
+              <button ng-show="Admin" class="btn btn-primary pull-right" <a ui-sref="addLibrary">ADD LIBRARY</a></button>
+                <!--<div class="caption caption-md col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <span class="uppercase pull-left">Library</span>
+                          <span class="caption-subject uppercase col-sm-6"></span>
+                          <span class="btn btn-primary pull-right" ng-show="Admin" <a ui-sref="addLibrary"> Add Library</a></span>
+                </div>-->
+        </div>
+
+        <!-- -----------------------------------Search Form-------------------------------->
+        <div class="portlet-body" ng-show="!showForm">
+          <div class="row list-separated">
+           
+
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div ng-show="error"  class="alert alert-danger">{{response}}</div>
+                    <div ng-show="success" class="alert alert-success">{{response}}</div>
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12"style="min-height:50px">
+                  <input  type="text"   class="form-control" placeholder="Name" 				 ng-model="search.name"        required><br>
+                  <input  type="text"   class="form-control" placeholder="Author"    			 ng-model="search.author"      required><br>
+                  <textarea rows="1" cols="50" class="form-control" placeholder="Description"  ng-model="search.description" required></textarea><br>
+
+                </div>
+        <!-------------------------------------SEARCH FORM---------------------------------------------->
+
+        <!-------------------------------------TABLE STARTS---------------------------------------------->
+              <!--<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12"  style="height:260px;overflow-y:auto;" >-->
+			        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">       
+                <table class="table table-bordered table-striped table-condensed flip-content">
+                  <!-------------------------------------TABLE HEAD---------------------------------------------->
+                            <thead flip-content>
+                            <tr>
+                              <th>SL.NO</th>
+                              <th><a ng-click="sortType = 'name'; sortReverse = !sortReverse">BookName</a></th>
+                              <th><a ng-click="sortType = 'author'; sortReverse = !sortReverse">Author</a></th>
+                              <th><a ng-click="sortType = 'description'; sortReverse = !sortReverse">Description</a></th>
+                              <th><a ng-click="sortType = 'price'; sortReverse = !sortReverse">Price (Rs)</a></th>
+                              <th><a ng-click="sortType = 'available'; sortReverse = !sortReverse">No.Of Books Available</a></th>
+                              <th ng-show="Admin">Option</th>
+                            </tr>
+                            </thead>
+                  <!-------------------------------------TABLE HEAD---------------------------------------------->
+                  <!-------------------------------------TABLE BODY---------------------------------------------->
+                  <tbody>
+                  <tr data-ng-repeat="x in filtered=(libraryList |filter:search) | orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
+                    <div data-ng-bind-html="x.id">
+                      <td>{{$index+1}}</td>
+                      <td>{{x.name}}</td>
+                      <td>{{x.author}}</td>
+                      <td>{{x.description}}</td>
+                      <td>{{x.price}} </td>
+                      <td>{{x.available}}</td>
+                      <td ng-show="Admin"><div>
+                        <i class="fa fa-pencil-square-o" ng-model="collapsed1" ng-click="editLibrary(x)"></i>
+                        <i class="fa fa-trash-o"  ng-click="deleteLibrary(x)"></i>
+                      </div>
+                    </td>
+                    </div>
+                  </tr>
+                  </tbody>
+                  <!-------------------------------------TABLE BODY---------------------------------------------->
+                </table>
+        <!-------------------------------------TABLE ENDS---------------------------------------------->
+         <!----------------------------------Page Nation-------------------------------------------->
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel-footer">
+                        <div class="pull-left"> Total Results :{{ libraryList.length}} |  Filtered Results :{{ filtered.length}}</div>
+                        <div class="pull-right"> 
+                          <button ng-disabled="currentPage == 0" class="pgr"  ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
+                          <button ng-disabled="currentPage >= filtered.length/pageSize-1" class="pgr" ng-click="currentPage=currentPage+1">Next</button>
+                          </div>
+                        </div>          
+        <!----------------------------------Page Nation-------------------------------------------->        
+				      
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
