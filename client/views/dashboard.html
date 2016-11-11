@@ -83,14 +83,18 @@
     </div>
     <div  class="col-md-4 col-sm-12 col-xs-12 row-md-4">
       <div ng-hide="Parent" class="portlet light row-md-1">
-            <div class="panel panel-default">
-              <div class="panel-heading text-center">
-                Birthday List
-              </div>
+            <div class="panel panel-default" style="height:200px;overflow-y:auto;">
+              <div class="panel-heading text-center">Birthday List</div>
               
 
-                <table  class="scroll table table-fixed">
-                    
+                <table  class="table table-bordered">
+                  <thead>
+                      <tr>
+                        <th>Student Name</th>
+                        <th>Class</th>
+                        <th>BIRTHDAY</th>
+                      </tr>
+                    </thead>
                     <tbody>
                                 <tr ng-repeat="x in birthdayList | orderBy:'x.dataofBirth':true">
                                   <td style="width: 150px" ng-show="birthDayChk(x)" style="background-color: #009900">{{x.firstName}} {{x.lastName}}</td>
@@ -108,27 +112,31 @@
       </div>
       <div class="portlet light row-md-1">
         <div class="portlet-title">
-          <div class="caption caption-md">Images</div>
-        </div>
+          <div class="panel panel-default">
+         <div class="panel-heading text-center">IMAGES</div>
         <div class="row list-separated">
 
-                    <!--IMAGES CODE--->
+                    <!--IMAGES CODE---->
                     <iframe width="350" height="250" id="myIframe1"  frameborder="0"></iframe>
                     
                     <!---->
 
         </div>
+          </div>
       </div>
-      <div class="portlet light row-md-">
+      </div>
+      <div class="portlet light row-md-1">
         <div class="portlet-title">
-          <div class="caption caption-md">Videos</div>
-        </div>
+          <div class="panel panel-default">
+         <div class="panel-heading text-center">VIDEOS</div>
+    
         <div class="row list-separated">
-                    <!--VIDEOS CODE--->
+                    <!--VIDEOS CODE---->
                     <iframe width="350" height="250" id="myIframe2"  frameborder="0"></iframe>
                     <!---->
         </div>
-
+          </div>
+        </div>
       </div>
 
 

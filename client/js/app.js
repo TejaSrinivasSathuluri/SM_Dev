@@ -47,9 +47,15 @@ angular
 
     .state('holiday',               { url: '/schoolcalendar',    templateUrl: 'views/holiday.html',            controller: 'HolidayController',     authenticate: true})
     .state('profile',               { url: '/profile',           templateUrl: 'views/profile.html',            controller: 'ProfileController',     authenticate: true})
-    .state('fees',                  { url: '/feepayments',       templateUrl: 'views/fee.html',                controller: 'FeeController',         authenticate: true})
-    .state('exams',                 { url: '/exams',             templateUrl: 'views/exams.html',              controller: 'ExamController',        authenticate: true})
-    .state('grades',                { url: '/grades',            templateUrl: 'views/grades.html',             controller: 'GradeController',       authenticate: true})
+    
+    .state('fees',                  { url: '/feepayments',         templateUrl: 'views/fee/fees.html',                controller: 'FeeController',         authenticate: true})
+    .state('addFee',               { url: '/feepayments',         templateUrl: 'views/fee/addFee.html',             controller: 'AddFeeController',         authenticate: true})
+    
+    .state('exams',                 { url: '/exams',             templateUrl: 'views/exam/exams.html',              controller: 'ExamController',        authenticate: true})
+    .state('addExams',              { url: '/exams',             templateUrl: 'views/exam/addExams.html',           controller: 'AddExamController',        authenticate: true})
+    
+    .state('grades',                { url: '/grades',            templateUrl: 'views/grade/grades.html',             controller: 'GradeController',       authenticate: true})
+    .state('addGrades',             { url: '/grades',            templateUrl: 'views/grade/addGrades.html',          controller: 'AddGradeController',       authenticate: true})
 
     .state('marks',                 { url: '/marks',             templateUrl: 'views/marks/marks.html',      controller: 'MarksController',       authenticate: true})
     .state('maxMarks',              { url: '/maxMarks',          templateUrl: 'views/marks/maxMarks.html',             controller: 'MaxMarksController',       authenticate: true})

@@ -1,0 +1,100 @@
+  <div class="container">
+  <div class="portlet light">
+    
+
+
+  <div class="panel panel-default">
+       <div class="panel-heading text-center">Add Fee</div>
+    <div class="panel-body">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+               <!--Error Division-->
+                <div class="alert alert-success" ng-show="success">{{responseFee}}     </div>
+                <div class="alert alert-error" ng-show="error">  {{responseFee}}  </div>
+               <!--Error Division-->
+              </div>
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	<form class="form-horizontal" ng-submit="addFeeType()">
+
+  <fieldset>
+   <!--<div class="form-group">
+       <label for="select" class="col-lg-offset-4 col-lg-3 control-label col-lg-offset-4"><h3>Add Subject</h3></label>
+      </div>-->
+    
+    <div class="form-group">
+      <label for="select" class="col-lg-offset-2 col-lg-3 control-label col-lg-offset-2">Fee Occurence</label>
+      <div class="col-lg-3">
+        <select class="form-control" required  ng-model="formData.occurance"   >
+                      <option value="">Fee Occurance</option>
+                      <option>Monthly</option>
+                      <option>Quarterly</option>
+                      <option>Halfyearly</option>
+                      <option>Yearly</option>
+                      <option>OnlyOnce</option>
+                    </select >
+        
+        
+      </div>
+    </div>
+      
+    <div class="form-group">
+      <label for="select" class="col-lg-offset-2 col-lg-3 control-label col-lg-offset-2">Class </label>
+      <div class="col-lg-3">
+       <select class="form-control" required  ng-model="formData.classId"   >
+                      <option value="">Class</option>
+                      <option data-ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
+                   
+                    </select >
+        
+        
+      </div>
+    </div>
+    <div class="form-group">
+       <label for="select" class="col-lg-offset-2 col-lg-3 control-label col-lg-offset-2">Fee Type</label>
+      <div class="col-lg-3">
+        <input  type="text"   class="form-control" placeholder="Fee Type*"  pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" ng-model="formData.feeType" required>
+      </div>
+	  
+    </div>
+    <div class="form-group">
+       <label for="select" class="col-lg-offset-2 col-lg-3 control-label col-lg-offset-2">Amount</label>
+      <div class="col-lg-3">
+        <input type="number" min="1" minlength="1" maxlength="5" max="100000" class="form-control" placeholder="Amount"  ng-model="formData.amount" required>
+      </div>
+	  
+    </div>
+    <div class="form-group">
+      <div class="col-lg-offset-5 col-lg-8">
+         <button type="reset" class="btn btn-primary" <a ui-sref="fees">Cancel</a></button>
+         <button type="submit" class="btn btn-primary uppercase" ng-show="formData.amount" >Select Months</button>
+      </div>
+    </div>
+  </fieldset>
+</form>
+              </div>
+<br>
+ <!--<div class="col-lg-offset-3 col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-3" ng-show="showMonthsFlag">-->
+ <div class="col-lg-offset-3 col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-3" ng-show="showMonthsFlag">
+
+                      <form ng-submit ="saveFee()">
+                            <input type="checkbox" ng-model="month.January" >Jan</input>  
+                            <input type="checkbox" ng-model="month.February"> Feb </input>
+                            <input type="checkbox" ng-model="month.March" > Mar </input>
+                            <input type="checkbox" ng-model="month.April" > Apr </input>
+                            <input type="checkbox" ng-model="month.May" > May </input>
+                            <input type="checkbox" ng-model="month.June" > Jun </input>
+                            <input type="checkbox" ng-model="month.July" > July </input>
+                            <input type="checkbox" ng-model="month.August" > Aug </input>
+                            <input type="checkbox" ng-model="month.September" > Sep </input>
+                            <input type="checkbox" ng-model="month.October" > Oct </input>
+                            <input type="checkbox" ng-model="month.November" > Nov </input>
+                            <input type="checkbox" ng-model="month.December"> Dec </input><br><br>
+                              <button type="reset" class="btn btn-primary" <a ui-sref="fees">Cancel</a></button>
+                                <button type="submit" class="btn btn-primary" value="save">save</button>
+                
+                      </form>
+              </div>
+              </div>
+</div>
+</div>
+  </div>
+  </div>

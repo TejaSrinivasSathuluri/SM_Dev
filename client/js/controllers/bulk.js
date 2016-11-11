@@ -1,6 +1,6 @@
 angular
   .module('app')
- .controller('BulkController', function (Test,$scope,Admin,Class,Student,School,$window,$rootScope,$filter,$state) {
+ .controller('BulkController', function ($scope,Admin,Class,Student,School,$window,$rootScope,$filter,$state) {
       
       
       //--------------------------------------------------------

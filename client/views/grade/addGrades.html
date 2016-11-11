@@ -1,0 +1,89 @@
+
+<!------------------------------------------------------------------- BEGIN CONTAINER------------------------------------------------>
+<div class="container">
+  <!------------------------------------------------------------------- BEGIN ROW MARGIN-------------------------------------------->
+  <div class="row margin-top-10">
+    <!------------------------------------------------------------------- BEGIN DIV-------------------------------------------------->
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <!------------------------------------------------------------------- BEGIN PORTLET-------------------------------------------->
+      <div class="portlet light" style="height: 500px">
+        <!------------------------portlet-body-------------------------------------->
+        <div class="portlet-body">
+          <div class="row list-separated">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <!------------------------Message Block-------------------------------------->
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div ng-show="error"  class="alert alert-danger">{{response}}</div>
+                    <div ng-show="success" class="alert alert-success">{{response}}</div>
+                </div>
+            </div>    
+                <!------------------------Message Block-------------------------------------->
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+ 
+                <!------------------------Create Assignment-------------------------------------->
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">ADD GRADES</div>
+                                                    
+                     <div class="panel-body">
+                                <form class="form-horizontal" ng-submit="addGrade()">
+
+                                <fieldset>
+                                    
+                                    <div class="form-group">
+                                    <label for="select" class="col-lg-offset-2 col-lg-3 control-label col-lg-offset-2">GRADE NAME</label>
+                                    <div class="col-lg-3">
+                                      <input  type="text" class="form-control" maxlength ="15" placeholder="GradeName" ng-model="formData.gradeName"  required>
+                                    </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                    <label for="select" class="col-lg-offset-2 col-lg-3 control-label col-lg-offset-2">GRADE POINT</label>
+                                    <div class="col-lg-3">
+                                       <input  type="number" class="form-control" placeholder="GradePoint" minlength ="1" maxlength="2"  min="1" max="10" ng-model="formData.gradePoint"  required>
+                                    </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                    <label for="select" class="col-lg-offset-2 col-lg-3 control-label col-lg-offset-2">FROM %</label>
+                                    <div class="col-lg-3">
+                                        <input  type="number" class="form-control" min="1" max="100" minlength="1" maxlength="3" placeholder="From %" ng-model="formData.percentageRangeFrom"  required>
+
+                                    </div>
+                                    </div>
+                                    <div class="form-group">
+                                    <label for="select" class="col-lg-offset-2 col-lg-3 control-label col-lg-offset-2">TO %</label>
+                                    <div class="col-lg-3">
+                                        <input  type="number" class="form-control" max="100" minlength="1" maxlength="3" placeholder="To %" ng-model="formData.percentageRangeTo" min="{{formData.percentageRangeFrom}}" required>
+                                    </div>
+                                    </div>
+                                    <div class="form-group">
+                                    <div class="col-lg-offset-5 col-lg-8">
+                                        <button type="reset" class="btn btn-danger" <a ui-sref="grades">Cancel</a></button>
+                                        <button type="submit" class="btn btn-success" >Create</button>
+                                    </div>
+                                    </div>
+                                </fieldset>
+                                </form>
+                      </div>
+                </div>
+                <!--------------------------END create Assignment------------------------------------>
+                
+            </div>
+          </div>
+        </div>
+        <!------------------------END portlet-body-------------------------------------->
+      </div>
+      <!------------------------------------------------------------------- END PORTLET-------------------------------------------->
+      
+
+    </div>
+    <!------------------------------------------------------------------- END DIV-------------------------------------------------->
+
+  </div>
+  <!------------------------------------------------------------------- END ROW MARGIN--------------------------------------------> 
+</div>
+<!------------------------------------------------------------------- END CONTAINER------------------------------------------------>
+
+      
