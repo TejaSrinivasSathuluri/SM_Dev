@@ -138,8 +138,6 @@ angular
 
 
 
-
-
                 
           //---------------------------------------------
 
@@ -151,93 +149,34 @@ angular
           //                  GET BIRTHDAY LIST
           // --------------------------------------------------------
 
-
-    // if($scope.Student){
-
-                $scope.studentList = Student.find({
-            filter: {
-              where: {schoolId: $scope.schoolId,classId: $scope.userData.classId},
-              include: 'class'
-            }
-          },
-            function () {
-            $scope.birthdayList =[];
-            var j =0;
-
-
-            for(var i=0;i<$scope.studentList.length;i++)
+          Student.find({ filter: { where: {schoolId: $scope.schoolId,classId: $scope.userData.classId},include: 'class'}},
+            function (response) 
             {
-
-
-
-              var a =  $filter('date')(new Date($scope.studentList[i].dateofBirth), 'MM-dd')    ;
-              var b =  $filter('date')(new Date(), 'MM-dd')    ;
-              var c= (new Date(a)-new Date(b)) / (1000 * 3600 * 24);
-              if ( c <7 && c >=0){
-                $scope.birthdayList[j] = { studentId:$scope.studentList[i].id,firstName:$scope.studentList[i].firstName,
-                  class:($scope.studentList[i].class.className + '-' +$scope.studentList[i].class.sectionName),
-                  dateofBirth:$scope.studentList[i].dateofBirth};
-                j++;
-              }
-
-            }
-
+                  $scope.birthdayList =[];
+                  var j =0;
+                  for(var i=0;i< response.length;i++)
+                  {
+                    var a =  $filter('date')(new Date($scope.studentList[i].dateofBirth), 'MM-dd')    ;
+                    var b =  $filter('date')(new Date(), 'MM-dd')    ;
+                    var c= (new Date(a)-new Date(b)) / (1000 * 3600 * 24);
+                    if ( c <7 && c >=0)
+                    {
+                      $scope.birthdayList[j] = { studentId:$scope.studentList[i].id,firstName:$scope.studentList[i].firstName,
+                        class:($scope.studentList[i].class.className + '-' +$scope.studentList[i].class.sectionName),
+                        dateofBirth:$scope.studentList[i].dateofBirth};
+                      j++;
+                    }
+                  }
             },
             function (response)
             {
               console.log('Cant Fetch Student List');
+              console.log(response);
               if (response.status =401) $state.go('logout', {}, {reload: true}) ;
             });
 
 
-
-    // }
-
-    // else if ($scope.Staff || $scope.Admin) 
-    
-    // {
-    //       $scope.studentList = Student.find({
-    //         filter: {
-    //           where: {schoolId: $scope.schoolId},
-    //           include: 'class'
-    //         }
-    //       },
-    //         function () {
-    //         $scope.birthdayList =[];
-    //         var j =0;
-
-
-    //         for(var i=0;i<$scope.studentList.length;i++)
-    //         {
-
-
-
-    //           var a =  $filter('date')(new Date($scope.studentList[i].dateofBirth), 'MM-dd')    ;
-    //           var b =  $filter('date')(new Date(), 'MM-dd')    ;
-    //           var c= (new Date(a)-new Date(b)) / (1000 * 3600 * 24);
-    //           if ( c <7 && c >=0){
-    //             $scope.birthdayList[j] = { studentId:$scope.studentList[i].id,firstName:$scope.studentList[i].firstName,
-    //               class:($scope.studentList[i].class.className + '-' +$scope.studentList[i].class.sectionName),
-    //               dateofBirth:$scope.studentList[i].dateofBirth};
-    //             j++;
-    //           }
-
-    //         }
-
-    //         },
-    //         function (response)
-    //         {
-    //           console.log('Cant Fetch Student List');
-    //           if (response.status =401) $state.go('logout', {}, {reload: true}) ;
-    //         });
-
-
-    // }
-
-
-
-
-
+ 
 
 
 // ---------------------------------

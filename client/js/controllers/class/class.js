@@ -58,8 +58,6 @@ angular
         {
              $scope.staffList = response.staffs;
              $scope.classList = response.classes;
-             console.log(response);
-            
         });
         // Getting The Data Required For The Class Page
 
@@ -78,7 +76,7 @@ angular
                                 scope: $scope
                         });
                     dialog.closePromise.then(function (data) {
-                    if (data.value && data.value != '$document' && data.value != '$closeButton') 
+                    if (data.value && data.value != '$document' && data.value != '$escape' && data.value != '$closeButton') 
                       return true;
                       });
         

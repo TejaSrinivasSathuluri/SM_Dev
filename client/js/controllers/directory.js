@@ -147,7 +147,7 @@ angular
 
 
 
-        if ('Admin') {
+      
 
           //--------------------------------------------------------
           //                  CLEAR FORM
@@ -218,24 +218,7 @@ angular
           }
 
 
-          // --------------------------------------------------------
-          //                  UPDATE IMAGE
-          // --------------------------------------------------------
           
-          var schoolCode= $scope.school.code;
-          var url = 'http://studymonitor.net/appimages';
-          $scope.updateImage = function(){
-            Student.find({filter: {where: {schoolId: $scope.schoolId}}},function(response){
-              response.forEach(function(students){
-                var student = students.toJSON();
-                var image = url + '/' + schoolCode + '/' + student.classId + '/' + student.rollNo + '.png';
-                Student.prototype$updateAttributes({id: student.id}, {image:image},function(){
-                  console.log('image path set successfully');
-                });
-              });
-            });
-          }
-          //$scope.updateImage();
    
 
 
@@ -632,7 +615,7 @@ angular
             
               if (data.value && data.value != '$document' && data.value != '$closeButton'&& data.value != '$escape') {
 							   if (x.type == "Student")    {
-										Student.delete({id: x.id}, function ()
+										Student.deleteById({id: x.id}, function ()
                     {
                        $scope.response = 'Student Deleted Successfully';
                        $scope.error =true ;   
@@ -640,36 +623,11 @@ angular
                             $state.go($state.current, {}, {reload: true});
                            $scope.processSearch('s'); 
                        }, 1000);                                             
-                              // $scope.resultStudentParent = StudentParent.find({
-                              //   filter: {
-                              //     where: {
-                              //     studentId: x.id,
-                              //     schoolId: $scope.schoolId
-                              //     }
-                              //   }
-                              //   }, function (response) 
-                              //           {
-                              //             //   response.forEach(function (resultStudentParent) 
-                              //             //   {
-                              //             //   var p = resultStudentParent.toJSON();
-                              //             //   StudentParent.deleteById({id: p.id}, function () {
-                              //             //        console.log('deleting student and student relation with parent');
-                              //             //        $state.go($state.current, {}, {reload: true});
-                              //             //       }, function (response) { console.log(response.data.error.message);});
-                              //             //   });
-                              //             // $state.go($state.current, {}, {reload: true});
-                              //             // },
-                              //             // function (response) {
-                              //             // console.log(response.data.error.message);
-                                          
-
-                              //           }
-                              //     );
 												});
 
                   }
                 else if (x.type == "Parent") {
-                  Parent.delete({id: x.id}, function () {
+                  Parent.deleteById({id: x.id}, function () {
                     $scope.resultStudentParent = StudentParent.find({
                         filter: {
                           where: {
@@ -699,7 +657,7 @@ angular
 
                 }
                 else if (x.type == "Staff") {
-                  Staff.delete({id: x.id}, function () {
+                  Staff.deleteById({id: x.id}, function () {
                      $scope.response = 'Staff Deleted Successfully';
                             $scope.error =true ;   
                       setTimeout(function() {
@@ -715,7 +673,7 @@ angular
             });
 
           }
-        }
+        
 
  
         //--------------------------------------------------------

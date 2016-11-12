@@ -1,4 +1,7 @@
- module.exports = function(server) {
+ module.exports = function(server) 
+ {
+ 
+ 
  var router = server.loopback.Router(); 
  User = server.models.User;
  Role = server.models.Role;
@@ -54,11 +57,5 @@ User.observe('after save', function addRole(ctx, next)
   next();
 });
 
-
-
-
-
-
- 
   server.use(router);
 };
