@@ -12,17 +12,17 @@
 					</div>
 					</div>
 				<div class="portlet-body" ng-show="!showForm">
-					<div class="row">
+					<div class="row list-separated">
 						<!---->
-						<div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-success" ng-show="success"> {{response}}</div>
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-danger" ng-show="error"> {{response}}</div>
 						</div>
-				<div class="row">
+											
 						<!--<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mbtm">-->
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mbtm">
 							<form ng-hide="Student" ng-submit="viewMarks()">
-
+								
 								<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 mbtm">
 									<select class="form-control" ng-model="formData.classId" ng-change="setSubjectList()" required>
 										<option value="">Class-Section</option>
@@ -39,20 +39,18 @@
 									<button type="submit" class="btn btn-success uppercase">Manage Marks</button><br>
 								</div>
 								</form>
-
-
+						
+						
 								<!-------------------------------Table Starts---------------------------------------------------->
 								<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12" style="height:260px;overflow-y:auto;">
 									Max Marks :{{formData.maxMarks}}
 								<table class="table table-bordered table-striped table-condensed flip-content">
 									<thead flip-content>
 										<tr>
-
-                      
-					<th><a href="javascript:void(0)" ng-click="sortType = ''; toggleSort(0);sortReverse = !sortReverse">Student Name<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
-					<th><a href="javascript:void(0)" ng-click="sortType = ''; toggleSort(0);sortReverse = !sortReverse">RollNo<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
-					<th><a href="javascript:void(0)" ng-click="sortType = ''; toggleSort(0);sortReverse = !sortReverse">Enter Marks<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
-					<th><a href="javascript:void(0)" ng-click="sortType = ''; toggleSort(0);sortReverse = !sortReverse">Percentage(%)<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+										<th><a ng-click="sortType = ''; sortReverse = !sortReverse">Student Name</a></th>
+                                    	<th><a ng-click="sortType = ''; sortReverse = !sortReverse">RollNo</a></th>
+                                    	<th><a ng-click="sortType = ''; sortReverse = !sortReverse">Enter Marks</a></th>
+                                    	<th><a ng-click="sortType = ''; sortReverse = !sortReverse">Percentage(%)</a></th>
 										<th ng-show="Admin">Option</th>
 										</tr>
 									</thead>
@@ -72,18 +70,18 @@
 								 <!----------------------------------Page Nation-------------------------------------------->
                                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel-footer">
                                     <div class="pull-left"> Total Results: {{examList.length}}</div>
-                                        <div class="pull-right">
+                                        <div class="pull-right"> 
                                         <button ng-disabled="currentPage == 0" class="pgr"  ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
                                         <button ng-disabled="currentPage >= list.length/pageSize-1" class="pgr" ng-click="currentPage=currentPage+1">Next</button>
                                       </div>
-                                  </div>
-                 <!----------------------------------Page Nation-------------------------------------------->
+                                  </div>          
+                 <!----------------------------------Page Nation--------------------------------------------> 
 
-								</div>
-
+								</div>	
+								
 							</div>
 							</div>
-
+						
 						</div>
 						</div>
 					</div>

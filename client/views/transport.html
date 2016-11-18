@@ -1,13 +1,12 @@
 <script type="text/ng-template" id="editBus">
   <div class="ngdialog-message">
-    <h3>Edit Bus Details</h3>
+    <h3>Edit Bus Details</h3><br>
     <form ng-submit=confirm(editData) >
-      <div class="col-sm-12">
-        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 
-          <input type="text" class="form-control" placeholder="Vehicle Number"  ng-model="editData.busNo" required>
-        </div>
-        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+
+          <input type="text" class="form-control" placeholder="Vehicle Number"  ng-model="editData.busNo" required><br>
+
+
 
           <select ng-model="editData.busType" class="form-control" required>
             <option value="">Select</option>
@@ -16,21 +15,17 @@
             <option>Cab</option>
             <option>Bus</option>
             <option>Jeep</option>
-          </select>
-        </div>
-        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+          </select><br>
 
           <input type="number" class="form-control" placeholder="No Of Persons" min="1" max="100" maxlength="3" ng-model="editData.busCapacity" required><br>
-        </div>
 
-        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">  <button type="submit" class="btn btn-success uppercase">Update Bus</button></div>
-      </div>
+         <button type="submit" class="btn btn-success uppercase">Update Bus</button><br>
+
 
 
 
     </form>
-    <div class="ngdialog-buttons">
-    </div>
+
   </div>
 </script>
 
@@ -47,7 +42,7 @@
 
 <script type="text/ng-template" id="deleteBus">
   <div class="ngdialog-message">
-    <h1>Confirm Delete</h1>
+    <h1>Confirm Delete</h1><br>
     <div class="ngdialog-buttons">
       <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog('Yes')">Yes</button>
       <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog()">No</button>
@@ -80,17 +75,18 @@
             <!--                               TAB 1                                 ->
             <!------------------------------------------------------------------------>
             <div ng-show="isSet(1)">
-              <div class="col-sm-12">
+             
+              <div class="">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-success" ng-show="success"> {{responseAddBus}}</div>
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-danger" ng-show="error"> {{responseAddBus}}</div>
 						</div>
-                
+
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mbtm">
                 <form ng-submit="addBus()" >
                   <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 mbtm">
                     <input type="text" class="form-control " placeholder="Vehicle Number"  ng-model="formData.busNo" required> <br>
-                  
+
                     <select ng-model="formData.busType" class="form-control" required>
                       <option value="">Select</option>
                       <option>Mini Bus</option>
@@ -99,19 +95,23 @@
                       <option>Bus</option>
                       <option>Jeep</option>
                     </select><br>
-                    <input type="number" class="form-control " placeholder="No Of Persons" min="1" max="100" maxlength="3" ng-model="formData.busCapacity" required><br>         
+                    <input type="number" class="form-control " placeholder="No Of Persons" min="1" max="100" maxlength="3" ng-model="formData.busCapacity" required><br>
                     <button type="submit" class="btn btn-success uppercase">Add Bus</button><br>
                   </div>
                 </form>
-              
+
               <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 
                 <table class="table table-bordered table-striped table-condensed flip-content">
                   <thead flip-content>
                   <tr>
-                    <th><a ng-click="sortType = 'busNo';       sortReverse = !sortReverse">Vehicle No</a>  </th>
-                    <th><a ng-click="sortType = 'busType';     sortReverse = !sortReverse">Vehicle Type</a></th>
-                    <th><a ng-click="sortType = 'busCapacity'; sortReverse = !sortReverse">Capacity</a>    </th>
+
+                   
+                   <th><a href="javascript:void(0)" ng-click="sortType = 'busNo'; toggleSort(0);sortReverse = !sortReverse">Vehicle No<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+
+                   <th><a href="javascript:void(0)" ng-click="sortType = 'busType'; toggleSort(0);sortReverse = !sortReverse">Vehicle Type<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+
+                   <th><a href="javascript:void(0)" ng-click="sortType = 'busCapacity'; toggleSort(0);sortReverse = !sortReverse">Capacity<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
                     <th ng-show="Admin">Action</th>
                   </tr>
                   </thead>
@@ -130,7 +130,7 @@
                   </tbody>
                 </table>
                 <div class="pull-left">
-                  Total Results :{{ busList.length}} 
+                  Total Results :{{ busList.length}}
 
 
 
@@ -150,12 +150,12 @@
             <!--                               TAB 2                                 ->
             <!------------------------------------------------------------------------>
             <div ng-show="isSet(2)">
-        
-               
+
+
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
                 <form ng-submit="addService()">
-                  
+
                     <div ng-hide='Student'>
                    <select ng-model="formData.busId" class="form-control" required>
                       <option value="">Buses </option>
@@ -171,7 +171,7 @@
                     </div>
                     </form>
                </div>
-                  
+
                    <br>
               <div ng-show="addRoutes && Admin" class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
                 <table class="table table-bordered table-striped table-condensed flip-content">
@@ -204,9 +204,10 @@
                    <table class="table table-bordered table-striped table-condensed flip-content">
                    <thead flip-content>
                    <tr>
-                   <th><a ng-click="sortType = 'serviceNo'; sortReverse = !sortReverse">Service No</a></th>
-                   <th><a ng-click="sortType = 'serviceName'; sortReverse = !sortReverse">Service Name</a></th>
-                   <th><a ng-click="sortType = 'bus.busNo'; sortReverse = !sortReverse">Bus</a></th>
+                                         
+                    <th><a href="javascript:void(0)" ng-click="sortType = 'serviceNo'; toggleSort(0);sortReverse = !sortReverse">Service No<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+                    <th><a href="javascript:void(0)" ng-click="sortType = 'serviceName'; toggleSort(0);sortReverse = !sortReverse">Service Name<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+                    <th><a href="javascript:void(0)" ng-click="sortType = 'bus.busNo'; toggleSort(0);sortReverse = !sortReverse">Bus<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
                    <th ng-show="Admin">Option</th>
               </tr>
               </thead>
@@ -224,16 +225,16 @@
               <td>{{x.bus.busNo}}</td>
               <td ng-show="Admin"><i class="fa fa-pencil-square-o" ng-model="collapsed1" ></i>
               <i class="fa fa-trash-o" ng-click="deleteBusService(x)"></i>
-              
+
               </td>
               </div>
               </tr>
               </tbody>
               </table>
-               </div> 
-                
+               </div>
 
-                <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12"  ng-show="popoverIsVisible">  
+
+                <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12"  ng-show="popoverIsVisible">
                 <table class="table table-bordered table-striped table-condensed flip-content" style="width:40% ;background-color: grey">
                           <thead>
                             <tr>
@@ -242,13 +243,13 @@
                             </tr>
                           </thead>
                 <tr  ng-repeat="route in routeDetails">
-                  <td>{{route.startLocation}}[{{route.startTime | date:'HH:mm:ss a'}}]</td> 
+                  <td>{{route.startLocation}}[{{route.startTime | date:'HH:mm:ss a'}}]</td>
                   <td> {{route.startLocationDrop}}({{route.startTimeDrop | date:'HH:mm:ss a'}}) </td>
                 </tr>
                 </table>
               </div>
-               
-               
+
+
               </div>
             </div>
 
@@ -278,19 +279,21 @@
                     </select><br>
                       <button type="submit" class="btn btn-success uppercase">Subscribe</button>
                   </div>
-                 
+
                 </form>
-                       
+
             <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
               <table class="table table-bordered table-striped table-condensed flip-content">
               <thead flip-content>
               <tr>
-              <th><a ng-click="sortType = 'firstName'; sortReverse = !sortReverse">Student Name</a></th>
-              <th><a ng-click="sortType = 'className'; sortReverse = !sortReverse">Class</a></th>
-              <th><a ng-click="sortType = 'serviceNo'; sortReverse = !sortReverse">Service No</a></th>
-              
-              <th><a ng-click="sortType = 'serviceName'; sortReverse = !sortReverse">Service Name</a></th>
-              <th><a ng-click="sortType = 'pickupLocation'; sortReverse = !sortReverse">Pickup</a></th>
+                
+             
+             <th><a href="javascript:void(0)" ng-click="sortType = 'firstName'; toggleSort(0);sortReverse = !sortReverse">Student Name<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+             <th><a href="javascript:void(0)" ng-click="sortType = 'className'; toggleSort(0);sortReverse = !sortReverse">Class<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+             <th><a href="javascript:void(0)" ng-click="sortType = 'serviceNo'; toggleSort(0);sortReverse = !sortReverse">Service No<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+             <th><a href="javascript:void(0)" ng-click="sortType = 'serviceName'; toggleSort(0);sortReverse = !sortReverse">Service Name<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+             <th><a href="javascript:void(0)" ng-click="sortType = 'pickupLocation'; toggleSort(0);sortReverse = !sortReverse">Pickup<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+
               <th ng-show="Admin">Option</th>
               </tr>
               </thead>
@@ -303,12 +306,12 @@
               <td >{{x.student.class.className}}{{x.student.class.sectionName}}</td>
               <td>{{x.busService.serviceNo}}</td>
               <td>{{x.busService.serviceName}}</td>
-              
+
               <td>{{x.pickupLocation}}</td>
-              
+
               <td ng-show="Admin">
                 <button class="btn btn-default uppercase" type=="checkbox" ng-click="removeSubscription(x)" >UnSubscribe</button>
-              
+
               </td>
               </div>
               </tr>
@@ -318,7 +321,7 @@
           </div>
           </div>
 
-            
+
           </div>
 
 

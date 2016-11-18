@@ -1,6 +1,6 @@
 <script type="text/ng-template" id="deleteClass">
   <div class="ngdialog-message">
-    <h1>Confirm Delete</h1>
+    <h1>Confirm Delete</h1><br>
     <div class="ngdialog-buttons">
       <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog('Yes')">Yes</button>
       <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog()">No</button>
@@ -18,7 +18,7 @@
         <div class="panel panel-info">
             <!--<div class="panel-heading text-center">Subjects</div>-->
             <div class="panel-body">
-                          
+
 
 		            <table class="table table-bordered table-striped table-condensed flip-content">
 
@@ -26,10 +26,10 @@
                         <thead>
                           <th>Subject </td>
                           <th>Teacher</th>
-                          
+
                         </thead>
                         <tbody>
-                          <tr ng-repeat="subject in subjects"> 
+                          <tr ng-repeat="subject in subjects">
                             <td>{{subject.subjectName}} </td>
                             <td>{{subject.staff.firstName}}</td>
                           </tr>
@@ -66,16 +66,16 @@
 
         </div>
         <div class="portlet-body">
-          <div class="row list-separated">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="row">
+            
+
+                <div>
                     <div ng-show="error"  class="alert alert-danger">{{response}}</div>
                     <div ng-show="success" class="alert alert-success">{{response}}</div>
                 </div>
 
-                
-                          
+
+              <div class="row"> 
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                   <select ng-model="search.id" class="form-control">
@@ -95,15 +95,18 @@
                     <!----------------------------------Table Head Begins-------------------------------------------->
                     <thead flip-content>
                     <tr>
-                      <th><a ng-click="sortType = 'className'; sortReverse = !sortReverse">Class</a></th>
-                      <th><a ng-click="sortType = 'sectionName'; sortReverse = !sortReverse">Section</a></th>
-                      <th><a ng-click="sortType = 'staff.firstName'; sortReverse = !sortReverse">Teacher</a></th>
+                     
+
+                    <th><a href="javascript:void(0)" ng-click="sortType = 'className'; toggleSort(0);sortReverse = !sortReverse">Class<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+                    <th><a href="javascript:void(0)" ng-click="sortType = 'sectionName'; toggleSort(0);sortReverse = !sortReverse">Section<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+                    <th><a href="javascript:void(0)" ng-click="sortType = 'staff.firstName'; toggleSort(0);sortReverse = !sortReverse">Teacher<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+                      
                       <th ng-show="Admin">Action</th>
                     </tr>
                     </thead>
                     <!----------------------------------Table Head Ends-------------------------------------------->
-               
-               
+
+
                     <!----------------------------------Table Body Begins-------------------------------------------->
                     <tbody>
                     <tr style="height:20px" data-ng-repeat="x in  filtered = (classList | filter:search) |orderBy:sortType:sortReverse | startFrom : currentPage*pageSize | limitTo:pageSize">
@@ -120,7 +123,7 @@
 					            	</td>
 					              <td ng-show="Admin">
                           <i class="fa fa-floppy-o" ng-click="updateClass(x); editclass= false" ng-show="editclass" aria-hidden="true"></i>
-                          <i class="fa fa-pencil-square-o"  ng-hide="editclass" ng-click="clearResponse();editclass= true"  aria-hidden="true"></i> 
+                          <i class="fa fa-pencil-square-o"  ng-hide="editclass" ng-click="clearResponse();editclass= true"  aria-hidden="true"></i>
                           <i class="fa fa-trash-o" aria-hidden="true" ng-click="deleteClass(x)"></i>
                         </td>
                         </div>
@@ -132,14 +135,14 @@
                 <!----------------------------------Page Nation-------------------------------------------->
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel-footer">
                  <div class="pull-left"> Total Results :{{classList.length}} | Filtered Results : {{filtered.length}}</div>
-                 <div class="pull-right"> 
+                 <div class="pull-right">
                    <button ng-disabled="currentPage == 0" class="pgr"  ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
                   <button ng-disabled="currentPage >= classList.length/pageSize-1" class="pgr" ng-click="currentPage=currentPage+1">Next</button>
                   </div>
                 </div>
-                
 
-            
+
+
                    <!----------------------------------Page Nation-------------------------------------------->
             </div>
                 </div>

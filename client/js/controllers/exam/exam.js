@@ -1,8 +1,8 @@
 angular.module('app')
 
 
-  .controller('ExamController', 
-  function ($scope, $state, School, Exam,Class,$rootScope, $window,ngDialog,$filter,Subject) 
+  .controller('ExamController',
+  function ($scope, $state, School, Exam,Class,$rootScope, $window,ngDialog,$filter,Subject)
   {
 
         //------------------------------------------------
@@ -20,10 +20,10 @@ angular.module('app')
         //------------------------------------------------
         //            BASIC USER DATA
         //------------------------------------------------
-        
 
 
-        
+
+
          //--------------------------------------------
          //          GET CLASS LIST
          //--------------------------------------------
@@ -33,7 +33,7 @@ angular.module('app')
          //--------------------------------------------
          //          SHOW EXAM
          //--------------------------------------------
-      
+
           $scope.examList =[];
           $scope.showExamList = function()
            {
@@ -59,13 +59,13 @@ angular.module('app')
                 $scope.error = false;
                 $scope.success=true;
                 setTimeout( function()
-                            {         
+                            {
                               $scope.success=false;
                               $scope.responseExam = null;
                               $scope.formData = null;
                               $scope.showExamList();
                             }, 1000 );
-                          
+
           }
 
           //------------------------------------------------
@@ -77,22 +77,22 @@ angular.module('app')
                 $scope.error = true;
                 $scope.success=false;
                 setTimeout( function()
-                            {         
+                            {
                               $scope.error=false;
                               $scope.responseExam = null;
                               // $scope.formData = null;
                               $scope.showExamList();
                             }, 2000 );
-                          
+
           }
 
 
           //------------------------------------------------------------------------
           //                 ADD EXAM
           //-------------------------------------------------------------------------
-            $scope.addExam = function () 
+            $scope.addExam = function ()
             {
-                var toDate   = $filter('date')(new Date($scope.formData.toDate), 'yyyy-MM-dd');     
+                var toDate   = $filter('date')(new Date($scope.formData.toDate), 'yyyy-MM-dd');
                 var fromDate = $filter('date')(new Date($scope.formData.fromDate), 'yyyy-MM-dd');
                 Exam.findOne
                 (
@@ -137,22 +137,22 @@ angular.module('app')
                                 });
                                 // Exam Create Process Ends
                               }
-                              else 
+                              else
                               {
                                 failureCall('Exam To Date Should Be Greater Than From Date');
                               }
                 });
-            }      
+            }
 
 
 
             //----------------------------------------------
             //                 DELETE EXAM
             //----------------------------------------------
-            $scope.deleteExam = function (x) 
+            $scope.deleteExam = function (x)
             {
-            var dialog = ngDialog.open({template: 'deleteExam'});
-            dialog.closePromise.then(function (data) 
+            var dialog = ngDialog.open({template: 'deleteExam',closeByDocument: false,className: 'ngdialog-theme-default deletepopup'});
+            dialog.closePromise.then(function (data)
               {
               if (data.value && data.value != '$document' && data.value != '$closeButton')
               {
@@ -163,25 +163,25 @@ angular.module('app')
                 return true;
               }
               });
-            } 
-      
-      
-    
+            }
+
+
+
             //------------------------------------------------
             //            EDIT EXAM LIST
             //------------------------------------------------
 
-                  $scope.editExam = function (x) 
+                  $scope.editExam = function (x)
                   {
                         $scope.formData={};
                         $scope.formData.classId =x.classId;
                         $scope.formData.examName = x.examName;
-                        
+
 
                         $scope.fromDate = $filter('date')(new Date(x.fromDate), 'yyyy-MM-dd');
                         $scope.toDate = $filter('date')(new Date(x.toDate), 'yyyy-MM-dd');
-                        var dialog = ngDialog.open({template: 'editExam',scope: $scope});
-                        dialog.closePromise.then(function (data) 
+                        var dialog = ngDialog.open({template: 'editExam',scope: $scope,closeByDocument: false,className: 'ngdialog-theme-default editpopup'});
+                        dialog.closePromise.then(function (data)
                         {
                           if (data.value && data.value != '$document' && data.value != '$closeButton' && data.value != '$escape')
                             {
@@ -195,7 +195,7 @@ angular.module('app')
                                                       {
 
                                                                                   Exam.upsert({id:x.id,classId:formData.classId, examName:formData.examName,fromDate: formData.fromDate,toDate:formData.toDate},
-                                                                                    function () 
+                                                                                    function ()
                                                                                     {
                                                                                           successCall('Exam Record Updated Successfully');
                                                                                     },function(response){
@@ -206,19 +206,19 @@ angular.module('app')
                                                       {
                                                                                     failureCall('From Date Must Be Less Than To Date');
                                                                                     $scope.formData = null;
-                                                                                    
-                                                      }
-                                                                                    
 
-                                                      
-                                    } 
+                                                      }
+
+
+
+                                    }
 
                                     else
                                     {
-                                            
+
                                               Exam.findOne({ filter:{ where : { examName : formData.examName,classId:formData.classId}}},
                                                                         function(){
-                                                                          
+
                                                                                           failureCall('Exam Record Already Exists');
                                                                                   },
                                                                         function(){
@@ -227,28 +227,46 @@ angular.module('app')
                                                                                                 Exam.upsert({id:x.id,classId:formData.classId, examName:formData.examName,fromDate: formData.fromDate,toDate:formData.toDate},
                                                                                                 function () {
                                                                                                       successCall('Exam Record Updated Successfully');
-                                                                          
+
                                                                                                 });
                                                                                             }
                                                                                   });
                                     }
-                                  
+
                             }
                         });
 
                   }
 
 
- 
+
             //----------------------------------------------
             //               SORT TABLE TECHNIQUE
             //----------------------------------------------
 
-            $scope.sortType     = 'title';
-            $scope.sortReverse  = false;
-            $scope.searchFish   = '';
-            $scope.currentPage = 0;
-            $scope.pageSize = 10;
+        $scope.sortType     = 'title';
+        $scope.sortReverse  = false;
+        $scope.searchFish   = '';
+        $scope.currentPage = 0;
+        $scope.pageSize = 10;
+        $scope.sort = [
+          {
+            sortReverse:false
+          },
+          {
+            sortReverse:false
+          },
+          {
+            sortReverse:false
+          },
+          {
+            sortReverse:false
+          }
+        ];
+
+        $scope.toggleSort = function(index){
+            $scope.sort[index].sortReverse = !$scope.sort[index].sortReverse;
+        }
             $scope.numberOfPages=function(){    return Math.ceil($scope.examList.length/$scope.pageSize);}
 
 

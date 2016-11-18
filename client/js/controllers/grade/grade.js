@@ -8,8 +8,8 @@ angular
 
         $scope.userData   = $window.localStorage.getItem('user');
         $scope.user = JSON.parse($scope.userData);
-        
-        
+
+
         $scope.schoolId = $scope.userData.schoolId;
 
         if ($scope.user.type == 'Admin')   { $scope.Admin   = true; }
@@ -33,13 +33,13 @@ angular
                 $scope.error = true;
                 $scope.success=false;
                 setTimeout( function()
-                            {         
+                            {
                               $scope.error=false;
                               $scope.responseGrade = null;
                               $scope.formData = null;
                               $scope.showGrades();
                             }, 1000 );
-                          
+
         }
 
 
@@ -52,13 +52,13 @@ angular
                 $scope.error = false;
                 $scope.success=true;
                 setTimeout( function()
-                            {         
+                            {
                               $scope.success=false;
                               $scope.responseGrade = null;
                               $scope.formData = null;
                               $scope.showGrades();
                             }, 1000 );
-                          
+
         }
 
 
@@ -77,15 +77,15 @@ angular
                         // *********GRADE POINT VALIDATION************
                           Grade.findOne({ filter:{ where:{ schoolId:$scope.schoolId,gradePoint:$scope.formData.gradePoint }}},function(){ failureCall('Grade Point Already Exists');}
                           ,function(){
-                                    
+
                                       // *********GRADE PERCENTAGE VALIDATION************
                                       Grade.findOne({ filter:{ where:{ schoolId:$scope.schoolId,percentageRangeFrom:$scope.formData.percentageRangeFrom }}},function(){ failureCall('Grade Percentage Start Limit Already Exists');}
                                       ,function(){
-                                                
+
                                                   // *********GRADE PERCENTAGE VALIDATION************
                                                     Grade.findOne({ filter:{ where:{ schoolId:$scope.schoolId,percentageRangeTo:$scope.formData.percentageRangeTo }}},function(){failureCall('Grade Percentage End Limit Already Exists');}
                                                     ,function(){
-                                                              
+
                                                                 Grade.create({
                                                                           schoolId:$scope.schoolId,
                                                                           gradeName:$scope.formData.gradeName,
@@ -97,23 +97,23 @@ angular
                                                                           successCall('Grade Added Successfully');
                                                                         }
                                                                         );
-                                                                                                              
-                                                      });      
-                                    
-                                        });      
+
+                                                      });
+
+                                        });
                             });
 
               });
 
-            
+
           }
-       
+
        $scope.deleteGrade = function(x){
-           var dialog = ngDialog.open({template: 'deleteGrade'});
+           var dialog = ngDialog.open({template: 'deleteGrade',closeByDocument: false,className: 'ngdialog-theme-default deletepopup'});
          dialog.closePromise.then(function (data) {
            if (data.value && data.value != '$document' && data.value != '$closeButton' && data.value != '$escape')
            {
-                        Grade.deleteById({id:x.id},function()  {successCall('Grade Deleted Successfully');});        
+                        Grade.deleteById({id:x.id},function()  {successCall('Grade Deleted Successfully');});
              return true;
            }
          });
@@ -124,9 +124,9 @@ angular
       $scope.editGrade = function (x) {
 		    //$scope.examName = x.examName;
 		   $scope.editData=x;
-		    
+
 		   ngDialog.openConfirm({template: 'editGrade',
-          scope: $scope ,//Pass the scope object if you need to access in the template
+          scope: $scope ,closeByDocument: false,className: 'ngdialog-theme-default editpopup',//Pass the scope object if you need to access in the template
           backdrop:'static',
           closeByDocument: false
         }).then(
@@ -157,11 +157,11 @@ angular
 
           }
           );
-      } 
+      }
 
-      
-       
-    
+
+
+
 
 
         //----------------------------------------------
@@ -171,10 +171,28 @@ angular
         $scope.sortType     = 'title';
         $scope.sortReverse  = false;
         $scope.searchFish   = '';
-        $scope.currentPage  = 0;
-        $scope.pageSize     = 10;
+        $scope.currentPage = 0;
+        $scope.pageSize = 10;
+        $scope.sort = [
+          {
+            sortReverse:false
+          },
+          {
+            sortReverse:false
+          },
+          {
+            sortReverse:false
+          },
+          {
+            sortReverse:false
+          }
+        ];
+
+        $scope.toggleSort = function(index){
+            $scope.sort[index].sortReverse = !$scope.sort[index].sortReverse;
+        }
         $scope.numberOfPages=function(){    return Math.ceil($scope.gradesList.length/$scope.pageSize);}
- 
+
   })
 
 

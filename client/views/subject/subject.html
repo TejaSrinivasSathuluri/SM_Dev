@@ -1,6 +1,6 @@
 <script type="text/ng-template" id="deleteSubject">
   <div class="ngdialog-message">
-    <h3>Confirm Delete</h3>
+    <h3>Confirm Delete</h3><br>
     <div class="ngdialog-buttons">
       <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog('Yes')">Yes</button>
       <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog()">No</button>
@@ -17,7 +17,7 @@
       <!------------------------------------------------ BEGIN PORTLET------------------------------------------>
        <div class="portlet light " style="height:462px;">
         <div class="portlet-title">
-           
+
           <div class="caption caption-md col-sm-12">
             <span class="uppercase pull-left">Subjects</span>
             <span class="caption-subject uppercase col-sm-6"></span>
@@ -25,14 +25,14 @@
           </div>
         </div>
         <div class="portlet-body">
-              <div class="row list-separated">
-                <div class="col-sm-12">
+              <div class="row">
+                <div>
                   <div ng-show="error"   class="alert alert-danger  col-lg-12 col-md-12 col-sm-12 col-xs-12">{{responseAddSubject}}</div>
                   <div ng-show="success" class="alert alert-success col-lg-12 col-md-12 col-sm-12 col-xs-12">{{responseAddSubject}}</div>
                 </div>
 
 
-
+              <div class="row"> 
                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <div ng-hide="Student" class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                 <select ng-model="search.class.id" class="form-control">
@@ -46,22 +46,29 @@
                 <input type="text" ng-model="search.subjectName" placeholder="Search By Subject" class="form-control"> </input>
               </div>
               <div  class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-                 
-                            
+
+
                                  <div ng-show="Student" class="pull-right panel-default">
-  <div class="panel-body"> 
+  <div class="panel-body">
                 Class : {{classData.className}}-{{classData.sectionName}} | Class Teacher : {{classData.staff.firstName}} {{classData.staff.lastName}}
-    
+
   </div>
 </div>
-                
+
               <!--<div class="portlet-body-morris-fit morris-chart flip-scroll" style="height: max">-->
               <table class="table table-bordered table-striped table-condensed flip-content" >
                 <thead flip-content>
                 <tr ng-show="Admin || Staff">
-        				  <th><a ng-click="sortType = 'subjectName'; sortReverse = !sortReverse">Subject</a></th>
-                  <th><a ng-click="sortType = 'class.className'; sortReverse = !sortReverse">Class</a></th>
-                  <th><a ng-click="sortType = 'staff.firstName'; sortReverse = !sortReverse">Teacher</a></th>
+                  <!--<th><a>Subject<i class="fa fa-arrow-down sort" ng-show="!sortReverse" aria-hidden="true"  ng-click="sortType = 'subjectName'; sortReverse = !sortReverse"></i><i class="fa fa-arrow-up sort"  ng-show="sortReverse" aria-hidden="true" ng-click="sortType = 'subjectName'; sortReverse = !sortReverse"></i></a></th>
+                  <th><a>Class<i class="fa fa-arrow-down sort" ng-show="!sortReverse" aria-hidden="true"  ng-click="sortType = 'class.className'; sortReverse = !sortReverse"></i><i class="fa fa-arrow-up sort"  ng-show="sortReverse" aria-hidden="true" ng-click="sortType = 'class.className'; sortReverse = !sortReverse"></i></a></th>
+                  <th><a>Teacher<i class="fa fa-arrow-down sort" ng-show="!sortReverse" aria-hidden="true"  ng-click="sortType = 'staff.firstName'; sortReverse = !sortReverse"></i><i class="fa fa-arrow-up sort"  ng-show="sortReverse" aria-hidden="true" ng-click="sortType = 'staff.firstName'; sortReverse = !sortReverse"></i></a></th>-->
+
+        				 <th><a href="javascript:void(0)" ng-click="sortType = 'subjectName'; toggleSort(0);sortReverse = !sortReverse">Subject<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+
+                 <th><a href="javascript:void(0)" ng-click="sortType = 'class.className'; toggleSort(0);sortReverse = !sortReverse">Class<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+
+                 <th><a href="javascript:void(0)" ng-click="sortType = 'staff.firstName'; toggleSort(0);sortReverse = !sortReverse">Teacher<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+
                   <th ng-show="Admin">Exam Enabled</th>
                   <th ng-show="Admin">Action</th>
                 </tr>
@@ -77,7 +84,7 @@
                   <td>{{a.subjectName}}</td>
                   <td ng-show="Admin">{{a.class.className}}-{{a.class.sectionName}}</td>
                   <td ng-hide="Admin">{{a.staff.firstName}} {{a.staff.lastName}}</td>
-                
+
                   <td ng-show="Admin">
 						  <address style="height:0.5px" ng-hide="editsubject">{{a.staff.firstName}} {{a.staff.lastName}}</address>
 						  <select ng-show="editsubject" ng-model="a.staff.id" class="form-control Staff" required>
@@ -94,13 +101,13 @@
               </table>
                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel-footer">
                  <div class="pull-left"> Total Results :{{classList.length}} | Filtered Results : {{filtered.length}}</div>
-                 <div class="pull-right"> 
+                 <div class="pull-right">
                    <button ng-disabled="currentPage == 0" class="pgr"  ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
                   <button ng-disabled="currentPage >= classList.length/pageSize-1" class="pgr" ng-click="currentPage=currentPage+1">Next</button>
                   </div>
                 </div>
                 </div>
-                
+
             </div>
 
         </div>

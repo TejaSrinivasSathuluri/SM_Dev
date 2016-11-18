@@ -35,7 +35,7 @@ angular
            $scope.responseAddAssignment = null;
            $scope.success = false;
             $scope.formData = {};
-            $scope.showAssignments(); 
+            $scope.showAssignments();
           }, 1000 );
 
          }
@@ -65,7 +65,7 @@ angular
 
 
           ngDialog.openConfirm({template: 'addAssignment',
-            scope: $scope 
+            scope: $scope
           }).then(
             function(formData) {
               formData.fromDate = $filter('date')(new Date(formData.fromDate), 'yyyy-MM-dd');
@@ -101,8 +101,8 @@ angular
                 $scope.responseAddAssignment = "Assignment  Record Added Successfully";
                 setTimeout( function()
                 {
-                    $scope.showAssignments(); 
-                   
+                    $scope.showAssignments();
+
                 }, 1000 );
 
               },function(response){
@@ -119,41 +119,41 @@ angular
         });
         }
 
-        
+
         //--------------------------------------------------------
         //                 SHOW ASSIGNMENT LIST
         //--------------------------------------------------------
-       
+
         $scope.assignmentlist = [];
         $scope.showAssignments  = function()
         {
           $scope.assignmentlist = Assignment.find({filter: {where: {schoolId: $scope.schoolId}, include: 'class'}});
           console.log($scope.assignmentlist);
         }
-        $scope.showAssignments(); 
+        $scope.showAssignments();
 
         //--------------------------------------------------------
         //                 DELETE ASSIGNMENT LIST
         //--------------------------------------------------------
         $scope.deleteAssignment = function (x) {
-          var dialog = ngDialog.open({template: 'deleteAssignment'});
+          var dialog = ngDialog.open({template: 'deleteAssignment',closeByDocument: false,className: 'ngdialog-theme-default deletepopup'});
           dialog.closePromise.then(function (data) {
-            if (data.value && data.value != '$document' && data.value != '$closeButton') 
+            if (data.value && data.value != '$document' && data.value != '$closeButton')
 
                Assignment.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")},function(){
-              
-              $scope.successCall('Assignment  Record Deleted Successfully');  
+
+              $scope.successCall('Assignment  Record Deleted Successfully');
               $scope.responseAddAssignment = "Assignment Record Deleted Successfully";
               setTimeout( function()
               {
-                
+
                 $scope.showAssignments();
               }, 1000 );
 
             });
           return true;
         });
-        
+
 
         }
 
@@ -166,10 +166,28 @@ angular
         $scope.searchFish   = '';
         $scope.currentPage = 0;
         $scope.pageSize = 10;
+        $scope.sort = [
+          {
+            sortReverse:false
+          },
+          {
+            sortReverse:false
+          },
+          {
+            sortReverse:false
+          },
+          {
+            sortReverse:false
+          }
+        ];
+
+        $scope.toggleSort = function(index){
+            $scope.sort[index].sortReverse = !$scope.sort[index].sortReverse;
+        }
 
         $scope.numberOfPages=function(){return Math.ceil($scope.assignmentlist.length/$scope.pageSize);}
 
-        
+
          //--------------------------------------------------------
         //                 EDIT ASSIGNMENT LIST
         //--------------------------------------------------------
@@ -177,11 +195,11 @@ angular
           $scope.formData = x;
           $scope.fromDate = $filter('date')(new Date(x.fromDate), 'yyyy-MM-dd');
           $scope.toDate = $filter('date')(new Date(x.toDate), 'yyyy-MM-dd');
-          
+
 
           ngDialog.openConfirm({
             template: 'editAssignment',
-            scope: $scope //Pass the scope object if you need to access in the template
+            scope: $scope,closeByDocument: false,className: 'ngdialog-theme-default editpopup' //Pass the scope object if you need to access in the template
           }).then(
             function (formData) {
               Assignment.findOne
@@ -189,10 +207,10 @@ angular
             {
               filter:{
                   where:{
-                        
+
                          title       : formData.title,
                       //  classId     : formData.classId
-                         
+
                   }
               }
             },
@@ -205,22 +223,22 @@ angular
                   uploadFile: formData.uploadFile
                 },
                 function () {
-               $scope.successCall('Assignment  Record Updated Successfully');  
+               $scope.successCall('Assignment  Record Updated Successfully');
                 $scope.responseAddAssignment = "Assignment Record Updated Successfully";
                 setTimeout( function()
                 {
-                    $scope.showAssignments(); 
-                   
+                    $scope.showAssignments();
+
                 }, 1000 );
               });
           },
           function(value) {
-            $scope.failureCall('Assignment Record Was Not Edited.') ;  
+            $scope.failureCall('Assignment Record Was Not Edited.') ;
             //$scope.responseAddAssignment = "Assignment Record Was Not Edited.Please Fill All Required Fields";
             setTimeout( function()
             {
-                    $scope.showAssignments(); 
-              
+                    $scope.showAssignments();
+
             }, 1000 );
 
           }
@@ -233,17 +251,17 @@ angular
         //--------------------------------------------------------
        else if ($scope.Student)
        {
-       
+
         $scope.assignmentlist = [];
         Student.findOne({filter:{ where :{
           id : $scope.userData.id
         },
                         include:[   { relation :  'class',scope:{
-                              
+
                                        include : [
                                          {
                                            relation :'assignments'
-                                         }                                         
+                                         }
                                        ]
                             }
                            }]
@@ -253,9 +271,9 @@ angular
           $scope.assignmentlist = response.class.assignments;
         });
 
-       
-        
+
+
        }
-      
+
 
     });

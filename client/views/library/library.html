@@ -1,7 +1,7 @@
 <!-------------------------------------DELETE LIBRARY---------------------------------------------->
 <script type="text/ng-template" id="deleteLibrary">
   <div class="ngdialog-message">
-    <h3>Confirm Delete</h3>
+    <h3>Confirm Delete</h3><br>
     <div class="ngdialog-buttons">
       <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog('Yes')">Yes</button>
       <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog()">No</button>
@@ -14,7 +14,7 @@
 <!-------------------------------------EDIT LIBRARY---------------------------------------------->
 <script type="text/ng-template" id="editLibrary">
   <div class="ngdialog-message">
-    <h3>Edit Book</h3>
+    <h3>Edit Book</h3><br>
     <div class="ngdialog-contents">
       <form ng-submit="closeThisDialog(formData)">
         <input  type="text" class="form-control" maxlength="50" minlength="1"    placeholder="Name"   ng-value="name"    ng-model="formData.name" ng-mouseover="tag1=true" required ng-mouseleave="tag1=false"><div class="tag1" ng-show="tag1">Name</div><br>
@@ -56,16 +56,17 @@
 
         <!-- -----------------------------------Search Form-------------------------------->
         <div class="portlet-body" ng-show="!showForm">
-          <div class="row list-separated">
-           
+          <div class="row">
 
 
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                <div>
+               
+                <div class="row">
+                  
                     <div ng-show="error"  class="alert alert-danger">{{response}}</div>
                     <div ng-show="success" class="alert alert-success">{{response}}</div>
                 </div>
-
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12"style="min-height:50px">
                   <input  type="text"   class="form-control" placeholder="Name" 				 ng-model="search.name"        required><br>
                   <input  type="text"   class="form-control" placeholder="Author"    			 ng-model="search.author"      required><br>
@@ -76,17 +77,18 @@
 
         <!-------------------------------------TABLE STARTS---------------------------------------------->
               <!--<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12"  style="height:260px;overflow-y:auto;" >-->
-			        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">       
+			        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                 <table class="table table-bordered table-striped table-condensed flip-content">
                   <!-------------------------------------TABLE HEAD---------------------------------------------->
                             <thead flip-content>
                             <tr>
                               <th>SL.NO</th>
-                              <th><a ng-click="sortType = 'name'; sortReverse = !sortReverse">BookName</a></th>
-                              <th><a ng-click="sortType = 'author'; sortReverse = !sortReverse">Author</a></th>
-                              <th><a ng-click="sortType = 'description'; sortReverse = !sortReverse">Description</a></th>
-                              <th><a ng-click="sortType = 'price'; sortReverse = !sortReverse">Price (Rs)</a></th>
-                              <th><a ng-click="sortType = 'available'; sortReverse = !sortReverse">No.Of Books Available</a></th>
+                             
+                             <th><a href="javascript:void(0)" ng-click="sortType = 'name'; toggleSort(0);sortReverse = !sortReverse">BookName<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+                             <th><a href="javascript:void(0)" ng-click="sortType = 'author'; toggleSort(0);sortReverse = !sortReverse">Author<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+                             <th><a href="javascript:void(0)" ng-click="sortType = 'description'; toggleSort(0);sortReverse = !sortReverse">Description<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+                             <th><a href="javascript:void(0)" ng-click="sortType = 'price'; toggleSort(0);sortReverse = !sortReverse">Price (Rs)<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+                             <th><a href="javascript:void(0)" ng-click="sortType = 'available'; toggleSort(0);sortReverse = !sortReverse">No.Of Books Available<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
                               <th ng-show="Admin">Option</th>
                             </tr>
                             </thead>
@@ -115,13 +117,13 @@
          <!----------------------------------Page Nation-------------------------------------------->
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel-footer">
                         <div class="pull-left"> Total Results :{{ libraryList.length}} |  Filtered Results :{{ filtered.length}}</div>
-                        <div class="pull-right"> 
+                        <div class="pull-right">
                           <button ng-disabled="currentPage == 0" class="pgr"  ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
                           <button ng-disabled="currentPage >= filtered.length/pageSize-1" class="pgr" ng-click="currentPage=currentPage+1">Next</button>
                           </div>
-                        </div>          
-        <!----------------------------------Page Nation-------------------------------------------->        
-				      
+                        </div>
+        <!----------------------------------Page Nation-------------------------------------------->
+
 
             </div>
           </div>

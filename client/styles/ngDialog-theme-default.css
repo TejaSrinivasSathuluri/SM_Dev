@@ -78,6 +78,7 @@
   padding: 1em;
   position: relative;
   width: 900px;
+  top:120px;
 }
 
 .ngdialog.ngdialog-theme-default .ngdialog-close {
@@ -111,6 +112,7 @@
 
 .ngdialog.ngdialog-theme-default .ngdialog-message {
   margin-bottom: .5em;
+  text-align: center;
 }
 
 .ngdialog.ngdialog-theme-default .ngdialog-input {
@@ -188,4 +190,10 @@
 .ngdialog.ngdialog-theme-default .ngdialog-button.ngdialog-button-secondary {
   background: #e0e0e0;
   color: #777;
+}
+.ngdialog-theme-default.deletepopup .ngdialog-content{
+  width:300px;
+}
+.ngdialog-theme-default.editpopup .ngdialog-content {
+  width:350px;
 }

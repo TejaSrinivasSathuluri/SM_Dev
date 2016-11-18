@@ -1,7 +1,7 @@
 angular
   .module('app')
- .controller('ClassController', 
-      function ($scope, Admin, $state, School, Class, Student, Staff, $rootScope, $window,ngDialog) 
+ .controller('ClassController',
+      function ($scope, Admin, $state, School, Class, Student, Staff, $rootScope, $window,ngDialog)
       {
 
         //--------------------------------------------------------
@@ -24,9 +24,9 @@ angular
           }
 
 
-          
+
       // Getting The Data Required For The Class Page
-       
+
         School.findOne({
           filter:{
             where :{
@@ -35,8 +35,8 @@ angular
             include:
             [
                   {
-                      relation: 'classes',scope: 
-                                           { 
+                      relation: 'classes',scope:
+                                           {
                                              include: [
                                                {
                                                  relation :'subjects',scope:{
@@ -46,7 +46,7 @@ angular
                                                {
                                                  relation:'staff'
                                                }
-                                             ] 
+                                             ]
                                              }
                   },
                   {
@@ -69,17 +69,17 @@ angular
         // --------------------------------------------------------
           $scope.showSubjects = function(x)
                 {
-                    $scope.subjects = x.subjects;                      
+                    $scope.subjects = x.subjects;
                     var dialog = ngDialog.open(
                         {
                                 template:'showSubjectList',
                                 scope: $scope
                         });
                     dialog.closePromise.then(function (data) {
-                    if (data.value && data.value != '$document' && data.value != '$escape' && data.value != '$closeButton') 
+                    if (data.value && data.value != '$document' && data.value != '$escape' && data.value != '$closeButton')
                       return true;
                       });
-        
+
                 }
 
 
@@ -96,7 +96,7 @@ angular
                  $state.reload();
 		       }
 
-           
+
           // ----------------------------------------------------
           //   SUCCESS CALL
           //-----------------------------------------------------
@@ -111,7 +111,7 @@ angular
          }
 
 
-         
+
 
          // ----------------------------------------------------
          //   FAILURE CALL
@@ -131,8 +131,8 @@ angular
 
 
 
- 
-          
+
+
 
 
           //--------------------------------------------------------
@@ -149,7 +149,7 @@ angular
           //                  DELETE CLASS
           // --------------------------------------------------------
           $scope.deleteClass = function (x) {
-            var dialog = ngDialog.open({template: 'deleteClass'});
+            var dialog = ngDialog.open({template: 'deleteClass',closeByDocument: false,className: 'ngdialog-theme-default deletepopup'});
             dialog.closePromise.then(function (data) {
               if (data.value && data.value != '$document' && data.value != '$closeButton')
               {
@@ -163,7 +163,7 @@ angular
 
 
 
-        
+
       // --------------------------------------------------------
         //                 SORT TABLE TECHNIQUE
         //--------------------------------------------------------
@@ -173,6 +173,24 @@ angular
         $scope.searchFish   = '';
         $scope.currentPage = 0;
         $scope.pageSize = 6;
+        $scope.sort = [
+          {
+            sortReverse:false
+          },
+          {
+            sortReverse:false
+          },
+          {
+            sortReverse:false
+          },
+          {
+            sortReverse:false
+          }
+        ];
+
+        $scope.toggleSort = function(index){
+            $scope.sort[index].sortReverse = !$scope.sort[index].sortReverse;
+        }
         $scope.numberOfPages=function(){    return Math.ceil($scope.classList.length/$scope.pageSize);}
 
 });

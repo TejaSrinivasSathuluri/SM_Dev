@@ -104,7 +104,7 @@ angular
         //                  PROCESS SEARCH FORM
         // --------------------------------------------------------
         $scope.processSearch = function (searchUser) {
-         console.log(searchUser); 
+         console.log(searchUser);
          $scope.error = false;
           $scope.searchList = [];
 
@@ -147,7 +147,7 @@ angular
 
 
 
-      
+
 
           //--------------------------------------------------------
           //                  CLEAR FORM
@@ -218,8 +218,8 @@ angular
           }
 
 
-          
-   
+
+
 
 
           $scope.addStudentForm = function () {
@@ -229,9 +229,9 @@ angular
                   function () { $scope.response = 'Student Already Exists For This Class With This Roll Number';},
                   function () {
 
-                     
 
-                    $scope.image =  url + '/' + schoolCode + '/' +formData.classId+ '/' + formData.rollNo + '.png';
+
+                    // $scope.image =  "" + '/' + schoolCode + '/' +formData.classId+ '/' + formData.rollNo + '.png';
 
                     $scope.newStudent = Student.create({
                       schoolId        : $scope.schoolId,
@@ -358,14 +358,14 @@ angular
                         }, 1000 );
                       },
                       function (response) {
-                        
+
                         alert('Student Is Not Saved.Please Check The Fields');
                         $scope.error =true ;
                         console.log(response.data.error.message);
                       });
           }
-          
-          
+
+
           //--------------------------------------------------------
           //                 EDIT STUDENT/PARENT/STAFF STARTS
           //--------------------------------------------------------
@@ -379,27 +379,27 @@ angular
 
               $scope.editData.dateofBirth = new Date($scope.editData.dateofBirth);
               $scope.editData.dateofJoin = new Date($scope.editData.dateofJoin);
-              console.log('Editing Student Details'); 
-              
+              console.log('Editing Student Details');
+
 
               ngDialog.openConfirm({
                 template: 'editStudent',
                 scope: $scope
               }).then(
                 function (editData) {
-                   
+
                   if ($scope.classId == editData.classId && $scope.rollNo == editData.rollNo)
                   {
- 
-                     console.log('Updating Student Details'); 
+
+                     console.log('Updating Student Details');
                      updateStudent(editData);
-                    
+
 
                   }
                   else
                   {
                       $scope.studentExists = Student.findOne({filter: {where: {classId:editData.classId,rollNo:editData.rollNo},include:'class'}},
-                      function () 
+                      function ()
                       {
                         $scope.error = true;
                         $scope.response = 'Student Already Exists In Class With Roll No :' + $scope.editData.rollNo;
@@ -409,7 +409,7 @@ angular
                           $scope.$apply();
                         }, 3000 );
                       },
-                      function () 
+                      function ()
                       {
                          updateStudent(editData);
                       });
@@ -418,7 +418,7 @@ angular
 
 
                 },
-                function (value) 
+                function (value)
                 {
                               $state.go($state.current, {}, {reload: true});
                 }
@@ -482,11 +482,11 @@ angular
                     },
                     function () {
                        $scope.response = 'Staff Updated Successfully';
-                       $scope.error =true ;   
+                       $scope.error =true ;
                        setTimeout(function() {
-                          //  $scope.processSearch('t'); 
-                          
-                        }, 1000);                                
+                          //  $scope.processSearch('t');
+
+                        }, 1000);
                     },
                     function (response) {
                       console.log(response.data.error.message);
@@ -495,13 +495,13 @@ angular
                 function (value) {
 
                           $scope.response = 'Staff Not Updated';
-                            $scope.error =true ;   
+                            $scope.error =true ;
                       setTimeout(function() {
-                      $scope.processSearch('t'); 
-                        
-                      }, 1000);        
-                
-                  
+                      $scope.processSearch('t');
+
+                      }, 1000);
+
+
 
                 }
               );
@@ -520,7 +520,7 @@ angular
              if ($scope.formData.type == 'Staff')
              {
                console.log('Staff Gave Remarks');
-               
+
                 Remarks.create({
                   studentId : $scope.formData.id,
                   staffId : $scope.userData.id,
@@ -590,11 +590,11 @@ angular
                       },
                       function () {
                         $scope.response = 'Staff Added Successfully';
-                       $scope.error =true ;   
+                       $scope.error =true ;
                        setTimeout(function() {
                             $state.go($state.current, {}, {reload: true});
-                           $scope.processSearch('t'); 
-                       }, 1000); 
+                           $scope.processSearch('t');
+                       }, 1000);
                       },
                       function (response) {
                         console.log(response.data.error.message);
@@ -610,19 +610,19 @@ angular
           //--------------------------------------------------------
 
           $scope.deleteUser = function (x) {
-            var dialog = ngDialog.open({template: 'deleteUser'});
+            var dialog = ngDialog.open({template: 'deleteUser',closeByDocument: false,className: 'ngdialog-theme-default deletepopup'});
             dialog.closePromise.then(function (data) {
-            
+
               if (data.value && data.value != '$document' && data.value != '$closeButton'&& data.value != '$escape') {
 							   if (x.type == "Student")    {
 										Student.deleteById({id: x.id}, function ()
                     {
                        $scope.response = 'Student Deleted Successfully';
-                       $scope.error =true ;   
+                       $scope.error =true ;
                        setTimeout(function() {
                             $state.go($state.current, {}, {reload: true});
-                           $scope.processSearch('s'); 
-                       }, 1000);                                             
+                           $scope.processSearch('s');
+                       }, 1000);
 												});
 
                   }
@@ -659,12 +659,12 @@ angular
                 else if (x.type == "Staff") {
                   Staff.deleteById({id: x.id}, function () {
                      $scope.response = 'Staff Deleted Successfully';
-                            $scope.error =true ;   
+                            $scope.error =true ;
                       setTimeout(function() {
                             $state.go($state.current, {}, {reload: true});
-                      $scope.processSearch('t'); 
-                        
-                      }, 1000);   
+                      $scope.processSearch('t');
+
+                      }, 1000);
                   });
                 }
               }
@@ -673,20 +673,20 @@ angular
             });
 
           }
-        
 
- 
+
+
         //--------------------------------------------------------
         //                 SHOW USER
         //--------------------------------------------------------
 
-        $scope.showUser = function (x) 
+        $scope.showUser = function (x)
         {
           $scope.tab = 1;
           $scope.setTab = function(newTab){  $scope.tab = newTab; };
           $scope.isSet = function(tabNum){   return $scope.tab === tabNum; };
           $scope.formData =x;
-          if      (x.type =='Student')   
+          if      (x.type =='Student')
                   {
                       // monthView(x);
                       ngDialog.openConfirm({template: 'showStudent', scope: $scope});
@@ -696,11 +696,11 @@ angular
         }
 
         //  ------------------------------------------------------
-        //               
+        //
         // --------------------------------------------------------
 
 
-              monthView = function(x) 
+              monthView = function(x)
               {
 
                       // $scope.monthList =[];
@@ -717,13 +717,13 @@ angular
                                         var i=0;
                                         response.forEach(function(data)
                                         {
-                                              $scope.list[i] = data.toJSON();  
+                                              $scope.list[i] = data.toJSON();
                                               console.log($scope.list);
                                               i++;
                                           // if(data.day) $scope.count[i]=dayCount++;
                                           // console.log($scope.count[i]);
                                         });
-                                   
+
                             });
                           //  -----------
 
@@ -744,25 +744,25 @@ angular
         //--------------------------------------------------------
         $scope.addParentSubscription = function (x) {
            var dialog = ngDialog.open({template: 'parentSubscription'});
-            dialog.closePromise.then(function (data) 
+            dialog.closePromise.then(function (data)
             {
               parentEmail = data.value.parentEmail.toLowerCase();
               if (data.value && data.value != '$document' && data.value != '$closeButton'&& data.value != '$escape') {
-                 var message = null;          
+                 var message = null;
                 Parent.create({
                   email :parentEmail,password :"parent"
                 },function()
                 {
                     message = 'Welcome To Study Monitor.Your default password is parent.Please subscribe to your child ' + x.firstName + ' ' + x.lastName + ' '+ window.location.origin + '/#/signup' + ' using the following Key : ' + x.id ;
-                   
+
                   sendSubscriptionEmail(parentEmail,x,message);
 
                 },function(){
                     message = "Please subscribe to your child " + x.firstName + ' ' + x.lastName +' '+  window.location.origin + "/#/signup" + " using the following Key : " + x.id ;
-                  
+
                   sendSubscriptionEmail(parentEmail,x,message);
                 })
-                
+
               }
 
               return true;
@@ -778,7 +778,7 @@ angular
           sendSubscriptionEmail = function(email,x,message) {
             subject = 'Student Subscription From ' + $scope.school.schoolName;
                   Mail.create({
-                   
+
                         email : email.toLowerCase(),
                         message : message,
                         subject:subject,
@@ -786,8 +786,8 @@ angular
                   },function(){},function(response){
                     console.log(response.data.error.message);
                   });
-             
-            
+
+
           }
 
 

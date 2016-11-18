@@ -2,17 +2,17 @@ angular.module('app')
 .controller('SubjectController',
     ['$scope', 'Admin', '$state', 'School', 'Class', 'Student', 'Staff', 'Subject', '$rootScope', '$window','ngDialog',
       function ($scope, Admin, $state, School, Class, Student, Staff, Subject, $rootScope, $window,ngDialog) {
-       
+
         $scope.user = $window.localStorage.getItem('user');
         $scope.userData = JSON.parse($scope.user);
-       
+
         $scope.schoolId = $scope.userData.schoolId;
-       
+
         if ($scope.userData.type == 'Admin') { $scope.Admin = true;}
         if ($scope.userData.type == 'Student') { $scope.Student = true;}
         if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
         if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
-         
+
           $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
           var data;
 
@@ -47,7 +47,7 @@ angular.module('app')
             $scope.subjectList = Subject.find({filter: {where:{schoolId: $scope.schoolId},include: ['staff', 'class']}});
           }
 
-          
+
           $scope.showSubject();
           $scope.successCallSubject = function(message) {
             $scope.responseAddSubject = message;
@@ -61,15 +61,15 @@ angular.module('app')
           $scope.failureCallSubject = function() {
             $scope.error = true;
             $scope.success = false;
-            setTimeout(function() 
+            setTimeout(function()
             {
             $scope.error = false;
             $scope.showSubject();
-            }, 1000);  
+            }, 1000);
         }
 
 
-         
+
 
 
           $scope.updateSubject = function (a) {
@@ -85,7 +85,7 @@ angular.module('app')
 
           $scope.deleteSubject = function (x) {
 
-            var dialog = ngDialog.open({template: 'deleteSubject'});
+            var dialog = ngDialog.open({template: 'deleteSubject',closeByDocument: false,className: 'ngdialog-theme-default deletepopup'});
             dialog.closePromise.then(function (data) {
 
               if (data.value && data.value != '$document' && data.value != '$closeButton') {
@@ -99,7 +99,7 @@ angular.module('app')
           }
 
           $scope.addExamEligibility = function(a){
-          
+
               Subject.prototype$updateAttributes(
                 {
                   id : a.id,
@@ -112,7 +112,7 @@ angular.module('app')
 
 
             $scope.subjectList =[];
-         
+
          Student.findOne({filter:{
            where :{
              id : $scope.userData.id
@@ -139,10 +139,10 @@ angular.module('app')
            ]
          }},function(response)
          {
-              $scope.classData = response.class; 
+              $scope.classData = response.class;
               $scope.subjectList = response.class.subjects;
          });
-         
+
         }
 	    	// --------------------------------------------------------
         //                 SORT TABLE TECHNIQUE
@@ -153,6 +153,24 @@ angular.module('app')
         $scope.searchFish   = '';
         $scope.currentPage = 0;
         $scope.pageSize = 8;
+        $scope.sort = [
+          {
+            sortReverse:false
+          },
+          {
+            sortReverse:false
+          },
+          {
+            sortReverse:false
+          },
+          {
+            sortReverse:false
+          }
+        ];
+
+        $scope.toggleSort = function(index){
+            $scope.sort[index].sortReverse = !$scope.sort[index].sortReverse;
+        }
         $scope.numberOfPages=function(){    return Math.ceil($scope.filtered.length/$scope.pageSize);}
 
 

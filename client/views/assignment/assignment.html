@@ -1,7 +1,7 @@
 
 <script type="text/ng-template" id="deleteAssignment">
   <div class="ngdialog-message">
-    <h3>Confirm Delete</h3>
+    <h3>Confirm Delete</h3><br>
     <div class="ngdialog-buttons">
       <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog('Yes')">Yes</button>
       <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog()">No</button>
@@ -11,8 +11,8 @@
 
 <script type="text/ng-template" id="editAssignment">
   <div class="ngdialog-message">
-    <h3>Edit Assignment</h3>
-   
+    <h3>Edit Assignment</h3><br>
+
     <form>
 
       <input  type="text" class="form-control" placeholder="Title" ng-value="title" ng-model="formData.title"><br>
@@ -79,14 +79,14 @@
 
         <!-- -----------------------------------Search Form-------------------------------->
         <div class="portlet-body" ng-show="!showForm">
-          <div class="row list-separated">
-          
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="row">
+
+                <div>
                     <div class="alert alert-success"  ng-show ="success"   >{{responseAddAssignment}} </div>
 			               <div  class="alert alert-danger" ng-show ="error" >{{responseAddAssignment}} </div>
                 </div>
 
+        <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <form>
 
@@ -104,17 +104,19 @@
 
               </form>
 
-                   
-              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12"   style="height:260px;overflow-y:auto;" > 
+
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12"   style="height:260px;overflow-y:auto;" >
                 <table class="table table-bordered table-striped table-condensed flip-content">
                   <thead flip-content>
                   <tr>
                     <th>SL.No</th>
-                    <th><a ng-click="sortType = 'title'; sortReverse = !sortReverse">Title</a></th>
-					          <th><a ng-click="sortType = 'class.className'; sortReverse = !sortReverse">Class</a></th>
-                    <th><a ng-click="sortType = 'description'; sortReverse = !sortReverse">Description</a></th>
-                    <th><a ng-click="sortType = 'fromDate'; sortReverse = !sortReverse">From  Date</a></th>
-                    <th><a ng-click="sortType = 'toDate'; sortReverse = !sortReverse">To  Date</a></th>
+
+                   
+                  <th><a href="javascript:void(0)" ng-click="sortType = 'title'; toggleSort(0);sortReverse = !sortReverse">Title<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+                  <th><a href="javascript:void(0)" ng-click="sortType = 'class.className'; toggleSort(0);sortReverse = !sortReverse">Class<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+                  <th><a href="javascript:void(0)" ng-click="sortType = 'description'; toggleSort(0);sortReverse = !sortReverse">Description<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+                  <th><a href="javascript:void(0)" ng-click="sortType = 'fromDate'; toggleSort(0);sortReverse = !sortReverse">From Date<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+                  <th><a href="javascript:void(0)" ng-click="sortType = 'toDate'; toggleSort(0);sortReverse = !sortReverse">To Date<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
                     <!--<th>File</th>-->
                     <th ng-show="Admin || Staff">Option</th>
                   </tr>
@@ -136,16 +138,16 @@
                   </tr>
                   </tbody>
                 </table>
-                 
+
                 <!----------------------------------Page Nation-------------------------------------------->
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel-footer">
                         <div class="pull-left"> Total Results :{{ assignmentlist.length}}||Filtered Results :{{ filtered.length}}</div>
-                        <div class="pull-right"> 
+                        <div class="pull-right">
                           <button ng-disabled="currentPage == 0" class="pgr"  ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
                           <button ng-disabled="currentPage >= filtered.length/pageSize-1" class="pgr" ng-click="currentPage=currentPage+1">Next</button>
                           </div>
-                        </div>          
-                <!----------------------------------Page Nation-------------------------------------------->     
+                        </div>
+                <!----------------------------------Page Nation-------------------------------------------->
                 </div>
 
             </div>

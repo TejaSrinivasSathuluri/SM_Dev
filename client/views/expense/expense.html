@@ -1,27 +1,18 @@
 <!--------------------------------------------------EDIT SECTION---------------------------------------------->
 <!-----------------------------------EDIT EXPENSE PAYMENT TYPE-------------------------->
-<!--<script type="text/ng-template" id="editExpensePayment">
+<script type="text/ng-template" id="editExpensePayment">
   <div class="ngdialog-message">
-    <h3>Edit Expense Payment</h3>
     <form ng-submit=closeThisDialog(editData) >
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <input ng-model="editData.expenseType" placeholder="Expense Type*" class="form-control" type="text" required/>
-        <br>
-        <input ng-model="editData.description" class="form-control"  placeholder="Description*" type="text" required/><br>
-        <input type="text" ng-calendar format="%d-%m-%Y"  ng-model="editData.date"  placeholder="Date" class="form-control" required><br>
-
-        <input type="number" class="form-control" ng-disabled="false" max="100000" min="1" ng-model="editData.amount" required><br>
-
-        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">  <button type="submit" class="btn btn-success uppercase">Save Expense Payment</button></div>
-      </div>
-
-
-
+      <h3>Edit Expense Payment</h3><br>
+      <input ng-model="editData.expenseType" placeholder="Expense Type*" class="form-control" type="text" required/>
+      <br>
+      <input ng-model="editData.description" class="form-control"  placeholder="Description*" type="text" required/><br>
+      <input type="date"  max="9999-12-31" max="0001-01-01"  class="form-control"  ng-model="editData.date" ng-value="feeDate" required><br>
+      <input type="number" class="form-control" ng-disabled="false" max="100000" min="1" ng-model="editData.amount" required><br>
+      <button type="submit" class="btn btn-success uppercase">Save</button>
     </form>
-    <div class="ngdialog-buttons">
-    </div>
   </div>
-</script>-->
+</script>
 <!-----------------------------------EDIT EXPENSE PAYMENT-------------------------->
 <!---------------------------------------------------------------------EDIT SECTION---------------------------------------------->
 
@@ -43,7 +34,7 @@
 
 
 
- 
+
 <!---------------------------------------Main Block---------------------------->
 <div class="container">
   <div class="row margin-top-10">
@@ -57,33 +48,45 @@
           </div>
 
         </div>
- 
-        <div class="row list-separated">
-          
-        
+
+        <div class="row ">
+
+
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div ng-show="error"  class="alert alert-danger">{{response}}</div>
                     <div ng-show="success" class="alert alert-success">{{response}}</div>
                 </div>
-                          
-                           
-                            
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
-            <div class="form-group col-lg-3 col-md-3 col-sm-12 col-xs-12">    
-               
+
+
+      <div class="row"> 
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group col-lg-3 col-md-3 col-sm-12 col-xs-12">
+
                  <input  type="text" class="form-control" placeholder="Expense Type" ng-model="search1.expenseType"><br>
-                 <input  type="text" class="form-control" placeholder="Description" ng-model="search1.description"><br>           
-            </div>              
+                 <input  type="text" class="form-control" placeholder="Description" ng-model="search1.description"><br>
+            </div>
             <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-              
-                    
+
+
                 <table class="table table-bordered table-striped table-condensed flip-content">
                 <thead flip-content>
                 <tr>
-                  <th><a ng-click="sortType = 'expenseType'; sortReverse = !sortReverse">Expense Type</a></th>
-                  <th><a ng-click="sortType = 'description'; sortReverse = !sortReverse">Description</a></th>
-                  <th><a ng-click="sortType = 'date'; sortReverse = !sortReverse">Expense Date</a></th>
-                  <th><a ng-click="sortType = 'amount'; sortReverse = !sortReverse">Expense Amount</a></th>
+                  <!--<th><a ng-click="sortType = 'expenseType'; sortReverse = !sortReverse">Expense Type</a></th>-->
+                  <!--<th><a>Expense Type<i class="fa fa-arrow-down sort" ng-show="!sortReverse" aria-hidden="true"  ng-click="sortType = 'expenseType'; sortReverse = !sortReverse"></i><i class="fa fa-arrow-up sort"  ng-show="sortReverse" aria-hidden="true" ng-click="sortType = 'expenseType'; sortReverse = !sortReverse"></i></a></th>
+
+                  <th><a>Description<i class="fa fa-arrow-down sort" ng-show="!sortReverse" aria-hidden="true"  ng-click="sortType = 'description'; sortReverse = !sortReverse"></i><i class="fa fa-arrow-up sort"  ng-show="sortReverse" aria-hidden="true" ng-click="sortType = 'description'; sortReverse = !sortReverse"></i></a></th>
+                  <th><a>Date<i class="fa fa-arrow-down sort" ng-show="!sortReverse" aria-hidden="true"  ng-click="sortType = 'date'; sortReverse = !sortReverse"></i><i class="fa fa-arrow-up sort"  ng-show="sortReverse" aria-hidden="true" ng-click="sortType = 'date'; sortReverse = !sortReverse"></i></a></th>
+                  <th><a>Amount<i class="fa fa-arrow-down sort" ng-show="!sortReverse" aria-hidden="true"  ng-click="sortType = 'amount'; sortReverse = !sortReverse"></i><i class="fa fa-arrow-up sort"  ng-show="sortReverse" aria-hidden="true" ng-click="sortType = 'amount'; sortReverse = !sortReverse"></i></a></th>-->
+                  <th><a href="javascript:void(0)" ng-click="sortType = 'expenseType'; toggleSort(0);sortReverse = !sortReverse">Expense Type<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+                  <th><a href="javascript:void(0)" ng-click="sortType = 'description'; toggleSort(1);sortReverse = !sortReverse">Description<i class="fa fa-arrow-down sort" ng-show="!sort[1].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[1].sortReverse" aria-hidden="true"></i></a></th>
+                  <th><a href="javascript:void(0)" ng-click="sortType = 'date'; toggleSort(2);sortReverse = !sortReverse">Expense Date<i class="fa fa-arrow-down sort" ng-show="!sort[2].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[2].sortReverse" aria-hidden="true"></i></a></th>
+                  <th><a href="javascript:void(0)" ng-click="sortType = 'amount'; toggleSort(3);sortReverse = !sortReverse">Expense Amount<i class="fa fa-arrow-down sort" ng-show="!sort[3].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[3].sortReverse" aria-hidden="true"></i></a></th>
+
+
+
+                  <!--<th><a ng-click="sortType = 'description'; sortReverse = !sortReverse">Description</a></th>-->
+                  <!--<th><a ng-click="sortType = 'date'; sortReverse = !sortReverse">Expense Date</a></th>-->
+                  <!--<th><a ng-click="sortType = 'amount'; sortReverse = !sortReverse">Expense Amount</a></th>-->
                   <th ng-show="Admin">Action</th>
                 </tr>
                 </thead>
@@ -94,7 +97,7 @@
                     <td>{{x.description}}</td>
                     <td>{{x.date}} </td>
                     <td>{{x.amount}}</td>
-                    <td ng-show="Admin">
+                    <td ng-show="Admin" class="actions">
                       <i class="fa fa-pencil-square-o" aria-hidden="true" ng-click="editExpensePayment(x)"></i>
                       <i class="fa fa-trash-o" aria-hidden="true"  ng-click="deleteExpensePayment(x)"></i>
 
@@ -104,10 +107,10 @@
                 </tr>
                 </tbody>
               </table>
-            
 
-            
-        
+
+
+
             <!--<div class="pull-left">
               Total Results :{{ expensePaymentList.length}} |  Filtered Results :{{ filtered.length}}
             </div>
@@ -118,14 +121,14 @@
             </div>-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel-footer">
                  <div class="pull-left"> Total Results :{{expensePaymentList.length}} | Filtered Results : {{filtered.length}}</div>
-                 <div class="pull-right"> 
+                 <div class="pull-right">
                    <button ng-disabled="currentPage == 0" class="pgr"  ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
                   <button ng-disabled="currentPage >= expensePaymentList.length/pageSize-1" class="pgr" ng-click="currentPage=currentPage+1">Next</button>
                   </div>
                 </div>
             </div>
             </div>
-
+      </div>
             </div>
 
 

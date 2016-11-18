@@ -9,14 +9,14 @@ angular.module('app')
       if ($scope.userData.type == 'Parent') { $scope.Parent = true;}
       if ($scope.userData.type == 'Staff') { $scope.Staff = true;}
       $scope.school = School.findById({id:$scope.schoolId},function() {$rootScope.image = $scope.school.image;});
-       
+
 
       //-----------------------------------
       // TOOL TIP
       //------------------------------------
-  
+
       $(document).ready(function(){  $('[data-toggle="tooltip"]').tooltip(); });
-      
+
 
       //-----------------------------------
       // TABS CODE
@@ -46,13 +46,13 @@ angular.module('app')
                 $scope.error = true;
                 $scope.success=false;
                 setTimeout( function()
-                            {         
+                            {
                               $scope.error=false;
                               $scope.responseAddBus = null;
                               // $scope.formData = null;
                               $scope.showBus();
                             }, 2000 );
-                          
+
         }
 
 
@@ -65,20 +65,20 @@ angular.module('app')
                 $scope.error = false;
                 $scope.success=true;
                 setTimeout( function()
-                            {         
+                            {
                               $scope.success=false;
                               $scope.responseAddBus = null;
                               $scope.formData = null;
                               $scope.showBus();
                             }, 1000 );
-                          
+
         }
 
 
       // ----------------------------------------------------
       //   SUCCESS CALL
       //-----------------------------------------------------
-      
+
       $scope.successCallBus = function(){
         setTimeout( function()
         {
@@ -112,12 +112,12 @@ angular.module('app')
                   where:{
                         schoolId:$scope.schoolId,
                           busNo      :$scope.formData.busNo
-                       
+
                   }
               }
             },
           function(){
-           successCall('Bus Number Already exist'); 
+           successCall('Bus Number Already exist');
           },function(){
               Bus.create(
                      {
@@ -128,7 +128,7 @@ angular.module('app')
                      },
                      function()
                      {
-                        successCall('Bus Added Successfully');                       
+                        successCall('Bus Added Successfully');
                         $scope.responseAddBus = 'Bus Added Successfully';
                         $scope.successCallBus();
                      },
@@ -143,17 +143,17 @@ angular.module('app')
 
       });
       }
-      
-      
+
+
       // ----------------------------------------------------
       //                         EDIT BUS
       //-----------------------------------------------------
-      
-       $scope.editBus = function (x) 
+
+       $scope.editBus = function (x)
        {
-		  
+
                       $scope.editData=x;
-                      ngDialog.openConfirm({template: 'editBus',scope: $scope }).then(
+                      ngDialog.openConfirm({template: 'editBus',scope: $scope,closeByDocument: false,className: 'ngdialog-theme-default editpopup' }).then(
                                     function(editData) {
                                                          Bus.upsert({id         : x.id,
                                                                     busNo      :editData.busNo,
@@ -161,7 +161,7 @@ angular.module('app')
                                                                     busCapacity:editData.busCapacity},
                                                              function () {
                                                                         successCall(' Bus Updated Successfully');
-                                                          
+
                                                                  },function(response){
                                                                         failureCall('Bus Number Alread Exists');
                                                                  });
@@ -183,7 +183,7 @@ angular.module('app')
         $scope.deleteBus = function(x)
         {
 
-          var dialog = ngDialog.open({template: 'deleteBus'});
+          var dialog = ngDialog.open({template: 'deleteBus' ,closeByDocument: false,className: 'ngdialog-theme-default deletepopup'});
           dialog.closePromise.then(function (data) {
             if (data.value && data.value != '$document' && data.value != '$closeButton')
 
@@ -200,17 +200,35 @@ angular.module('app')
 
 
       }
-   
-   
+
+
      //----------------------------------------------
      //               SORT TABLE TECHNIQUE
      //----------------------------------------------
 
-      $scope.sortType     = 'title';
-      $scope.sortReverse  = false;
-      $scope.searchFish   = '';
-      $scope.currentPage = 0;
-      $scope.pageSize = 10;
+        $scope.sortType     = 'title';
+        $scope.sortReverse  = false;
+        $scope.searchFish   = '';
+        $scope.currentPage = 0;
+        $scope.pageSize = 10;
+        $scope.sort = [
+          {
+            sortReverse:false
+          },
+          {
+            sortReverse:false
+          },
+          {
+            sortReverse:false
+          },
+          {
+            sortReverse:false
+          }
+        ];
+
+        $scope.toggleSort = function(index){
+            $scope.sort[index].sortReverse = !$scope.sort[index].sortReverse;
+        }
       $scope.numberOfPages=function(){    return Math.ceil($scope.busList.length/$scope.pageSize);}
 
       //**************************************BUS CORNER************************************
@@ -220,13 +238,13 @@ angular.module('app')
       //**************************************SERVICE CORNER************************************
 
 
-      $scope.addRoutes = false; 
+      $scope.addRoutes = false;
 
       //-----------------------------------------------------
       //   CLEAR RESPONSE
       //-----------------------------------------------------
-      $scope.clearResponseBusService  = function() { 
-        $scope.responseAddBusService = null; 
+      $scope.clearResponseBusService  = function() {
+        $scope.responseAddBusService = null;
       }
 
       // -----------------------------------------------------
@@ -256,10 +274,10 @@ angular.module('app')
       // -----------------------------------------------------
       //   ADD ROUTE
       //-----------------------------------------------------
-      $scope.addRecipient = function (receiver) 
+      $scope.addRecipient = function (receiver)
       {
             if (receiver.location.length == 0)  alert('Please Fill All The Fields');
-            else 
+            else
             {
               $scope.receivers.push({location: "", duration: "",fee:"",pickUpTime:""});
             }
@@ -270,11 +288,11 @@ angular.module('app')
       //   DELETE ROUTE
       //-----------------------------------------------------
 
-      $scope.deleteRecipient = function (receiver) 
+      $scope.deleteRecipient = function (receiver)
       {
-          for (var i = 1; i < $scope.receivers.length; i++) 
+          for (var i = 1; i < $scope.receivers.length; i++)
           {
-            if ($scope.receivers[i] === receiver) 
+            if ($scope.receivers[i] === receiver)
             {
               $scope.receivers.splice(i, 1);
               break;
@@ -289,7 +307,7 @@ angular.module('app')
     }
       $scope.saveRoutes = function ()
         {
-            
+
             if ($scope.receivers[$scope.receivers.length - 1].location == 0){
                 alert('Please Fill All The Fields');
             }
@@ -313,7 +331,7 @@ angular.module('app')
                         serviceDropTime2  :$scope.formData.serviceDropTime2    ,
                         serviceRoutes     : $scope.receivers
                     },function(){
-                        $scope.addRoutes = false; 
+                        $scope.addRoutes = false;
                         $scope.response = "Bus Service Created Successfully";
                         $scope.successCallBusService();
                     },function(response){
@@ -334,7 +352,7 @@ angular.module('app')
       $scope.deleteBusService = function(x)
       {
 
-        var dialog = ngDialog.open({template: 'deleteBus'});
+        var dialog = ngDialog.open({template: 'deleteBus' ,closeByDocument: false,className: 'ngdialog-theme-default deletepopup'});
         dialog.closePromise.then(function (data) {
           if (data.value && data.value != '$document' && data.value != '$closeButton')
 
@@ -386,7 +404,7 @@ angular.module('app')
       }
       $scope.showBusService();
 
-      
+
 
       $scope.showRoutes = function(x)
       {
@@ -407,7 +425,7 @@ angular.module('app')
             var duration                = x.serviceRoutes[i].duration;
             $scope.startTimeDrop[i]     = new Date(new Date(x.serviceStartTime2).getTime() - (330-duration)*60000);
             $scope.startTime[i]     =     new Date(new Date(x.serviceStartTime1).getTime() - (330-duration)*60000);
-            $scope.routeDetails[i] = 
+            $scope.routeDetails[i] =
                       {
                         startLocation     : $scope.startLocation[i],
                         startTime         : $scope.startTime[i],
@@ -445,7 +463,7 @@ angular.module('app')
                 $scope.successCallSubscription();
       }
 
-      
+
       $scope.addSubscription = function(){
           BusSubscription.create(
               {
@@ -481,7 +499,7 @@ angular.module('app')
 
     }
 $scope.showSubscription = function(){
- $scope.busSubscriptionList = 
+ $scope.busSubscriptionList =
 BusSubscription.find({filter:{where:{schoolId:$scope.schoolId},include:[{relation:'busService'},{relation:'student',scope:{include:{relation:'class'}}}]}});
 }
         $scope.showSubscription();
@@ -494,4 +512,3 @@ BusSubscription.find({filter:{where:{schoolId:$scope.schoolId},include:[{relatio
 
  })
   ;
-  

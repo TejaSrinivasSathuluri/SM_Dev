@@ -6,7 +6,7 @@
       <div class="col-sm-12">
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
           <input  type="text" class="form-control" maxlength ="15" placeholder="GradeName" ng-model="editData.gradeName"  required>
-                    
+
         </div>
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 
@@ -31,7 +31,7 @@
 </script>
 <script type="text/ng-template" id="deleteGrade">
   <div class="ngdialog-message">
-    Confirm Delete
+    <h3>Confirm Delete</h3><br>
     <div class="ngdialog-buttons">
       <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog('Yes')">Yes</button>
       <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog()">No</button>
@@ -52,32 +52,32 @@
         <!-- -----------------------------------Search Form-------------------------------->
         <div class="portlet-body" ng-show="!showForm">
           <div class="row list-separated">
-            
+
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-success" ng-show="success"> {{responseGrade}}</div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-danger" ng-show="error"> {{responseGrade}}</div>
             </div>
-            <div  class="col-sm-12 col-xs-12 col-lg-12 col-md-12 mbtm">    
+            <div  class="col-sm-12 col-xs-12 col-lg-12 col-md-12 mbtm">
               <form ng-submit="addGrade()" ng-hide='Student'>
               <div class="col-sm-12 col-xs-12 col-lg-3 col-md-3 mbtm">
               <input  type="text" class="form-control" maxlength ="15" placeholder="GradeName" ng-model="formData.gradeName"  required><br>
               <input  type="number" class="form-control" placeholder="GradePoint" minlength ="1" maxlength="2"  min="1" max="10" ng-model="formData.gradePoint"  required><br>
               <input  type="number" class="form-control" min="1" max="100" minlength="1" maxlength="3" placeholder="From %" ng-model="formData.percentageRangeFrom"  required><br>
-              <input  type="number" class="form-control" max="100" minlength="1" maxlength="3" placeholder="To %" ng-model="formData.percentageRangeTo" min="{{formData.percentageRangeFrom}}" required><br>        
+              <input  type="number" class="form-control" max="100" minlength="1" maxlength="3" placeholder="To %" ng-model="formData.percentageRangeTo" min="{{formData.percentageRangeFrom}}" required><br>
               <button type="submit"  class="btn btn-success uppercase">Add Grade</button> <br> <br>
-              </div> 
+              </div>
               </form>
               <div class="form-group col-lg-9 col-md-9 col-sm-12 col-xs-12">
                   <label for="inputEmail3" class="col-sm-3 col-form-label">Search By</label>
                   <div class="form-group col-sm-3 col"> <input  type="text" class="form-control" placeholder="GradeName" ng-model="search.gradeName"></div>
-                  <div class="form-group col-sm-3 col"> <input  type="text" class="form-control" placeholder="Grade Point" ng-model="search.gradePoint"></div>           
-              </div>  
-               
+                  <div class="form-group col-sm-3 col"> <input  type="text" class="form-control" placeholder="Grade Point" ng-model="search.gradePoint"></div>
+              </div>
+
 
 <!--Grades Table Starts-->
               <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-                                    
+
                 <table class="table table-bordered table-striped table-condensed flip-content">
                   <thead flip-content>
                   <tr>
@@ -97,7 +97,7 @@
                       <td>{{x.gradePoint}}</td>
                       <td>{{x.percentageRangeFrom}}%</td>
                       <td>{{x.percentageRangeTo}}%</td>
-                      
+
                     <td ng-show="Admin">{{x.option}}
                         <i class="fa fa-pencil-square-o" ng-click="editGrade(x)"></i>
                         <i class="fa fa-trash-o"  ng-click="deleteGrade(x)"></i>
@@ -110,20 +110,20 @@
                 <!----------------------------------Page Nation-------------------------------------------->
                                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel-footer">
                                     <div class="pull-left"> Total Results: {{gradesList.length}}|Filtered Results :{{ filtered.length}}</div>
-                                        <div class="pull-right"> 
+                                        <div class="pull-right">
                                         <button ng-disabled="currentPage == 0" class="pgr"  ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
                                         <button ng-disabled="currentPage >= filtered.length/pageSize-1" class="pgr" ng-click="currentPage=currentPage+1">Next</button>
                                       </div>
-                                  </div>          
-                <!----------------------------------Page Nation-------------------------------------------->  
-                
-               
+                                  </div>
+                <!----------------------------------Page Nation-------------------------------------------->
+
+
               </div>
               </div>
           </div>
 <!--Grades Table Ends-->
-              
-             
+
+
 
 
             </div>

@@ -33,7 +33,7 @@ angular
          }
 
 
-         
+
 
          // ----------------------------------------------------
          //   failure CALL
@@ -52,20 +52,20 @@ angular
 
          }
 
-        
+
       $scope.clearResponse = function(){
                           $scope.responseAddLibrary= null;
                           $scope.error= false;
                           $scope.success = false;
                           $scope.formData = null;
-        
+
       }
       // -------------------------------------------------------------------------------------
       // SHOW LIBRARY
       // --------------------------------------------------------------------------------------
-      
+
       $scope.libraryList = [];
-  
+
       $scope.showBooks  = function()
       {
         $scope.libraryList = Library.find({filter: {where: {schoolId: $scope.schoolId}}});
@@ -74,14 +74,14 @@ angular
       // -------------------------------------------------------------------------------------
       // SHOW LIBRARY
       // --------------------------------------------------------------------------------------
-      
+
       // -------------------------------------------------------------------------------------
       // DELETE LIBRARY
       // --------------------------------------------------------------------------------------
 
-      $scope.deleteLibrary = function (x) 
+      $scope.deleteLibrary = function (x)
       {
-         var dialog = ngDialog.open({template: 'deleteLibrary'});
+         var dialog = ngDialog.open({template: 'deleteLibrary',closeByDocument: false,className: 'ngdialog-theme-default deletepopup'});
          dialog.closePromise.then(function (data) {
           if (data.value && data.value != '$document' && data.value != '$closeButton') {
             Library.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")},function()
@@ -96,7 +96,7 @@ angular
       // DELETE LIBRARY
       // --------------------------------------------------------------------------------------
 
-      
+
 
       // -------------------------------------------------------------------------------------
       // EDIT LIBRARY
@@ -109,17 +109,17 @@ angular
 		    $scope.formData.description= x.description;
 		    $scope.formData.price= x.price;
 		    $scope.formData.available= x.available;
-		   var library = ngDialog.open({template: 'editLibrary',scope: $scope });
+		   var library = ngDialog.open({template: 'editLibrary',scope: $scope,closeByDocument: false,className: 'ngdialog-theme-default editpopup' });
         library.closePromise.then
         (
-             function(data) 
-             {   
+             function(data)
+             {
                      if (data.value != '$document' && data.value != '$closeButton'  && data.value != '$escape' && data.value != 'Cancel'){
-                                  
+
                                   formData = data.value;
                                   if (x.author == formData.author && x.name == formData.name)
-                                  { 
-                                            
+                                  {
+
                                               Library.upsert({
                                                 id:x.id, name: formData.name, author: formData.author,
                                                 description: formData.description, price: formData.price, available: formData.available
@@ -129,7 +129,7 @@ angular
                                               },function(){
                                                       $scope.failureCall('Book Not Edited');
                                               });
- 
+
                                   }
                                   else
                                   {
@@ -138,7 +138,7 @@ angular
                                             {
                                                         //  console.log('Book and Author Combination Already Exists');
                                                          $scope.successCall('Book & Author Combination Already Exists');
-                                            }, 
+                                            },
                                             function () {
                                                         // console.log('Adding A Book With Author And Name Changed');
                                                         Library.upsert({
@@ -156,10 +156,10 @@ angular
                                   }
                      }
                      else{
-                                  
+
                           $scope.failureCall('Book Not Edited');
                      }
-      
+
               });
 
       }
@@ -172,11 +172,29 @@ angular
       // SORTING
       // --------------------------------------------------------------------------------------
 
-        $scope.sortType     = 'className';
+       $scope.sortType     = 'className';
         $scope.sortReverse  = false;
         $scope.searchFish   = '';
         $scope.currentPage = 0;
         $scope.pageSize = 8;
+        $scope.sort = [
+          {
+            sortReverse:false
+          },
+          {
+            sortReverse:false
+          },
+          {
+            sortReverse:false
+          },
+          {
+            sortReverse:false
+          }
+        ];
+
+        $scope.toggleSort = function(index){
+            $scope.sort[index].sortReverse = !$scope.sort[index].sortReverse;
+        }
         $scope.numberOfPages=function(){    return Math.ceil($scope.libraryList.length/$scope.pageSize);}
       // -------------------------------------------------------------------------------------
       // SORTING

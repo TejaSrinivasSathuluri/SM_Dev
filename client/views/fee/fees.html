@@ -1,7 +1,7 @@
 <!--Delete Fee Script-->
 <script type="text/ng-template" id="deleteFee">
   <div class="ngdialog-message">
-    Confirm Delete
+    <h3>Confirm Delete</h3><br>
     <div class="ngdialog-buttons">
       <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog('Yes')">Yes</button>
       <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog()">No</button>
@@ -26,7 +26,7 @@
   <div class="ngdialog-message">
     <h5>Select Months</h5>
     <form ng-submit =closeThisDialog(formData)>
-      <input type="checkbox" ng-model="formData.January" >Jan</input>  
+      <input type="checkbox" ng-model="formData.January" >Jan</input>
       <input type="checkbox" ng-model="formData.February"> Feb </input>
       <input type="checkbox" ng-model="formData.March" > Mar </input>
       <input type="checkbox" ng-model="formData.April" > Apr </input>
@@ -38,7 +38,7 @@
       <input type="checkbox" ng-model="formData.October" > Oct </input>
       <input type="checkbox" ng-model="formData.November" > Nov </input>
       <input type="checkbox" ng-model="formData.December"> Dec </input>
-      <input type="submit"  value="save"> 
+      <input type="submit"  value="save">
     </form>
 
   </div>
@@ -67,7 +67,7 @@
           <div class="row list-separated">
             <div class="row">
                     <div ng-show="isSet(1)" ng-hide="Student">
-                     
+
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                <!--Error Division-->
                 <div class="alert alert-success" ng-show="success">{{responseFee}}     </div>
@@ -75,9 +75,9 @@
                <!--Error Division-->
               </div>
 
-               <!--Form Submit Division-->     
+               <!--Form Submit Division-->
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        
+
                 <!--<form ng-submit="addFeeType()">
                   <div class="col-md-3 col-sm-12 col-lg-3 col-xs-12 mbtm">
                     <select class="form-control" required  ng-model="formData.occurance"   >
@@ -91,21 +91,21 @@
                     <select class="form-control" required  ng-model="formData.classId"   >
                       <option value="">Class</option>
                       <option data-ng-repeat="x in classList" value="{{x.id}}">{{x.className}}-{{x.sectionName}}</option>
-                   
+
                     </select ><br>
                     <input  type="text"   class="form-control" placeholder="Fee Type*"  pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" ng-model="formData.feeType" required><br>
                     <input  type="number" min="1" minlength="1" maxlength="5" max="100000" class="form-control" placeholder="Amount"  ng-model="formData.amount" required><br>
                      <button type="submit" class="btn btn-success uppercase mbtm">Select Months</button>
                   </div>
-                
+
                 </form>-->
 
-              
+
 
               <!--<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" ng-show="showMonthsFlag">
 
                       <form ng-submit ="saveFee()">
-                            <input type="checkbox" ng-model="month.January" >Jan</input>  
+                            <input type="checkbox" ng-model="month.January" >Jan</input>
                             <input type="checkbox" ng-model="month.February"> Feb </input>
                             <input type="checkbox" ng-model="month.March" > Mar </input>
                             <input type="checkbox" ng-model="month.April" > Apr </input>
@@ -117,23 +117,26 @@
                             <input type="checkbox" ng-model="month.October" > Oct </input>
                             <input type="checkbox" ng-model="month.November" > Nov </input>
                             <input type="checkbox" ng-model="month.December"> Dec </input>
-                            <input type="submit"  value="save"> 
+                            <input type="submit"  value="save">
                       </form>
               </div>-->
-                           
-                
-               <!--Form Submit Division-->              
-                
 
-                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+
+               <!--Form Submit Division-->
+
+
+                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                               <table class="table table-bordered table-striped table-condensed flip-content">
                             <thead flip-content>
                             <tr>
-                               <th><a ng-click="sortType = 'occurance'; sortReverse = !sortReverse">Ocuurance</a></th>
-                              <th><a ng-click="sortType = 'feeType'; sortReverse = !sortReverse">Fee Type</a></th>
-                              <th><a ng-click="sortType = 'month'; sortReverse = !sortReverse">Month</a></th>
-                              <th><a ng-click="sortType = 'amount'; sortReverse = !sortReverse">Amount</a></th>
-                              <th><a ng-click="sortType = 'className'; sortReverse = !sortReverse">Class</a></th>
+                             
+
+                              <th><a href="javascript:void(0)" ng-click="sortType = 'occurance'; toggleSort(0);sortReverse = !sortReverse">Occurance<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+                              <th><a href="javascript:void(0)" ng-click="sortType = 'feeType'; toggleSort(0);sortReverse = !sortReverse">Fee Type<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+                              <th><a href="javascript:void(0)" ng-click="sortType = 'month'; toggleSort(0);sortReverse = !sortReverse">Month<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+                              <th><a href="javascript:void(0)" ng-click="sortType = 'amount'; toggleSort(0);sortReverse = !sortReverse">Amount<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+                              <th><a href="javascript:void(0)" ng-click="sortType = 'className'; toggleSort(0);sortReverse = !sortReverse">Class<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+
                               <th ng-show="Admin">Option</th>
                             </tr>
                             </thead>
@@ -147,7 +150,7 @@
                                 <td>{{x.month}}</td>
                                 <td>{{x.amount}}</td>
                                 <td>{{x.class.className}}-{{x.class.sectionName}}</td>
-                                <td ng-show="Admin">  
+                                <td ng-show="Admin">
                                   <!--<i class="glyphicon glyphicon-edit" ng-click="editFee(x)"></i>-->
                                   <i class="fa fa-trash-o"  ng-click="deleteFee(x)"></i>
                                 </td>
@@ -157,14 +160,14 @@
                           </table>
                           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel-footer">
                  <div class="pull-left"> Total Results :{{feeList.length}}</div>
-                 <div class="pull-right"> 
+                 <div class="pull-right">
                    <button ng-disabled="currentPage == 0" class="pgr"  ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
                   <button ng-disabled="currentPage >= feeList.length/pageSize-1" class="pgr" ng-click="currentPage=currentPage+1">Next</button>
                   </div>
                 </div>
                 <div>
             </div>
-           </div>    
+           </div>
         </div>
       </div>
 
@@ -179,13 +182,13 @@
                                     <select class="form-control" required ng-model="formData.studentId" ng-change="addInitialPayment()">
                                     <option value="">Students</option>
                                     <option data-ng-repeat="y in studentsList" value="{{y.id}}">{{y.firstName}}-{{y.lastName}}</option>
-                                    </select > 
+                                    </select >
                                     <br>
-                                    <button type="submit" class="btn btn-primary uppercase mbtm">Show Fee</button> 
-                            </form>                    
+                                    <button type="submit" class="btn btn-primary uppercase mbtm">Show Fee</button>
+                            </form>
                       </div>
 
-                       <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12"> 
+                       <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                          <table class="table table-bordered table-striped table-condensed flip-content">
                             <thead flip-content>
                                   <tr>
@@ -216,7 +219,7 @@
                           </table>
                           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel-footer">
                  <div class="pull-left"> Total Results :{{feeList.length}}</div>
-                 <div class="pull-right"> 
+                 <div class="pull-right">
                    <button ng-disabled="currentPage == 0" class="pgr"  ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
                   <button ng-disabled="currentPage >= feeList.length/pageSize-1" class="pgr" ng-click="currentPage=currentPage+1">Next</button>
                   </div>

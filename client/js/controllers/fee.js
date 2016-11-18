@@ -222,11 +222,29 @@ controller('FeeController',function($scope,$rootScope,$state,$window,$filter,ngD
                 //                 SORT TABLE TECHNIQUE
                 //--------------------------------------------------------
 
-                $scope.sortType     = 'category';
+               $scope.sortType     = 'category';
                 $scope.sortReverse  = false;
                 $scope.searchFish   = '';
                 $scope.currentPage = 0;
                 $scope.pageSize = 10;
+                $scope.sort = [
+                  {
+                    sortReverse:false
+                  },
+                  {
+                    sortReverse:false
+                  },
+                  {
+                    sortReverse:false
+                  },
+                  {
+                    sortReverse:false
+                  }
+                ];
+
+                $scope.toggleSort = function(index){
+                    $scope.sort[index].sortReverse = !$scope.sort[index].sortReverse;
+                }
 
                 $scope.numberOfPages=function(){return Math.ceil($scope.feeList.length/$scope.pageSize);}
 

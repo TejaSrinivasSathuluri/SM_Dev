@@ -44,7 +44,7 @@ angular
          }
 
 
-         
+
 
          // ----------------------------------------------------
          //   FAILURE CALL
@@ -69,8 +69,8 @@ angular
         //-----------------------------------------------------
          $scope.deleteExpensePayment = function(x)
          {
-          var dialog = ngDialog.open({template: 'deleteExpensePayment'});
-          dialog.closePromise.then(function (data) 
+          var dialog = ngDialog.open({template: 'deleteExpensePayment' ,closeByDocument: false,className: 'ngdialog-theme-default deletepopup'});
+          dialog.closePromise.then(function (data)
           {
             if (data.value && data.value != '$document' && data.value != '$closeButton' && data.value != '$escape')
                 ExpensePayment.deleteById({id: x.id},function()
@@ -91,32 +91,23 @@ angular
          $scope.editExpensePayment = function(x)
          {
           $scope.editData = x;
-           
-
-            var dialog = ngDialog.open({template: 'views/expense/editExpense.html',scope : $scope,
-                                          controller: ['$scope', 'otherService', function($scope, otherService) 
-                                          {
-        
 
 
-
-        
-                                          }]
-                                        });
-            dialog.closePromise.then(function (data) 
+            var dialog = ngDialog.open({template: 'editExpensePayment',scope : $scope,closeByDocument: false,className: 'ngdialog-theme-default editpopup'});
+            dialog.closePromise.then(function (data)
             {
                         editData = data.value;
                         if (data.value && data.value != '$document' && data.value != '$escape' && data.value != '$closeButton')
                         {
-                                              
+
 
                         }
-                            
-                        
-                        else 
-                        {       
+
+
+                        else
+                        {
                                 $scope.successCall('Expense Payment Not Edited');
-                        }      
+                        }
 
               return true;
             });
@@ -134,7 +125,7 @@ angular
         //   SHOW EXPENSE TYPE
         //-----------------------------------------------------
             $scope.expensePaymentList=[];
-        
+
         $scope.showExpense= function()
         {
             School.findOne( {filter :{ where :{ id : $scope.userData.schoolId },include:'expensePayments'}},
@@ -150,11 +141,29 @@ angular
         //                 SORT TABLE TECHNIQUE
         //--------------------------------------------------------
 
-        $scope.sortType     = 'date';
+       $scope.sortType     = 'date';
         $scope.sortReverse  = false;
         $scope.searchFish   = '';
         $scope.currentPage = 0;
         $scope.pageSize = 8;
+        $scope.sort = [
+          {
+            sortReverse:false
+          },
+          {
+            sortReverse:false
+          },
+          {
+            sortReverse:false
+          },
+          {
+            sortReverse:false
+          }
+        ];
+
+        $scope.toggleSort = function(index){
+            $scope.sort[index].sortReverse = !$scope.sort[index].sortReverse;
+        }
 
         $scope.numberOfPages=function(){return Math.ceil($scope.expensePaymentList.length/$scope.pageSize);}
 
@@ -164,17 +173,17 @@ angular
 
 
 .controller('EditExpenseController',function($scope,$rootScope,$state,$window,$filter,ExpensePayment) {
-     
+
         $scope.user = $window.localStorage.getItem('user');
         $scope.userData = JSON.parse($scope.user);
-        
+
 
          // ----------------------------------------------------
          //                         EDIT EXPENSE PAYMENT
          //-----------------------------------------------------
          $scope.saveExpensePayment = function()
          {
-           
+
             ExpensePayment.replaceById(
             {
               id :$scope.editData.id
@@ -190,12 +199,12 @@ angular
               {
                 $scope.successCall('Expense Payment Saved Successfully');
               });
-            
+
         }
         $scope.back = function()
         {
           $state.go($state.current);
         }
-                           
+
       });
 

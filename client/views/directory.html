@@ -1,7 +1,7 @@
 
 
 
-<!-------------------------------------------Delete Form Templates------------------------------------------------------------------------------------->
+<!-------------------------------------------Delete Form Templates-------------------------------------------------------------------------------------->
 
 <script type="text/ng-template" id="parentSubscription">
   <div class="ngdialog-message">
@@ -17,11 +17,11 @@
 </script>
 
 
-<!-------------------------------------------Delete Form Templates------------------------------------------------------------------------------------->
+<!-------------------------------------------Delete Form Templates-------------------------------------------------------------------------------------->
 
 <script type="text/ng-template" id="deleteUser">
   <div class="ngdialog-message">
-    Confirm Delete
+    <h3>Confirm Delete</h3><br>
     <div class="ngdialog-buttons">
       <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog('Yes')">Yes</button>
       <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="closeThisDialog()">No</button>
@@ -29,7 +29,7 @@
   </div>
 </script>
 
-<!-------------------------------------------Edit Form Templates------------------------------------------------------------------------------------->
+<!-------------------------------------------Edit Form Templates-------------------------------------------------------------------------------------->
 
 <script type="text/ng-template" id="editParent">
   <div class="ngdialog-message">
@@ -542,7 +542,7 @@
             <option value="Y">Yes</option>
             <option value="N">No</option>
           </select > <br>
-          
+
         </div>
       </div>
 
@@ -559,7 +559,7 @@
             <option value="Aadhar">Aadhar ID</option>
             <option value="Passport">Passport</option>
           </select > <br>
-         
+
           <input  type="text"   class="form-control" placeholder="Mother Tounge"       ng-model="editData.motherTounge"     ng-mouseover="tag119=true" ng-mouseleave="tag119=false"   ><div class="tag119" ng-show="tag119">Enter MotherTounge</div><br>
           <input  type="text"   class="form-control" placeholder="SubCaste"   		     ng-model="editData.subCaste"         ng-mouseover="tag120=true" ng-mouseleave="tag120=false"   ><div class="tag120" ng-show="tag120">Enter SubCaste</div><br>
           <input  type="number" class="form-control" placeholder="Contact Number"    min="0"  max="9999999999"   ng-model="editData.contact" ng-mouseover="tag121=true" ng-mouseleave="tag121=false"   ><div class="tag121" ng-show="tag121">Enter Contact Number</div><br>
@@ -576,10 +576,10 @@
             <option value="AB+">AB+ </option>  <option value="AB-"> AB- </option>
             <option value="O+"> O+  </option>  <option value="O-"> O- </option>
           </select > <br>
-          
+
           <input  type="text" class="form-control" placeholder="Religion"       	 	ng-model="editData.religion"            ng-mouseover="tag128=true" ng-mouseleave="tag128=false"   ><div class="tag128" ng-show="tag128">Enter Religion</div><br>
           <input  type="text" class="form-control" placeholder="Caste"   		       	ng-model="editData.caste"               ng-mouseover="tag129=true" ng-mouseleave="tag129=false"   ><div class="tag129" ng-show="tag129">Enter Caste</div><br>
-          <input  type="number" class="form-control" placeholder="Alternate Contact Number"    min="0"  max="9999999999"   ng-model="editData.alternateContact" ng-mouseover="tag130=true" ng-mouseleave="tag130=false"   ><div class="tag130" ng-show="tag130">Enter Alternate Contact Number</div><br>  
+          <input  type="number" class="form-control" placeholder="Alternate Contact Number"    min="0"  max="9999999999"   ng-model="editData.alternateContact" ng-mouseover="tag130=true" ng-mouseleave="tag130=false"   ><div class="tag130" ng-show="tag130">Enter Alternate Contact Number</div><br>
         </div>
       </div>
       <div class="col-sm-12">
@@ -682,23 +682,23 @@
       </table>
     </div>
      <div ng-show="isSet(2)">
-      
+
       <div class="text-center">Monthly Attendance<br><br></div>
 
         <table>
           <tr ng-repeat="x in list">
             {{x.RFID}} </tr>
         </table>
-       
+
      </div>
      <div ng-show="isSet(3)">
        Coming Soon
-     </div> 
-     
+     </div>
+
      <div ng-show="isSet(4)">
         <form ng-submit="addComment()">
-                     <input type="text" class="form-control" ng-model="comment"> 
-                 <input type="submit" class="btn-default" > 
+                     <input type="text" class="form-control" ng-model="comment">
+                 <input type="submit" class="btn-default" >
        </form>
      </div>
 

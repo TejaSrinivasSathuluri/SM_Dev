@@ -3,6 +3,25 @@ angular
    .controller('TimetableController',
     ['$scope', 'Admin', '$state', 'School', 'Timetable','Schedule', '$rootScope', '$window',
     function ($scope, Admin, $state, School, Timetable,Schedule, $rootScope, $window) {
+
+
+
+      //** Initialize datetime picker for controls
+      setTimeout(function(){
+        //For dynamic controls
+        $(document).on('focus',".datetimepicker", function(){
+          $(this).datetimepicker({
+            'format':'hh:mm a'
+          });
+        });
+        //For existing controls
+        $('.datetimepicker').datetimepicker({
+          'format':'hh:mm a'
+        });
+      }, 500);
+      //** End of Initialization
+
+
       $scope.user = $window.localStorage.getItem('user');
       $scope.userData = JSON.parse($scope.user);
       if ($scope.userData.type == 'Admin') {
@@ -25,8 +44,8 @@ angular
 
 
         $scope.receivers = [];
-      Timetable.find({filter :{ where :{schoolId: $scope.schoolId},include:'schedules'}}, 
-       function (response) 
+      Timetable.find({filter :{ where :{schoolId: $scope.schoolId},include:'schedules'}},
+       function (response)
        {
           if(response.length == 0)           $scope.receivers = [{title: "", startTime: "", endTime: "", duration: "", attendance: ""}];
           else {
@@ -34,12 +53,12 @@ angular
                 i=0;
                for(i=0;i< response.length;i++)
                {
-                     $scope.receivers[i].startTime = new Date($scope.receivers[i].startTime); 
-                     $scope.receivers[i].endTime = new Date($scope.receivers[i].endTime); 
+                     $scope.receivers[i].startTime = new Date($scope.receivers[i].startTime);
+                     $scope.receivers[i].endTime = new Date($scope.receivers[i].endTime);
 
                 };
                 // $scope.receivers = [{title: "", startTime: "", endTime: "", duration: "", attendance: ""}];
-          }    
+          }
        }
       );
        $scope.deleteRow=function(receiver){
@@ -51,11 +70,11 @@ angular
 
           $scope.receivers.push({title: "", startTime: "", endTime: "", duration: "", attendance: ""});
       }
-      $scope.addRecipient = function (receiver) 
+      $scope.addRecipient = function (receiver)
         {
                              if (receiver.title.length != 0) {
                                 if (receiver.startTime < receiver.endTime) {
-                                      receiver.duration = (receiver.endTime - receiver.startTime) / 60000;                                    
+                                      receiver.duration = (receiver.endTime - receiver.startTime) / 60000;
                                       if (receiver.id)
                                       {
                                         Timetable.prototype$updateAttributes({
@@ -70,7 +89,7 @@ angular
                                       }
                                 }
                                 else {
-                                        alert('Start Time Should Be Lessthan End Time ');
+                                        alert('Start Time Should Be Less than End Time ');
                                      }
                             }
                             else {
@@ -86,9 +105,9 @@ angular
           }
         }
       }
-     
 
-     
-    
+
+
+
     }}
     ]);

@@ -77,7 +77,7 @@ angular
       //------------------------------------------------
 
       $scope.deleteNotice = function (x) {
-        var dialog = ngDialog.open({template: 'deleteNotice'});
+        var dialog = ngDialog.open({template: 'deleteNotice',closeByDocument: false,className: 'ngdialog-theme-default deletepopup'});
         dialog.closePromise.then(function (data) {
           if (data.value && data.value != '$document' && data.value != '$closeButton')
             Noticeboard.delete({"id": JSON.stringify(x.id).replace(/["']/g, "")},function(){
@@ -98,14 +98,14 @@ angular
 		    $scope.date1 = $filter('date')(new Date(x.date1), 'yyyy-MM-dd');
 		    $scope.date2 = $filter('date')(new Date(x.date2), 'yyyy-MM-dd');
 		   ngDialog.openConfirm({template: 'editNotice',
-          scope: $scope //Pass the scope object if you need to access in the template
+          scope: $scope,closeByDocument: false,className: 'ngdialog-theme-default editpopup' //Pass the scope object if you need to access in the template
         }).then(
-          function(formData) 
+          function(formData)
           {
             Noticeboard.upsert({id:x.id, title : formData.title,description: formData.description,date1: formData.date1,date2:formData.date2,uploadFile:formData.uploadFile},
               function () { $scope.successCall('Notice Saved Successfully'); });
           },
-          function(value) 
+          function(value)
           {
             $scope.failureCall('Notice Was Not Edited');
           }
@@ -129,7 +129,7 @@ angular
          }
 
 
-         
+
 
          // ----------------------------------------------------
          //   failure CALL
@@ -157,13 +157,31 @@ angular
         $scope.searchFish   = '';
         $scope.currentPage = 0;
         $scope.pageSize = 10;
+        $scope.sort = [
+          {
+            sortReverse:false
+          },
+          {
+            sortReverse:false
+          },
+          {
+            sortReverse:false
+          },
+          {
+            sortReverse:false
+          }
+        ];
+
+        $scope.toggleSort = function(index){
+            $scope.sort[index].sortReverse = !$scope.sort[index].sortReverse;
+        }
         $scope.numberOfPages=function(){    return Math.ceil($scope.noticeList.length/$scope.pageSize);}
     }])
-    
 
-  
-  
-  
+
+
+
+
   // .filter('startFrom', function() { return function(input, start) { start = +start; return input.slice(start); }})
 
 ;

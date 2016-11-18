@@ -18,7 +18,7 @@
       <input  type="text" class="form-control" placeholder="ExamName" ng-model="formData.examName"  required><br>
       <input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control"  ng-model="formData.fromDate"  required><br>
       <input  type="date"  max="9999-12-31" max="0001-01-01" class="form-control"  ng-model="formData.toDate"  required><br>
-  
+
       <button type="submit" class="btn btn-success uppercase">Save</button>
       <button type="button" class="btn btn-success uppercase" ng-click=closeThisDialog("Cancel")>Cancel</button>
     </form>
@@ -50,7 +50,7 @@
 
 <script type="text/ng-template" id="editExam">
   <div class="ngdialog-message">
-    <h3>Edit Exam Record</h3>
+    <h3>Edit Exam Record</h3><br>
 
     <form ng-submit=closeThisDialog(formData)>
       <select ng-model="formData.classId"  ng-value="classId" class="form-control">
@@ -74,7 +74,7 @@
           <th>Subject</th>
           <th>Date</th>
            </thead>
-<tbody>      
+<tbody>
       <tr ng-repeat="subject in subjectList">
         <td> {{subject.subjectName}}</td>
          <td> <input type="date" class="form-control" ng-model="subject.examDate"></td>
@@ -101,39 +101,41 @@
 
         <!-- -----------------------------------Search Form-------------------------------->
         <div class="portlet-body" ng-show="!showForm">
-          <div class="row list-separated">
-            
-        <br>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="row">
+
+       
+            <div>
                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-success" ng-show="success"> {{responseExam}}</div>
                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-danger" ng-show="error"> {{responseExam}}</div>
             </div>
-                        
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+                      <div class ="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                            <div class="form-group col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                                    
+
                                     <input  type="text" class="form-control" placeholder="ExamName" ng-model="search.examName">
                             </div>
-                        
-                        
-          
-                  
-               
+
+
+
+
+
 
 <!--Exam Table Starts-->
-                                                  
+
                           <!--<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12"  style="height:260px;overflow-y:auto;">-->
                           <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-                            
-              
+
+
                               <table class="table table-bordered table-striped table-condensed flip-content">
                                 <thead flip-content>
                                 <tr>
                                   <!--<th>#</th>-->
-                                  <th><a ng-click="sortType = 'examName'; sortReverse = !sortReverse">Exam Name</a></th>
-                                  <th><a ng-click="sortType = 'classId'; sortReverse = !sortReverse">Class</a></th>  
-                                  <th><a ng-click="sortType = 'FromDate'; sortReverse = !sortReverse">FromDate</a></th>
-                                  <th><a ng-click="sortType = 'toDate'; sortReverse = !sortReverse">ToDate</a></th>
+                                  
+
+                                  <th><a href="javascript:void(0)" ng-click="sortType = 'examName'; toggleSort(0);sortReverse = !sortReverse">Exam Name<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+                                  <th><a href="javascript:void(0)" ng-click="sortType = 'classId'; toggleSort(0);sortReverse = !sortReverse">Class<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+                                  <th><a href="javascript:void(0)" ng-click="sortType = 'FromDate'; toggleSort(0);sortReverse = !sortReverse">FromDate<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+                                  <th><a href="javascript:void(0)" ng-click="sortType = 'toDate'; toggleSort(0);sortReverse = !sortReverse">ToDate<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
                                   <th ng-show="Admin">Option</th>
                                 </tr>
                                 </thead>
@@ -143,10 +145,10 @@
                                   <div data-ng-bind-html="x.id">
 
                                     <td>{{x.examName}}</td>
-                                    <td>{{x.class.className}}-{{x.class.sectionName}}</td>                                  
+                                    <td>{{x.class.className}}-{{x.class.sectionName}}</td>
                                     <td>{{x.fromDate | date:'MMM dd yyyy'}}</td>
                                     <td>{{x.toDate | date:'MMM dd yyyy'}}</td>
-                                    
+
 
 
                                     <td ng-show="Admin">{{x.option}}
@@ -161,21 +163,21 @@
                               <!----------------------------------Page Nation-------------------------------------------->
                                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel-footer">
                                     <div class="pull-left"> Total Results: {{examList.length}}| Filtered Results :{{ filtered.length}}</div>
-                                        <div class="pull-right"> 
+                                        <div class="pull-right">
                                         <button ng-disabled="currentPage == 0" class="pgr"  ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
                                         <button ng-disabled="currentPage >= filtered.length/pageSize-1" class="pgr" ng-click="currentPage=currentPage+1">Next</button>
                                       </div>
-                                  </div>          
-                              <!----------------------------------Page Nation-------------------------------------------->  
-                              
+                                  </div>
+                              <!----------------------------------Page Nation-------------------------------------------->
+
                             </div>
                             </div>
 <!--Exam Table Ends-->
-              
-             
 
 
-            
+
+
+
           </div>
         </div>
       </div>
