@@ -135,8 +135,8 @@
 
 
                 </div>
-                 <div class="pull-right">
-                   <button ng-disabled="currentPage == 0" class="pgr"  ng-click="currentPage=currentPage-1"> Previous </button>{{currentPage+1}} / {{numberOfPages()}}
+                <div class="pull-right">
+                   <button ng-disabled="currentPage == 0" class="pgr"  ng-click="currentPage=currentPage-1">Previous </button> {{currentPage+1}} / {{numberOfPages()}}
                   <button ng-disabled="currentPage >= classList.length/pageSize-1" class="pgr" ng-click="currentPage=currentPage+1"> Next </button>
                   </div>
               </div>
