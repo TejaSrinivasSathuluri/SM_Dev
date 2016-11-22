@@ -29,8 +29,9 @@
                             <input type="submit"  class="btn btn-success uppercase" value="View"/>
                           </div>
                         </form>
-              
-              <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12" style="overflow-y:scroll;">
+               <div id="wrapper">
+              <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 scrollbar" id="style-1">
+                <div class="force-overflow">
                 <table class="table table-bordered table-striped table-condensed flip-content" >
                             <thead flip-content><tr>
                               <th>Roll No</th>
@@ -48,7 +49,9 @@
                             </tr>
                             </tbody>
                 </table>
+                </div>
               </div>
+               </div>
               <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
                           <table class="table table-bordered table-striped table-condensed flip-content" ng-init="getStatistics()">
                             <tr><th>Total  </th><td>{{studentList.length}}</td></tr>

@@ -39,11 +39,11 @@
                     {{$index+1}}
                   </td>
                   <td><input type="text"   ng-disabled="Staff || Student || Parent" class="form-control" ng-model="receiver.title"></td>
-                  <td><input type="text"   ng-disabled="Staff || Student || Parent" class="form-control datetimepicker" ng-model="receiver.startTime"></td>
-                  <td><input type="text"   ng-disabled="Staff || Student || Parent" class="form-control datetimepicker" ng-model="receiver.endTime"></td>
+                  <td><input type="time"   ng-disabled="Staff || Student || Parent" class="form-control" ng-model="receiver.startTime"></td>
+                  <td><input type="time"   ng-disabled="Staff || Student || Parent" class="form-control" ng-model="receiver.endTime"></td>
                   <td><input type="number" ng-disabled="true" class="form-control" ng-model="receiver.duration" ng-disabled="true"></td>
                   <td><input type="checkbox" ng-disabled="Staff || Student || Parent"      ng-model="receiver.attendance"></td>
-                  <td ng-show="Admin">
+                  <td ng-show="Admin" class="actions">
                       <i class="fa fa-floppy-o" aria-hidden="true" ng-click="addRecipient(receiver)"></i>
                       <i class="fa fa-trash-o" aria-hidden="true"  ng-click="deleteRow(receiver)"></i>
 

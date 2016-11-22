@@ -259,7 +259,11 @@ controller('FeeController',function($scope,$rootScope,$state,$window,$filter,ngD
                   },
                   {
                     sortReverse:false
+                  },
+                   {
+                    sortReverse:false
                   }
+
                 ];
 
                 $scope.toggleSort = function(index){

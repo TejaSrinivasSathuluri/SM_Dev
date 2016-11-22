@@ -863,15 +863,15 @@
                                                    <tbody>
                                                           <tr data-ng-repeat="x in  filtered = (searchList | filter:search) | orderBy:sortType:sortReverse | filter:search  | startFrom : currentPage*pageSize | limitTo:pageSize">
 
-                                                                  <td style="width:10%"><img ng-src={{x.image}} style="width:10px"></td>
-                                                                  <td style="width:30%"><a ng-click="showUser(x)">{{x.firstName}} {{x.lastName}}</a>    </td>
+                                                                  <td ><img ng-src={{x.image}} style="width:10px"></td>
+                                                                  <td><a ng-click="showUser(x)">{{x.firstName}} {{x.lastName}}</a>    </td>
                                                                   <td>{{x.type}}                                   </td>
-                                                                  <td style="width:25%">{{x.email}}                                  </td>
+                                                                  <td>{{x.email}}                                  </td>
 
-                                                                  <td style="width:15%" ng-hide="Staff">{{x.rollNo  }}                                 </td>
+                                                                  <td  ng-hide="Staff">{{x.rollNo  }}                                 </td>
                                                                   <td ng-hide="Staff">{{x.class.className}}-{{x.class.sectionName}}</td>
-                                                                  <td style="width:20%">{{x.contact}}                                </td>
-                                                                  <td ng-show="Admin" style="width: 10%">
+                                                                  <td >{{x.contact}}                                </td>
+                                                                  <td ng-show="Admin"  class="actions">
                                                                                   <i class="fa fa-pencil-square-o" ng-click="editUser(x)"></i>
                                                                                   <i class="fa fa-trash-o"  ng-click="deleteUser(x)"></i>
                                                                   </td>
@@ -883,17 +883,16 @@
                                               </table>
                  </div>
 
-                 <div class="pull-left">
+                 <div class="pull-left pagi-nation">
                    Total Results :{{ searchList.length}} |  Filtered Results :{{ filtered.length}}
 
 
 
                  </div>
-                 <div class="pull-right">
-                   <button ng-disabled="currentPage == 0"               ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
-                   <button ng-disabled="currentPage >= filtered.length/pageSize-1" ng-click="currentPage=currentPage+1">Next</button>
-
-                 </div>
+                  <div class="pull-right">
+                   <button ng-disabled="currentPage == 0" class="pgr"  ng-click="currentPage=currentPage-1">Previous </button>{{currentPage+1}} / {{numberOfPages()}}
+                  <button ng-disabled="currentPage >= classList.length/pageSize-1" class="pgr" ng-click="currentPage=currentPage+1"> Next</button>
+                  </div>
 
 
 

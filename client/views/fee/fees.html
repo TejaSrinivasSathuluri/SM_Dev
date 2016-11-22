@@ -132,10 +132,10 @@
                              
 
                               <th><a href="javascript:void(0)" ng-click="sortType = 'occurance'; toggleSort(0);sortReverse = !sortReverse">Occurance<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
-                              <th><a href="javascript:void(0)" ng-click="sortType = 'feeType'; toggleSort(0);sortReverse = !sortReverse">Fee Type<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
-                              <th><a href="javascript:void(0)" ng-click="sortType = 'month'; toggleSort(0);sortReverse = !sortReverse">Month<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
-                              <th><a href="javascript:void(0)" ng-click="sortType = 'amount'; toggleSort(0);sortReverse = !sortReverse">Amount<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
-                              <th><a href="javascript:void(0)" ng-click="sortType = 'className'; toggleSort(0);sortReverse = !sortReverse">Class<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+                              <th><a href="javascript:void(0)" ng-click="sortType = 'feeType'; toggleSort(1);sortReverse = !sortReverse">Fee Type<i class="fa fa-arrow-down sort" ng-show="!sort[1].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[1].sortReverse" aria-hidden="true"></i></a></th>
+                              <th><a href="javascript:void(0)" ng-click="sortType = 'month'; toggleSort(2);sortReverse = !sortReverse">Month<i class="fa fa-arrow-down sort" ng-show="!sort[2].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[2].sortReverse" aria-hidden="true"></i></a></th>
+                              <th><a href="javascript:void(0)" ng-click="sortType = 'amount'; toggleSort(3);sortReverse = !sortReverse">Amount<i class="fa fa-arrow-down sort" ng-show="!sort[3].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[3].sortReverse" aria-hidden="true"></i></a></th>
+                              <th><a href="javascript:void(0)" ng-click="sortType = 'className'; toggleSort(4);sortReverse = !sortReverse">Class<i class="fa fa-arrow-down sort" ng-show="!sort[4].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[4].sortReverse" aria-hidden="true"></i></a></th>
 
                               <th ng-show="Admin">Option</th>
                             </tr>
@@ -150,7 +150,7 @@
                                 <td>{{x.month}}</td>
                                 <td>{{x.amount}}</td>
                                 <td>{{x.class.className}}-{{x.class.sectionName}}</td>
-                                <td ng-show="Admin">
+                                <td ng-show="Admin" class="actions">
                                   <!--<i class="glyphicon glyphicon-edit" ng-click="editFee(x)"></i>-->
                                   <i class="fa fa-trash-o"  ng-click="deleteFee(x)"></i>
                                 </td>
@@ -159,10 +159,10 @@
                             </tbody>
                           </table>
                           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel-footer">
-                 <div class="pull-left"> Total Results :{{feeList.length}}</div>
+                 <div class="pull-left pagi-nation"> Total Results :{{feeList.length}}</div>
                  <div class="pull-right">
-                   <button ng-disabled="currentPage == 0" class="pgr"  ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
-                  <button ng-disabled="currentPage >= feeList.length/pageSize-1" class="pgr" ng-click="currentPage=currentPage+1">Next</button>
+                   <button ng-disabled="currentPage == 0" class="pgr"  ng-click="currentPage=currentPage-1">Previous </button>{{currentPage+1}} / {{numberOfPages()}}
+                  <button ng-disabled="currentPage >= feeList.length/pageSize-1" class="pgr" ng-click="currentPage=currentPage+1"> Next</button>
                   </div>
                 </div>
                 <div>
@@ -218,7 +218,7 @@
                             </tbody>
                           </table>
                           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel-footer">
-                 <div class="pull-left"> Total Results :{{feeList.length}}</div>
+                 <div class="pull-left pagi-nation"> Total Results :{{feeList.length}}</div>
                  <div class="pull-right">
                    <button ng-disabled="currentPage == 0" class="pgr"  ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
                   <button ng-disabled="currentPage >= feeList.length/pageSize-1" class="pgr" ng-click="currentPage=currentPage+1">Next</button>

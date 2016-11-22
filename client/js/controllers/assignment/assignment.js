@@ -178,7 +178,10 @@ angular
           },
           {
             sortReverse:false
-          }
+          },
+           {
+           sortReverse:false
+           }
         ];
 
         $scope.toggleSort = function(index){

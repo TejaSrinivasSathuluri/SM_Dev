@@ -65,9 +65,9 @@
 
         				 <th><a href="javascript:void(0)" ng-click="sortType = 'subjectName'; toggleSort(0);sortReverse = !sortReverse">Subject<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
 
-                 <th><a href="javascript:void(0)" ng-click="sortType = 'class.className'; toggleSort(0);sortReverse = !sortReverse">Class<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+                 <th><a href="javascript:void(0)" ng-click="sortType = 'class.className'; toggleSort(1);sortReverse = !sortReverse">Class<i class="fa fa-arrow-down sort" ng-show="!sort[1].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[1].sortReverse" aria-hidden="true"></i></a></th>
 
-                 <th><a href="javascript:void(0)" ng-click="sortType = 'staff.firstName'; toggleSort(0);sortReverse = !sortReverse">Teacher<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+                 <th><a href="javascript:void(0)" ng-click="sortType = 'staff.firstName'; toggleSort(2);sortReverse = !sortReverse">Teacher<i class="fa fa-arrow-down sort" ng-show="!sort[2].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[2].sortReverse" aria-hidden="true"></i></a></th>
 
                   <th ng-show="Admin">Exam Enabled</th>
                   <th ng-show="Admin">Action</th>
@@ -92,7 +92,7 @@
 							  <option ng-repeat="y in staffList" value="{{y.id}}">{{y.firstName}} {{y.lastName}}</option>
 							</select>
 				  </td>  <td ng-show="Admin"> <input type="checkbox" ng-model="a.examFlag" ng-click="addExamEligibility(a)"</td>
-                  <td ng-show="Admin">
+                  <td ng-show="Admin" class="actions">
                       <i class="fa fa-pencil-square-o" ng-hide="editsubject" ng-click="clearResponse();editsubject=true"></i>
                       <i class="fa fa-floppy-o"       ng-show="editsubject" ng-click="updateSubject(a)"></i>
                       <i class="fa fa-trash-o"  ng-click="deleteSubject(a)"></i>
@@ -102,8 +102,8 @@
                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel-footer">
                  <div class="pull-left"> Total Results :{{classList.length}} | Filtered Results : {{filtered.length}}</div>
                  <div class="pull-right">
-                   <button ng-disabled="currentPage == 0" class="pgr"  ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
-                  <button ng-disabled="currentPage >= classList.length/pageSize-1" class="pgr" ng-click="currentPage=currentPage+1">Next</button>
+                   <button ng-disabled="currentPage == 0" class="pgr"  ng-click="currentPage=currentPage-1">Previous </button>{{currentPage+1}} / {{numberOfPages()}}
+                  <button ng-disabled="currentPage >= classList.length/pageSize-1" class="pgr" ng-click="currentPage=currentPage+1"> Next</button>
                   </div>
                 </div>
                 </div>

@@ -109,9 +109,9 @@
                    
                    <th><a href="javascript:void(0)" ng-click="sortType = 'busNo'; toggleSort(0);sortReverse = !sortReverse">Vehicle No<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
 
-                   <th><a href="javascript:void(0)" ng-click="sortType = 'busType'; toggleSort(0);sortReverse = !sortReverse">Vehicle Type<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+                   <th><a href="javascript:void(0)" ng-click="sortType = 'busType'; toggleSort(1);sortReverse = !sortReverse">Vehicle Type<i class="fa fa-arrow-down sort" ng-show="!sort[1].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[1].sortReverse" aria-hidden="true"></i></a></th>
 
-                   <th><a href="javascript:void(0)" ng-click="sortType = 'busCapacity'; toggleSort(0);sortReverse = !sortReverse">Capacity<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+                   <th><a href="javascript:void(0)" ng-click="sortType = 'busCapacity'; toggleSort(2);sortReverse = !sortReverse">Capacity<i class="fa fa-arrow-down sort" ng-show="!sort[2].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[2].sortReverse" aria-hidden="true"></i></a></th>
                     <th ng-show="Admin">Action</th>
                   </tr>
                   </thead>
@@ -121,7 +121,7 @@
                       <td>{{x.busNo}}</td>
                       <td>{{x.busType}}</td>
                       <td>{{x.busCapacity}}</td>
-                      <td ng-show="Admin">
+                      <td ng-show="Admin" class="actions">
                         <i class="fa fa-pencil-square-o"    ng-click="editBus(x)"></i>
                         <i class="fa fa-trash-o"  ng-click="deleteBus(x)"></i>
                       </td>
@@ -129,17 +129,16 @@
                   </tr>
                   </tbody>
                 </table>
-                <div class="pull-left">
+                <div class="pull-left pagi-nation">
                   Total Results :{{ busList.length}}
 
 
 
                 </div>
-                <div class="pull-right">
-                  <button ng-disabled="currentPage == 0"               ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
-                  <button ng-disabled="currentPage >= filtered.length/pageSize-1" ng-click="currentPage=currentPage+1">Next</button>
-
-                </div>
+                 <div class="pull-right">
+                   <button ng-disabled="currentPage == 0" class="pgr"  ng-click="currentPage=currentPage-1"> Previous </button>{{currentPage+1}} / {{numberOfPages()}}
+                  <button ng-disabled="currentPage >= classList.length/pageSize-1" class="pgr" ng-click="currentPage=currentPage+1"> Next </button>
+                  </div>
               </div>
               </div>
             </div>
@@ -206,8 +205,8 @@
                    <tr>
                                          
                     <th><a href="javascript:void(0)" ng-click="sortType = 'serviceNo'; toggleSort(0);sortReverse = !sortReverse">Service No<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
-                    <th><a href="javascript:void(0)" ng-click="sortType = 'serviceName'; toggleSort(0);sortReverse = !sortReverse">Service Name<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
-                    <th><a href="javascript:void(0)" ng-click="sortType = 'bus.busNo'; toggleSort(0);sortReverse = !sortReverse">Bus<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+                    <th><a href="javascript:void(0)" ng-click="sortType = 'serviceName'; toggleSort(1);sortReverse = !sortReverse">Service Name<i class="fa fa-arrow-down sort" ng-show="!sort[1].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[1].sortReverse" aria-hidden="true"></i></a></th>
+                    <th><a href="javascript:void(0)" ng-click="sortType = 'bus.busNo'; toggleSort(2);sortReverse = !sortReverse">Bus<i class="fa fa-arrow-down sort" ng-show="!sort[2].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[2].sortReverse" aria-hidden="true"></i></a></th>
                    <th ng-show="Admin">Option</th>
               </tr>
               </thead>
@@ -289,10 +288,10 @@
                 
              
              <th><a href="javascript:void(0)" ng-click="sortType = 'firstName'; toggleSort(0);sortReverse = !sortReverse">Student Name<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
-             <th><a href="javascript:void(0)" ng-click="sortType = 'className'; toggleSort(0);sortReverse = !sortReverse">Class<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
-             <th><a href="javascript:void(0)" ng-click="sortType = 'serviceNo'; toggleSort(0);sortReverse = !sortReverse">Service No<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
-             <th><a href="javascript:void(0)" ng-click="sortType = 'serviceName'; toggleSort(0);sortReverse = !sortReverse">Service Name<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
-             <th><a href="javascript:void(0)" ng-click="sortType = 'pickupLocation'; toggleSort(0);sortReverse = !sortReverse">Pickup<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+             <th><a href="javascript:void(0)" ng-click="sortType = 'className'; toggleSort(1);sortReverse = !sortReverse">Class<i class="fa fa-arrow-down sort" ng-show="!sort[1].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[1].sortReverse" aria-hidden="true"></i></a></th>
+             <th><a href="javascript:void(0)" ng-click="sortType = 'serviceNo'; toggleSort(2);sortReverse = !sortReverse">Service No<i class="fa fa-arrow-down sort" ng-show="!sort[2].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[2].sortReverse" aria-hidden="true"></i></a></th>
+             <th><a href="javascript:void(0)" ng-click="sortType = 'serviceName'; toggleSort(3);sortReverse = !sortReverse">Service Name<i class="fa fa-arrow-down sort" ng-show="!sort[3].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[3].sortReverse" aria-hidden="true"></i></a></th>
+             <th><a href="javascript:void(0)" ng-click="sortType = 'pickupLocation'; toggleSort(4);sortReverse = !sortReverse">Pickup<i class="fa fa-arrow-down sort" ng-show="!sort[4].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[4].sortReverse" aria-hidden="true"></i></a></th>
 
               <th ng-show="Admin">Option</th>
               </tr>

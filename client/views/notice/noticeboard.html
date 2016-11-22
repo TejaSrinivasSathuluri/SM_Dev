@@ -79,9 +79,9 @@
                                     
                                     
                                     <th><a href="javascript:void(0)" ng-click="sortType = 'title'; toggleSort(0);sortReverse = !sortReverse">Title<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
-                                    <th><a href="javascript:void(0)" ng-click="sortType = 'description'; toggleSort(0);sortReverse = !sortReverse">Description<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
-                                    <th><a href="javascript:void(0)" ng-click="sortType = 'date1'; toggleSort(0);sortReverse = !sortReverse">From<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
-                                    <th><a href="javascript:void(0)" ng-click="sortType = 'date2'; toggleSort(0);sortReverse = !sortReverse">To<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+                                    <th><a href="javascript:void(0)" ng-click="sortType = 'description'; toggleSort(1);sortReverse = !sortReverse">Description<i class="fa fa-arrow-down sort" ng-show="!sort[1].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[1].sortReverse" aria-hidden="true"></i></a></th>
+                                    <th><a href="javascript:void(0)" ng-click="sortType = 'date1'; toggleSort(2);sortReverse = !sortReverse">From<i class="fa fa-arrow-down sort" ng-show="!sort[2].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[2].sortReverse" aria-hidden="true"></i></a></th>
+                                    <th><a href="javascript:void(0)" ng-click="sortType = 'date2'; toggleSort(3);sortReverse = !sortReverse">To<i class="fa fa-arrow-down sort" ng-show="!sort[3].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[3].sortReverse" aria-hidden="true"></i></a></th>
                                     <!--<th>Attachment</th>-->
                                     <th ng-show="Admin">Option</th>
                                   </tr>
@@ -96,7 +96,7 @@
                                       <td>{{x.date1 | date:'MM/dd/yyyy'}}</td>
                                       <td>{{x.date2 | date:'MM/dd/yyyy'}} </td>
                                       <!--<td style="width: 20%"><a href="{{x.uploadFile}}" target="_blank"/>Download</td>-->
-                                      <td ng-show="Admin">{{x.option}}
+                                      <td ng-show="Admin" class="actions">{{x.option}}
                                         <i class="fa fa-pencil-square-o" ng-click="editNotice(x)"></i>
                                         <i class="fa fa-trash-o"  ng-click="deleteNotice(x)"></i>
                                       </td>
@@ -110,10 +110,10 @@
 
       <!----------------------------------Page Nation-------------------------------------------->
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel-footer">
-           <div class="pull-left"> Total Results: {{noticeList.length}}||Filtered Results :{{ filtered.length}}</div>
+           <div class="pull-left pagi-nation"> Total Results: {{noticeList.length}}||Filtered Results :{{ filtered.length}}</div>
               <div class="pull-right">
-              <button ng-disabled="currentPage == 0" class="pgr"  ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
-              <button ng-disabled="currentPage >= filtered.length/pageSize-1" class="pgr" ng-click="currentPage=currentPage+1">Next</button>
+              <button ng-disabled="currentPage == 0" class="pgr"  ng-click="currentPage=currentPage-1"> Previous </button>{{currentPage+1}} / {{numberOfPages()}}
+              <button ng-disabled="currentPage >= filtered.length/pageSize-1" class="pgr" ng-click="currentPage=currentPage+1"> Next </button>
             </div>
         </div>
       <!----------------------------------Page Nation-------------------------------------------->

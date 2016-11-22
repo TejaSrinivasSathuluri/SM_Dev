@@ -50,9 +50,9 @@
 
                       
 					<th><a href="javascript:void(0)" ng-click="sortType = ''; toggleSort(0);sortReverse = !sortReverse">Student Name<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
-					<th><a href="javascript:void(0)" ng-click="sortType = ''; toggleSort(0);sortReverse = !sortReverse">RollNo<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
-					<th><a href="javascript:void(0)" ng-click="sortType = ''; toggleSort(0);sortReverse = !sortReverse">Enter Marks<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
-					<th><a href="javascript:void(0)" ng-click="sortType = ''; toggleSort(0);sortReverse = !sortReverse">Percentage(%)<i class="fa fa-arrow-down sort" ng-show="!sort[0].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[0].sortReverse" aria-hidden="true"></i></a></th>
+					<th><a href="javascript:void(0)" ng-click="sortType = ''; toggleSort(1);sortReverse = !sortReverse">RollNo<i class="fa fa-arrow-down sort" ng-show="!sort[1].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[1].sortReverse" aria-hidden="true"></i></a></th>
+					<th><a href="javascript:void(0)" ng-click="sortType = ''; toggleSort(2);sortReverse = !sortReverse">Enter Marks<i class="fa fa-arrow-down sort" ng-show="!sort[2].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[2].sortReverse" aria-hidden="true"></i></a></th>
+					<th><a href="javascript:void(0)" ng-click="sortType = ''; toggleSort(3);sortReverse = !sortReverse">Percentage(%)<i class="fa fa-arrow-down sort" ng-show="!sort[3].sortReverse" aria-hidden="true"></i><i class="fa fa-arrow-up sort"  ng-show="sort[3].sortReverse" aria-hidden="true"></i></a></th>
 										<th ng-show="Admin">Option</th>
 										</tr>
 									</thead>
@@ -63,7 +63,7 @@
 												<td> {{x.rollNo}}  																	  </td>
 												<td><input type="number" class="form-control" ng-model= x.marks[0].marksObtained></td>
 												<td>  {{ x.marks[0].marksObtained * 100 / formData.maxMarks }}</td>
-												<td><i class="fa fa-floppy-o" ng-click ="saveMarks(x)"></i></td>
+												<td class="actions"><i class="fa fa-floppy-o" ng-click ="saveMarks(x)"></i></td>
 											</div>
 										</tr>
                   </tbody>
@@ -71,9 +71,9 @@
 								<!-------------------------------------Table Ends---------------------------------------------->
 								 <!----------------------------------Page Nation-------------------------------------------->
                                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel-footer">
-                                    <div class="pull-left"> Total Results: {{examList.length}}</div>
+                                    <div class="pull-left pagi-nation"> Total Results: {{examList.length}}</div>
                                         <div class="pull-right">
-                                        <button ng-disabled="currentPage == 0" class="pgr"  ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}}/{{numberOfPages()}}
+                                        <button ng-disabled="currentPage == 0" class="pgr"  ng-click="currentPage=currentPage-1">Previous</button>{{currentPage+1}} / {{numberOfPages()}}
                                         <button ng-disabled="currentPage >= list.length/pageSize-1" class="pgr" ng-click="currentPage=currentPage+1">Next</button>
                                       </div>
                                   </div>

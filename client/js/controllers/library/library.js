@@ -189,6 +189,9 @@ angular
           },
           {
             sortReverse:false
+          },
+          {
+            sortReverse:false
           }
         ];
 

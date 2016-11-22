@@ -1,5 +1,3 @@
-
-  
         //******** module imports**********//    
         var nodemailer = require('nodemailer');
         var server = require('../../server/server');
@@ -7,14 +5,7 @@
 
 module.exports = function(Mail) {
     // ----------------------------
-
-
-   
-   
- 
-        
-
-    Mail.observe('after save', function (ctx, next)  {  
+   Mail.observe('after save', function (ctx, next)  {  
     if (ctx.instance)
     {
 
@@ -67,12 +58,5 @@ module.exports = function(Mail) {
         }
             next();
     });
-  
-
-
-
-
-
-
 // ---------------------------------
 };
